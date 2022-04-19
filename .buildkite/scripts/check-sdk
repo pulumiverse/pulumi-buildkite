@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Convenient check to ensure that we've committed all the generated
+# SDK files to the repository.
+#
+# Normally, I'm not very fond of committing generated code, but
+# because Go uses git as its package manager, we **have** to commit
+# the Go SDK code. At that point, there's not much difference in
+# committing the code for the other SDKs.
+#
+# (We also have to commit the schema.json file for the Pulumi Registry
+# to work properly, and it's generated, too.)
+#
+# Here, we just build the SDKs and then check to see that we didn't
+# generate anything different from what's already in version
+# control. If we did, then that either means that somebody forgot to
+# commit something, or there's some kind of odd tooling difference
+# between the engineer's workstation and CI.
+
+set -euo pipefail
+
+readonly sdk="${1}"
+
+echo "--- :hammer_and_wrench::${sdk}: Build SDK"
+
+# This assumes the provider is being injected from a previous job
+make "${sdk}-sdk"
+
+echo "--- :git: Check to see if any files changed"
+if ! git diff --exit-code; then
+    echo "--- :rotating_light: Files were changed; did you forget to commit files from the ${sdk} SDK?"
+    exit 1
+fi
