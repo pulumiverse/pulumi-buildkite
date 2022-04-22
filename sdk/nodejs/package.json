@@ -1,0 +1,29 @@
+{
+    "name": "@grapl/pulumi-buildkite",
+    "version": "${VERSION}",
+    "description": "A Pulumi package for creating and managing Buildkite CI/CD platform resources.",
+    "keywords": [
+        "pulumi",
+        "buildkite",
+        "category/infrastructure"
+    ],
+    "homepage": "https://pulumi.io",
+    "repository": "https://github.com/grapl-security/pulumi-buildkite",
+    "license": "Apache-2.0",
+    "scripts": {
+        "build": "tsc",
+        "install": "node scripts/install-pulumi-plugin.js resource buildkite ${VERSION}"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^3.0.0"
+    },
+    "devDependencies": {
+        "@types/mime": "^2.0.0",
+        "@types/node": "^10.0.0",
+        "typescript": "^4.3.5"
+    },
+    "pulumi": {
+        "resource": true,
+        "pluginDownloadURL": "https://github.com/grapl-security/pulumi-buildkite/releases/download/v${VERSION}"
+    }
+}

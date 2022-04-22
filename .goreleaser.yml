@@ -1,0 +1,76 @@
+---
+# See https://goreleaser.com/customization/archive/
+archives:
+  - id: archive
+    # Template given to us by Pulumi engineers
+    name_template: '{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}'
+    format: tar.gz # The default
+
+# See https://goreleaser.com/customization/hooks/
+before:
+  hooks:
+    - make provider/cmd/pulumi-resource-buildkite/schema.go
+
+# See https://goreleaser.com/customization/build/
+builds:
+  -
+    # Path to main.go file or main package.
+    # Notice: when used with `gomod.proxy`, this must be a package.
+    main: ./cmd/pulumi-resource-buildkite/
+
+    # Binary name.
+    # Can be a path (e.g. `bin/app`) to wrap the binary in a directory.
+    # Default is the name of the project directory.
+    binary: pulumi-resource-buildkite
+
+    # Path to project's (sub)directory containing Go code.
+    # This is the working directory for the Go build command(s).
+    dir: provider
+
+    # Custom environment variables to be set during the builds.
+    env:
+      - CGO_ENABLED=0
+      - GO111MODULE=on
+
+    # GOARCH to build for.
+    # For more info refer to: https://golang.org/doc/install/source#environment
+    # Defaults are 386, amd64 and arm64.
+    goarch:
+      - amd64
+      - arm64
+
+    # GOOS list to build for.
+    # For more info refer to: https://golang.org/doc/install/source#environment
+    # Defaults are darwin and linux.
+    goos:
+      - darwin
+      - linux
+      - windows
+
+    # Linker flags to set; see https://pkg.go.dev/cmd/link
+    ldflags:
+      # Omit symbol table and debug information
+      - -s
+      # Omit the DWARF symbol table
+      - -w
+      # Set the value of the string variable in the given import path
+      - -X github.com/grapl-security/pulumi-buildkite/provider/pkg/version.Version={{.Tag}}
+
+
+# Generated artifacts are placed into this directory; note that `dist`
+# is the default, but we're documenting things a bit more explicitly.
+#
+# See https://goreleaser.com/customization/dist/
+dist: dist
+
+# See https://goreleaser.com/customization/changelog/
+changelog:
+  skip: true
+
+#See https://goreleaser.com/customization/release/
+release:
+  disable: false
+
+# See https://goreleaser.com/customization/snapshots/
+snapshot:
+  name_template: '{{ .Tag }}-SNAPSHOT'

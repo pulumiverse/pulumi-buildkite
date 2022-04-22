@@ -1,0 +1,122 @@
+---
+env:
+  BUILD_ENVIRONMENT_IMAGE: "docker.cloudsmith.io/grapl/releases/pulumi-build-env:3.29.1"
+  BUILDKITE_PLUGIN_VAULT_ENV_SECRET_PREFIX: "secret/data/buildkite/env"
+
+# Note: we must "unshallow" our shallow checkouts in order for these
+# builds to work properly; `pulumictl` relies on this for generating
+# version strings from repository tags.
+
+steps:
+
+  - label: ":golangci-lint: Lint"
+    command:
+      - make lint
+    plugins:
+      - improbable-eng/metahook#v0.4.1:
+          pre-command: git fetch --unshallow
+      - docker#v3.11.0:
+          image: "${BUILD_ENVIRONMENT_IMAGE}"
+
+  - label: ":hammer_and_wrench: Build Provider"
+    key: provider
+    command:
+      - make provider
+    plugins:
+      - improbable-eng/metahook#v0.4.1:
+          pre-command: git fetch --unshallow
+      - docker#v3.11.0:
+          image: "${BUILD_ENVIRONMENT_IMAGE}"
+    # This will pick up tfgen, but that's OK
+    artifact_paths:
+      - "bin/*"
+
+  - label: ":hammer_and_wrench: Build all Providers"
+    command:
+      - make build-all-providers
+    plugins:
+      - improbable-eng/metahook#v0.4.1:
+          pre-command: git fetch --unshallow
+      - docker#v3.11.0:
+          image: "${BUILD_ENVIRONMENT_IMAGE}"
+    artifact_paths:
+      - "dist/**/*"
+
+  - group: ":white_check_mark: SDK Checks"
+    steps:
+      - label: ":{{ matrix.language }}: SDK Check"
+        depends_on: provider
+        command:
+          - .buildkite/scripts/check-sdk {{matrix.language}}
+        plugins:
+          - artifacts#v1.5.0:
+              # We're currently running these checks on Linux, so we
+              # can just grab the provider we built earlier. If we
+              # ever branch out to test on Windows or macOS, we'll
+              # need to do something a bit different.
+              download:
+                - "bin/*"
+          - improbable-eng/metahook#v0.4.1:
+              pre-command: git fetch --unshallow && chmod a+x bin/*
+          - docker#v3.11.0:
+              image: "${BUILD_ENVIRONMENT_IMAGE}"
+        matrix:
+          setup:
+            language:
+              - go
+              - nodejs
+              - python
+
+  - group: ":pencil: SDK Tests"
+    steps:
+      - label: ":{{ matrix.language }}: Test"
+        depends_on: provider
+        command:
+          - make {{matrix.language}}-sdk test-{{matrix.language}}
+        plugins:
+          - grapl-security/vault-login#v0.1.2
+          - grapl-security/vault-env#v0.1.0:
+              secrets:
+                - PULUMI_ACCESS_TOKEN
+                - buildkite/organization/grapl-testing/BUILDKITE_API_TOKEN
+          - artifacts#v1.5.0:
+              # We're currently running these tests on Linux, so we
+              # can just grab the provider we built earlier. If we
+              # ever branch out to test on Windows or macOS, we'll
+              # need to do something a bit different.
+              download:
+                - "bin/*"
+          - improbable-eng/metahook#v0.4.1:
+              pre-command: git fetch --unshallow && chmod a+x bin/*
+          - docker#v3.11.0:
+              image: "${BUILD_ENVIRONMENT_IMAGE}"
+              environment:
+                - PULUMI_ACCESS_TOKEN
+                # Ensure that the test projects are run in our "grapl"
+                # Pulumi organization
+                - PULUMI_TEST_OWNER=grapl
+                # Credentials for our testing Buildkite account
+                - BUILDKITE_API_TOKEN
+                - BUILDKITE_ORGANIZATION=grapl-testing
+                # This is needed so the Pulumi integration testing
+                # framework can properly swap in the Go SDK code from
+                # the current checkout (rather than pulling in code
+                # from a release tag on Github, as it would in a
+                # non-testing environment). It must be the directory
+                # above where the code checkout is mounted in the
+                # container.
+                - "PULUMI_GO_DEP_ROOT=/"
+              # Alongside setting PULUMI_GO_DEP_ROOT, we must also
+              # change the workdir to the name of the repository,
+              # rather than the Docker plugin's default of `/workdir`
+              # (in that case, we would be trying to use code from a
+              # "workdir" project, which doesn't exist.)
+              workdir: /pulumi-buildkite
+        agents:
+          queue: "pulumi-pulumi-provider-testing"
+        matrix:
+          setup:
+            language:
+              - go
+              - nodejs
+              - python
