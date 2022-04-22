@@ -38,7 +38,7 @@ go get github.com/grapl-security/pulumi-buildkite/sdk/go/...
 
 ## Configuration
 
-The following configuration points are available for the `hcp` provider:
+The following configuration points are available for the `buildkite` provider:
 
 - `buildkite:api_token` (environment: `BUILDKITE_API_TOKEN`) - A Buildkite API Access Token. Must have GraphQL access, as well as the `write_pipelines` and `read_pipelines` scopes.
 - `buildkite:organization` (environment: `BUILDKITE_ORGANIZATION`) - The Buildkite organization slug.
