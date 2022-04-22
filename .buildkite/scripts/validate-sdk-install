@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+# We want to verify that installing the NPM package will *also*
+# correctly install the relevant provider binary. Because of how the
+# packages are built, however, this should take place *after* a Github
+# release has been created, but *before* we upload the SDK to NPM
+# (because if it's a bad package, we can't pull it back, and we'll
+# have to create an entirely different release).
+#
+# To isolate things, we can set `PULUMI_HOME` to a local directory and
+# then check that a `pulumi-hcp` plugin binary is installed there (if
+# we don't set `PULUMI_HOME`, it will default to `~/.pulumi/`, which
+# will pollute the agent's filesystem, which we would like to avoid).
+
+set -euo pipefail
+
+# shellcheck source-path=SCRIPTDIR
+source "$(dirname "${BASH_SOURCE[0]}")/lib/validate.sh"
+
+readonly sdk="${1}"
+
+# We're going to change directories in this script, so we need to
+# resolve the absolute path of the file before we do that.
+sdk_tarball="$(realpath "${2}")"
+readonly sdk_tarball
+
+readonly version="${3}"
+
+########################################################################
+
+# We'll execute our installations from this directory
+readonly test_dir="${sdk}-sdk-install-test"
+rm -Rf "${test_dir}"
+mkdir "${test_dir}"
+
+function cleanup {
+    echo "--- Removing test directory '${test_dir}'"
+    rm -Rf "${test_dir}"
+}
+trap cleanup EXIT
+
+(
+    cd "${test_dir}"
+
+    # We'll also install the Pulumi plugins into our test directory, just
+    # to keep everything together.
+    PULUMI_HOME="$(pwd)/pulumi-home"
+    readonly PULUMI_HOME
+    export PULUMI_HOME
+
+    case "${sdk}" in
+        "nodejs")
+            echo "--- :nodejs: Installing from ${sdk_tarball}"
+            npm install "${sdk_tarball}" --loglevel verbose --foreground-scripts
+            ;;
+        "python")
+            echo "--- :python: Installing from ${sdk_tarball}"
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install wheel
+            pip install "${sdk_tarball}" -vvv
+            ;;
+        *)
+            echo "--- :rotating_light: Unsupported SDK '${sdk}'!"
+            exit 1
+            ;;
+    esac
+    ls -alh # Just for visibility
+
+    validate_plugin "${version}"
+)
