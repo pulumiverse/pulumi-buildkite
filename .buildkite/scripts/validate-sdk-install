@@ -8,9 +8,9 @@
 # have to create an entirely different release).
 #
 # To isolate things, we can set `PULUMI_HOME` to a local directory and
-# then check that a `pulumi-hcp` plugin binary is installed there (if
-# we don't set `PULUMI_HOME`, it will default to `~/.pulumi/`, which
-# will pollute the agent's filesystem, which we would like to avoid).
+# then check that a Pulumi plugin binary is installed there (if we
+# don't set `PULUMI_HOME`, it will default to `~/.pulumi/`, which will
+# pollute the agent's filesystem, which we would like to avoid).
 
 set -euo pipefail
 
