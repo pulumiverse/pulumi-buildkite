@@ -417,6 +417,94 @@ func (o PipelineOutput) ToPipelineOutputWithContext(ctx context.Context) Pipelin
 	return o
 }
 
+func (o PipelineOutput) AllowRebuilds() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.BoolOutput { return v.AllowRebuilds }).(pulumi.BoolOutput)
+}
+
+// The pipeline's last build status so you can display build status badge.
+func (o PipelineOutput) BadgeUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.BadgeUrl }).(pulumi.StringOutput)
+}
+
+// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
+func (o PipelineOutput) BranchConfiguration() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.BranchConfiguration }).(pulumi.StringOutput)
+}
+
+// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
+func (o PipelineOutput) CancelIntermediateBuilds() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.BoolOutput { return v.CancelIntermediateBuilds }).(pulumi.BoolOutput)
+}
+
+// Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have it's builds automatically cancelled.
+func (o PipelineOutput) CancelIntermediateBuildsBranchFilter() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.CancelIntermediateBuildsBranchFilter }).(pulumi.StringOutput)
+}
+
+// The GraphQL ID of the cluster you want to use for the pipeline.
+func (o PipelineOutput) ClusterId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.ClusterId }).(pulumi.StringOutput)
+}
+
+// The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+func (o PipelineOutput) DefaultBranch() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.DefaultBranch }).(pulumi.StringOutput)
+}
+
+// A description of the pipeline.
+func (o PipelineOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the pipeline.
+func (o PipelineOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// Source control provider settings for the pipeline. See Provider Settings Configuration below for details.
+func (o PipelineOutput) ProviderSettings() PipelineProviderSettingsOutput {
+	return o.ApplyT(func(v *Pipeline) PipelineProviderSettingsOutput { return v.ProviderSettings }).(PipelineProviderSettingsOutput)
+}
+
+// The git URL of the repository.
+func (o PipelineOutput) Repository() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.Repository }).(pulumi.StringOutput)
+}
+
+// A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
+func (o PipelineOutput) SkipIntermediateBuilds() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.BoolOutput { return v.SkipIntermediateBuilds }).(pulumi.BoolOutput)
+}
+
+// Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have it's builds automatically skipped.
+func (o PipelineOutput) SkipIntermediateBuildsBranchFilter() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.SkipIntermediateBuildsBranchFilter }).(pulumi.StringOutput)
+}
+
+// The buildkite slug of the team.
+func (o PipelineOutput) Slug() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.Slug }).(pulumi.StringOutput)
+}
+
+// The string YAML steps to run the pipeline.
+func (o PipelineOutput) Steps() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.Steps }).(pulumi.StringOutput)
+}
+
+func (o PipelineOutput) Tags() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
+}
+
+// Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+func (o PipelineOutput) Teams() PipelineTeamArrayOutput {
+	return o.ApplyT(func(v *Pipeline) PipelineTeamArrayOutput { return v.Teams }).(PipelineTeamArrayOutput)
+}
+
+// The Buildkite webhook URL to configure on the repository to trigger builds on this pipeline.
+func (o PipelineOutput) WebhookUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.WebhookUrl }).(pulumi.StringOutput)
+}
+
 type PipelineArrayOutput struct{ *pulumi.OutputState }
 
 func (PipelineArrayOutput) ElementType() reflect.Type {

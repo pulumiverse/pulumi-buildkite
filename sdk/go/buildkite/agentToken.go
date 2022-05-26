@@ -206,6 +206,21 @@ func (o AgentTokenOutput) ToAgentTokenOutputWithContext(ctx context.Context) Age
 	return o
 }
 
+// This is the description of the agent token.
+func (o AgentTokenOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AgentToken) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// The value of the created agent token.
+func (o AgentTokenOutput) Token() pulumi.StringOutput {
+	return o.ApplyT(func(v *AgentToken) pulumi.StringOutput { return v.Token }).(pulumi.StringOutput)
+}
+
+// The UUID of the token.
+func (o AgentTokenOutput) Uuid() pulumi.StringOutput {
+	return o.ApplyT(func(v *AgentToken) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
+}
+
 type AgentTokenArrayOutput struct{ *pulumi.OutputState }
 
 func (AgentTokenArrayOutput) ElementType() reflect.Type {

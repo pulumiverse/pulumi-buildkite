@@ -116,6 +116,26 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 	return o
 }
 
+// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+func (o ProviderOutput) ApiToken() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiToken }).(pulumi.StringPtrOutput)
+}
+
+// Base URL for the GraphQL API to use
+func (o ProviderOutput) GraphqlUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.GraphqlUrl }).(pulumi.StringPtrOutput)
+}
+
+// The Buildkite organization ID
+func (o ProviderOutput) Organization() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Organization }).(pulumi.StringPtrOutput)
+}
+
+// Base URL for the REST API to use
+func (o ProviderOutput) RestUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.RestUrl }).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProviderInput)(nil)).Elem(), &Provider{})
 	pulumi.RegisterOutputType(ProviderOutput{})
