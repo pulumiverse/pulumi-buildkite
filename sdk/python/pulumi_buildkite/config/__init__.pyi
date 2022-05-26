@@ -13,8 +13,18 @@ apiToken: Optional[str]
 API token with GraphQL access and `write_pipelines, read_pipelines` scopes
 """
 
+graphqlUrl: Optional[str]
+"""
+Base URL for the GraphQL API to use
+"""
+
 organization: Optional[str]
 """
 The Buildkite organization ID
+"""
+
+restUrl: Optional[str]
+"""
+Base URL for the REST API to use
 """
 

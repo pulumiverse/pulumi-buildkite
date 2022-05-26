@@ -118,6 +118,7 @@ import (
 type Pipeline struct {
 	pulumi.CustomResourceState
 
+	AllowRebuilds pulumi.BoolOutput `pulumi:"allowRebuilds"`
 	// The pipeline's last build status so you can display build status badge.
 	BadgeUrl pulumi.StringOutput `pulumi:"badgeUrl"`
 	// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
@@ -145,7 +146,8 @@ type Pipeline struct {
 	// The buildkite slug of the team.
 	Slug pulumi.StringOutput `pulumi:"slug"`
 	// The string YAML steps to run the pipeline.
-	Steps pulumi.StringOutput `pulumi:"steps"`
+	Steps pulumi.StringOutput      `pulumi:"steps"`
+	Tags  pulumi.StringArrayOutput `pulumi:"tags"`
 	// Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
 	Teams PipelineTeamArrayOutput `pulumi:"teams"`
 	// The Buildkite webhook URL to configure on the repository to trigger builds on this pipeline.
@@ -188,6 +190,7 @@ func GetPipeline(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Pipeline resources.
 type pipelineState struct {
+	AllowRebuilds *bool `pulumi:"allowRebuilds"`
 	// The pipeline's last build status so you can display build status badge.
 	BadgeUrl *string `pulumi:"badgeUrl"`
 	// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
@@ -215,7 +218,8 @@ type pipelineState struct {
 	// The buildkite slug of the team.
 	Slug *string `pulumi:"slug"`
 	// The string YAML steps to run the pipeline.
-	Steps *string `pulumi:"steps"`
+	Steps *string  `pulumi:"steps"`
+	Tags  []string `pulumi:"tags"`
 	// Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
 	Teams []PipelineTeam `pulumi:"teams"`
 	// The Buildkite webhook URL to configure on the repository to trigger builds on this pipeline.
@@ -223,6 +227,7 @@ type pipelineState struct {
 }
 
 type PipelineState struct {
+	AllowRebuilds pulumi.BoolPtrInput
 	// The pipeline's last build status so you can display build status badge.
 	BadgeUrl pulumi.StringPtrInput
 	// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
@@ -251,6 +256,7 @@ type PipelineState struct {
 	Slug pulumi.StringPtrInput
 	// The string YAML steps to run the pipeline.
 	Steps pulumi.StringPtrInput
+	Tags  pulumi.StringArrayInput
 	// Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
 	Teams PipelineTeamArrayInput
 	// The Buildkite webhook URL to configure on the repository to trigger builds on this pipeline.
@@ -262,6 +268,7 @@ func (PipelineState) ElementType() reflect.Type {
 }
 
 type pipelineArgs struct {
+	AllowRebuilds *bool `pulumi:"allowRebuilds"`
 	// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
 	BranchConfiguration *string `pulumi:"branchConfiguration"`
 	// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
@@ -285,13 +292,15 @@ type pipelineArgs struct {
 	// Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have it's builds automatically skipped.
 	SkipIntermediateBuildsBranchFilter *string `pulumi:"skipIntermediateBuildsBranchFilter"`
 	// The string YAML steps to run the pipeline.
-	Steps string `pulumi:"steps"`
+	Steps string   `pulumi:"steps"`
+	Tags  []string `pulumi:"tags"`
 	// Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
 	Teams []PipelineTeam `pulumi:"teams"`
 }
 
 // The set of arguments for constructing a Pipeline resource.
 type PipelineArgs struct {
+	AllowRebuilds pulumi.BoolPtrInput
 	// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
 	BranchConfiguration pulumi.StringPtrInput
 	// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
@@ -316,6 +325,7 @@ type PipelineArgs struct {
 	SkipIntermediateBuildsBranchFilter pulumi.StringPtrInput
 	// The string YAML steps to run the pipeline.
 	Steps pulumi.StringInput
+	Tags  pulumi.StringArrayInput
 	// Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
 	Teams PipelineTeamArrayInput
 }

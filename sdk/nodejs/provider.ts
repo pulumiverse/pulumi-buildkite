@@ -30,9 +30,17 @@ export class Provider extends pulumi.ProviderResource {
      */
     public readonly apiToken!: pulumi.Output<string | undefined>;
     /**
+     * Base URL for the GraphQL API to use
+     */
+    public readonly graphqlUrl!: pulumi.Output<string | undefined>;
+    /**
      * The Buildkite organization ID
      */
     public readonly organization!: pulumi.Output<string | undefined>;
+    /**
+     * Base URL for the REST API to use
+     */
+    public readonly restUrl!: pulumi.Output<string | undefined>;
 
     /**
      * Create a Provider resource with the given unique name, arguments, and options.
@@ -46,7 +54,9 @@ export class Provider extends pulumi.ProviderResource {
         opts = opts || {};
         {
             resourceInputs["apiToken"] = (args?.apiToken ? pulumi.secret(args.apiToken) : undefined) ?? utilities.getEnv("BUILDKITE_API_TOKEN");
+            resourceInputs["graphqlUrl"] = args ? args.graphqlUrl : undefined;
             resourceInputs["organization"] = (args ? args.organization : undefined) ?? utilities.getEnv("BUILDKITE_ORGANIZATION");
+            resourceInputs["restUrl"] = args ? args.restUrl : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["apiToken"] };
@@ -64,7 +74,15 @@ export interface ProviderArgs {
      */
     apiToken?: pulumi.Input<string>;
     /**
+     * Base URL for the GraphQL API to use
+     */
+    graphqlUrl?: pulumi.Input<string>;
+    /**
      * The Buildkite organization ID
      */
     organization?: pulumi.Input<string>;
+    /**
+     * Base URL for the REST API to use
+     */
+    restUrl?: pulumi.Input<string>;
 }

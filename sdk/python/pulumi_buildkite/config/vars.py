@@ -22,9 +22,23 @@ class _ExportableConfig(types.ModuleType):
         return __config__.get('apiToken') or _utilities.get_env('BUILDKITE_API_TOKEN')
 
     @property
+    def graphql_url(self) -> Optional[str]:
+        """
+        Base URL for the GraphQL API to use
+        """
+        return __config__.get('graphqlUrl')
+
+    @property
     def organization(self) -> Optional[str]:
         """
         The Buildkite organization ID
         """
         return __config__.get('organization') or _utilities.get_env('BUILDKITE_ORGANIZATION')
+
+    @property
+    def rest_url(self) -> Optional[str]:
+        """
+        Base URL for the REST API to use
+        """
+        return __config__.get('restUrl')
 
