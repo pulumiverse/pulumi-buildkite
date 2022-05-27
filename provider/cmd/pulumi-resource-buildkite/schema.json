@@ -29,6 +29,10 @@
                 },
                 "secret": true
             },
+            "graphqlUrl": {
+                "type": "string",
+                "description": "Base URL for the GraphQL API to use\n"
+            },
             "organization": {
                 "type": "string",
                 "description": "The Buildkite organization ID\n",
@@ -37,6 +41,10 @@
                         "BUILDKITE_ORGANIZATION"
                     ]
                 }
+            },
+            "restUrl": {
+                "type": "string",
+                "description": "Base URL for the REST API to use\n"
             }
         },
         "defaults": [
@@ -271,9 +279,17 @@
                 "description": "API token with GraphQL access and `write_pipelines, read_pipelines` scopes\n",
                 "secret": true
             },
+            "graphqlUrl": {
+                "type": "string",
+                "description": "Base URL for the GraphQL API to use\n"
+            },
             "organization": {
                 "type": "string",
                 "description": "The Buildkite organization ID\n"
+            },
+            "restUrl": {
+                "type": "string",
+                "description": "Base URL for the REST API to use\n"
             }
         },
         "inputProperties": {
@@ -287,6 +303,10 @@
                 },
                 "secret": true
             },
+            "graphqlUrl": {
+                "type": "string",
+                "description": "Base URL for the GraphQL API to use\n"
+            },
             "organization": {
                 "type": "string",
                 "description": "The Buildkite organization ID\n",
@@ -295,12 +315,16 @@
                         "BUILDKITE_ORGANIZATION"
                     ]
                 }
+            },
+            "restUrl": {
+                "type": "string",
+                "description": "Base URL for the REST API to use\n"
             }
         }
     },
     "resources": {
         "buildkite:index/agentToken:AgentToken": {
-            "description": "## # Resource: agent_token\n\nThis resource allows you to create and manage agent tokens.\n\nBuildkite Documentation: https://buildkite.com/docs/agent/v3/tokens\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumi/buildkite\";\n\nconst fleet = new buildkite.AgentToken(\"fleet\", {\n    description: \"token used by build fleet\",\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\nfleet = buildkite.AgentToken(\"fleet\", description=\"token used by build fleet\")\n```\n```csharp\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var fleet = new Buildkite.AgentToken(\"fleet\", new Buildkite.AgentTokenArgs\n        {\n            Description = \"token used by build fleet\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.NewAgentToken(ctx, \"fleet\", \u0026buildkite.AgentTokenArgs{\n\t\t\tDescription: pulumi.String(\"token used by build fleet\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nTokens can be imported using the `GraphQL ID` (not UUID), e.g.\n\n```sh\n $ pulumi import buildkite:index/agentToken:AgentToken fleet QWdlbnRUb2tlbi0tLTQzNWNhZDU4LWU4MWQtNDVhZi04NjM3LWIxY2Y4MDcwMjM4ZA==\n```\n\n ",
+            "description": "## # Resource: agent_token\n\nThis resource allows you to create and manage agent tokens.\n\nBuildkite Documentation: https://buildkite.com/docs/agent/v3/tokens\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumi/buildkite\";\n\nconst fleet = new buildkite.AgentToken(\"fleet\", {\n    description: \"token used by build fleet\",\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\nfleet = buildkite.AgentToken(\"fleet\", description=\"token used by build fleet\")\n```\n```csharp\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var fleet = new Buildkite.AgentToken(\"fleet\", new Buildkite.AgentTokenArgs\n        {\n            Description = \"token used by build fleet\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.NewAgentToken(ctx, \"fleet\", \u0026buildkite.AgentTokenArgs{\n\t\t\tDescription: pulumi.String(\"token used by build fleet\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var fleet = new AgentToken(\"fleet\", AgentTokenArgs.builder()        \n            .description(\"token used by build fleet\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  fleet:\n    type: buildkite:AgentToken\n    properties:\n      description: token used by build fleet\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nTokens can be imported using the `GraphQL ID` (not UUID), e.g.\n\n```sh\n $ pulumi import buildkite:index/agentToken:AgentToken fleet QWdlbnRUb2tlbi0tLTQzNWNhZDU4LWU4MWQtNDVhZi04NjM3LWIxY2Y4MDcwMjM4ZA==\n```\n\n ",
             "properties": {
                 "description": {
                     "type": "string",
@@ -322,7 +346,8 @@
             "inputProperties": {
                 "description": {
                     "type": "string",
-                    "description": "This is the description of the agent token.\n"
+                    "description": "This is the description of the agent token.\n",
+                    "willReplaceOnChanges": true
                 }
             },
             "stateInputs": {
@@ -330,7 +355,8 @@
                 "properties": {
                     "description": {
                         "type": "string",
-                        "description": "This is the description of the agent token.\n"
+                        "description": "This is the description of the agent token.\n",
+                        "willReplaceOnChanges": true
                     },
                     "token": {
                         "type": "string",
@@ -345,8 +371,11 @@
             }
         },
         "buildkite:index/pipeline:Pipeline": {
-            "description": "## # Resource: pipeline\n\nThis resource allows you to create and manage pipelines for repositories.\n\nBuildkite Documentation: https://buildkite.com/docs/pipelines\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi_buildkite from \"@grapl/pulumi-buildkite\";\nimport * from \"fs\";\n\n// in ./steps.yml:\n// steps:\n//   - label: ':pipeline:'\n//     command: buildkite-agent pipeline upload\nconst repo2 = new buildkite.Pipeline(\"repo2\", {\n    repository: \"git@github.com:org/repo2\",\n    steps: fs.readFileSync(\"./steps.yml\"),\n    teams: [{\n        slug: \"everyone\",\n        accessLevel: \"READ_ONLY\",\n    }],\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\n# in ./steps.yml:\n# steps:\n#   - label: ':pipeline:'\n#     command: buildkite-agent pipeline upload\nrepo2 = buildkite.Pipeline(\"repo2\",\n    repository=\"git@github.com:org/repo2\",\n    steps=(lambda path: open(path).read())(\"./steps.yml\"),\n    teams=[buildkite.PipelineTeamArgs(\n        slug=\"everyone\",\n        access_level=\"READ_ONLY\",\n    )])\n```\n```csharp\nusing System.IO;\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        // in ./steps.yml:\n        // steps:\n        //   - label: ':pipeline:'\n        //     command: buildkite-agent pipeline upload\n        var repo2 = new Buildkite.Pipeline(\"repo2\", new Buildkite.PipelineArgs\n        {\n            Repository = \"git@github.com:org/repo2\",\n            Steps = File.ReadAllText(\"./steps.yml\"),\n            Teams = \n            {\n                new Buildkite.Inputs.PipelineTeamArgs\n                {\n                    Slug = \"everyone\",\n                    AccessLevel = \"READ_ONLY\",\n                },\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"io/ioutil\"\n\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc readFileOrPanic(path string) pulumi.StringPtrInput {\n\tdata, err := ioutil.ReadFile(path)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\treturn pulumi.String(string(data))\n}\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.NewPipeline(ctx, \"repo2\", \u0026buildkite.PipelineArgs{\n\t\t\tRepository: pulumi.String(\"git@github.com:org/repo2\"),\n\t\t\tSteps:      readFileOrPanic(\"./steps.yml\"),\n\t\t\tTeams: PipelineTeamArray{\n\t\t\t\t\u0026PipelineTeamArgs{\n\t\t\t\t\tSlug:        pulumi.String(\"everyone\"),\n\t\t\t\t\tAccessLevel: pulumi.String(\"READ_ONLY\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n\n{{% /example %}}\n{{% example %}}\n### With GitHub Provider Settings\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi_buildkite from \"@grapl/pulumi-buildkite\";\nimport * from \"fs\";\n\n// Pipeline that should not be triggered from a GitHub webhook\nconst repo2_deploy = new buildkite.Pipeline(\"repo2-deploy\", {\n    repository: \"git@github.com:org/repo2\",\n    steps: fs.readFileSync(\"./deploy-steps.yml\"),\n    providerSettings: {\n        triggerMode: \"none\",\n    },\n});\n// Release pipeline (triggered only when tags are pushed)\nconst repo2_release = new buildkite.Pipeline(\"repo2-release\", {\n    repository: \"git@github.com:org/repo2\",\n    steps: fs.readFileSync(\"./release-steps.yml\"),\n    providerSettings: {\n        buildBranches: false,\n        buildTags: true,\n        buildPullRequests: false,\n        triggerMode: \"code\",\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\n# Pipeline that should not be triggered from a GitHub webhook\nrepo2_deploy = buildkite.Pipeline(\"repo2-deploy\",\n    repository=\"git@github.com:org/repo2\",\n    steps=(lambda path: open(path).read())(\"./deploy-steps.yml\"),\n    provider_settings=buildkite.PipelineProviderSettingsArgs(\n        trigger_mode=\"none\",\n    ))\n# Release pipeline (triggered only when tags are pushed)\nrepo2_release = buildkite.Pipeline(\"repo2-release\",\n    repository=\"git@github.com:org/repo2\",\n    steps=(lambda path: open(path).read())(\"./release-steps.yml\"),\n    provider_settings=buildkite.PipelineProviderSettingsArgs(\n        build_branches=False,\n        build_tags=True,\n        build_pull_requests=False,\n        trigger_mode=\"code\",\n    ))\n```\n```csharp\nusing System.IO;\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        // Pipeline that should not be triggered from a GitHub webhook\n        var repo2_deploy = new Buildkite.Pipeline(\"repo2-deploy\", new Buildkite.PipelineArgs\n        {\n            Repository = \"git@github.com:org/repo2\",\n            Steps = File.ReadAllText(\"./deploy-steps.yml\"),\n            ProviderSettings = new Buildkite.Inputs.PipelineProviderSettingsArgs\n            {\n                TriggerMode = \"none\",\n            },\n        });\n        // Release pipeline (triggered only when tags are pushed)\n        var repo2_release = new Buildkite.Pipeline(\"repo2-release\", new Buildkite.PipelineArgs\n        {\n            Repository = \"git@github.com:org/repo2\",\n            Steps = File.ReadAllText(\"./release-steps.yml\"),\n            ProviderSettings = new Buildkite.Inputs.PipelineProviderSettingsArgs\n            {\n                BuildBranches = false,\n                BuildTags = true,\n                BuildPullRequests = false,\n                TriggerMode = \"code\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"io/ioutil\"\n\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc readFileOrPanic(path string) pulumi.StringPtrInput {\n\tdata, err := ioutil.ReadFile(path)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\treturn pulumi.String(string(data))\n}\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.NewPipeline(ctx, \"repo2-deploy\", \u0026buildkite.PipelineArgs{\n\t\t\tRepository: pulumi.String(\"git@github.com:org/repo2\"),\n\t\t\tSteps:      readFileOrPanic(\"./deploy-steps.yml\"),\n\t\t\tProviderSettings: \u0026PipelineProviderSettingsArgs{\n\t\t\t\tTriggerMode: pulumi.String(\"none\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = buildkite.NewPipeline(ctx, \"repo2-release\", \u0026buildkite.PipelineArgs{\n\t\t\tRepository: pulumi.String(\"git@github.com:org/repo2\"),\n\t\t\tSteps:      readFileOrPanic(\"./release-steps.yml\"),\n\t\t\tProviderSettings: \u0026PipelineProviderSettingsArgs{\n\t\t\t\tBuildBranches:     pulumi.Bool(false),\n\t\t\t\tBuildTags:         pulumi.Bool(true),\n\t\t\t\tBuildPullRequests: pulumi.Bool(false),\n\t\t\t\tTriggerMode:       pulumi.String(\"code\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nPipelines can be imported using the `GraphQL ID` (not UUID), e.g.\n\n```sh\n $ pulumi import buildkite:index/pipeline:Pipeline fleet UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=\n```\n\n ",
+            "description": "## # Resource: pipeline\n\nThis resource allows you to create and manage pipelines for repositories.\n\nBuildkite Documentation: https://buildkite.com/docs/pipelines\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi_buildkite from \"@grapl/pulumi-buildkite\";\nimport * from \"fs\";\n\n// in ./steps.yml:\n// steps:\n//   - label: ':pipeline:'\n//     command: buildkite-agent pipeline upload\nconst repo2 = new buildkite.Pipeline(\"repo2\", {\n    repository: \"git@github.com:org/repo2\",\n    steps: fs.readFileSync(\"./steps.yml\"),\n    teams: [{\n        slug: \"everyone\",\n        accessLevel: \"READ_ONLY\",\n    }],\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\n# in ./steps.yml:\n# steps:\n#   - label: ':pipeline:'\n#     command: buildkite-agent pipeline upload\nrepo2 = buildkite.Pipeline(\"repo2\",\n    repository=\"git@github.com:org/repo2\",\n    steps=(lambda path: open(path).read())(\"./steps.yml\"),\n    teams=[buildkite.PipelineTeamArgs(\n        slug=\"everyone\",\n        access_level=\"READ_ONLY\",\n    )])\n```\n```csharp\nusing System.IO;\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        // in ./steps.yml:\n        // steps:\n        //   - label: ':pipeline:'\n        //     command: buildkite-agent pipeline upload\n        var repo2 = new Buildkite.Pipeline(\"repo2\", new Buildkite.PipelineArgs\n        {\n            Repository = \"git@github.com:org/repo2\",\n            Steps = File.ReadAllText(\"./steps.yml\"),\n            Teams = \n            {\n                new Buildkite.Inputs.PipelineTeamArgs\n                {\n                    Slug = \"everyone\",\n                    AccessLevel = \"READ_ONLY\",\n                },\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"io/ioutil\"\n\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc readFileOrPanic(path string) pulumi.StringPtrInput {\n\tdata, err := ioutil.ReadFile(path)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\treturn pulumi.String(string(data))\n}\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.NewPipeline(ctx, \"repo2\", \u0026buildkite.PipelineArgs{\n\t\t\tRepository: pulumi.String(\"git@github.com:org/repo2\"),\n\t\t\tSteps:      readFileOrPanic(\"./steps.yml\"),\n\t\t\tTeams: PipelineTeamArray{\n\t\t\t\t\u0026PipelineTeamArgs{\n\t\t\t\t\tSlug:        pulumi.String(\"everyone\"),\n\t\t\t\t\tAccessLevel: pulumi.String(\"READ_ONLY\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var repo2 = new Pipeline(\"repo2\", PipelineArgs.builder()        \n            .repository(\"git@github.com:org/repo2\")\n            .steps(Files.readString(\"./steps.yml\"))\n            .teams(PipelineTeamArgs.builder()\n                .slug(\"everyone\")\n                .accessLevel(\"READ_ONLY\")\n                .build())\n            .build());\n\n    }\n}\n```\n\n{{% /example %}}\n{{% example %}}\n### With GitHub Provider Settings\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi_buildkite from \"@grapl/pulumi-buildkite\";\nimport * from \"fs\";\n\n// Pipeline that should not be triggered from a GitHub webhook\nconst repo2_deploy = new buildkite.Pipeline(\"repo2-deploy\", {\n    repository: \"git@github.com:org/repo2\",\n    steps: fs.readFileSync(\"./deploy-steps.yml\"),\n    providerSettings: {\n        triggerMode: \"none\",\n    },\n});\n// Release pipeline (triggered only when tags are pushed)\nconst repo2_release = new buildkite.Pipeline(\"repo2-release\", {\n    repository: \"git@github.com:org/repo2\",\n    steps: fs.readFileSync(\"./release-steps.yml\"),\n    providerSettings: {\n        buildBranches: false,\n        buildTags: true,\n        buildPullRequests: false,\n        triggerMode: \"code\",\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\n# Pipeline that should not be triggered from a GitHub webhook\nrepo2_deploy = buildkite.Pipeline(\"repo2-deploy\",\n    repository=\"git@github.com:org/repo2\",\n    steps=(lambda path: open(path).read())(\"./deploy-steps.yml\"),\n    provider_settings=buildkite.PipelineProviderSettingsArgs(\n        trigger_mode=\"none\",\n    ))\n# Release pipeline (triggered only when tags are pushed)\nrepo2_release = buildkite.Pipeline(\"repo2-release\",\n    repository=\"git@github.com:org/repo2\",\n    steps=(lambda path: open(path).read())(\"./release-steps.yml\"),\n    provider_settings=buildkite.PipelineProviderSettingsArgs(\n        build_branches=False,\n        build_tags=True,\n        build_pull_requests=False,\n        trigger_mode=\"code\",\n    ))\n```\n```csharp\nusing System.IO;\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        // Pipeline that should not be triggered from a GitHub webhook\n        var repo2_deploy = new Buildkite.Pipeline(\"repo2-deploy\", new Buildkite.PipelineArgs\n        {\n            Repository = \"git@github.com:org/repo2\",\n            Steps = File.ReadAllText(\"./deploy-steps.yml\"),\n            ProviderSettings = new Buildkite.Inputs.PipelineProviderSettingsArgs\n            {\n                TriggerMode = \"none\",\n            },\n        });\n        // Release pipeline (triggered only when tags are pushed)\n        var repo2_release = new Buildkite.Pipeline(\"repo2-release\", new Buildkite.PipelineArgs\n        {\n            Repository = \"git@github.com:org/repo2\",\n            Steps = File.ReadAllText(\"./release-steps.yml\"),\n            ProviderSettings = new Buildkite.Inputs.PipelineProviderSettingsArgs\n            {\n                BuildBranches = false,\n                BuildTags = true,\n                BuildPullRequests = false,\n                TriggerMode = \"code\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"io/ioutil\"\n\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc readFileOrPanic(path string) pulumi.StringPtrInput {\n\tdata, err := ioutil.ReadFile(path)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\treturn pulumi.String(string(data))\n}\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.NewPipeline(ctx, \"repo2-deploy\", \u0026buildkite.PipelineArgs{\n\t\t\tRepository: pulumi.String(\"git@github.com:org/repo2\"),\n\t\t\tSteps:      readFileOrPanic(\"./deploy-steps.yml\"),\n\t\t\tProviderSettings: \u0026PipelineProviderSettingsArgs{\n\t\t\t\tTriggerMode: pulumi.String(\"none\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = buildkite.NewPipeline(ctx, \"repo2-release\", \u0026buildkite.PipelineArgs{\n\t\t\tRepository: pulumi.String(\"git@github.com:org/repo2\"),\n\t\t\tSteps:      readFileOrPanic(\"./release-steps.yml\"),\n\t\t\tProviderSettings: \u0026PipelineProviderSettingsArgs{\n\t\t\t\tBuildBranches:     pulumi.Bool(false),\n\t\t\t\tBuildTags:         pulumi.Bool(true),\n\t\t\t\tBuildPullRequests: pulumi.Bool(false),\n\t\t\t\tTriggerMode:       pulumi.String(\"code\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var repo2_deploy = new Pipeline(\"repo2-deploy\", PipelineArgs.builder()        \n            .repository(\"git@github.com:org/repo2\")\n            .steps(Files.readString(\"./deploy-steps.yml\"))\n            .providerSettings(PipelineProviderSettingsArgs.builder()\n                .triggerMode(\"none\")\n                .build())\n            .build());\n\n        var repo2_release = new Pipeline(\"repo2-release\", PipelineArgs.builder()        \n            .repository(\"git@github.com:org/repo2\")\n            .steps(Files.readString(\"./release-steps.yml\"))\n            .providerSettings(PipelineProviderSettingsArgs.builder()\n                .buildBranches(false)\n                .buildTags(true)\n                .buildPullRequests(false)\n                .triggerMode(\"code\")\n                .build())\n            .build());\n\n    }\n}\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nPipelines can be imported using the `GraphQL ID` (not UUID), e.g.\n\n```sh\n $ pulumi import buildkite:index/pipeline:Pipeline fleet UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=\n```\n\n ",
             "properties": {
+                "allowRebuilds": {
+                    "type": "boolean"
+                },
                 "badgeUrl": {
                     "type": "string",
                     "description": "The pipeline's last build status so you can display build status badge.\n"
@@ -403,6 +432,12 @@
                     "type": "string",
                     "description": "The string YAML steps to run the pipeline.\n"
                 },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "teams": {
                     "type": "array",
                     "items": {
@@ -416,6 +451,7 @@
                 }
             },
             "required": [
+                "allowRebuilds",
                 "badgeUrl",
                 "branchConfiguration",
                 "cancelIntermediateBuilds",
@@ -433,6 +469,9 @@
                 "webhookUrl"
             ],
             "inputProperties": {
+                "allowRebuilds": {
+                    "type": "boolean"
+                },
                 "branchConfiguration": {
                     "type": "string",
                     "description": "Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.\n"
@@ -481,6 +520,12 @@
                     "type": "string",
                     "description": "The string YAML steps to run the pipeline.\n"
                 },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "teams": {
                     "type": "array",
                     "items": {
@@ -496,6 +541,9 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering Pipeline resources.\n",
                 "properties": {
+                    "allowRebuilds": {
+                        "type": "boolean"
+                    },
                     "badgeUrl": {
                         "type": "string",
                         "description": "The pipeline's last build status so you can display build status badge.\n"
@@ -552,6 +600,12 @@
                         "type": "string",
                         "description": "The string YAML steps to run the pipeline.\n"
                     },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
                     "teams": {
                         "type": "array",
                         "items": {
@@ -568,7 +622,7 @@
             }
         },
         "buildkite:index/pipelineSchedule:PipelineSchedule": {
-            "description": "## # Resource: pipeline_schedule\n\nThis resource allows you to create and manage pipeline schedules.\n\nBuildkite Documentation: https://buildkite.com/docs/pipelines/scheduled-builds\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi_buildkite from \"@grapl/pulumi-buildkite\";\n\nconst repo2Nightly = new buildkite.PipelineSchedule(\"repo2Nightly\", {\n    pipelineId: buildkite_pipeline.repo2.id,\n    label: \"Nightly build\",\n    cronline: \"@midnight\",\n    branch: buildkite_pipeline.repo2.default_branch,\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\nrepo2_nightly = buildkite.PipelineSchedule(\"repo2Nightly\",\n    pipeline_id=buildkite_pipeline[\"repo2\"][\"id\"],\n    label=\"Nightly build\",\n    cronline=\"@midnight\",\n    branch=buildkite_pipeline[\"repo2\"][\"default_branch\"])\n```\n```csharp\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var repo2Nightly = new Buildkite.PipelineSchedule(\"repo2Nightly\", new Buildkite.PipelineScheduleArgs\n        {\n            PipelineId = buildkite_pipeline.Repo2.Id,\n            Label = \"Nightly build\",\n            Cronline = \"@midnight\",\n            Branch = buildkite_pipeline.Repo2.Default_branch,\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.NewPipelineSchedule(ctx, \"repo2Nightly\", \u0026buildkite.PipelineScheduleArgs{\n\t\t\tPipelineId: pulumi.Any(buildkite_pipeline.Repo2.Id),\n\t\t\tLabel:      pulumi.String(\"Nightly build\"),\n\t\t\tCronline:   pulumi.String(\"@midnight\"),\n\t\t\tBranch:     pulumi.Any(buildkite_pipeline.Repo2.Default_branch),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nPipeline schedules can be imported using a slug (which consists of `$BUILDKITE_ORGANIZATION_SLUG/$BUILDKITE_PIPELINE_SLUG/$PIPELINE_SCHEDULE_UUID`), e.g.\n\n```sh\n $ pulumi import buildkite:index/pipelineSchedule:PipelineSchedule test myorg/test/1be3e7c7-1e03-4011-accf-b2d8eec90222\n```\n\n ",
+            "description": "## # Resource: pipeline_schedule\n\nThis resource allows you to create and manage pipeline schedules.\n\nBuildkite Documentation: https://buildkite.com/docs/pipelines/scheduled-builds\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi_buildkite from \"@grapl/pulumi-buildkite\";\n\nconst repo2Nightly = new buildkite.PipelineSchedule(\"repo2Nightly\", {\n    pipelineId: buildkite_pipeline.repo2.id,\n    label: \"Nightly build\",\n    cronline: \"@midnight\",\n    branch: buildkite_pipeline.repo2.default_branch,\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\nrepo2_nightly = buildkite.PipelineSchedule(\"repo2Nightly\",\n    pipeline_id=buildkite_pipeline[\"repo2\"][\"id\"],\n    label=\"Nightly build\",\n    cronline=\"@midnight\",\n    branch=buildkite_pipeline[\"repo2\"][\"default_branch\"])\n```\n```csharp\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var repo2Nightly = new Buildkite.PipelineSchedule(\"repo2Nightly\", new Buildkite.PipelineScheduleArgs\n        {\n            PipelineId = buildkite_pipeline.Repo2.Id,\n            Label = \"Nightly build\",\n            Cronline = \"@midnight\",\n            Branch = buildkite_pipeline.Repo2.Default_branch,\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.NewPipelineSchedule(ctx, \"repo2Nightly\", \u0026buildkite.PipelineScheduleArgs{\n\t\t\tPipelineId: pulumi.Any(buildkite_pipeline.Repo2.Id),\n\t\t\tLabel:      pulumi.String(\"Nightly build\"),\n\t\t\tCronline:   pulumi.String(\"@midnight\"),\n\t\t\tBranch:     pulumi.Any(buildkite_pipeline.Repo2.Default_branch),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var repo2Nightly = new PipelineSchedule(\"repo2Nightly\", PipelineScheduleArgs.builder()        \n            .pipelineId(buildkite_pipeline.repo2().id())\n            .label(\"Nightly build\")\n            .cronline(\"@midnight\")\n            .branch(buildkite_pipeline.repo2().default_branch())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  repo2Nightly:\n    type: buildkite:PipelineSchedule\n    properties:\n      pipelineId: ${buildkite_pipeline.repo2.id}\n      label: Nightly build\n      cronline: '@midnight'\n      branch: ${buildkite_pipeline.repo2.default_branch}\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nPipeline schedules can be imported using a slug (which consists of `$BUILDKITE_ORGANIZATION_SLUG/$BUILDKITE_PIPELINE_SLUG/$PIPELINE_SCHEDULE_UUID`), e.g.\n\n```sh\n $ pulumi import buildkite:index/pipelineSchedule:PipelineSchedule test myorg/test/1be3e7c7-1e03-4011-accf-b2d8eec90222\n```\n\n ",
             "properties": {
                 "branch": {
                     "type": "string",
@@ -705,7 +759,7 @@
             }
         },
         "buildkite:index/team:Team": {
-            "description": "## # Resource: team\n\nThis resource allows you to create and manage teams.\n\nBuildkite Documentation: https://buildkite.com/docs/pipelines/permissions\n\nNote: You must first enable Teams on your organization.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumi/buildkite\";\n\nconst team = new buildkite.Team(\"team\", {\n    defaultMemberRole: \"MEMBER\",\n    defaultTeam: true,\n    privacy: \"VISIBLE\",\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\nteam = buildkite.Team(\"team\",\n    default_member_role=\"MEMBER\",\n    default_team=True,\n    privacy=\"VISIBLE\")\n```\n```csharp\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var team = new Buildkite.Team(\"team\", new Buildkite.TeamArgs\n        {\n            DefaultMemberRole = \"MEMBER\",\n            DefaultTeam = true,\n            Privacy = \"VISIBLE\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.NewTeam(ctx, \"team\", \u0026buildkite.TeamArgs{\n\t\t\tDefaultMemberRole: pulumi.String(\"MEMBER\"),\n\t\t\tDefaultTeam:       pulumi.Bool(true),\n\t\t\tPrivacy:           pulumi.String(\"VISIBLE\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "## # Resource: team\n\nThis resource allows you to create and manage teams.\n\nBuildkite Documentation: https://buildkite.com/docs/pipelines/permissions\n\nNote: You must first enable Teams on your organization.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumi/buildkite\";\n\nconst team = new buildkite.Team(\"team\", {\n    defaultMemberRole: \"MEMBER\",\n    defaultTeam: true,\n    privacy: \"VISIBLE\",\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\nteam = buildkite.Team(\"team\",\n    default_member_role=\"MEMBER\",\n    default_team=True,\n    privacy=\"VISIBLE\")\n```\n```csharp\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var team = new Buildkite.Team(\"team\", new Buildkite.TeamArgs\n        {\n            DefaultMemberRole = \"MEMBER\",\n            DefaultTeam = true,\n            Privacy = \"VISIBLE\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.NewTeam(ctx, \"team\", \u0026buildkite.TeamArgs{\n\t\t\tDefaultMemberRole: pulumi.String(\"MEMBER\"),\n\t\t\tDefaultTeam:       pulumi.Bool(true),\n\t\t\tPrivacy:           pulumi.String(\"VISIBLE\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var team = new Team(\"team\", TeamArgs.builder()        \n            .defaultMemberRole(\"MEMBER\")\n            .defaultTeam(true)\n            .privacy(\"VISIBLE\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  team:\n    type: buildkite:Team\n    properties:\n      defaultMemberRole: MEMBER\n      defaultTeam: true\n      privacy: VISIBLE\n```\n{{% /example %}}\n{{% /examples %}}",
             "properties": {
                 "defaultMemberRole": {
                     "type": "string",
@@ -819,7 +873,7 @@
             }
         },
         "buildkite:index/teamMember:TeamMember": {
-            "description": "## # Resource: team_member\n\nThis resource allows manage team membership for existing organization users.\n\nThe user must already be part of the organization to which you are managing team membership. This will not invite a new user to the organization.\n\nBuildkite Documentation: https://buildkite.com/docs/pipelines/permissions\n\nNote: You must first enable Teams on your organization.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi_buildkite from \"@grapl/pulumi-buildkite\";\n\nconst team = new buildkite.Team(\"team\", {\n    privacy: \"VISIBLE\",\n    defaultTeam: true,\n    defaultMemberRole: \"MEMBER\",\n});\nconst aSmith = new buildkite.TeamMember(\"aSmith\", {\n    role: \"MEMBER\",\n    teamId: team.id,\n    userId: \"VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==\",\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\nteam = buildkite.Team(\"team\",\n    privacy=\"VISIBLE\",\n    default_team=True,\n    default_member_role=\"MEMBER\")\na_smith = buildkite.TeamMember(\"aSmith\",\n    role=\"MEMBER\",\n    team_id=team.id,\n    user_id=\"VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==\")\n```\n```csharp\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var team = new Buildkite.Team(\"team\", new Buildkite.TeamArgs\n        {\n            Privacy = \"VISIBLE\",\n            DefaultTeam = true,\n            DefaultMemberRole = \"MEMBER\",\n        });\n        var aSmith = new Buildkite.TeamMember(\"aSmith\", new Buildkite.TeamMemberArgs\n        {\n            Role = \"MEMBER\",\n            TeamId = team.Id,\n            UserId = \"VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tteam, err := buildkite.NewTeam(ctx, \"team\", \u0026buildkite.TeamArgs{\n\t\t\tPrivacy:           pulumi.String(\"VISIBLE\"),\n\t\t\tDefaultTeam:       pulumi.Bool(true),\n\t\t\tDefaultMemberRole: pulumi.String(\"MEMBER\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = buildkite.NewTeamMember(ctx, \"aSmith\", \u0026buildkite.TeamMemberArgs{\n\t\t\tRole:   pulumi.String(\"MEMBER\"),\n\t\t\tTeamId: team.ID(),\n\t\t\tUserId: pulumi.String(\"VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nTeam members can be imported using the GraphQL ID of the membership. Note this is different to the ID of the user.\n\n```sh\n $ pulumi import buildkite:index/teamMember:TeamMember a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==\n```\n\n To find the ID of a team member you are trying to import you can use the GraphQL snippet below. A link to this snippet can also be found at https://buildkite.com/user/graphql/console/c6a2cc65-dc59-49df-95c6-7167b68dbd5d. You will need fo fill in the organization slug and search terms for teams and members. Both search terms work on the name of the associated object. graphql query {\n\n organization(slug\"\") {\n\n\n\n teams(first2, search\"\") {\n\n\n\n\n\n edges {\n\n\n\n\n\n\n\n node {\n\n\n\n\n\n\n\n\n\n members(first2, search\"\") {\n\n\n\n\n\n\n\n\n\n\n\n edges {\n\n\n\n\n\n\n\n\n\n\n\n\n\n node {\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n id\n\n\n\n\n\n\n\n\n\n\n\n\n\n }\n\n\n\n\n\n\n\n\n\n\n\n }\n\n\n\n\n\n\n\n\n\n }\n\n\n\n\n\n\n\n }\n\n\n\n\n\n }\n\n\n\n }\n\n } } ",
+            "description": "## # Resource: team_member\n\nThis resource allows manage team membership for existing organization users.\n\nThe user must already be part of the organization to which you are managing team membership. This will not invite a new user to the organization.\n\nBuildkite Documentation: https://buildkite.com/docs/pipelines/permissions\n\nNote: You must first enable Teams on your organization.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi_buildkite from \"@grapl/pulumi-buildkite\";\n\nconst team = new buildkite.Team(\"team\", {\n    privacy: \"VISIBLE\",\n    defaultTeam: true,\n    defaultMemberRole: \"MEMBER\",\n});\nconst aSmith = new buildkite.TeamMember(\"aSmith\", {\n    role: \"MEMBER\",\n    teamId: team.id,\n    userId: \"VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==\",\n});\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\nteam = buildkite.Team(\"team\",\n    privacy=\"VISIBLE\",\n    default_team=True,\n    default_member_role=\"MEMBER\")\na_smith = buildkite.TeamMember(\"aSmith\",\n    role=\"MEMBER\",\n    team_id=team.id,\n    user_id=\"VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==\")\n```\n```csharp\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var team = new Buildkite.Team(\"team\", new Buildkite.TeamArgs\n        {\n            Privacy = \"VISIBLE\",\n            DefaultTeam = true,\n            DefaultMemberRole = \"MEMBER\",\n        });\n        var aSmith = new Buildkite.TeamMember(\"aSmith\", new Buildkite.TeamMemberArgs\n        {\n            Role = \"MEMBER\",\n            TeamId = team.Id,\n            UserId = \"VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tteam, err := buildkite.NewTeam(ctx, \"team\", \u0026buildkite.TeamArgs{\n\t\t\tPrivacy:           pulumi.String(\"VISIBLE\"),\n\t\t\tDefaultTeam:       pulumi.Bool(true),\n\t\t\tDefaultMemberRole: pulumi.String(\"MEMBER\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = buildkite.NewTeamMember(ctx, \"aSmith\", \u0026buildkite.TeamMemberArgs{\n\t\t\tRole:   pulumi.String(\"MEMBER\"),\n\t\t\tTeamId: team.ID(),\n\t\t\tUserId: pulumi.String(\"VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var team = new Team(\"team\", TeamArgs.builder()        \n            .privacy(\"VISIBLE\")\n            .defaultTeam(true)\n            .defaultMemberRole(\"MEMBER\")\n            .build());\n\n        var aSmith = new TeamMember(\"aSmith\", TeamMemberArgs.builder()        \n            .role(\"MEMBER\")\n            .teamId(team.id())\n            .userId(\"VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  team:\n    type: buildkite:Team\n    properties:\n      privacy: VISIBLE\n      defaultTeam: true\n      defaultMemberRole: MEMBER\n  aSmith:\n    type: buildkite:TeamMember\n    properties:\n      role: MEMBER\n      teamId: ${team.id}\n      userId: VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nTeam members can be imported using the GraphQL ID of the membership. Note this is different to the ID of the user.\n\n```sh\n $ pulumi import buildkite:index/teamMember:TeamMember a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==\n```\n\n To find the ID of a team member you are trying to import you can use the GraphQL snippet below. A link to this snippet can also be found at https://buildkite.com/user/graphql/console/c6a2cc65-dc59-49df-95c6-7167b68dbd5d. You will need fo fill in the organization slug and search terms for teams and members. Both search terms work on the name of the associated object. graphql query {\n\n organization(slug\"\") {\n\n\n\n teams(first2, search\"\") {\n\n\n\n\n\n edges {\n\n\n\n\n\n\n\n node {\n\n\n\n\n\n\n\n\n\n members(first2, search\"\") {\n\n\n\n\n\n\n\n\n\n\n\n edges {\n\n\n\n\n\n\n\n\n\n\n\n\n\n node {\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n id\n\n\n\n\n\n\n\n\n\n\n\n\n\n }\n\n\n\n\n\n\n\n\n\n\n\n }\n\n\n\n\n\n\n\n\n\n }\n\n\n\n\n\n\n\n }\n\n\n\n\n\n }\n\n\n\n }\n\n } } ",
             "properties": {
                 "role": {
                     "type": "string",
@@ -912,7 +966,7 @@
             }
         },
         "buildkite:index/getPipeline:getPipeline": {
-            "description": "## # Data Source: pipeline\n\nUse this data source to look up properties on a specific pipeline. This is\nparticularly useful for looking up the webhook URL for each pipeline.\n\nBuildkite Documentation: https://buildkite.com/docs/pipelines\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumi/buildkite\";\n\nconst repo2 = pulumi.output(buildkite.getPipeline({\n    slug: \"repo2\",\n}));\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\nrepo2 = buildkite.get_pipeline(slug=\"repo2\")\n```\n```csharp\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var repo2 = Output.Create(Buildkite.GetPipeline.InvokeAsync(new Buildkite.GetPipelineArgs\n        {\n            Slug = \"repo2\",\n        }));\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.LookupPipeline(ctx, \u0026GetPipelineArgs{\n\t\t\tSlug: \"repo2\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "## # Data Source: pipeline\n\nUse this data source to look up properties on a specific pipeline. This is\nparticularly useful for looking up the webhook URL for each pipeline.\n\nBuildkite Documentation: https://buildkite.com/docs/pipelines\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumi/buildkite\";\n\nconst repo2 = pulumi.output(buildkite.getPipeline({\n    slug: \"repo2\",\n}));\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\nrepo2 = buildkite.get_pipeline(slug=\"repo2\")\n```\n```csharp\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var repo2 = Output.Create(Buildkite.GetPipeline.InvokeAsync(new Buildkite.GetPipelineArgs\n        {\n            Slug = \"repo2\",\n        }));\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.LookupPipeline(ctx, \u0026GetPipelineArgs{\n\t\t\tSlug: \"repo2\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var repo2 = Output.of(BuildkiteFunctions.getPipeline(GetPipelineArgs.builder()\n            .slug(\"repo2\")\n            .build()));\n\n    }\n}\n```\n```yaml\nvariables:\n  repo2:\n    Fn::Invoke:\n      Function: buildkite:getPipeline\n      Arguments:\n        slug: repo2\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getPipeline.\n",
                 "properties": {
@@ -966,6 +1020,74 @@
                     "slug",
                     "webhookUrl",
                     "id"
+                ]
+            }
+        },
+        "buildkite:index/getTeam:getTeam": {
+            "description": "## # Data Source: team\n\nUse this data source to look up properties of a team. This can be used to\nvalidate that a team exists before setting the team slug on a pipeline.\n\nBuildkite documentation: https://buildkite.com/docs/pipelines/permissions\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumi/buildkite\";\n\nconst myTeam = pulumi.output(buildkite.getTeam({\n    slug: \"my_team\",\n}));\n```\n```python\nimport pulumi\nimport pulumi_buildkite as buildkite\n\nmy_team = buildkite.get_team(slug=\"my_team\")\n```\n```csharp\nusing Pulumi;\nusing Buildkite = Pulumi.Buildkite;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var myTeam = Output.Create(Buildkite.GetTeam.InvokeAsync(new Buildkite.GetTeamArgs\n        {\n            Slug = \"my_team\",\n        }));\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi-buildkite/sdk/go/buildkite\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := buildkite.LookupTeam(ctx, \u0026GetTeamArgs{\n\t\t\tSlug: \"my_team\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var myTeam = Output.of(BuildkiteFunctions.getTeam(GetTeamArgs.builder()\n            .slug(\"my_team\")\n            .build()));\n\n    }\n}\n```\n```yaml\nvariables:\n  myTeam:\n    Fn::Invoke:\n      Function: buildkite:getTeam\n      Arguments:\n        slug: my_team\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getTeam.\n",
+                "properties": {
+                    "slug": {
+                        "type": "string",
+                        "description": "The slug of the team, available in the URL of the team on buildkite.com\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "slug"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getTeam.\n",
+                "properties": {
+                    "defaultMemberRole": {
+                        "type": "string",
+                        "description": "Default role to assign to a team member\n"
+                    },
+                    "defaultTeam": {
+                        "type": "boolean",
+                        "description": "Whether new org members will be automatically added to this team\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the team\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The GraphQL ID of the team\n"
+                    },
+                    "membersCanCreatePipelines": {
+                        "type": "boolean",
+                        "description": "Whether team members can create new pipelines and add them to the team\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the team\n"
+                    },
+                    "privacy": {
+                        "type": "string",
+                        "description": "Whether the team is visible to org members outside this team\n"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "description": "The UUID of the team\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "defaultMemberRole",
+                    "defaultTeam",
+                    "description",
+                    "id",
+                    "membersCanCreatePipelines",
+                    "name",
+                    "privacy",
+                    "slug",
+                    "uuid"
                 ]
             }
         }

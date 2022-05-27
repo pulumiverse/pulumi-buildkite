@@ -17,6 +17,11 @@ func GetApiToken(ctx *pulumi.Context) string {
 	return getEnvOrDefault("", nil, "BUILDKITE_API_TOKEN").(string)
 }
 
+// Base URL for the GraphQL API to use
+func GetGraphqlUrl(ctx *pulumi.Context) string {
+	return config.Get(ctx, "buildkite:graphqlUrl")
+}
+
 // The Buildkite organization ID
 func GetOrganization(ctx *pulumi.Context) string {
 	v, err := config.Try(ctx, "buildkite:organization")
@@ -24,4 +29,9 @@ func GetOrganization(ctx *pulumi.Context) string {
 		return v
 	}
 	return getEnvOrDefault("", nil, "BUILDKITE_ORGANIZATION").(string)
+}
+
+// Base URL for the REST API to use
+func GetRestUrl(ctx *pulumi.Context) string {
+	return config.Get(ctx, "buildkite:restUrl")
 }

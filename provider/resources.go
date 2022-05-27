@@ -99,6 +99,7 @@ func Provider() tfbridge.ProviderInfo {
 			"buildkite_pipeline": {Tok: tfbridge.MakeDataSource(
 				mainPkg, mainMod, "getPipeline",
 			)},
+			"buildkite_team": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getTeam")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			Dependencies: map[string]string{

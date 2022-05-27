@@ -262,6 +262,46 @@ func (o TeamOutput) ToTeamOutputWithContext(ctx context.Context) TeamOutput {
 	return o
 }
 
+// Default role to assign to a team member.
+func (o TeamOutput) DefaultMemberRole() pulumi.StringOutput {
+	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.DefaultMemberRole }).(pulumi.StringOutput)
+}
+
+// Whether to assign this team to a user by default.
+func (o TeamOutput) DefaultTeam() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Team) pulumi.BoolOutput { return v.DefaultTeam }).(pulumi.BoolOutput)
+}
+
+// The description to assign to the team.
+func (o TeamOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Team) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// Whether team members can create.
+func (o TeamOutput) MembersCanCreatePipelines() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Team) pulumi.BoolPtrOutput { return v.MembersCanCreatePipelines }).(pulumi.BoolPtrOutput)
+}
+
+// The name of the team.
+func (o TeamOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The privacy level to set the team too.
+func (o TeamOutput) Privacy() pulumi.StringOutput {
+	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.Privacy }).(pulumi.StringOutput)
+}
+
+// The name of the team.
+func (o TeamOutput) Slug() pulumi.StringOutput {
+	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.Slug }).(pulumi.StringOutput)
+}
+
+// The UUID for the team.
+func (o TeamOutput) Uuid() pulumi.StringOutput {
+	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
+}
+
 type TeamArrayOutput struct{ *pulumi.OutputState }
 
 func (TeamArrayOutput) ElementType() reflect.Type {

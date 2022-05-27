@@ -14,20 +14,28 @@ __all__ = ['ProviderArgs', 'Provider']
 class ProviderArgs:
     def __init__(__self__, *,
                  api_token: Optional[pulumi.Input[str]] = None,
-                 organization: Optional[pulumi.Input[str]] = None):
+                 graphql_url: Optional[pulumi.Input[str]] = None,
+                 organization: Optional[pulumi.Input[str]] = None,
+                 rest_url: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Provider resource.
         :param pulumi.Input[str] api_token: API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+        :param pulumi.Input[str] graphql_url: Base URL for the GraphQL API to use
         :param pulumi.Input[str] organization: The Buildkite organization ID
+        :param pulumi.Input[str] rest_url: Base URL for the REST API to use
         """
         if api_token is None:
             api_token = _utilities.get_env('BUILDKITE_API_TOKEN')
         if api_token is not None:
             pulumi.set(__self__, "api_token", api_token)
+        if graphql_url is not None:
+            pulumi.set(__self__, "graphql_url", graphql_url)
         if organization is None:
             organization = _utilities.get_env('BUILDKITE_ORGANIZATION')
         if organization is not None:
             pulumi.set(__self__, "organization", organization)
+        if rest_url is not None:
+            pulumi.set(__self__, "rest_url", rest_url)
 
     @property
     @pulumi.getter(name="apiToken")
@@ -42,6 +50,18 @@ class ProviderArgs:
         pulumi.set(self, "api_token", value)
 
     @property
+    @pulumi.getter(name="graphqlUrl")
+    def graphql_url(self) -> Optional[pulumi.Input[str]]:
+        """
+        Base URL for the GraphQL API to use
+        """
+        return pulumi.get(self, "graphql_url")
+
+    @graphql_url.setter
+    def graphql_url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "graphql_url", value)
+
+    @property
     @pulumi.getter
     def organization(self) -> Optional[pulumi.Input[str]]:
         """
@@ -53,6 +73,18 @@ class ProviderArgs:
     def organization(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "organization", value)
 
+    @property
+    @pulumi.getter(name="restUrl")
+    def rest_url(self) -> Optional[pulumi.Input[str]]:
+        """
+        Base URL for the REST API to use
+        """
+        return pulumi.get(self, "rest_url")
+
+    @rest_url.setter
+    def rest_url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "rest_url", value)
+
 
 class Provider(pulumi.ProviderResource):
     @overload
@@ -60,7 +92,9 @@ class Provider(pulumi.ProviderResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_token: Optional[pulumi.Input[str]] = None,
+                 graphql_url: Optional[pulumi.Input[str]] = None,
                  organization: Optional[pulumi.Input[str]] = None,
+                 rest_url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         The provider type for the buildkite package. By default, resources use package-wide configuration
@@ -71,7 +105,9 @@ class Provider(pulumi.ProviderResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_token: API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+        :param pulumi.Input[str] graphql_url: Base URL for the GraphQL API to use
         :param pulumi.Input[str] organization: The Buildkite organization ID
+        :param pulumi.Input[str] rest_url: Base URL for the REST API to use
         """
         ...
     @overload
@@ -101,7 +137,9 @@ class Provider(pulumi.ProviderResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_token: Optional[pulumi.Input[str]] = None,
+                 graphql_url: Optional[pulumi.Input[str]] = None,
                  organization: Optional[pulumi.Input[str]] = None,
+                 rest_url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
@@ -119,9 +157,11 @@ class Provider(pulumi.ProviderResource):
             if api_token is None:
                 api_token = _utilities.get_env('BUILDKITE_API_TOKEN')
             __props__.__dict__["api_token"] = None if api_token is None else pulumi.Output.secret(api_token)
+            __props__.__dict__["graphql_url"] = graphql_url
             if organization is None:
                 organization = _utilities.get_env('BUILDKITE_ORGANIZATION')
             __props__.__dict__["organization"] = organization
+            __props__.__dict__["rest_url"] = rest_url
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["apiToken"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Provider, __self__).__init__(
@@ -139,10 +179,26 @@ class Provider(pulumi.ProviderResource):
         return pulumi.get(self, "api_token")
 
     @property
+    @pulumi.getter(name="graphqlUrl")
+    def graphql_url(self) -> pulumi.Output[Optional[str]]:
+        """
+        Base URL for the GraphQL API to use
+        """
+        return pulumi.get(self, "graphql_url")
+
+    @property
     @pulumi.getter
     def organization(self) -> pulumi.Output[Optional[str]]:
         """
         The Buildkite organization ID
         """
         return pulumi.get(self, "organization")
+
+    @property
+    @pulumi.getter(name="restUrl")
+    def rest_url(self) -> pulumi.Output[Optional[str]]:
+        """
+        Base URL for the REST API to use
+        """
+        return pulumi.get(self, "rest_url")
 

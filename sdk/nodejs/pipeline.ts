@@ -96,6 +96,7 @@ export class Pipeline extends pulumi.CustomResource {
         return obj['__pulumiType'] === Pipeline.__pulumiType;
     }
 
+    public readonly allowRebuilds!: pulumi.Output<boolean>;
     /**
      * The pipeline's last build status so you can display build status badge.
      */
@@ -152,6 +153,7 @@ export class Pipeline extends pulumi.CustomResource {
      * The string YAML steps to run the pipeline.
      */
     public readonly steps!: pulumi.Output<string>;
+    public readonly tags!: pulumi.Output<string[] | undefined>;
     /**
      * Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
      */
@@ -174,6 +176,7 @@ export class Pipeline extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as PipelineState | undefined;
+            resourceInputs["allowRebuilds"] = state ? state.allowRebuilds : undefined;
             resourceInputs["badgeUrl"] = state ? state.badgeUrl : undefined;
             resourceInputs["branchConfiguration"] = state ? state.branchConfiguration : undefined;
             resourceInputs["cancelIntermediateBuilds"] = state ? state.cancelIntermediateBuilds : undefined;
@@ -188,6 +191,7 @@ export class Pipeline extends pulumi.CustomResource {
             resourceInputs["skipIntermediateBuildsBranchFilter"] = state ? state.skipIntermediateBuildsBranchFilter : undefined;
             resourceInputs["slug"] = state ? state.slug : undefined;
             resourceInputs["steps"] = state ? state.steps : undefined;
+            resourceInputs["tags"] = state ? state.tags : undefined;
             resourceInputs["teams"] = state ? state.teams : undefined;
             resourceInputs["webhookUrl"] = state ? state.webhookUrl : undefined;
         } else {
@@ -198,6 +202,7 @@ export class Pipeline extends pulumi.CustomResource {
             if ((!args || args.steps === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'steps'");
             }
+            resourceInputs["allowRebuilds"] = args ? args.allowRebuilds : undefined;
             resourceInputs["branchConfiguration"] = args ? args.branchConfiguration : undefined;
             resourceInputs["cancelIntermediateBuilds"] = args ? args.cancelIntermediateBuilds : undefined;
             resourceInputs["cancelIntermediateBuildsBranchFilter"] = args ? args.cancelIntermediateBuildsBranchFilter : undefined;
@@ -210,6 +215,7 @@ export class Pipeline extends pulumi.CustomResource {
             resourceInputs["skipIntermediateBuilds"] = args ? args.skipIntermediateBuilds : undefined;
             resourceInputs["skipIntermediateBuildsBranchFilter"] = args ? args.skipIntermediateBuildsBranchFilter : undefined;
             resourceInputs["steps"] = args ? args.steps : undefined;
+            resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["teams"] = args ? args.teams : undefined;
             resourceInputs["badgeUrl"] = undefined /*out*/;
             resourceInputs["slug"] = undefined /*out*/;
@@ -224,6 +230,7 @@ export class Pipeline extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Pipeline resources.
  */
 export interface PipelineState {
+    allowRebuilds?: pulumi.Input<boolean>;
     /**
      * The pipeline's last build status so you can display build status badge.
      */
@@ -280,6 +287,7 @@ export interface PipelineState {
      * The string YAML steps to run the pipeline.
      */
     steps?: pulumi.Input<string>;
+    tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
      */
@@ -294,6 +302,7 @@ export interface PipelineState {
  * The set of arguments for constructing a Pipeline resource.
  */
 export interface PipelineArgs {
+    allowRebuilds?: pulumi.Input<boolean>;
     /**
      * Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
      */
@@ -342,6 +351,7 @@ export interface PipelineArgs {
      * The string YAML steps to run the pipeline.
      */
     steps: pulumi.Input<string>;
+    tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
      */

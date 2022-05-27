@@ -19,12 +19,34 @@ Object.defineProperty(exports, "apiToken", {
 });
 
 /**
+ * Base URL for the GraphQL API to use
+ */
+export declare const graphqlUrl: string | undefined;
+Object.defineProperty(exports, "graphqlUrl", {
+    get() {
+        return __config.get("graphqlUrl");
+    },
+    enumerable: true,
+});
+
+/**
  * The Buildkite organization ID
  */
 export declare const organization: string | undefined;
 Object.defineProperty(exports, "organization", {
     get() {
         return __config.get("organization") ?? utilities.getEnv("BUILDKITE_ORGANIZATION");
+    },
+    enumerable: true,
+});
+
+/**
+ * Base URL for the REST API to use
+ */
+export declare const restUrl: string | undefined;
+Object.defineProperty(exports, "restUrl", {
+    get() {
+        return __config.get("restUrl");
     },
     enumerable: true,
 });

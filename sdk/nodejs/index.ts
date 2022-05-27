@@ -8,6 +8,7 @@ import * as utilities from "./utilities";
 export * from "./agentToken";
 export * from "./getMeta";
 export * from "./getPipeline";
+export * from "./getTeam";
 export * from "./pipeline";
 export * from "./pipelineSchedule";
 export * from "./provider";

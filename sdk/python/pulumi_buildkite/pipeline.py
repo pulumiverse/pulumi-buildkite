@@ -17,6 +17,7 @@ class PipelineArgs:
     def __init__(__self__, *,
                  repository: pulumi.Input[str],
                  steps: pulumi.Input[str],
+                 allow_rebuilds: Optional[pulumi.Input[bool]] = None,
                  branch_configuration: Optional[pulumi.Input[str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[str]] = None,
@@ -27,6 +28,7 @@ class PipelineArgs:
                  provider_settings: Optional[pulumi.Input['PipelineProviderSettingsArgs']] = None,
                  skip_intermediate_builds: Optional[pulumi.Input[bool]] = None,
                  skip_intermediate_builds_branch_filter: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  teams: Optional[pulumi.Input[Sequence[pulumi.Input['PipelineTeamArgs']]]] = None):
         """
         The set of arguments for constructing a Pipeline resource.
@@ -46,6 +48,8 @@ class PipelineArgs:
         """
         pulumi.set(__self__, "repository", repository)
         pulumi.set(__self__, "steps", steps)
+        if allow_rebuilds is not None:
+            pulumi.set(__self__, "allow_rebuilds", allow_rebuilds)
         if branch_configuration is not None:
             pulumi.set(__self__, "branch_configuration", branch_configuration)
         if cancel_intermediate_builds is not None:
@@ -66,6 +70,8 @@ class PipelineArgs:
             pulumi.set(__self__, "skip_intermediate_builds", skip_intermediate_builds)
         if skip_intermediate_builds_branch_filter is not None:
             pulumi.set(__self__, "skip_intermediate_builds_branch_filter", skip_intermediate_builds_branch_filter)
+        if tags is not None:
+            pulumi.set(__self__, "tags", tags)
         if teams is not None:
             pulumi.set(__self__, "teams", teams)
 
@@ -92,6 +98,15 @@ class PipelineArgs:
     @steps.setter
     def steps(self, value: pulumi.Input[str]):
         pulumi.set(self, "steps", value)
+
+    @property
+    @pulumi.getter(name="allowRebuilds")
+    def allow_rebuilds(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "allow_rebuilds")
+
+    @allow_rebuilds.setter
+    def allow_rebuilds(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "allow_rebuilds", value)
 
     @property
     @pulumi.getter(name="branchConfiguration")
@@ -215,6 +230,15 @@ class PipelineArgs:
 
     @property
     @pulumi.getter
+    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "tags")
+
+    @tags.setter
+    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "tags", value)
+
+    @property
+    @pulumi.getter
     def teams(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PipelineTeamArgs']]]]:
         """
         Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
@@ -229,6 +253,7 @@ class PipelineArgs:
 @pulumi.input_type
 class _PipelineState:
     def __init__(__self__, *,
+                 allow_rebuilds: Optional[pulumi.Input[bool]] = None,
                  badge_url: Optional[pulumi.Input[str]] = None,
                  branch_configuration: Optional[pulumi.Input[str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[bool]] = None,
@@ -243,6 +268,7 @@ class _PipelineState:
                  skip_intermediate_builds_branch_filter: Optional[pulumi.Input[str]] = None,
                  slug: Optional[pulumi.Input[str]] = None,
                  steps: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  teams: Optional[pulumi.Input[Sequence[pulumi.Input['PipelineTeamArgs']]]] = None,
                  webhook_url: Optional[pulumi.Input[str]] = None):
         """
@@ -264,6 +290,8 @@ class _PipelineState:
         :param pulumi.Input[Sequence[pulumi.Input['PipelineTeamArgs']]] teams: Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
         :param pulumi.Input[str] webhook_url: The Buildkite webhook URL to configure on the repository to trigger builds on this pipeline.
         """
+        if allow_rebuilds is not None:
+            pulumi.set(__self__, "allow_rebuilds", allow_rebuilds)
         if badge_url is not None:
             pulumi.set(__self__, "badge_url", badge_url)
         if branch_configuration is not None:
@@ -292,10 +320,21 @@ class _PipelineState:
             pulumi.set(__self__, "slug", slug)
         if steps is not None:
             pulumi.set(__self__, "steps", steps)
+        if tags is not None:
+            pulumi.set(__self__, "tags", tags)
         if teams is not None:
             pulumi.set(__self__, "teams", teams)
         if webhook_url is not None:
             pulumi.set(__self__, "webhook_url", webhook_url)
+
+    @property
+    @pulumi.getter(name="allowRebuilds")
+    def allow_rebuilds(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "allow_rebuilds")
+
+    @allow_rebuilds.setter
+    def allow_rebuilds(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "allow_rebuilds", value)
 
     @property
     @pulumi.getter(name="badgeUrl")
@@ -467,6 +506,15 @@ class _PipelineState:
 
     @property
     @pulumi.getter
+    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "tags")
+
+    @tags.setter
+    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "tags", value)
+
+    @property
+    @pulumi.getter
     def teams(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PipelineTeamArgs']]]]:
         """
         Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
@@ -495,6 +543,7 @@ class Pipeline(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 allow_rebuilds: Optional[pulumi.Input[bool]] = None,
                  branch_configuration: Optional[pulumi.Input[str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[str]] = None,
@@ -507,6 +556,7 @@ class Pipeline(pulumi.CustomResource):
                  skip_intermediate_builds: Optional[pulumi.Input[bool]] = None,
                  skip_intermediate_builds_branch_filter: Optional[pulumi.Input[str]] = None,
                  steps: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  teams: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PipelineTeamArgs']]]]] = None,
                  __props__=None):
         """
@@ -662,6 +712,7 @@ class Pipeline(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 allow_rebuilds: Optional[pulumi.Input[bool]] = None,
                  branch_configuration: Optional[pulumi.Input[str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[str]] = None,
@@ -674,6 +725,7 @@ class Pipeline(pulumi.CustomResource):
                  skip_intermediate_builds: Optional[pulumi.Input[bool]] = None,
                  skip_intermediate_builds_branch_filter: Optional[pulumi.Input[str]] = None,
                  steps: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  teams: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PipelineTeamArgs']]]]] = None,
                  __props__=None):
         if opts is None:
@@ -689,6 +741,7 @@ class Pipeline(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = PipelineArgs.__new__(PipelineArgs)
 
+            __props__.__dict__["allow_rebuilds"] = allow_rebuilds
             __props__.__dict__["branch_configuration"] = branch_configuration
             __props__.__dict__["cancel_intermediate_builds"] = cancel_intermediate_builds
             __props__.__dict__["cancel_intermediate_builds_branch_filter"] = cancel_intermediate_builds_branch_filter
@@ -705,6 +758,7 @@ class Pipeline(pulumi.CustomResource):
             if steps is None and not opts.urn:
                 raise TypeError("Missing required property 'steps'")
             __props__.__dict__["steps"] = steps
+            __props__.__dict__["tags"] = tags
             __props__.__dict__["teams"] = teams
             __props__.__dict__["badge_url"] = None
             __props__.__dict__["slug"] = None
@@ -719,6 +773,7 @@ class Pipeline(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            allow_rebuilds: Optional[pulumi.Input[bool]] = None,
             badge_url: Optional[pulumi.Input[str]] = None,
             branch_configuration: Optional[pulumi.Input[str]] = None,
             cancel_intermediate_builds: Optional[pulumi.Input[bool]] = None,
@@ -733,6 +788,7 @@ class Pipeline(pulumi.CustomResource):
             skip_intermediate_builds_branch_filter: Optional[pulumi.Input[str]] = None,
             slug: Optional[pulumi.Input[str]] = None,
             steps: Optional[pulumi.Input[str]] = None,
+            tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             teams: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PipelineTeamArgs']]]]] = None,
             webhook_url: Optional[pulumi.Input[str]] = None) -> 'Pipeline':
         """
@@ -763,6 +819,7 @@ class Pipeline(pulumi.CustomResource):
 
         __props__ = _PipelineState.__new__(_PipelineState)
 
+        __props__.__dict__["allow_rebuilds"] = allow_rebuilds
         __props__.__dict__["badge_url"] = badge_url
         __props__.__dict__["branch_configuration"] = branch_configuration
         __props__.__dict__["cancel_intermediate_builds"] = cancel_intermediate_builds
@@ -777,9 +834,15 @@ class Pipeline(pulumi.CustomResource):
         __props__.__dict__["skip_intermediate_builds_branch_filter"] = skip_intermediate_builds_branch_filter
         __props__.__dict__["slug"] = slug
         __props__.__dict__["steps"] = steps
+        __props__.__dict__["tags"] = tags
         __props__.__dict__["teams"] = teams
         __props__.__dict__["webhook_url"] = webhook_url
         return Pipeline(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="allowRebuilds")
+    def allow_rebuilds(self) -> pulumi.Output[bool]:
+        return pulumi.get(self, "allow_rebuilds")
 
     @property
     @pulumi.getter(name="badgeUrl")
@@ -892,6 +955,11 @@ class Pipeline(pulumi.CustomResource):
         The string YAML steps to run the pipeline.
         """
         return pulumi.get(self, "steps")
+
+    @property
+    @pulumi.getter
+    def tags(self) -> pulumi.Output[Optional[Sequence[str]]]:
+        return pulumi.get(self, "tags")
 
     @property
     @pulumi.getter

@@ -281,6 +281,50 @@ func (o PipelineScheduleOutput) ToPipelineScheduleOutputWithContext(ctx context.
 	return o
 }
 
+// The branch to use for the build.
+func (o PipelineScheduleOutput) Branch() pulumi.StringOutput {
+	return o.ApplyT(func(v *PipelineSchedule) pulumi.StringOutput { return v.Branch }).(pulumi.StringOutput)
+}
+
+// The commit ref to use for the build.
+func (o PipelineScheduleOutput) Commit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PipelineSchedule) pulumi.StringPtrOutput { return v.Commit }).(pulumi.StringPtrOutput)
+}
+
+// Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+func (o PipelineScheduleOutput) Cronline() pulumi.StringOutput {
+	return o.ApplyT(func(v *PipelineSchedule) pulumi.StringOutput { return v.Cronline }).(pulumi.StringOutput)
+}
+
+// Whether the schedule should run.
+func (o PipelineScheduleOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineSchedule) pulumi.BoolPtrOutput { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// A map of environment variables to use for the build.
+func (o PipelineScheduleOutput) Env() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *PipelineSchedule) pulumi.StringMapOutput { return v.Env }).(pulumi.StringMapOutput)
+}
+
+// Schedule label.
+func (o PipelineScheduleOutput) Label() pulumi.StringOutput {
+	return o.ApplyT(func(v *PipelineSchedule) pulumi.StringOutput { return v.Label }).(pulumi.StringOutput)
+}
+
+// The message to use for the build.
+func (o PipelineScheduleOutput) Message() pulumi.StringOutput {
+	return o.ApplyT(func(v *PipelineSchedule) pulumi.StringOutput { return v.Message }).(pulumi.StringOutput)
+}
+
+func (o PipelineScheduleOutput) PipelineId() pulumi.StringOutput {
+	return o.ApplyT(func(v *PipelineSchedule) pulumi.StringOutput { return v.PipelineId }).(pulumi.StringOutput)
+}
+
+// The UUID of the pipeline schedule
+func (o PipelineScheduleOutput) Uuid() pulumi.StringOutput {
+	return o.ApplyT(func(v *PipelineSchedule) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
+}
+
 type PipelineScheduleArrayOutput struct{ *pulumi.OutputState }
 
 func (PipelineScheduleArrayOutput) ElementType() reflect.Type {

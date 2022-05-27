@@ -276,6 +276,26 @@ func (o TeamMemberOutput) ToTeamMemberOutputWithContext(ctx context.Context) Tea
 	return o
 }
 
+// Either MEMBER or MAINTAINER.
+func (o TeamMemberOutput) Role() pulumi.StringOutput {
+	return o.ApplyT(func(v *TeamMember) pulumi.StringOutput { return v.Role }).(pulumi.StringOutput)
+}
+
+// The GraphQL ID of the team to add to/remove from.
+func (o TeamMemberOutput) TeamId() pulumi.StringOutput {
+	return o.ApplyT(func(v *TeamMember) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
+}
+
+// The GraphQL ID of the user to add/remove.
+func (o TeamMemberOutput) UserId() pulumi.StringOutput {
+	return o.ApplyT(func(v *TeamMember) pulumi.StringOutput { return v.UserId }).(pulumi.StringOutput)
+}
+
+// The UUID for the team membership.
+func (o TeamMemberOutput) Uuid() pulumi.StringOutput {
+	return o.ApplyT(func(v *TeamMember) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
+}
+
 type TeamMemberArrayOutput struct{ *pulumi.OutputState }
 
 func (TeamMemberArrayOutput) ElementType() reflect.Type {

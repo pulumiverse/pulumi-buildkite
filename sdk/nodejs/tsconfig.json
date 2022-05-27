@@ -18,6 +18,7 @@
         "config/vars.ts",
         "getMeta.ts",
         "getPipeline.ts",
+        "getTeam.ts",
         "index.ts",
         "pipeline.ts",
         "pipelineSchedule.ts",
