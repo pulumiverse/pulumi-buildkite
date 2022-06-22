@@ -74,7 +74,7 @@ steps:
         command:
           - make {{matrix.language}}-sdk test-{{matrix.language}}
         plugins:
-          - grapl-security/vault-login#v0.1.2
+          - grapl-security/vault-login#v0.1.3
           - grapl-security/vault-env#v0.1.0:
               secrets:
                 - PULUMI_ACCESS_TOKEN
