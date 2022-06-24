@@ -16,8 +16,8 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
+ * import * as fs from "fs";
  * import * as pulumi_buildkite from "@grapl/pulumi-buildkite";
- * import * from "fs";
  *
  * // in ./steps.yml:
  * // steps:
@@ -36,8 +36,8 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
+ * import * as fs from "fs";
  * import * as pulumi_buildkite from "@grapl/pulumi-buildkite";
- * import * from "fs";
  *
  * // Pipeline that should not be triggered from a GitHub webhook
  * const repo2_deploy = new buildkite.Pipeline("repo2-deploy", {

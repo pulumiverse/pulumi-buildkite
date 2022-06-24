@@ -5,6 +5,6 @@ go 1.16
 replace github.com/grapl-security/pulumi-buildkite/sdk => ../../../sdk
 
 require (
-	github.com/grapl-security/pulumi-buildkite/sdk v0.1.0
-	github.com/pulumi/pulumi/sdk/v3 v3.33.1
+	github.com/grapl-security/pulumi-buildkite/sdk v0.2.0
+	github.com/pulumi/pulumi/sdk/v3 v3.35.0
 )

@@ -24,6 +24,6 @@
     },
     "pulumi": {
         "resource": true,
-        "pluginDownloadURL": "https://github.com/grapl-security/pulumi-buildkite/releases/download/v${VERSION}"
+        "server": "https://github.com/grapl-security/pulumi-buildkite/releases/download/v${VERSION}"
     }
 }
