@@ -11,20 +11,6 @@ import * as utilities from "./utilities";
  *
  * Buildkite Documentation: https://buildkite.com/docs/pipelines/scheduled-builds
  *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as pulumi_buildkite from "@grapl/pulumi-buildkite";
- *
- * const repo2Nightly = new buildkite.PipelineSchedule("repo2Nightly", {
- *     pipelineId: buildkite_pipeline.repo2.id,
- *     label: "Nightly build",
- *     cronline: "@midnight",
- *     branch: buildkite_pipeline.repo2.default_branch,
- * });
- * ```
- *
  * ## Import
  *
  * Pipeline schedules can be imported using a slug (which consists of `$BUILDKITE_ORGANIZATION_SLUG/$BUILDKITE_PIPELINE_SLUG/$PIPELINE_SCHEDULE_UUID`), e.g.

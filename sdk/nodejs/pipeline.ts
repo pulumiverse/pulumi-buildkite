@@ -12,54 +12,6 @@ import * as utilities from "./utilities";
  *
  * Buildkite Documentation: https://buildkite.com/docs/pipelines
  *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as fs from "fs";
- * import * as pulumi_buildkite from "@grapl/pulumi-buildkite";
- *
- * // in ./steps.yml:
- * // steps:
- * //   - label: ':pipeline:'
- * //     command: buildkite-agent pipeline upload
- * const repo2 = new buildkite.Pipeline("repo2", {
- *     repository: "git@github.com:org/repo2",
- *     steps: fs.readFileSync("./steps.yml"),
- *     teams: [{
- *         slug: "everyone",
- *         accessLevel: "READ_ONLY",
- *     }],
- * });
- * ```
- * ### With GitHub Provider Settings
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as fs from "fs";
- * import * as pulumi_buildkite from "@grapl/pulumi-buildkite";
- *
- * // Pipeline that should not be triggered from a GitHub webhook
- * const repo2_deploy = new buildkite.Pipeline("repo2-deploy", {
- *     repository: "git@github.com:org/repo2",
- *     steps: fs.readFileSync("./deploy-steps.yml"),
- *     providerSettings: {
- *         triggerMode: "none",
- *     },
- * });
- * // Release pipeline (triggered only when tags are pushed)
- * const repo2_release = new buildkite.Pipeline("repo2-release", {
- *     repository: "git@github.com:org/repo2",
- *     steps: fs.readFileSync("./release-steps.yml"),
- *     providerSettings: {
- *         buildBranches: false,
- *         buildTags: true,
- *         buildPullRequests: false,
- *         triggerMode: "code",
- *     },
- * });
- * ```
- *
  * ## Import
  *
  * Pipelines can be imported using the `GraphQL ID` (not UUID), e.g.

@@ -123,15 +123,6 @@ def get_pipeline(slug: Optional[str] = None,
 
     Buildkite Documentation: https://buildkite.com/docs/pipelines
 
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_buildkite as buildkite
-
-    repo2 = buildkite.get_pipeline(slug="repo2")
-    ```
-
 
     :param str slug: The slug of the pipeline, available in the URL of the pipeline on buildkite.com
     """
@@ -160,15 +151,6 @@ def get_pipeline_output(slug: Optional[pulumi.Input[str]] = None,
     particularly useful for looking up the webhook URL for each pipeline.
 
     Buildkite Documentation: https://buildkite.com/docs/pipelines
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_buildkite as buildkite
-
-    repo2 = buildkite.get_pipeline(slug="repo2")
-    ```
 
 
     :param str slug: The slug of the pipeline, available in the URL of the pipeline on buildkite.com

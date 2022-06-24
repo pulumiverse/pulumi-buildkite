@@ -156,22 +156,6 @@ class TeamMember(pulumi.CustomResource):
 
         Note: You must first enable Teams on your organization.
 
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_buildkite as buildkite
-
-        team = buildkite.Team("team",
-            privacy="VISIBLE",
-            default_team=True,
-            default_member_role="MEMBER")
-        a_smith = buildkite.TeamMember("aSmith",
-            role="MEMBER",
-            team_id=team.id,
-            user_id="VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==")
-        ```
-
         ## Import
 
         Team members can be imported using the GraphQL ID of the membership. Note this is different to the ID of the user.
@@ -234,22 +218,6 @@ class TeamMember(pulumi.CustomResource):
         Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions
 
         Note: You must first enable Teams on your organization.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_buildkite as buildkite
-
-        team = buildkite.Team("team",
-            privacy="VISIBLE",
-            default_team=True,
-            default_member_role="MEMBER")
-        a_smith = buildkite.TeamMember("aSmith",
-            role="MEMBER",
-            team_id=team.id,
-            user_id="VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==")
-        ```
 
         ## Import
 

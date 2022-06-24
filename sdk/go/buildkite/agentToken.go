@@ -16,29 +16,6 @@ import (
 //
 // Buildkite Documentation: https://buildkite.com/docs/agent/v3/tokens
 //
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := buildkite.NewAgentToken(ctx, "fleet", &buildkite.AgentTokenArgs{
-// 			Description: pulumi.String("token used by build fleet"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-//
 // ## Import
 //
 // Tokens can be imported using the `GraphQL ID` (not UUID), e.g.

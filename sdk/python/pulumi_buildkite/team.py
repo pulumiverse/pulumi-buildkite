@@ -269,18 +269,6 @@ class Team(pulumi.CustomResource):
 
         Note: You must first enable Teams on your organization.
 
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_buildkite as buildkite
-
-        team = buildkite.Team("team",
-            default_member_role="MEMBER",
-            default_team=True,
-            privacy="VISIBLE")
-        ```
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] default_member_role: Default role to assign to a team member.
@@ -304,18 +292,6 @@ class Team(pulumi.CustomResource):
         Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions
 
         Note: You must first enable Teams on your organization.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_buildkite as buildkite
-
-        team = buildkite.Team("team",
-            default_member_role="MEMBER",
-            default_team=True,
-            privacy="VISIBLE")
-        ```
 
         :param str resource_name: The name of the resource.
         :param TeamArgs args: The arguments to use to populate this resource's properties.

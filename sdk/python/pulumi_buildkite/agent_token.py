@@ -105,15 +105,6 @@ class AgentToken(pulumi.CustomResource):
 
         Buildkite Documentation: https://buildkite.com/docs/agent/v3/tokens
 
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_buildkite as buildkite
-
-        fleet = buildkite.AgentToken("fleet", description="token used by build fleet")
-        ```
-
         ## Import
 
         Tokens can be imported using the `GraphQL ID` (not UUID), e.g.
@@ -138,15 +129,6 @@ class AgentToken(pulumi.CustomResource):
         This resource allows you to create and manage agent tokens.
 
         Buildkite Documentation: https://buildkite.com/docs/agent/v3/tokens
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_buildkite as buildkite
-
-        fleet = buildkite.AgentToken("fleet", description="token used by build fleet")
-        ```
 
         ## Import
 
