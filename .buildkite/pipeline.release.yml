@@ -1,6 +1,6 @@
 ---
 env:
-  BUILD_ENVIRONMENT_IMAGE: "docker.cloudsmith.io/grapl/releases/pulumi-provider-build-environment:3.33.1"
+  BUILD_ENVIRONMENT_IMAGE: "docker.cloudsmith.io/grapl/releases/pulumi-provider-build-environment:3.34.1"
   BUILDKITE_PLUGIN_VAULT_ENV_SECRET_PREFIX: "secret/data/buildkite/env"
 
 steps:

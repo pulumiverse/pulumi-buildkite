@@ -16,30 +16,6 @@ import (
 // validate that a team exists before setting the team slug on a pipeline.
 //
 // Buildkite documentation: https://buildkite.com/docs/pipelines/permissions
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite"
-// 	"github.com/pulumi/pulumi-buildkite/sdk/go/buildkite"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := buildkite.LookupTeam(ctx, &GetTeamArgs{
-// 			Slug: "my_team",
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
 func LookupTeam(ctx *pulumi.Context, args *LookupTeamArgs, opts ...pulumi.InvokeOption) (*LookupTeamResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
 	var rv LookupTeamResult

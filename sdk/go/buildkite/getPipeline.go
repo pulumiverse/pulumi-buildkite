@@ -16,30 +16,6 @@ import (
 // particularly useful for looking up the webhook URL for each pipeline.
 //
 // Buildkite Documentation: https://buildkite.com/docs/pipelines
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite"
-// 	"github.com/pulumi/pulumi-buildkite/sdk/go/buildkite"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := buildkite.LookupPipeline(ctx, &GetPipelineArgs{
-// 			Slug: "repo2",
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
 func LookupPipeline(ctx *pulumi.Context, args *LookupPipelineArgs, opts ...pulumi.InvokeOption) (*LookupPipelineResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
 	var rv LookupPipelineResult
