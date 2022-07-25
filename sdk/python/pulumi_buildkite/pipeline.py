@@ -567,6 +567,49 @@ class Pipeline(pulumi.CustomResource):
 
         Buildkite Documentation: https://buildkite.com/docs/pipelines
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_buildkite as buildkite
+
+        # in ./steps.yml:
+        # steps:
+        #   - label: ':pipeline:'
+        #     command: buildkite-agent pipeline upload
+        repo2 = buildkite.Pipeline("repo2",
+            repository="git@github.com:org/repo2",
+            steps=(lambda path: open(path).read())("./steps.yml"),
+            teams=[buildkite.PipelineTeamArgs(
+                slug="everyone",
+                access_level="READ_ONLY",
+            )])
+        ```
+        ### With GitHub Provider Settings
+
+        ```python
+        import pulumi
+        import pulumi_buildkite as buildkite
+
+        # Pipeline that should not be triggered from a GitHub webhook
+        repo2_deploy = buildkite.Pipeline("repo2-deploy",
+            repository="git@github.com:org/repo2",
+            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
+            provider_settings=buildkite.PipelineProviderSettingsArgs(
+                trigger_mode="none",
+            ))
+        # Release pipeline (triggered only when tags are pushed)
+        repo2_release = buildkite.Pipeline("repo2-release",
+            repository="git@github.com:org/repo2",
+            steps=(lambda path: open(path).read())("./release-steps.yml"),
+            provider_settings=buildkite.PipelineProviderSettingsArgs(
+                build_branches=False,
+                build_tags=True,
+                build_pull_requests=False,
+                trigger_mode="code",
+            ))
+        ```
+
         ## Import
 
         Pipelines can be imported using the `GraphQL ID` (not UUID), e.g.
@@ -603,6 +646,49 @@ class Pipeline(pulumi.CustomResource):
         This resource allows you to create and manage pipelines for repositories.
 
         Buildkite Documentation: https://buildkite.com/docs/pipelines
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_buildkite as buildkite
+
+        # in ./steps.yml:
+        # steps:
+        #   - label: ':pipeline:'
+        #     command: buildkite-agent pipeline upload
+        repo2 = buildkite.Pipeline("repo2",
+            repository="git@github.com:org/repo2",
+            steps=(lambda path: open(path).read())("./steps.yml"),
+            teams=[buildkite.PipelineTeamArgs(
+                slug="everyone",
+                access_level="READ_ONLY",
+            )])
+        ```
+        ### With GitHub Provider Settings
+
+        ```python
+        import pulumi
+        import pulumi_buildkite as buildkite
+
+        # Pipeline that should not be triggered from a GitHub webhook
+        repo2_deploy = buildkite.Pipeline("repo2-deploy",
+            repository="git@github.com:org/repo2",
+            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
+            provider_settings=buildkite.PipelineProviderSettingsArgs(
+                trigger_mode="none",
+            ))
+        # Release pipeline (triggered only when tags are pushed)
+        repo2_release = buildkite.Pipeline("repo2-release",
+            repository="git@github.com:org/repo2",
+            steps=(lambda path: open(path).read())("./release-steps.yml"),
+            provider_settings=buildkite.PipelineProviderSettingsArgs(
+                build_branches=False,
+                build_tags=True,
+                build_pull_requests=False,
+                trigger_mode="code",
+            ))
+        ```
 
         ## Import
 

@@ -17,6 +17,32 @@ import (
 //
 // Buildkite Documentation: https://buildkite.com/docs/pipelines/scheduled-builds
 //
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+// 	"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := buildkite.NewPipelineSchedule(ctx, "repo2Nightly", &buildkite.PipelineScheduleArgs{
+// 			PipelineId: pulumi.Any(buildkite_pipeline.Repo2.Id),
+// 			Label:      pulumi.String("Nightly build"),
+// 			Cronline:   pulumi.String("@midnight"),
+// 			Branch:     pulumi.Any(buildkite_pipeline.Repo2.Default_branch),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
 // ## Import
 //
 // Pipeline schedules can be imported using a slug (which consists of `$BUILDKITE_ORGANIZATION_SLUG/$BUILDKITE_PIPELINE_SLUG/$PIPELINE_SCHEDULE_UUID`), e.g.

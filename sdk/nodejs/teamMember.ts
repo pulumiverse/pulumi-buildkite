@@ -15,6 +15,24 @@ import * as utilities from "./utilities";
  *
  * Note: You must first enable Teams on your organization.
  *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as pulumi_buildkite from "@grapl/pulumi-buildkite";
+ *
+ * const team = new buildkite.Team("team", {
+ *     privacy: "VISIBLE",
+ *     defaultTeam: true,
+ *     defaultMemberRole: "MEMBER",
+ * });
+ * const aSmith = new buildkite.TeamMember("aSmith", {
+ *     role: "MEMBER",
+ *     teamId: team.id,
+ *     userId: "VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==",
+ * });
+ * ```
+ *
  * ## Import
  *
  * Team members can be imported using the GraphQL ID of the membership. Note this is different to the ID of the user.

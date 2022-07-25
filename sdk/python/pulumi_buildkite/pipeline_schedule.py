@@ -308,6 +308,19 @@ class PipelineSchedule(pulumi.CustomResource):
 
         Buildkite Documentation: https://buildkite.com/docs/pipelines/scheduled-builds
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_buildkite as buildkite
+
+        repo2_nightly = buildkite.PipelineSchedule("repo2Nightly",
+            pipeline_id=buildkite_pipeline["repo2"]["id"],
+            label="Nightly build",
+            cronline="@midnight",
+            branch=buildkite_pipeline["repo2"]["default_branch"])
+        ```
+
         ## Import
 
         Pipeline schedules can be imported using a slug (which consists of `$BUILDKITE_ORGANIZATION_SLUG/$BUILDKITE_PIPELINE_SLUG/$PIPELINE_SCHEDULE_UUID`), e.g.
@@ -338,6 +351,19 @@ class PipelineSchedule(pulumi.CustomResource):
         This resource allows you to create and manage pipeline schedules.
 
         Buildkite Documentation: https://buildkite.com/docs/pipelines/scheduled-builds
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_buildkite as buildkite
+
+        repo2_nightly = buildkite.PipelineSchedule("repo2Nightly",
+            pipeline_id=buildkite_pipeline["repo2"]["id"],
+            label="Nightly build",
+            cronline="@midnight",
+            branch=buildkite_pipeline["repo2"]["default_branch"])
+        ```
 
         ## Import
 
