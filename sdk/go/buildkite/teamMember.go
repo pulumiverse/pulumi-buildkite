@@ -21,6 +21,39 @@ import (
 //
 // Note: You must first enable Teams on your organization.
 //
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+// 	"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		team, err := buildkite.NewTeam(ctx, "team", &buildkite.TeamArgs{
+// 			Privacy:           pulumi.String("VISIBLE"),
+// 			DefaultTeam:       pulumi.Bool(true),
+// 			DefaultMemberRole: pulumi.String("MEMBER"),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = buildkite.NewTeamMember(ctx, "aSmith", &buildkite.TeamMemberArgs{
+// 			Role:   pulumi.String("MEMBER"),
+// 			TeamId: team.ID(),
+// 			UserId: pulumi.String("VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ=="),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
 // ## Import
 //
 // Team members can be imported using the GraphQL ID of the membership. Note this is different to the ID of the user.

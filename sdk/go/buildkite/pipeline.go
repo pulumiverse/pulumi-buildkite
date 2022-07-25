@@ -17,6 +17,97 @@ import (
 //
 // Buildkite Documentation: https://buildkite.com/docs/pipelines
 //
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+// 	"io/ioutil"
+//
+// 	"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite"
+// 	"github.com/pulumi/pulumi-buildkite/sdk/go/buildkite"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func readFileOrPanic(path string) pulumi.StringPtrInput {
+// 	data, err := ioutil.ReadFile(path)
+// 	if err != nil {
+// 		panic(err.Error())
+// 	}
+// 	return pulumi.String(string(data))
+// }
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := buildkite.NewPipeline(ctx, "repo2", &buildkite.PipelineArgs{
+// 			Repository: pulumi.String("git@github.com:org/repo2"),
+// 			Steps:      readFileOrPanic("./steps.yml"),
+// 			Teams: PipelineTeamArray{
+// 				&PipelineTeamArgs{
+// 					Slug:        pulumi.String("everyone"),
+// 					AccessLevel: pulumi.String("READ_ONLY"),
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+// ### With GitHub Provider Settings
+//
+// ```go
+// package main
+//
+// import (
+// 	"io/ioutil"
+//
+// 	"github.com/grapl-security/pulumi-buildkite/sdk/go/buildkite"
+// 	"github.com/pulumi/pulumi-buildkite/sdk/go/buildkite"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func readFileOrPanic(path string) pulumi.StringPtrInput {
+// 	data, err := ioutil.ReadFile(path)
+// 	if err != nil {
+// 		panic(err.Error())
+// 	}
+// 	return pulumi.String(string(data))
+// }
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := buildkite.NewPipeline(ctx, "repo2-deploy", &buildkite.PipelineArgs{
+// 			Repository: pulumi.String("git@github.com:org/repo2"),
+// 			Steps:      readFileOrPanic("./deploy-steps.yml"),
+// 			ProviderSettings: &PipelineProviderSettingsArgs{
+// 				TriggerMode: pulumi.String("none"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = buildkite.NewPipeline(ctx, "repo2-release", &buildkite.PipelineArgs{
+// 			Repository: pulumi.String("git@github.com:org/repo2"),
+// 			Steps:      readFileOrPanic("./release-steps.yml"),
+// 			ProviderSettings: &PipelineProviderSettingsArgs{
+// 				BuildBranches:     pulumi.Bool(false),
+// 				BuildTags:         pulumi.Bool(true),
+// 				BuildPullRequests: pulumi.Bool(false),
+// 				TriggerMode:       pulumi.String("code"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
 // ## Import
 //
 // Pipelines can be imported using the `GraphQL ID` (not UUID), e.g.

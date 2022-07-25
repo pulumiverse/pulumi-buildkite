@@ -147,6 +147,15 @@ def get_team(slug: Optional[str] = None,
 
     Buildkite documentation: https://buildkite.com/docs/pipelines/permissions
 
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_buildkite as buildkite
+
+    my_team = buildkite.get_team(slug="my_team")
+    ```
+
 
     :param str slug: The slug of the team, available in the URL of the team on buildkite.com
     """
@@ -177,6 +186,15 @@ def get_team_output(slug: Optional[pulumi.Input[str]] = None,
     validate that a team exists before setting the team slug on a pipeline.
 
     Buildkite documentation: https://buildkite.com/docs/pipelines/permissions
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_buildkite as buildkite
+
+    my_team = buildkite.get_team(slug="my_team")
+    ```
 
 
     :param str slug: The slug of the team, available in the URL of the team on buildkite.com
