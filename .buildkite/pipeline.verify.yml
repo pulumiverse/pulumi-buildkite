@@ -15,7 +15,7 @@ steps:
     plugins:
       - improbable-eng/metahook#v0.4.1:
           pre-command: git fetch --unshallow
-      - docker#v3.11.0:
+      - docker#v3.14.0:
           image: "${BUILD_ENVIRONMENT_IMAGE}"
 
   - label: ":hammer_and_wrench: Build Provider"
@@ -25,7 +25,7 @@ steps:
     plugins:
       - improbable-eng/metahook#v0.4.1:
           pre-command: git fetch --unshallow
-      - docker#v3.11.0:
+      - docker#v3.14.0:
           image: "${BUILD_ENVIRONMENT_IMAGE}"
     # This will pick up tfgen, but that's OK
     artifact_paths:
@@ -37,7 +37,7 @@ steps:
     plugins:
       - improbable-eng/metahook#v0.4.1:
           pre-command: git fetch --unshallow
-      - docker#v3.11.0:
+      - docker#v3.14.0:
           image: "${BUILD_ENVIRONMENT_IMAGE}"
     artifact_paths:
       - "dist/**/*"
@@ -58,7 +58,7 @@ steps:
                 - "bin/*"
           - improbable-eng/metahook#v0.4.1:
               pre-command: git fetch --unshallow && chmod a+x bin/*
-          - docker#v3.11.0:
+          - docker#v3.14.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
         matrix:
           setup:
@@ -88,7 +88,7 @@ steps:
                 - "bin/*"
           - improbable-eng/metahook#v0.4.1:
               pre-command: git fetch --unshallow && chmod a+x bin/*
-          - docker#v3.11.0:
+          - docker#v3.14.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
               environment:
                 - PULUMI_ACCESS_TOKEN
