@@ -52,7 +52,7 @@ steps:
           - improbable-eng/metahook#v0.4.1:
               # We need to ensure we have the tag we just created
               pre-command: git fetch --unshallow --tags
-          - docker#v3.11.0:
+          - docker#v3.14.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
         artifact_paths:
           - sdk/python/bin/dist/*
@@ -65,7 +65,7 @@ steps:
           - improbable-eng/metahook#v0.4.1:
               # We need to ensure we have the tag we just created
               pre-command: git fetch --unshallow --tags
-          - docker#v3.11.0:
+          - docker#v3.14.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
         artifact_paths:
           - sdk/nodejs/bin/dist/*
@@ -86,7 +86,7 @@ steps:
             - GITHUB_TOKEN
       - improbable-eng/metahook#v0.4.1:
           pre-command: git fetch --unshallow
-      - docker#v3.11.0:
+      - docker#v3.14.0:
           image: "${BUILD_ENVIRONMENT_IMAGE}"
           environment:
             - GITHUB_TOKEN
@@ -115,7 +115,7 @@ steps:
         plugins:
           - artifacts#v1.5.0:
               download: sdk/python/bin/dist/*
-          - docker#v3.11.0:
+          - docker#v3.14.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
 
       - label: ":nodejs: SDK Installation Validation"
@@ -124,14 +124,14 @@ steps:
         plugins:
           - artifacts#v1.5.0:
               download: sdk/nodejs/bin/dist/*
-          - docker#v3.11.0:
+          - docker#v3.14.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
 
       - label: ":go: SDK Installation Validation"
         command:
           - .buildkite/scripts/validate-go-sdk-install $(buildkite-agent meta-data get release-tag)
         plugins:
-          - docker#v3.11.0:
+          - docker#v3.14.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
 
   - wait
@@ -170,7 +170,7 @@ steps:
                 - NPM_API_TOKEN
           - artifacts#v1.5.0:
               download: sdk/nodejs/bin/dist/*.tgz
-          - docker#v3.11.0:
+          - docker#v3.14.0:
               # We don't install `npm` on our build agents, so this is
               # a convenient way to have it available.
               image: "${BUILD_ENVIRONMENT_IMAGE}"
