@@ -15,7 +15,7 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as pulumi_buildkite from "@grapl/pulumi-buildkite";
+ * import * as buildkite from "@grapl/pulumi-buildkite";
  *
  * const repo2Nightly = new buildkite.PipelineSchedule("repo2Nightly", {
  *     pipelineId: buildkite_pipeline.repo2.id,
