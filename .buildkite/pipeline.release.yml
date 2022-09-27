@@ -34,7 +34,7 @@ steps:
       BUILDKITE_CLEAN_CHECKOUT: true
     plugins:
       - grapl-security/vault-login#v0.1.3
-      - grapl-security/vault-env#v0.1.0:
+      - grapl-security/vault-env#v0.2.0:
           secrets:
             - GITHUB_TOKEN
     agents:
@@ -81,7 +81,7 @@ steps:
       - goreleaser release
     plugins:
       - grapl-security/vault-login#v0.1.3
-      - grapl-security/vault-env#v0.1.0:
+      - grapl-security/vault-env#v0.2.0:
           secrets:
             - GITHUB_TOKEN
       - improbable-eng/metahook#v0.4.1:
@@ -149,7 +149,7 @@ steps:
         depends_on: build-python-sdk
         plugins:
           - grapl-security/vault-login#v0.1.3
-          - grapl-security/vault-env#v0.1.0:
+          - grapl-security/vault-env#v0.2.0:
               secrets:
                 - PYPI_API_TOKEN
           - artifacts#v1.5.0:
@@ -165,7 +165,7 @@ steps:
           - .buildkite/scripts/npm-upload
         plugins:
           - grapl-security/vault-login#v0.1.3
-          - grapl-security/vault-env#v0.1.0:
+          - grapl-security/vault-env#v0.2.0:
               secrets:
                 - NPM_API_TOKEN
           - artifacts#v1.5.0:
