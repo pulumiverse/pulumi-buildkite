@@ -19,7 +19,7 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as pulumi_buildkite from "@grapl/pulumi-buildkite";
+ * import * as buildkite from "@grapl/pulumi-buildkite";
  *
  * const team = new buildkite.Team("team", {
  *     privacy: "VISIBLE",
