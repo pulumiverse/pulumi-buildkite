@@ -113,7 +113,7 @@ steps:
         command:
           - .buildkite/scripts/validate-sdk-install python sdk/python/bin/dist/* $(buildkite-agent meta-data get release-tag)
         plugins:
-          - artifacts#v1.5.0:
+          - artifacts#v1.6.0:
               download: sdk/python/bin/dist/*
           - docker#v5.3.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
@@ -122,7 +122,7 @@ steps:
         command:
           - .buildkite/scripts/validate-sdk-install nodejs sdk/nodejs/bin/dist/* $(buildkite-agent meta-data get release-tag)
         plugins:
-          - artifacts#v1.5.0:
+          - artifacts#v1.6.0:
               download: sdk/nodejs/bin/dist/*
           - docker#v5.3.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
@@ -152,7 +152,7 @@ steps:
           - grapl-security/vault-env#v0.2.0:
               secrets:
                 - PYPI_API_TOKEN
-          - artifacts#v1.5.0:
+          - artifacts#v1.6.0:
               download: sdk/python/bin/dist/*
           - grapl-security/pypi#v0.1.0:
               file: sdk/python/bin/dist/*
@@ -168,7 +168,7 @@ steps:
           - grapl-security/vault-env#v0.2.0:
               secrets:
                 - NPM_API_TOKEN
-          - artifacts#v1.5.0:
+          - artifacts#v1.6.0:
               download: sdk/nodejs/bin/dist/*.tgz
           - docker#v5.3.0:
               # We don't install `npm` on our build agents, so this is
