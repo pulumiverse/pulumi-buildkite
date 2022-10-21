@@ -49,7 +49,7 @@ steps:
         command:
           - .buildkite/scripts/check-sdk {{matrix.language}}
         plugins:
-          - artifacts#v1.5.0:
+          - artifacts#v1.6.0:
               # We're currently running these checks on Linux, so we
               # can just grab the provider we built earlier. If we
               # ever branch out to test on Windows or macOS, we'll
@@ -79,7 +79,7 @@ steps:
               secrets:
                 - PULUMI_ACCESS_TOKEN
                 - buildkite/organization/grapl-testing/BUILDKITE_API_TOKEN
-          - artifacts#v1.5.0:
+          - artifacts#v1.6.0:
               # We're currently running these tests on Linux, so we
               # can just grab the provider we built earlier. If we
               # ever branch out to test on Windows or macOS, we'll
