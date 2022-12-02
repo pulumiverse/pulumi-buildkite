@@ -117,6 +117,7 @@ steps:
               download: sdk/python/bin/dist/*
           - docker#v5.3.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
+              mount-buildkite-agent: true
 
       - label: ":nodejs: SDK Installation Validation"
         command:
@@ -126,6 +127,7 @@ steps:
               download: sdk/nodejs/bin/dist/*
           - docker#v5.3.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
+              mount-buildkite-agent: true
 
       - label: ":go: SDK Installation Validation"
         command:
@@ -133,6 +135,7 @@ steps:
         plugins:
           - docker#v5.3.0:
               image: "${BUILD_ENVIRONMENT_IMAGE}"
+              mount-buildkite-agent: true
 
   - wait
 
