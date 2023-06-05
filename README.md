@@ -7,8 +7,8 @@
 [![](https://img.shields.io/pypi/dm/pulumiverse-buildkite?style=for-the-badge)](https://pypi.org/project/pulumiverse-buildkite/)
 [![](https://img.shields.io/nuget/v/Pulumiverse.Buildkite?style=for-the-badge)](https://www.nuget.org/packages/Pulumiverse.Buildkite/)
 [![](https://img.shields.io/nuget/dt/Pulumiverse.Buildkite?style=for-the-badge)](https://www.nuget.org/packages/Pulumiverse.Buildkite/)
-[![](https://img.shields.io/npm/v/@pulumiverse/pulumi-buildkite?style=for-the-badge)](https://www.npmjs.com/package/@pulumiverse/pulumi-buildkite)
-[![](https://img.shields.io/npm/dm/@pulumiverse/pulumi-buildkite?style=for-the-badge)](https://www.npmjs.com/package/@pulumiverse/pulumi-buildkite)
+[![](https://img.shields.io/npm/v/@pulumiverse/buildkite?style=for-the-badge)](https://www.npmjs.com/package/@pulumiverse/buildkite)
+[![](https://img.shields.io/npm/dm/@pulumiverse/buildkite?style=for-the-badge)](https://www.npmjs.com/package/@pulumiverse/buildkite)
 [![](https://img.shields.io/github/all-contributors/pulumiverse/pulumi-buildkite?color=ee8449&style=for-the-badge)](#contributors)
 
 The Buildkite Resource Provider lets you manage [Buildkite](http://buildkite.com) resources.
