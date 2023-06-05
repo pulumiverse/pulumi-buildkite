@@ -21,3 +21,4 @@ provider/**/schema.go
 **/version.txt
 **/nuget
 **/dist
+.vscode/

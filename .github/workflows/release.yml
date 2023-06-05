@@ -1,0 +1,197 @@
+---
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "provider/**"
+      - "sdk/**"
+      - "Makefile"
+      - ".goreleaser.yml"
+
+permissions:
+  contents: write
+  id-token: write
+
+env:
+  PROVIDER: buildkite
+  GO111MODULE: "on"
+  NUGET_FEED_URL: https://api.nuget.org/v3/index.json
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    name: Tag Release
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Git
+        run: |
+          git config --local user.email "${{ env.GITHUB_ACTION }}+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git fetch --tags
+
+      - name: Versioning and Changelog
+        run: |
+          npx standard-version
+      - name: Push to Repository
+        run: |
+          git push --follow-tags
+
+  publish_provider:
+    runs-on: ubuntu-latest
+    name: Publish Provider
+    needs:
+      - tag
+    strategy:
+      max-parallel: 4
+      matrix:
+        go-version: [1.20.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "${{ matrix.go-version }}"
+
+      - name: Install pulumictl
+        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        with:
+          repo: pulumi/pulumictl
+      - name: Install Pulumi CLI
+        uses: pulumi/actions@v4
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3.0.5
+      - name: Download Syft
+        uses: anchore/sbom-action/download-syft@v0.14.2
+
+      - name: Release via GoReleaser
+        uses: goreleaser/goreleaser-action@v4
+        with:
+          args: -p 3 release --clean --timeout 60m0s
+          version: latest
+
+  publish_sdk:
+    runs-on: ubuntu-latest
+    name: Publish SDK
+    needs:
+      - publish_provider
+    strategy:
+      max-parallel: 4
+      fail-fast: true
+      matrix:
+        go-version: [1.20.x]
+        node-version: [16]
+        dotnet-version: [3.1.301]
+        python-version: [3.9]
+        language:
+          - go
+          - nodejs
+          - python
+          - dotnet
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "${{ matrix.go-version }}"
+
+      - name: Install pulumictl
+        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        with:
+          repo: pulumi/pulumictl
+      - name: Install Pulumi CLI
+        uses: pulumi/actions@v4
+
+      - name: Setup DotNet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "${{ matrix.dotnet-version }}"
+        if: matrix.language == 'dotnet'
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "${{ matrix.python-version }}"
+        if: matrix.language == 'python'
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "${{ matrix.node-version }}"
+        if: matrix.language == 'nodejs'
+
+      - name: Install Plugins
+        run: make install_plugins
+      - name: Update Path
+        run: echo "${{ github.workspace }}/bin" >> $GITHUB_PATH
+
+      - name: Build SDK
+        run: make build_${{ matrix.language }}
+
+      - name: Publish .NET SDK
+        run: find "${{ github.workspace }}/sdk/dotnet/bin/Debug/" -name 'Pulumi.*.nupkg' -exec dotnet nuget push -k "${{ secrets.NUGET_PUBLISH_KEY }}" -s ${{ env.NUGET_FEED_URL }} {} ';'
+        if: matrix.language == 'dotnet'
+
+      - name: Publish Python SDK
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: "${{ secrets.PYPI_PASSWORD }}"
+          skip-existing: true
+          packages-dir: "${{ github.workspace }}/sdk/python/bin/dist/"
+        if: matrix.language == 'python'
+
+      - name: Copy Over NodeJS Scripts
+        run: cp -rf ${{ github.workspace }}/sdk/nodejs/scripts ${{ github.workspace }}/sdk/nodejs/bin/
+        if: matrix.language == 'nodejs'
+      - name: Publish NodeJS SDK
+        uses: JS-DevTools/npm-publish@v2
+        with:
+          package: ./sdk/nodejs/bin/package.json
+          access: public
+          token: ${{ secrets.NPM_TOKEN }}
+          provenance: true
+        if: matrix.language == 'nodejs'
+
+  tag_sdk:
+    runs-on: ubuntu-latest
+    name: Tag SDK Release
+    needs:
+      - publish_sdk
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Git
+        run: |
+          git config --local user.email "${{ env.GITHUB_ACTION }}+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Get Tag Name
+        run: |
+          REF_NAME=`git describe --abbrev=0 --tags`
+          echo "REF_NAME=${REF_NAME}" >> $GITHUB_ENV
+
+      - name: Tag SDK Version
+        run: |
+          git tag -a sdk/${{ env.REF_NAME }} -m sdk/${{ env.REF_NAME }}
+      - name: Push to Repository
+        run: |
+          git push origin sdk/${{ env.REF_NAME }}

@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -18,11 +19,11 @@ type Provider struct {
 	pulumi.ProviderResourceState
 
 	// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
-	ApiToken pulumi.StringPtrOutput `pulumi:"apiToken"`
+	ApiToken pulumi.StringOutput `pulumi:"apiToken"`
 	// Base URL for the GraphQL API to use
 	GraphqlUrl pulumi.StringPtrOutput `pulumi:"graphqlUrl"`
-	// The Buildkite organization ID
-	Organization pulumi.StringPtrOutput `pulumi:"organization"`
+	// The Buildkite organization slug
+	Organization pulumi.StringOutput `pulumi:"organization"`
 	// Base URL for the REST API to use
 	RestUrl pulumi.StringPtrOutput `pulumi:"restUrl"`
 }
@@ -31,22 +32,15 @@ type Provider struct {
 func NewProvider(ctx *pulumi.Context,
 	name string, args *ProviderArgs, opts ...pulumi.ResourceOption) (*Provider, error) {
 	if args == nil {
-		args = &ProviderArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if isZero(args.ApiToken) {
-		args.ApiToken = pulumi.StringPtr(getEnvOrDefault("", nil, "BUILDKITE_API_TOKEN").(string))
+	if args.ApiToken == nil {
+		return nil, errors.New("invalid value for required argument 'ApiToken'")
 	}
-	if isZero(args.Organization) {
-		args.Organization = pulumi.StringPtr(getEnvOrDefault("", nil, "BUILDKITE_ORGANIZATION").(string))
+	if args.Organization == nil {
+		return nil, errors.New("invalid value for required argument 'Organization'")
 	}
-	if args.ApiToken != nil {
-		args.ApiToken = pulumi.ToSecret(args.ApiToken).(pulumi.StringPtrOutput)
-	}
-	secrets := pulumi.AdditionalSecretOutputs([]string{
-		"apiToken",
-	})
-	opts = append(opts, secrets)
 	opts = pkgResourceDefaultOpts(opts)
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:buildkite", name, args, &resource, opts...)
@@ -58,11 +52,11 @@ func NewProvider(ctx *pulumi.Context,
 
 type providerArgs struct {
 	// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
-	ApiToken *string `pulumi:"apiToken"`
+	ApiToken string `pulumi:"apiToken"`
 	// Base URL for the GraphQL API to use
 	GraphqlUrl *string `pulumi:"graphqlUrl"`
-	// The Buildkite organization ID
-	Organization *string `pulumi:"organization"`
+	// The Buildkite organization slug
+	Organization string `pulumi:"organization"`
 	// Base URL for the REST API to use
 	RestUrl *string `pulumi:"restUrl"`
 }
@@ -70,11 +64,11 @@ type providerArgs struct {
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
 	// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
-	ApiToken pulumi.StringPtrInput
+	ApiToken pulumi.StringInput
 	// Base URL for the GraphQL API to use
 	GraphqlUrl pulumi.StringPtrInput
-	// The Buildkite organization ID
-	Organization pulumi.StringPtrInput
+	// The Buildkite organization slug
+	Organization pulumi.StringInput
 	// Base URL for the REST API to use
 	RestUrl pulumi.StringPtrInput
 }
@@ -117,8 +111,8 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 }
 
 // API token with GraphQL access and `write_pipelines, read_pipelines` scopes
-func (o ProviderOutput) ApiToken() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiToken }).(pulumi.StringPtrOutput)
+func (o ProviderOutput) ApiToken() pulumi.StringOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringOutput { return v.ApiToken }).(pulumi.StringOutput)
 }
 
 // Base URL for the GraphQL API to use
@@ -126,9 +120,9 @@ func (o ProviderOutput) GraphqlUrl() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.GraphqlUrl }).(pulumi.StringPtrOutput)
 }
 
-// The Buildkite organization ID
-func (o ProviderOutput) Organization() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Organization }).(pulumi.StringPtrOutput)
+// The Buildkite organization slug
+func (o ProviderOutput) Organization() pulumi.StringOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringOutput { return v.Organization }).(pulumi.StringOutput)
 }
 
 // Base URL for the REST API to use

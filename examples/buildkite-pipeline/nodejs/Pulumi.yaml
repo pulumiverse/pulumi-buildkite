@@ -1,3 +1,0 @@
-name: buildkite-pipeline-nodejs
-runtime: nodejs
-description: A minimal TypeScript Pulumi program

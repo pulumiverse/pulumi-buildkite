@@ -1,107 +1,96 @@
+// Copyright 2016-2018, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package buildkite
 
 import (
 	"fmt"
 	"path/filepath"
 
-	// This is code from *this* repository; the upstream provider places
-	// its code in an `internal` directory, so we have to jump through
-	// some hoops to access it.
-	"github.com/buildkite/terraform-provider-buildkite/shim"
-
-	"github.com/grapl-security/pulumi-buildkite/provider/pkg/version"
+	"github.com/buildkite/terraform-provider-buildkite/buildkite"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
-	tfshim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
+	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumiverse/pulumi-buildkite/provider/pkg/version"
 )
 
-// all of the token components used below.
 const (
 	// This variable controls the default name of the package in the package
 	// registries for nodejs and python:
 	mainPkg = "buildkite"
 	// modules:
-	mainMod = "index" // the buildkite module
+	mainMod         = "index" //nolint:deadcode,unused,varcheck
+	pipelineMod     = "Pipeline"
+	teamMod         = "Team"
+	organizationMod = "Organization"
+	agentMod        = "Agent"
 )
 
 // preConfigureCallback is called before the providerConfigure function of the underlying provider.
 // It should validate that the provider can be configured, and provide actionable errors in the case
 // it cannot be. Configuration variables can be read from `vars` using the `stringValue` function -
 // for example `stringValue(vars, "accessKey")`.
-func preConfigureCallback(vars resource.PropertyMap, c tfshim.ResourceConfig) error {
+func preConfigureCallback(_ resource.PropertyMap, _ shim.ResourceConfig) error {
 	return nil
-}
-
-// boolRef returns a reference to the bool argument.
-func boolRef(b bool) *bool {
-	return &b
 }
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
-	p := shimv2.NewProvider(shim.NewProvider())
+	p := shimv2.NewProvider(buildkite.Provider(version.Version))
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
-		P:           p,
-		Name:        "buildkite",
-		Description: "A Pulumi package for creating and managing Buildkite CI/CD platform resources.",
-		// Keywords describing the provider in the Pulumi Registry.
-		Keywords: []string{"pulumi", "buildkite", "category/infrastructure"},
-		License:  "Apache-2.0",
-		Homepage: "https://pulumi.io",
-		// The organization of the underlying Terraform provider we're
-		// using, because it is not part of the `terraform-providers`
-		// organization (this is required for proper documentation
-		// extraction).
-		GitHubOrg: "buildkite",
-		// The logo for this provider that will be shown in the Pulumi
-		// Registry.
-		LogoURL: "https://raw.githubusercontent.com/grapl-security/pulumi-buildkite/main/assets/buildkite-logo.svg",
-		// The repository for *this* code.
-		Repository:  "https://github.com/grapl-security/pulumi-buildkite",
-		Publisher:   "Grapl Security",
-		DisplayName: "Buildkite",
-		// Binaries for the plugin will be stored as Github Releases
-		// (recommended by Pulumi).
-		// NOTE: the added 'v' in front of `${VERSION}` is a temporary
-		// workaround for (what I think is) a `pulumi plugin install` issue.
-		PluginDownloadURL: "https://github.com/grapl-security/pulumi-buildkite/releases/download/v${VERSION}",
-		Config: map[string]*tfbridge.SchemaInfo{
-			"api_token": {
-				Default: &tfbridge.DefaultInfo{
-					EnvVars: []string{"BUILDKITE_API_TOKEN"},
-				},
-				Secret: boolRef(true),
-			},
-			"organization": {
-				Default: &tfbridge.DefaultInfo{
-					EnvVars: []string{"BUILDKITE_ORGANIZATION"},
-				},
-			},
-		},
+		P:                    p,
+		Name:                 "buildkite",
+		DisplayName:          "Buildkite",
+		Description:          "A Pulumi package for creating and managing Buildkite resources.",
+		Publisher:            "Pulumiverse",
+		Keywords:             []string{"pulumi", "buildkite"},
+		License:              "Apache-2.0",
+		Homepage:             "https://github.com/pulumiverse/pulumi-buildkite",
+		Repository:           "https://github.com/pulumiverse/pulumi-buildkite",
+		LogoURL:              "https://raw.githubusercontent.com/pulumiverse/pulumi-buildkite/main/assets/buildkite-logo.png",
+		GitHubOrg:            "buildkite",
+		PluginDownloadURL:    "github://api.github.com/pulumiverse/pulumi-buildkite",
+		Config:               map[string]*tfbridge.SchemaInfo{},
 		PreConfigureCallback: preConfigureCallback,
-		// Each resource from the underlying Terraform provider should
-		// be reflected here.
 		Resources: map[string]*tfbridge.ResourceInfo{
-			"buildkite_agent_token":       {Tok: tfbridge.MakeResource(mainPkg, mainMod, "AgentToken")},
-			"buildkite_pipeline":          {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Pipeline")},
-			"buildkite_pipeline_schedule": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "PipelineSchedule")},
-			"buildkite_team":              {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Team")},
-			"buildkite_team_member":       {Tok: tfbridge.MakeResource(mainPkg, mainMod, "TeamMember")},
+			// Pipeline
+			"buildkite_pipeline":          {Tok: tfbridge.MakeResource(mainPkg, pipelineMod, "Pipeline")},
+			"buildkite_pipeline_schedule": {Tok: tfbridge.MakeResource(mainPkg, pipelineMod, "Schedule")},
+			// Team
+			"buildkite_team":        {Tok: tfbridge.MakeResource(mainPkg, teamMod, "Team")},
+			"buildkite_team_member": {Tok: tfbridge.MakeResource(mainPkg, teamMod, "Member")},
+			// Organization
+			"buildkite_organization_settings": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Settings")},
+			// Agent
+			"buildkite_agent_token": {Tok: tfbridge.MakeResource(mainPkg, agentMod, "AgentToken")},
 		},
-		// Each data source from the underlying Terraform provider
-		// should be reflected here.
 		DataSources: map[string]*tfbridge.DataSourceInfo{
+			// Pipeline
+			"buildkite_pipeline": {Tok: tfbridge.MakeDataSource(mainPkg, pipelineMod, "getPipeline")},
+			// Team
+			"buildkite_team": {Tok: tfbridge.MakeDataSource(mainPkg, teamMod, "getTeam")},
+			// Organization
+			"buildkite_organization": {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getOrganization")},
+			// Anything Else
 			"buildkite_meta": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getMeta")},
-			"buildkite_pipeline": {Tok: tfbridge.MakeDataSource(
-				mainPkg, mainMod, "getPipeline",
-			)},
-			"buildkite_team": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getTeam")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
+			PackageName: "@pulumiverse/buildkite",
 			Dependencies: map[string]string{
 				"@pulumi/pulumi": "^3.0.0",
 			},
@@ -109,16 +98,16 @@ func Provider() tfbridge.ProviderInfo {
 				"@types/node": "^10.0.0", // so we can access strongly typed node definitions.
 				"@types/mime": "^2.0.0",
 			},
-			PackageName: "@grapl/pulumi-buildkite",
 		},
 		Python: &tfbridge.PythonInfo{
+			PackageName: "pulumiverse_buildkite",
 			Requires: map[string]string{
 				"pulumi": ">=3.0.0,<4.0.0",
 			},
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/grapl-security/pulumi-%[1]s/sdk/", mainPkg),
+				fmt.Sprintf("github.com/pulumiverse/pulumi-%[1]s/sdk/", mainPkg),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,
@@ -128,6 +117,10 @@ func Provider() tfbridge.ProviderInfo {
 		CSharp: &tfbridge.CSharpInfo{
 			PackageReferences: map[string]string{
 				"Pulumi": "3.*",
+			},
+			RootNamespace: "Pulumiverse",
+			Namespaces: map[string]string{
+				mainPkg: "Buildkite",
 			},
 		},
 	}

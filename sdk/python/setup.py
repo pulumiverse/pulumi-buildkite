@@ -15,7 +15,7 @@ class InstallPluginCommand(install):
     def run(self):
         install.run(self)
         try:
-            check_call(['pulumi', 'plugin', 'install', 'resource', 'buildkite', PLUGIN_VERSION, '--server', 'https://github.com/grapl-security/pulumi-buildkite/releases/download/v${VERSION}'])
+            check_call(['pulumi', 'plugin', 'install', 'resource', 'buildkite', PLUGIN_VERSION, '--server', 'github://api.github.com/pulumiverse/pulumi-buildkite'])
         except OSError as error:
             if error.errno == errno.ENOENT:
                 print(f"""
@@ -37,23 +37,24 @@ def readme():
         return "buildkite Pulumi Package - Development Version"
 
 
-setup(name='pulumi_buildkite',
+setup(name='pulumiverse_buildkite',
+      python_requires='>=3.7',
       version=VERSION,
-      description="A Pulumi package for creating and managing Buildkite CI/CD platform resources.",
+      description="A Pulumi package for creating and managing Buildkite resources.",
       long_description=readme(),
       long_description_content_type='text/markdown',
       cmdclass={
           'install': InstallPluginCommand,
       },
-      keywords='pulumi buildkite category/infrastructure',
-      url='https://pulumi.io',
+      keywords='pulumi buildkite',
+      url='https://github.com/pulumiverse/pulumi-buildkite',
       project_urls={
-          'Repository': 'https://github.com/grapl-security/pulumi-buildkite'
+          'Repository': 'https://github.com/pulumiverse/pulumi-buildkite'
       },
       license='Apache-2.0',
       packages=find_packages(),
       package_data={
-          'pulumi_buildkite': [
+          'pulumiverse_buildkite': [
               'py.typed',
               'pulumi-plugin.json',
           ]

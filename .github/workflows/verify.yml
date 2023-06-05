@@ -1,0 +1,110 @@
+---
+name: Verify
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+env:
+  PROVIDER: buildkite
+  GO111MODULE: "on"
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  provider:
+    runs-on: ubuntu-latest
+    name: Lint Provider
+    strategy:
+      max-parallel: 4
+      matrix:
+        go-version: [1.20.x]
+        golangci-lint-version: [v1.52.1]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "${{ matrix.go-version }}"
+
+      - name: Install pulumictl
+        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        with:
+          repo: pulumi/pulumictl
+      - name: Install Pulumi CLI
+        uses: pulumi/actions@v4
+
+      - name: Build Provider
+        run: make provider
+      - name: Lint Provider
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: "${{ matrix.golangci-lint-version }}"
+          working-directory: provider
+          args: -c ../.golangci.yml
+          skip-pkg-cache: true
+          skip-build-cache: true
+
+  sdk:
+    runs-on: ubuntu-latest
+    name: Build SDK
+    strategy:
+      max-parallel: 4
+      matrix:
+        go-version: [1.20.x]
+        node-version: [16]
+        dotnet-version: [3.1.301]
+        python-version: [3.9]
+        language:
+          - go
+          - nodejs
+          - python
+          - dotnet
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "${{ matrix.go-version }}"
+
+      - name: Install pulumictl
+        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        with:
+          repo: pulumi/pulumictl
+      - name: Install Pulumi CLI
+        uses: pulumi/actions@v4
+
+      - name: Setup DotNet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "${{ matrix.dotnet-version }}"
+        if: matrix.language == 'dotnet'
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "${{ matrix.python-version }}"
+        if: matrix.language == 'python'
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "${{ matrix.node-version }}"
+        if: matrix.language == 'nodejs'
+
+      - name: Build SDK
+        run: make build_${{ matrix.language }}
