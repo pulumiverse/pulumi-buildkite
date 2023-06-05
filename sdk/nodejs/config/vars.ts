@@ -13,7 +13,7 @@ const __config = new pulumi.Config("buildkite");
 export declare const apiToken: string | undefined;
 Object.defineProperty(exports, "apiToken", {
     get() {
-        return __config.get("apiToken") ?? utilities.getEnv("BUILDKITE_API_TOKEN");
+        return __config.get("apiToken");
     },
     enumerable: true,
 });
@@ -30,12 +30,12 @@ Object.defineProperty(exports, "graphqlUrl", {
 });
 
 /**
- * The Buildkite organization ID
+ * The Buildkite organization slug
  */
 export declare const organization: string | undefined;
 Object.defineProperty(exports, "organization", {
     get() {
-        return __config.get("organization") ?? utilities.getEnv("BUILDKITE_ORGANIZATION");
+        return __config.get("organization");
     },
     enumerable: true,
 });

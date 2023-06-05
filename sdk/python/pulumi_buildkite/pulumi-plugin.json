@@ -1,5 +1,0 @@
-{
-  "resource": true,
-  "name": "buildkite",
-  "server": "https://github.com/grapl-security/pulumi-buildkite/releases/download/v${VERSION}"
-}

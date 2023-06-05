@@ -10,11 +10,7 @@ import (
 
 // API token with GraphQL access and `write_pipelines, read_pipelines` scopes
 func GetApiToken(ctx *pulumi.Context) string {
-	v, err := config.Try(ctx, "buildkite:apiToken")
-	if err == nil {
-		return v
-	}
-	return getEnvOrDefault("", nil, "BUILDKITE_API_TOKEN").(string)
+	return config.Get(ctx, "buildkite:apiToken")
 }
 
 // Base URL for the GraphQL API to use
@@ -22,13 +18,9 @@ func GetGraphqlUrl(ctx *pulumi.Context) string {
 	return config.Get(ctx, "buildkite:graphqlUrl")
 }
 
-// The Buildkite organization ID
+// The Buildkite organization slug
 func GetOrganization(ctx *pulumi.Context) string {
-	v, err := config.Try(ctx, "buildkite:organization")
-	if err == nil {
-		return v
-	}
-	return getEnvOrDefault("", nil, "BUILDKITE_ORGANIZATION").(string)
+	return config.Get(ctx, "buildkite:organization")
 }
 
 // Base URL for the REST API to use

@@ -1,14 +1,13 @@
 {
-    "name": "@grapl/pulumi-buildkite",
+    "name": "@pulumiverse/buildkite",
     "version": "${VERSION}",
-    "description": "A Pulumi package for creating and managing Buildkite CI/CD platform resources.",
+    "description": "A Pulumi package for creating and managing Buildkite resources.",
     "keywords": [
         "pulumi",
-        "buildkite",
-        "category/infrastructure"
+        "buildkite"
     ],
-    "homepage": "https://pulumi.io",
-    "repository": "https://github.com/grapl-security/pulumi-buildkite",
+    "homepage": "https://github.com/pulumiverse/pulumi-buildkite",
+    "repository": "https://github.com/pulumiverse/pulumi-buildkite",
     "license": "Apache-2.0",
     "scripts": {
         "build": "tsc",
@@ -25,6 +24,6 @@
     "pulumi": {
         "resource": true,
         "name": "buildkite",
-        "server": "https://github.com/grapl-security/pulumi-buildkite/releases/download/v${VERSION}"
+        "server": "github://api.github.com/pulumiverse/pulumi-buildkite"
     }
 }

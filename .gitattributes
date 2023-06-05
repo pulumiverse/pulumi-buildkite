@@ -1,3 +1,0 @@
-sdk/{nodejs,python,go}/** linguist-generated=true
-provider/cmd/pulumi-resource-buildkite/schema.json linguist-generated=true
-**/go.sum linguist-generated=true

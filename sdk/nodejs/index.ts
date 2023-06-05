@@ -5,84 +5,32 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
-export { AgentTokenArgs, AgentTokenState } from "./agentToken";
-export type AgentToken = import("./agentToken").AgentToken;
-export const AgentToken: typeof import("./agentToken").AgentToken = null as any;
-
 export { GetMetaResult } from "./getMeta";
 export const getMeta: typeof import("./getMeta").getMeta = null as any;
-
-export { GetPipelineArgs, GetPipelineResult, GetPipelineOutputArgs } from "./getPipeline";
-export const getPipeline: typeof import("./getPipeline").getPipeline = null as any;
-export const getPipelineOutput: typeof import("./getPipeline").getPipelineOutput = null as any;
-
-export { GetTeamArgs, GetTeamResult, GetTeamOutputArgs } from "./getTeam";
-export const getTeam: typeof import("./getTeam").getTeam = null as any;
-export const getTeamOutput: typeof import("./getTeam").getTeamOutput = null as any;
-
-export { PipelineArgs, PipelineState } from "./pipeline";
-export type Pipeline = import("./pipeline").Pipeline;
-export const Pipeline: typeof import("./pipeline").Pipeline = null as any;
-
-export { PipelineScheduleArgs, PipelineScheduleState } from "./pipelineSchedule";
-export type PipelineSchedule = import("./pipelineSchedule").PipelineSchedule;
-export const PipelineSchedule: typeof import("./pipelineSchedule").PipelineSchedule = null as any;
+utilities.lazyLoad(exports, ["getMeta"], () => require("./getMeta"));
 
 export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;
 export const Provider: typeof import("./provider").Provider = null as any;
-
-export { TeamArgs, TeamState } from "./team";
-export type Team = import("./team").Team;
-export const Team: typeof import("./team").Team = null as any;
-
-export { TeamMemberArgs, TeamMemberState } from "./teamMember";
-export type TeamMember = import("./teamMember").TeamMember;
-export const TeamMember: typeof import("./teamMember").TeamMember = null as any;
-
-utilities.lazyLoad(exports, ["AgentToken"], () => require("./agentToken"));
-utilities.lazyLoad(exports, ["getMeta"], () => require("./getMeta"));
-utilities.lazyLoad(exports, ["getPipeline","getPipelineOutput"], () => require("./getPipeline"));
-utilities.lazyLoad(exports, ["getTeam","getTeamOutput"], () => require("./getTeam"));
-utilities.lazyLoad(exports, ["Pipeline"], () => require("./pipeline"));
-utilities.lazyLoad(exports, ["PipelineSchedule"], () => require("./pipelineSchedule"));
 utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
-utilities.lazyLoad(exports, ["Team"], () => require("./team"));
-utilities.lazyLoad(exports, ["TeamMember"], () => require("./teamMember"));
+
 
 // Export sub-modules:
+import * as agent from "./agent";
 import * as config from "./config";
+import * as organization from "./organization";
+import * as pipeline from "./pipeline";
+import * as team from "./team";
 import * as types from "./types";
 
 export {
+    agent,
     config,
+    organization,
+    pipeline,
+    team,
     types,
 };
-
-const _module = {
-    version: utilities.getVersion(),
-    construct: (name: string, type: string, urn: string): pulumi.Resource => {
-        switch (type) {
-            case "buildkite:index/agentToken:AgentToken":
-                return new AgentToken(name, <any>undefined, { urn })
-            case "buildkite:index/pipeline:Pipeline":
-                return new Pipeline(name, <any>undefined, { urn })
-            case "buildkite:index/pipelineSchedule:PipelineSchedule":
-                return new PipelineSchedule(name, <any>undefined, { urn })
-            case "buildkite:index/team:Team":
-                return new Team(name, <any>undefined, { urn })
-            case "buildkite:index/teamMember:TeamMember":
-                return new TeamMember(name, <any>undefined, { urn })
-            default:
-                throw new Error(`unknown resource type ${type}`);
-        }
-    },
-};
-pulumi.runtime.registerResourceModule("buildkite", "index/agentToken", _module)
-pulumi.runtime.registerResourceModule("buildkite", "index/pipeline", _module)
-pulumi.runtime.registerResourceModule("buildkite", "index/pipelineSchedule", _module)
-pulumi.runtime.registerResourceModule("buildkite", "index/team", _module)
-pulumi.runtime.registerResourceModule("buildkite", "index/teamMember", _module)
 pulumi.runtime.registerResourcePackage("buildkite", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {

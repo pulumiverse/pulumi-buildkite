@@ -10,34 +10,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-type module struct {
-	version semver.Version
-}
-
-func (m *module) Version() semver.Version {
-	return m.version
-}
-
-func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
-	switch typ {
-	case "buildkite:index/agentToken:AgentToken":
-		r = &AgentToken{}
-	case "buildkite:index/pipeline:Pipeline":
-		r = &Pipeline{}
-	case "buildkite:index/pipelineSchedule:PipelineSchedule":
-		r = &PipelineSchedule{}
-	case "buildkite:index/team:Team":
-		r = &Team{}
-	case "buildkite:index/teamMember:TeamMember":
-		r = &TeamMember{}
-	default:
-		return nil, fmt.Errorf("unknown resource type: %s", typ)
-	}
-
-	err = ctx.RegisterResource(typ, name, nil, r, pulumi.URN_(urn))
-	return
-}
-
 type pkg struct {
 	version semver.Version
 }
@@ -58,31 +30,6 @@ func (p *pkg) ConstructProvider(ctx *pulumi.Context, name, typ, urn string) (pul
 
 func init() {
 	version, _ := PkgVersion()
-	pulumi.RegisterResourceModule(
-		"buildkite",
-		"index/agentToken",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"buildkite",
-		"index/pipeline",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"buildkite",
-		"index/pipelineSchedule",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"buildkite",
-		"index/team",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"buildkite",
-		"index/teamMember",
-		&module{version},
-	)
 	pulumi.RegisterResourcePackage(
 		"buildkite",
 		&pkg{version},

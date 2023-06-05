@@ -1,0 +1,56 @@
+{
+  "projectName": "pulumi-buildkite",
+  "projectOwner": "pulumiverse",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "muhlba91",
+      "name": "Daniel Mühlbachler-Pietrzykowski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/653739?v=4",
+      "profile": "https://github.com/muhlba91",
+      "contributions": [
+        "maintenance",
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "christophermaier",
+      "name": "Christopher Maier",
+      "avatar_url": "https://avatars.githubusercontent.com/u/207178?v=4",
+      "profile": "https://github.com/christophermaier",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "susanev",
+      "name": "Susan Evans",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5489125?v=4",
+      "profile": "https://github.com/susanev",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "stack72",
+      "name": "Paul Stack",
+      "avatar_url": "https://avatars.githubusercontent.com/u/227823?v=4",
+      "profile": "https://github.com/stack72",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": false,
+  "skipCi": true,
+  "commitConvention": "angular"
+}

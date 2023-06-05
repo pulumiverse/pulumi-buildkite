@@ -51,7 +51,7 @@ func parseEnvStringArray(v string) interface{} {
 
 func getEnvOrDefault(def interface{}, parser envParser, vars ...string) interface{} {
 	for _, v := range vars {
-		if value := os.Getenv(v); value != "" {
+		if value, ok := os.LookupEnv(v); ok {
 			if parser != nil {
 				return parser(value)
 			}
@@ -88,14 +88,14 @@ func isZero(v interface{}) bool {
 
 // pkgResourceDefaultOpts provides package level defaults to pulumi.OptionResource.
 func pkgResourceDefaultOpts(opts []pulumi.ResourceOption) []pulumi.ResourceOption {
-	defaults := []pulumi.ResourceOption{pulumi.PluginDownloadURL("https://github.com/grapl-security/pulumi-buildkite/releases/download/v${VERSION}")}
+	defaults := []pulumi.ResourceOption{pulumi.PluginDownloadURL("github://api.github.com/pulumiverse/pulumi-buildkite")}
 
 	return append(defaults, opts...)
 }
 
 // pkgInvokeDefaultOpts provides package level defaults to pulumi.OptionInvoke.
 func pkgInvokeDefaultOpts(opts []pulumi.InvokeOption) []pulumi.InvokeOption {
-	defaults := []pulumi.InvokeOption{pulumi.PluginDownloadURL("https://github.com/grapl-security/pulumi-buildkite/releases/download/v${VERSION}")}
+	defaults := []pulumi.InvokeOption{pulumi.PluginDownloadURL("github://api.github.com/pulumiverse/pulumi-buildkite")}
 
 	return append(defaults, opts...)
 }
