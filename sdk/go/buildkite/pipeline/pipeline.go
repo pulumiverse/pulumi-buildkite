@@ -27,7 +27,7 @@ import (
 //	"os"
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/go/buildkite/Pipeline"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
 //
 // )
 //
@@ -69,7 +69,7 @@ import (
 //	"os"
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/go/buildkite/Pipeline"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
 //
 // )
 //
@@ -109,7 +109,7 @@ import (
 //	"os"
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/go/buildkite/Pipeline"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
 //
 // )
 //
@@ -148,7 +148,7 @@ import (
 //	"os"
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/go/buildkite/Pipeline"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
 //
 // )
 //

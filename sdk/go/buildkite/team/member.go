@@ -29,7 +29,7 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/go/buildkite/Team"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Team"
 //
 // )
 //

@@ -9,7 +9,7 @@ replace (
 
 require (
 	github.com/buildkite/terraform-provider-buildkite v0.18.0
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.48.1-0.20230527113951-a0f92e793f31
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.48.1-0.20230605131955-5a0a54720def
 	github.com/pulumi/pulumi/sdk/v3 v3.69.0
 )
 

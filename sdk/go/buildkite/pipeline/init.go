@@ -8,7 +8,7 @@ import (
 
 	"github.com/blang/semver"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-buildkite/sdk/go/buildkite"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite"
 )
 
 type module struct {
