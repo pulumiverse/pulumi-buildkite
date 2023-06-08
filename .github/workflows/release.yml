@@ -146,7 +146,7 @@ jobs:
 
       - name: Publish .NET SDK
         run: |
-          dotnet nuget push -s "${{ env.NUGET_FEED_URL }}" -k "${{ env.NUGET_PUBLISH_KEY }}" ${{github.workspace}}/sdk/dotnet/bin/Debug/*.nupkg
+          dotnet nuget push -s "${{ env.NUGET_FEED_URL }}" -k "${{ secrets.NUGET_PUBLISH_KEY }}" ${{github.workspace}}/sdk/dotnet/bin/Debug/*.nupkg
         if: matrix.language == 'dotnet'
 
       - name: Publish Python SDK
