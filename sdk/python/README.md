@@ -82,7 +82,7 @@ const vm = new buildkite.agent.AgentToken(
 
 ## Reference
 
-For detailed reference documentation, please visit the upstream Terraform provider's documentation at: https://registry.terraform.io/providers/buildkite/buildkite/latest>
+For detailed reference documentation, please visit the upstream Terraform provider's documentation at: https://registry.terraform.io/providers/buildkite/buildkite/latest
 
 ## Contributors
 
