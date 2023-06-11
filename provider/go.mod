@@ -10,7 +10,7 @@ replace (
 require (
 	github.com/buildkite/terraform-provider-buildkite v0.18.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.49.1
-	github.com/pulumi/pulumi/sdk/v3 v3.69.0
+	github.com/pulumi/pulumi/sdk/v3 v3.70.0
 )
 
 require (
