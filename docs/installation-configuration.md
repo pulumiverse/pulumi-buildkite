@@ -8,10 +8,12 @@ layout: package
 
 The Buildkite provider is available as a package in all Pulumi languages:
 
+<!-- x-release-please-start-major -->
 * JavaScript/TypeScript: [`@pulumiverse/pulumi-buildkite`](https://www.npmjs.com/package/@pulumiverse/pulumi-buildkite)
 * Python: [`pulumiverse-buildkite`](https://pypi.org/project/pulumiverse-buildkite/)
 * Go: [`github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite`](https://github.com/pulumiverse/pulumi-buildkite)
 * .NET: [`Pulumiverse.Buildkite`](https://www.nuget.org/packages/Pulumiverse.Buildkite)
+<!-- x-release-please-end -->
 
 ## Setup
 
