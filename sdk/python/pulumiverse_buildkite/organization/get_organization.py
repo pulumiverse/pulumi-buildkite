@@ -85,7 +85,7 @@ def get_organization(allowed_api_ip_addresses: Optional[Sequence[str]] = None,
         from_port="*",
         to_port=443,
         protocol="tcp",
-        cidr_blocks=%!v(PANIC=Format method: runtime error: invalid memory address or nil pointer dereference),
+        cidr_blocks=data["buildkite_organization"]["allowed_api_ip_addresses"],
     )])
     ```
 
@@ -124,7 +124,7 @@ def get_organization_output(allowed_api_ip_addresses: Optional[pulumi.Input[Opti
         from_port="*",
         to_port=443,
         protocol="tcp",
-        cidr_blocks=%!v(PANIC=Format method: runtime error: invalid memory address or nil pointer dereference),
+        cidr_blocks=data["buildkite_organization"]["allowed_api_ip_addresses"],
     )])
     ```
 
