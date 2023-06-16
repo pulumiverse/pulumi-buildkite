@@ -122,14 +122,6 @@ class AgentToken(pulumi.CustomResource):
         fleet = buildkite.agent.AgentToken("fleet", description="token used by build fleet")
         ```
 
-        ## Import
-
-        Tokens can be imported using the `GraphQL ID` (not UUID), e.g.
-
-        ```sh
-         $ pulumi import buildkite:Agent/agentToken:AgentToken fleet QWdlbnRUb2tlbi0tLTQzNWNhZDU4LWU4MWQtNDVhZi04NjM3LWIxY2Y4MDcwMjM4ZA==
-        ```
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: This is the description of the agent token.
@@ -156,14 +148,6 @@ class AgentToken(pulumi.CustomResource):
         import pulumiverse_buildkite as buildkite
 
         fleet = buildkite.agent.AgentToken("fleet", description="token used by build fleet")
-        ```
-
-        ## Import
-
-        Tokens can be imported using the `GraphQL ID` (not UUID), e.g.
-
-        ```sh
-         $ pulumi import buildkite:Agent/agentToken:AgentToken fleet QWdlbnRUb2tlbi0tLTQzNWNhZDU4LWU4MWQtNDVhZi04NjM3LWIxY2Y4MDcwMjM4ZA==
         ```
 
         :param str resource_name: The name of the resource.

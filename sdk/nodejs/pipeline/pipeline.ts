@@ -131,7 +131,7 @@ export class Pipeline extends pulumi.CustomResource {
     /**
      * A boolean on whether or not to allow rebuilds for the pipeline.
      */
-    public readonly allowRebuilds!: pulumi.Output<boolean | undefined>;
+    public readonly allowRebuilds!: pulumi.Output<boolean>;
     /**
      * The pipeline's last build status so you can display build status badge.
      */
@@ -139,15 +139,15 @@ export class Pipeline extends pulumi.CustomResource {
     /**
      * Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
      */
-    public readonly branchConfiguration!: pulumi.Output<string | undefined>;
+    public readonly branchConfiguration!: pulumi.Output<string>;
     /**
      * A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
      */
-    public readonly cancelIntermediateBuilds!: pulumi.Output<boolean | undefined>;
+    public readonly cancelIntermediateBuilds!: pulumi.Output<boolean>;
     /**
      * Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
      */
-    public readonly cancelIntermediateBuildsBranchFilter!: pulumi.Output<string | undefined>;
+    public readonly cancelIntermediateBuildsBranchFilter!: pulumi.Output<string>;
     /**
      * The GraphQL ID of the cluster you want to use for the pipeline.
      */
@@ -155,11 +155,11 @@ export class Pipeline extends pulumi.CustomResource {
     /**
      * The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
      */
-    public readonly defaultBranch!: pulumi.Output<string | undefined>;
+    public readonly defaultBranch!: pulumi.Output<string>;
     /**
      * The default timeout for commands in this pipeline, in minutes.
      */
-    public readonly defaultTimeoutInMinutes!: pulumi.Output<number | undefined>;
+    public readonly defaultTimeoutInMinutes!: pulumi.Output<number>;
     /**
      * Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
      */
@@ -167,11 +167,11 @@ export class Pipeline extends pulumi.CustomResource {
     /**
      * A description of the pipeline.
      */
-    public readonly description!: pulumi.Output<string | undefined>;
+    public readonly description!: pulumi.Output<string>;
     /**
      * The maximum timeout for commands in this pipeline, in minutes.
      */
-    public readonly maximumTimeoutInMinutes!: pulumi.Output<number | undefined>;
+    public readonly maximumTimeoutInMinutes!: pulumi.Output<number>;
     /**
      * The name of the pipeline.
      */
@@ -187,11 +187,11 @@ export class Pipeline extends pulumi.CustomResource {
     /**
      * A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
      */
-    public readonly skipIntermediateBuilds!: pulumi.Output<boolean | undefined>;
+    public readonly skipIntermediateBuilds!: pulumi.Output<boolean>;
     /**
      * Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
      */
-    public readonly skipIntermediateBuildsBranchFilter!: pulumi.Output<string | undefined>;
+    public readonly skipIntermediateBuildsBranchFilter!: pulumi.Output<string>;
     /**
      * The buildkite slug of the team.
      */

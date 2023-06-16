@@ -146,6 +146,10 @@
                     "type": "boolean",
                     "description": "Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.\n"
                 },
+                "skipBuildsForExistingCommits": {
+                    "type": "boolean",
+                    "description": "Whether to skip creating a new build if an existing build for the commit and branch already exists.\n"
+                },
                 "skipPullRequestBuildsForExistingCommits": {
                     "type": "boolean",
                     "description": "Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.\n"
@@ -159,23 +163,19 @@
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
-                        "buildBranches",
                         "buildPullRequestForks",
                         "buildPullRequestLabelsChanged",
                         "buildPullRequestReadyForReview",
-                        "buildPullRequests",
                         "buildTags",
                         "cancelDeletedBranchBuilds",
                         "filterCondition",
                         "filterEnabled",
                         "prefixPullRequestForkBranchNames",
                         "publishBlockedAsPending",
-                        "publishCommitStatus",
                         "publishCommitStatusPerStep",
                         "pullRequestBranchFilterConfiguration",
                         "pullRequestBranchFilterEnabled",
                         "separatePullRequestStatuses",
-                        "skipPullRequestBuildsForExistingCommits",
                         "triggerMode"
                     ]
                 }
@@ -248,7 +248,7 @@
     },
     "resources": {
         "buildkite:Agent/agentToken:AgentToken": {
-            "description": "## # Resource: agent_token\n\nThis resource allows you to create and manage agent tokens.\n\nBuildkite Documentation: https://buildkite.com/docs/agent/v3/tokens\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumiverse/buildkite\";\n\nconst fleet = new buildkite.agent.AgentToken(\"fleet\", {description: \"token used by build fleet\"});\n```\n```python\nimport pulumi\nimport pulumiverse_buildkite as buildkite\n\nfleet = buildkite.agent.AgentToken(\"fleet\", description=\"token used by build fleet\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Buildkite = Pulumiverse.Buildkite;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var fleet = new Buildkite.Agent.AgentToken(\"fleet\", new()\n    {\n        Description = \"token used by build fleet\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Agent\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := Agent.NewAgentToken(ctx, \"fleet\", \u0026Agent.AgentTokenArgs{\n\t\t\tDescription: pulumi.String(\"token used by build fleet\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.buildkite.Agent.AgentToken;\nimport com.pulumi.buildkite.Agent.AgentTokenArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var fleet = new AgentToken(\"fleet\", AgentTokenArgs.builder()        \n            .description(\"token used by build fleet\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  fleet:\n    type: buildkite:Agent:AgentToken\n    properties:\n      description: token used by build fleet\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nTokens can be imported using the `GraphQL ID` (not UUID), e.g.\n\n```sh\n $ pulumi import buildkite:Agent/agentToken:AgentToken fleet QWdlbnRUb2tlbi0tLTQzNWNhZDU4LWU4MWQtNDVhZi04NjM3LWIxY2Y4MDcwMjM4ZA==\n```\n\n ",
+            "description": "## # Resource: agent_token\n\nThis resource allows you to create and manage agent tokens.\n\nBuildkite Documentation: https://buildkite.com/docs/agent/v3/tokens\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumiverse/buildkite\";\n\nconst fleet = new buildkite.agent.AgentToken(\"fleet\", {description: \"token used by build fleet\"});\n```\n```python\nimport pulumi\nimport pulumiverse_buildkite as buildkite\n\nfleet = buildkite.agent.AgentToken(\"fleet\", description=\"token used by build fleet\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Buildkite = Pulumiverse.Buildkite;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var fleet = new Buildkite.Agent.AgentToken(\"fleet\", new()\n    {\n        Description = \"token used by build fleet\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Agent\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := Agent.NewAgentToken(ctx, \"fleet\", \u0026Agent.AgentTokenArgs{\n\t\t\tDescription: pulumi.String(\"token used by build fleet\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.buildkite.Agent.AgentToken;\nimport com.pulumi.buildkite.Agent.AgentTokenArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var fleet = new AgentToken(\"fleet\", AgentTokenArgs.builder()        \n            .description(\"token used by build fleet\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  fleet:\n    type: buildkite:Agent:AgentToken\n    properties:\n      description: token used by build fleet\n```\n{{% /example %}}\n{{% /examples %}}",
             "properties": {
                 "description": {
                     "type": "string",
@@ -431,10 +431,20 @@
                 }
             },
             "required": [
+                "allowRebuilds",
                 "badgeUrl",
+                "branchConfiguration",
+                "cancelIntermediateBuilds",
+                "cancelIntermediateBuildsBranchFilter",
+                "defaultBranch",
+                "defaultTimeoutInMinutes",
+                "description",
+                "maximumTimeoutInMinutes",
                 "name",
                 "providerSettings",
                 "repository",
+                "skipIntermediateBuilds",
+                "skipIntermediateBuildsBranchFilter",
                 "slug",
                 "webhookUrl"
             ],

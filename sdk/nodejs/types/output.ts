@@ -10,7 +10,7 @@ export namespace Pipeline {
         /**
          * Whether to create builds when branches are pushed.
          */
-        buildBranches: boolean;
+        buildBranches?: boolean;
         /**
          * Whether to create builds for pull requests from third-party forks.
          */
@@ -23,7 +23,7 @@ export namespace Pipeline {
         /**
          * Whether to create builds for commits that are part of a Pull Request.
          */
-        buildPullRequests: boolean;
+        buildPullRequests?: boolean;
         /**
          * Whether to create builds when tags are pushed.
          *
@@ -55,7 +55,7 @@ export namespace Pipeline {
         /**
          * Whether to update the status of commits in Bitbucket or GitHub.
          */
-        publishCommitStatus: boolean;
+        publishCommitStatus?: boolean;
         /**
          * Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
          */
@@ -73,9 +73,13 @@ export namespace Pipeline {
          */
         separatePullRequestStatuses: boolean;
         /**
+         * Whether to skip creating a new build if an existing build for the commit and branch already exists.
+         */
+        skipBuildsForExistingCommits?: boolean;
+        /**
          * Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
          */
-        skipPullRequestBuildsForExistingCommits: boolean;
+        skipPullRequestBuildsForExistingCommits?: boolean;
         /**
          * What type of event to trigger builds on. Must be one of:
          */
