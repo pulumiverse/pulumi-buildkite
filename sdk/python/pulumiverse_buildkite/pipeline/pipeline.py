@@ -1017,7 +1017,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="allowRebuilds")
-    def allow_rebuilds(self) -> pulumi.Output[Optional[bool]]:
+    def allow_rebuilds(self) -> pulumi.Output[bool]:
         """
         A boolean on whether or not to allow rebuilds for the pipeline.
         """
@@ -1033,7 +1033,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="branchConfiguration")
-    def branch_configuration(self) -> pulumi.Output[Optional[str]]:
+    def branch_configuration(self) -> pulumi.Output[str]:
         """
         Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
         """
@@ -1041,7 +1041,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="cancelIntermediateBuilds")
-    def cancel_intermediate_builds(self) -> pulumi.Output[Optional[bool]]:
+    def cancel_intermediate_builds(self) -> pulumi.Output[bool]:
         """
         A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
         """
@@ -1049,7 +1049,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="cancelIntermediateBuildsBranchFilter")
-    def cancel_intermediate_builds_branch_filter(self) -> pulumi.Output[Optional[str]]:
+    def cancel_intermediate_builds_branch_filter(self) -> pulumi.Output[str]:
         """
         Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
         """
@@ -1065,7 +1065,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="defaultBranch")
-    def default_branch(self) -> pulumi.Output[Optional[str]]:
+    def default_branch(self) -> pulumi.Output[str]:
         """
         The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
         """
@@ -1073,7 +1073,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="defaultTimeoutInMinutes")
-    def default_timeout_in_minutes(self) -> pulumi.Output[Optional[int]]:
+    def default_timeout_in_minutes(self) -> pulumi.Output[int]:
         """
         The default timeout for commands in this pipeline, in minutes.
         """
@@ -1089,7 +1089,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def description(self) -> pulumi.Output[Optional[str]]:
+    def description(self) -> pulumi.Output[str]:
         """
         A description of the pipeline.
         """
@@ -1097,7 +1097,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="maximumTimeoutInMinutes")
-    def maximum_timeout_in_minutes(self) -> pulumi.Output[Optional[int]]:
+    def maximum_timeout_in_minutes(self) -> pulumi.Output[int]:
         """
         The maximum timeout for commands in this pipeline, in minutes.
         """
@@ -1129,7 +1129,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="skipIntermediateBuilds")
-    def skip_intermediate_builds(self) -> pulumi.Output[Optional[bool]]:
+    def skip_intermediate_builds(self) -> pulumi.Output[bool]:
         """
         A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
         """
@@ -1137,7 +1137,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="skipIntermediateBuildsBranchFilter")
-    def skip_intermediate_builds_branch_filter(self) -> pulumi.Output[Optional[str]]:
+    def skip_intermediate_builds_branch_filter(self) -> pulumi.Output[str]:
         """
         Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
         """

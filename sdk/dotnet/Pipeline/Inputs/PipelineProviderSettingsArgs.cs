@@ -111,6 +111,12 @@ namespace Pulumiverse.Buildkite.Pipeline.Inputs
         public Input<bool>? SeparatePullRequestStatuses { get; set; }
 
         /// <summary>
+        /// Whether to skip creating a new build if an existing build for the commit and branch already exists.
+        /// </summary>
+        [Input("skipBuildsForExistingCommits")]
+        public Input<bool>? SkipBuildsForExistingCommits { get; set; }
+
+        /// <summary>
         /// Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
         /// </summary>
         [Input("skipPullRequestBuildsForExistingCommits")]

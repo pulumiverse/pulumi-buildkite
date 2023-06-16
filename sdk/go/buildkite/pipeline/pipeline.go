@@ -204,27 +204,27 @@ type Pipeline struct {
 	pulumi.CustomResourceState
 
 	// A boolean on whether or not to allow rebuilds for the pipeline.
-	AllowRebuilds pulumi.BoolPtrOutput `pulumi:"allowRebuilds"`
+	AllowRebuilds pulumi.BoolOutput `pulumi:"allowRebuilds"`
 	// The pipeline's last build status so you can display build status badge.
 	BadgeUrl pulumi.StringOutput `pulumi:"badgeUrl"`
 	// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
-	BranchConfiguration pulumi.StringPtrOutput `pulumi:"branchConfiguration"`
+	BranchConfiguration pulumi.StringOutput `pulumi:"branchConfiguration"`
 	// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
-	CancelIntermediateBuilds pulumi.BoolPtrOutput `pulumi:"cancelIntermediateBuilds"`
+	CancelIntermediateBuilds pulumi.BoolOutput `pulumi:"cancelIntermediateBuilds"`
 	// Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
-	CancelIntermediateBuildsBranchFilter pulumi.StringPtrOutput `pulumi:"cancelIntermediateBuildsBranchFilter"`
+	CancelIntermediateBuildsBranchFilter pulumi.StringOutput `pulumi:"cancelIntermediateBuildsBranchFilter"`
 	// The GraphQL ID of the cluster you want to use for the pipeline.
 	ClusterId pulumi.StringPtrOutput `pulumi:"clusterId"`
 	// The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
-	DefaultBranch pulumi.StringPtrOutput `pulumi:"defaultBranch"`
+	DefaultBranch pulumi.StringOutput `pulumi:"defaultBranch"`
 	// The default timeout for commands in this pipeline, in minutes.
-	DefaultTimeoutInMinutes pulumi.IntPtrOutput `pulumi:"defaultTimeoutInMinutes"`
+	DefaultTimeoutInMinutes pulumi.IntOutput `pulumi:"defaultTimeoutInMinutes"`
 	// Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
 	DeletionProtection pulumi.BoolPtrOutput `pulumi:"deletionProtection"`
 	// A description of the pipeline.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
+	Description pulumi.StringOutput `pulumi:"description"`
 	// The maximum timeout for commands in this pipeline, in minutes.
-	MaximumTimeoutInMinutes pulumi.IntPtrOutput `pulumi:"maximumTimeoutInMinutes"`
+	MaximumTimeoutInMinutes pulumi.IntOutput `pulumi:"maximumTimeoutInMinutes"`
 	// The name of the pipeline.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// Source control provider settings for the pipeline. See Provider Settings Configuration below for details.
@@ -232,9 +232,9 @@ type Pipeline struct {
 	// The git URL of the repository.
 	Repository pulumi.StringOutput `pulumi:"repository"`
 	// A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
-	SkipIntermediateBuilds pulumi.BoolPtrOutput `pulumi:"skipIntermediateBuilds"`
+	SkipIntermediateBuilds pulumi.BoolOutput `pulumi:"skipIntermediateBuilds"`
 	// Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
-	SkipIntermediateBuildsBranchFilter pulumi.StringPtrOutput `pulumi:"skipIntermediateBuildsBranchFilter"`
+	SkipIntermediateBuildsBranchFilter pulumi.StringOutput `pulumi:"skipIntermediateBuildsBranchFilter"`
 	// The buildkite slug of the team.
 	Slug pulumi.StringOutput `pulumi:"slug"`
 	// The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
@@ -535,8 +535,8 @@ func (o PipelineOutput) ToPipelineOutputWithContext(ctx context.Context) Pipelin
 }
 
 // A boolean on whether or not to allow rebuilds for the pipeline.
-func (o PipelineOutput) AllowRebuilds() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.BoolPtrOutput { return v.AllowRebuilds }).(pulumi.BoolPtrOutput)
+func (o PipelineOutput) AllowRebuilds() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.BoolOutput { return v.AllowRebuilds }).(pulumi.BoolOutput)
 }
 
 // The pipeline's last build status so you can display build status badge.
@@ -545,18 +545,18 @@ func (o PipelineOutput) BadgeUrl() pulumi.StringOutput {
 }
 
 // Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
-func (o PipelineOutput) BranchConfiguration() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.StringPtrOutput { return v.BranchConfiguration }).(pulumi.StringPtrOutput)
+func (o PipelineOutput) BranchConfiguration() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.BranchConfiguration }).(pulumi.StringOutput)
 }
 
 // A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
-func (o PipelineOutput) CancelIntermediateBuilds() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.BoolPtrOutput { return v.CancelIntermediateBuilds }).(pulumi.BoolPtrOutput)
+func (o PipelineOutput) CancelIntermediateBuilds() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.BoolOutput { return v.CancelIntermediateBuilds }).(pulumi.BoolOutput)
 }
 
 // Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
-func (o PipelineOutput) CancelIntermediateBuildsBranchFilter() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.StringPtrOutput { return v.CancelIntermediateBuildsBranchFilter }).(pulumi.StringPtrOutput)
+func (o PipelineOutput) CancelIntermediateBuildsBranchFilter() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.CancelIntermediateBuildsBranchFilter }).(pulumi.StringOutput)
 }
 
 // The GraphQL ID of the cluster you want to use for the pipeline.
@@ -565,13 +565,13 @@ func (o PipelineOutput) ClusterId() pulumi.StringPtrOutput {
 }
 
 // The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
-func (o PipelineOutput) DefaultBranch() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.StringPtrOutput { return v.DefaultBranch }).(pulumi.StringPtrOutput)
+func (o PipelineOutput) DefaultBranch() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.DefaultBranch }).(pulumi.StringOutput)
 }
 
 // The default timeout for commands in this pipeline, in minutes.
-func (o PipelineOutput) DefaultTimeoutInMinutes() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.IntPtrOutput { return v.DefaultTimeoutInMinutes }).(pulumi.IntPtrOutput)
+func (o PipelineOutput) DefaultTimeoutInMinutes() pulumi.IntOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.IntOutput { return v.DefaultTimeoutInMinutes }).(pulumi.IntOutput)
 }
 
 // Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
@@ -580,13 +580,13 @@ func (o PipelineOutput) DeletionProtection() pulumi.BoolPtrOutput {
 }
 
 // A description of the pipeline.
-func (o PipelineOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+func (o PipelineOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
 // The maximum timeout for commands in this pipeline, in minutes.
-func (o PipelineOutput) MaximumTimeoutInMinutes() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.IntPtrOutput { return v.MaximumTimeoutInMinutes }).(pulumi.IntPtrOutput)
+func (o PipelineOutput) MaximumTimeoutInMinutes() pulumi.IntOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.IntOutput { return v.MaximumTimeoutInMinutes }).(pulumi.IntOutput)
 }
 
 // The name of the pipeline.
@@ -605,13 +605,13 @@ func (o PipelineOutput) Repository() pulumi.StringOutput {
 }
 
 // A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
-func (o PipelineOutput) SkipIntermediateBuilds() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.BoolPtrOutput { return v.SkipIntermediateBuilds }).(pulumi.BoolPtrOutput)
+func (o PipelineOutput) SkipIntermediateBuilds() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.BoolOutput { return v.SkipIntermediateBuilds }).(pulumi.BoolOutput)
 }
 
 // Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
-func (o PipelineOutput) SkipIntermediateBuildsBranchFilter() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.StringPtrOutput { return v.SkipIntermediateBuildsBranchFilter }).(pulumi.StringPtrOutput)
+func (o PipelineOutput) SkipIntermediateBuildsBranchFilter() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.SkipIntermediateBuildsBranchFilter }).(pulumi.StringOutput)
 }
 
 // The buildkite slug of the team.

@@ -80,6 +80,10 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         /// </summary>
         public readonly bool? SeparatePullRequestStatuses;
         /// <summary>
+        /// Whether to skip creating a new build if an existing build for the commit and branch already exists.
+        /// </summary>
+        public readonly bool? SkipBuildsForExistingCommits;
+        /// <summary>
         /// Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
         /// </summary>
         public readonly bool? SkipPullRequestBuildsForExistingCommits;
@@ -122,6 +126,8 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
 
             bool? separatePullRequestStatuses,
 
+            bool? skipBuildsForExistingCommits,
+
             bool? skipPullRequestBuildsForExistingCommits,
 
             string? triggerMode)
@@ -142,6 +148,7 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
             PullRequestBranchFilterConfiguration = pullRequestBranchFilterConfiguration;
             PullRequestBranchFilterEnabled = pullRequestBranchFilterEnabled;
             SeparatePullRequestStatuses = separatePullRequestStatuses;
+            SkipBuildsForExistingCommits = skipBuildsForExistingCommits;
             SkipPullRequestBuildsForExistingCommits = skipPullRequestBuildsForExistingCommits;
             TriggerMode = triggerMode;
         }

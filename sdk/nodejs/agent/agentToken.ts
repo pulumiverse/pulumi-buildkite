@@ -19,14 +19,6 @@ import * as utilities from "../utilities";
  *
  * const fleet = new buildkite.agent.AgentToken("fleet", {description: "token used by build fleet"});
  * ```
- *
- * ## Import
- *
- * Tokens can be imported using the `GraphQL ID` (not UUID), e.g.
- *
- * ```sh
- *  $ pulumi import buildkite:Agent/agentToken:AgentToken fleet QWdlbnRUb2tlbi0tLTQzNWNhZDU4LWU4MWQtNDVhZi04NjM3LWIxY2Y4MDcwMjM4ZA==
- * ```
  */
 export class AgentToken extends pulumi.CustomResource {
     /**

@@ -33,6 +33,7 @@ class PipelineProviderSettingsArgs:
                  pull_request_branch_filter_configuration: Optional[pulumi.Input[str]] = None,
                  pull_request_branch_filter_enabled: Optional[pulumi.Input[bool]] = None,
                  separate_pull_request_statuses: Optional[pulumi.Input[bool]] = None,
+                 skip_builds_for_existing_commits: Optional[pulumi.Input[bool]] = None,
                  skip_pull_request_builds_for_existing_commits: Optional[pulumi.Input[bool]] = None,
                  trigger_mode: Optional[pulumi.Input[str]] = None):
         """
@@ -55,6 +56,7 @@ class PipelineProviderSettingsArgs:
         :param pulumi.Input[str] pull_request_branch_filter_configuration: The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
         :param pulumi.Input[bool] pull_request_branch_filter_enabled: Whether to limit the creation of builds to specific branches or patterns.
         :param pulumi.Input[bool] separate_pull_request_statuses: Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.
+        :param pulumi.Input[bool] skip_builds_for_existing_commits: Whether to skip creating a new build if an existing build for the commit and branch already exists.
         :param pulumi.Input[bool] skip_pull_request_builds_for_existing_commits: Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
         :param pulumi.Input[str] trigger_mode: What type of event to trigger builds on. Must be one of:
         """
@@ -90,6 +92,8 @@ class PipelineProviderSettingsArgs:
             pulumi.set(__self__, "pull_request_branch_filter_enabled", pull_request_branch_filter_enabled)
         if separate_pull_request_statuses is not None:
             pulumi.set(__self__, "separate_pull_request_statuses", separate_pull_request_statuses)
+        if skip_builds_for_existing_commits is not None:
+            pulumi.set(__self__, "skip_builds_for_existing_commits", skip_builds_for_existing_commits)
         if skip_pull_request_builds_for_existing_commits is not None:
             pulumi.set(__self__, "skip_pull_request_builds_for_existing_commits", skip_pull_request_builds_for_existing_commits)
         if trigger_mode is not None:
@@ -287,6 +291,18 @@ class PipelineProviderSettingsArgs:
     @separate_pull_request_statuses.setter
     def separate_pull_request_statuses(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "separate_pull_request_statuses", value)
+
+    @property
+    @pulumi.getter(name="skipBuildsForExistingCommits")
+    def skip_builds_for_existing_commits(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to skip creating a new build if an existing build for the commit and branch already exists.
+        """
+        return pulumi.get(self, "skip_builds_for_existing_commits")
+
+    @skip_builds_for_existing_commits.setter
+    def skip_builds_for_existing_commits(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_builds_for_existing_commits", value)
 
     @property
     @pulumi.getter(name="skipPullRequestBuildsForExistingCommits")

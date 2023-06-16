@@ -147,7 +147,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// A boolean on whether or not to allow rebuilds for the pipeline.
         /// </summary>
         [Output("allowRebuilds")]
-        public Output<bool?> AllowRebuilds { get; private set; } = null!;
+        public Output<bool> AllowRebuilds { get; private set; } = null!;
 
         /// <summary>
         /// The pipeline's last build status so you can display build status badge.
@@ -159,19 +159,19 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
         /// </summary>
         [Output("branchConfiguration")]
-        public Output<string?> BranchConfiguration { get; private set; } = null!;
+        public Output<string> BranchConfiguration { get; private set; } = null!;
 
         /// <summary>
         /// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
         /// </summary>
         [Output("cancelIntermediateBuilds")]
-        public Output<bool?> CancelIntermediateBuilds { get; private set; } = null!;
+        public Output<bool> CancelIntermediateBuilds { get; private set; } = null!;
 
         /// <summary>
         /// Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
         /// </summary>
         [Output("cancelIntermediateBuildsBranchFilter")]
-        public Output<string?> CancelIntermediateBuildsBranchFilter { get; private set; } = null!;
+        public Output<string> CancelIntermediateBuildsBranchFilter { get; private set; } = null!;
 
         /// <summary>
         /// The GraphQL ID of the cluster you want to use for the pipeline.
@@ -183,13 +183,13 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
         /// </summary>
         [Output("defaultBranch")]
-        public Output<string?> DefaultBranch { get; private set; } = null!;
+        public Output<string> DefaultBranch { get; private set; } = null!;
 
         /// <summary>
         /// The default timeout for commands in this pipeline, in minutes.
         /// </summary>
         [Output("defaultTimeoutInMinutes")]
-        public Output<int?> DefaultTimeoutInMinutes { get; private set; } = null!;
+        public Output<int> DefaultTimeoutInMinutes { get; private set; } = null!;
 
         /// <summary>
         /// Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: &lt;pipeline name&gt;"
@@ -201,13 +201,13 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// A description of the pipeline.
         /// </summary>
         [Output("description")]
-        public Output<string?> Description { get; private set; } = null!;
+        public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
         /// The maximum timeout for commands in this pipeline, in minutes.
         /// </summary>
         [Output("maximumTimeoutInMinutes")]
-        public Output<int?> MaximumTimeoutInMinutes { get; private set; } = null!;
+        public Output<int> MaximumTimeoutInMinutes { get; private set; } = null!;
 
         /// <summary>
         /// The name of the pipeline.
@@ -231,13 +231,13 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
         /// </summary>
         [Output("skipIntermediateBuilds")]
-        public Output<bool?> SkipIntermediateBuilds { get; private set; } = null!;
+        public Output<bool> SkipIntermediateBuilds { get; private set; } = null!;
 
         /// <summary>
         /// Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
         /// </summary>
         [Output("skipIntermediateBuildsBranchFilter")]
-        public Output<string?> SkipIntermediateBuildsBranchFilter { get; private set; } = null!;
+        public Output<string> SkipIntermediateBuildsBranchFilter { get; private set; } = null!;
 
         /// <summary>
         /// The buildkite slug of the team.

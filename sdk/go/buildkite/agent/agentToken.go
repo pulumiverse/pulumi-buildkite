@@ -41,16 +41,6 @@ import (
 //	}
 //
 // ```
-//
-// ## Import
-//
-// Tokens can be imported using the `GraphQL ID` (not UUID), e.g.
-//
-// ```sh
-//
-//	$ pulumi import buildkite:Agent/agentToken:AgentToken fleet QWdlbnRUb2tlbi0tLTQzNWNhZDU4LWU4MWQtNDVhZi04NjM3LWIxY2Y4MDcwMjM4ZA==
-//
-// ```
 type AgentToken struct {
 	pulumi.CustomResourceState
 

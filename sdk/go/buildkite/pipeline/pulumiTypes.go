@@ -46,6 +46,8 @@ type PipelineProviderSettings struct {
 	PullRequestBranchFilterEnabled *bool `pulumi:"pullRequestBranchFilterEnabled"`
 	// Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.
 	SeparatePullRequestStatuses *bool `pulumi:"separatePullRequestStatuses"`
+	// Whether to skip creating a new build if an existing build for the commit and branch already exists.
+	SkipBuildsForExistingCommits *bool `pulumi:"skipBuildsForExistingCommits"`
 	// Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
 	SkipPullRequestBuildsForExistingCommits *bool `pulumi:"skipPullRequestBuildsForExistingCommits"`
 	// What type of event to trigger builds on. Must be one of:
@@ -99,6 +101,8 @@ type PipelineProviderSettingsArgs struct {
 	PullRequestBranchFilterEnabled pulumi.BoolPtrInput `pulumi:"pullRequestBranchFilterEnabled"`
 	// Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.
 	SeparatePullRequestStatuses pulumi.BoolPtrInput `pulumi:"separatePullRequestStatuses"`
+	// Whether to skip creating a new build if an existing build for the commit and branch already exists.
+	SkipBuildsForExistingCommits pulumi.BoolPtrInput `pulumi:"skipBuildsForExistingCommits"`
 	// Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
 	SkipPullRequestBuildsForExistingCommits pulumi.BoolPtrInput `pulumi:"skipPullRequestBuildsForExistingCommits"`
 	// What type of event to trigger builds on. Must be one of:
@@ -263,6 +267,11 @@ func (o PipelineProviderSettingsOutput) PullRequestBranchFilterEnabled() pulumi.
 // Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.
 func (o PipelineProviderSettingsOutput) SeparatePullRequestStatuses() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.SeparatePullRequestStatuses }).(pulumi.BoolPtrOutput)
+}
+
+// Whether to skip creating a new build if an existing build for the commit and branch already exists.
+func (o PipelineProviderSettingsOutput) SkipBuildsForExistingCommits() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.SkipBuildsForExistingCommits }).(pulumi.BoolPtrOutput)
 }
 
 // Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
@@ -459,6 +468,16 @@ func (o PipelineProviderSettingsPtrOutput) SeparatePullRequestStatuses() pulumi.
 			return nil
 		}
 		return v.SeparatePullRequestStatuses
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to skip creating a new build if an existing build for the commit and branch already exists.
+func (o PipelineProviderSettingsPtrOutput) SkipBuildsForExistingCommits() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SkipBuildsForExistingCommits
 	}).(pulumi.BoolPtrOutput)
 }
 
