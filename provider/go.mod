@@ -8,7 +8,7 @@ replace (
 )
 
 require (
-	github.com/buildkite/terraform-provider-buildkite v0.19.0
+	github.com/buildkite/terraform-provider-buildkite v0.19.1
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.50.1
 	github.com/pulumi/pulumi/sdk/v3 v3.73.0
 )
@@ -120,6 +120,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.17.0 // indirect
 	github.com/hashicorp/hil v0.0.0-20230614213501-4d65b419f8b0 // indirect
 	github.com/hashicorp/logutils v1.0.0 // indirect
+	github.com/hashicorp/terraform-plugin-framework v1.3.0 // indirect
 	github.com/hashicorp/terraform-plugin-go v0.15.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.9.0 // indirect
 	github.com/hashicorp/terraform-plugin-sdk v1.17.2 // indirect
