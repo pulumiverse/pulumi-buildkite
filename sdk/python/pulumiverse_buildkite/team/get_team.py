@@ -165,15 +165,15 @@ def get_team(slug: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('buildkite:Team/getTeam:getTeam', __args__, opts=opts, typ=GetTeamResult).value
 
     return AwaitableGetTeamResult(
-        default_member_role=__ret__.default_member_role,
-        default_team=__ret__.default_team,
-        description=__ret__.description,
-        id=__ret__.id,
-        members_can_create_pipelines=__ret__.members_can_create_pipelines,
-        name=__ret__.name,
-        privacy=__ret__.privacy,
-        slug=__ret__.slug,
-        uuid=__ret__.uuid)
+        default_member_role=pulumi.get(__ret__, 'default_member_role'),
+        default_team=pulumi.get(__ret__, 'default_team'),
+        description=pulumi.get(__ret__, 'description'),
+        id=pulumi.get(__ret__, 'id'),
+        members_can_create_pipelines=pulumi.get(__ret__, 'members_can_create_pipelines'),
+        name=pulumi.get(__ret__, 'name'),
+        privacy=pulumi.get(__ret__, 'privacy'),
+        slug=pulumi.get(__ret__, 'slug'),
+        uuid=pulumi.get(__ret__, 'uuid'))
 
 
 @_utilities.lift_output_func(get_team)

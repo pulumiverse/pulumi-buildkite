@@ -86,6 +86,8 @@ export class AgentToken extends pulumi.CustomResource {
             resourceInputs["uuid"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["token"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(AgentToken.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -753,6 +753,14 @@ class Pipeline(pulumi.CustomResource):
          $ pulumi import buildkite:Pipeline/pipeline:Pipeline fleet UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
         ```
 
+         To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/04e6ac1d-222e-49f9-8167-4767ab0f5362). graphql query getPipelineId {
+
+         pipeline(slug"ORGANIZATION_SLUG/PIPELINE_SLUG") {
+
+         id
+
+         } }
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] allow_rebuilds: A boolean on whether or not to allow rebuilds for the pipeline.
@@ -863,6 +871,14 @@ class Pipeline(pulumi.CustomResource):
         ```sh
          $ pulumi import buildkite:Pipeline/pipeline:Pipeline fleet UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
         ```
+
+         To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/04e6ac1d-222e-49f9-8167-4767ab0f5362). graphql query getPipelineId {
+
+         pipeline(slug"ORGANIZATION_SLUG/PIPELINE_SLUG") {
+
+         id
+
+         } }
 
         :param str resource_name: The name of the resource.
         :param PipelineArgs args: The arguments to use to populate this resource's properties.

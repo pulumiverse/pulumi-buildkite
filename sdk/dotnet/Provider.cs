@@ -23,7 +23,7 @@ namespace Pulumiverse.Buildkite
         /// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
         /// </summary>
         [Output("apiToken")]
-        public Output<string> ApiToken { get; private set; } = null!;
+        public Output<string?> ApiToken { get; private set; } = null!;
 
         /// <summary>
         /// Base URL for the GraphQL API to use
@@ -35,7 +35,7 @@ namespace Pulumiverse.Buildkite
         /// The Buildkite organization slug
         /// </summary>
         [Output("organization")]
-        public Output<string> Organization { get; private set; } = null!;
+        public Output<string?> Organization { get; private set; } = null!;
 
         /// <summary>
         /// Base URL for the REST API to use
@@ -51,7 +51,7 @@ namespace Pulumiverse.Buildkite
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Provider(string name, ProviderArgs args, CustomResourceOptions? options = null)
+        public Provider(string name, ProviderArgs? args = null, CustomResourceOptions? options = null)
             : base("buildkite", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
         {
         }
@@ -62,6 +62,10 @@ namespace Pulumiverse.Buildkite
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/pulumiverse/pulumi-buildkite",
+                AdditionalSecretOutputs =
+                {
+                    "apiToken",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -72,11 +76,21 @@ namespace Pulumiverse.Buildkite
 
     public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
+        [Input("apiToken")]
+        private Input<string>? _apiToken;
+
         /// <summary>
         /// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
         /// </summary>
-        [Input("apiToken", required: true)]
-        public Input<string> ApiToken { get; set; } = null!;
+        public Input<string>? ApiToken
+        {
+            get => _apiToken;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _apiToken = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// Base URL for the GraphQL API to use
@@ -87,8 +101,8 @@ namespace Pulumiverse.Buildkite
         /// <summary>
         /// The Buildkite organization slug
         /// </summary>
-        [Input("organization", required: true)]
-        public Input<string> Organization { get; set; } = null!;
+        [Input("organization")]
+        public Input<string>? Organization { get; set; }
 
         /// <summary>
         /// Base URL for the REST API to use

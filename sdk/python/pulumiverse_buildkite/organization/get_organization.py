@@ -98,9 +98,9 @@ def get_organization(allowed_api_ip_addresses: Optional[Sequence[str]] = None,
     __ret__ = pulumi.runtime.invoke('buildkite:Organization/getOrganization:getOrganization', __args__, opts=opts, typ=GetOrganizationResult).value
 
     return AwaitableGetOrganizationResult(
-        allowed_api_ip_addresses=__ret__.allowed_api_ip_addresses,
-        id=__ret__.id,
-        uuid=__ret__.uuid)
+        allowed_api_ip_addresses=pulumi.get(__ret__, 'allowed_api_ip_addresses'),
+        id=pulumi.get(__ret__, 'id'),
+        uuid=pulumi.get(__ret__, 'uuid'))
 
 
 @_utilities.lift_output_func(get_organization)

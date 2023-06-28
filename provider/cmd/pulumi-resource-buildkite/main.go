@@ -17,11 +17,11 @@
 package main
 
 import (
+	"context"
 	_ "embed"
 
-	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
+	"github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	buildkite "github.com/pulumiverse/pulumi-buildkite/provider"
-	"github.com/pulumiverse/pulumi-buildkite/provider/pkg/version"
 )
 
 //go:embed schema-embed.json
@@ -29,5 +29,5 @@ var pulumiSchema []byte
 
 func main() {
 	// Modify the path to point to the new provider
-	tfbridge.Main("buildkite", version.Version, buildkite.Provider(), pulumiSchema)
+	tfbridge.MainWithMuxer(context.Background(), "buildkite", buildkite.Provider(), pulumiSchema)
 }

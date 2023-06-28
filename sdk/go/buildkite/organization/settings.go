@@ -55,6 +55,8 @@ import (
 //	$ pulumi import buildkite:Organization/settings:Settings test_settings test_org
 //
 // ```
+//
+//	Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settings) page.
 type Settings struct {
 	pulumi.CustomResourceState
 

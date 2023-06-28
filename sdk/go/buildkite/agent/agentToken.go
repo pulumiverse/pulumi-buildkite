@@ -61,6 +61,10 @@ func NewAgentToken(ctx *pulumi.Context,
 		args = &AgentTokenArgs{}
 	}
 
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"token",
+	})
+	opts = append(opts, secrets)
 	opts = pkgResourceDefaultOpts(opts)
 	var resource AgentToken
 	err := ctx.RegisterResource("buildkite:Agent/agentToken:AgentToken", name, args, &resource, opts...)
