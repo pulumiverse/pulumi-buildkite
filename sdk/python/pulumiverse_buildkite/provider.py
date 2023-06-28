@@ -14,47 +14,37 @@ __all__ = ['ProviderArgs', 'Provider']
 @pulumi.input_type
 class ProviderArgs:
     def __init__(__self__, *,
-                 api_token: pulumi.Input[str],
-                 organization: pulumi.Input[str],
+                 api_token: Optional[pulumi.Input[str]] = None,
                  graphql_url: Optional[pulumi.Input[str]] = None,
+                 organization: Optional[pulumi.Input[str]] = None,
                  rest_url: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Provider resource.
         :param pulumi.Input[str] api_token: API token with GraphQL access and `write_pipelines, read_pipelines` scopes
-        :param pulumi.Input[str] organization: The Buildkite organization slug
         :param pulumi.Input[str] graphql_url: Base URL for the GraphQL API to use
+        :param pulumi.Input[str] organization: The Buildkite organization slug
         :param pulumi.Input[str] rest_url: Base URL for the REST API to use
         """
-        pulumi.set(__self__, "api_token", api_token)
-        pulumi.set(__self__, "organization", organization)
+        if api_token is not None:
+            pulumi.set(__self__, "api_token", api_token)
         if graphql_url is not None:
             pulumi.set(__self__, "graphql_url", graphql_url)
+        if organization is not None:
+            pulumi.set(__self__, "organization", organization)
         if rest_url is not None:
             pulumi.set(__self__, "rest_url", rest_url)
 
     @property
     @pulumi.getter(name="apiToken")
-    def api_token(self) -> pulumi.Input[str]:
+    def api_token(self) -> Optional[pulumi.Input[str]]:
         """
         API token with GraphQL access and `write_pipelines, read_pipelines` scopes
         """
         return pulumi.get(self, "api_token")
 
     @api_token.setter
-    def api_token(self, value: pulumi.Input[str]):
+    def api_token(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "api_token", value)
-
-    @property
-    @pulumi.getter
-    def organization(self) -> pulumi.Input[str]:
-        """
-        The Buildkite organization slug
-        """
-        return pulumi.get(self, "organization")
-
-    @organization.setter
-    def organization(self, value: pulumi.Input[str]):
-        pulumi.set(self, "organization", value)
 
     @property
     @pulumi.getter(name="graphqlUrl")
@@ -67,6 +57,18 @@ class ProviderArgs:
     @graphql_url.setter
     def graphql_url(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "graphql_url", value)
+
+    @property
+    @pulumi.getter
+    def organization(self) -> Optional[pulumi.Input[str]]:
+        """
+        The Buildkite organization slug
+        """
+        return pulumi.get(self, "organization")
+
+    @organization.setter
+    def organization(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "organization", value)
 
     @property
     @pulumi.getter(name="restUrl")
@@ -108,7 +110,7 @@ class Provider(pulumi.ProviderResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: ProviderArgs,
+                 args: Optional[ProviderArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         The provider type for the buildkite package. By default, resources use package-wide configuration
@@ -144,14 +146,12 @@ class Provider(pulumi.ProviderResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ProviderArgs.__new__(ProviderArgs)
 
-            if api_token is None and not opts.urn:
-                raise TypeError("Missing required property 'api_token'")
-            __props__.__dict__["api_token"] = api_token
+            __props__.__dict__["api_token"] = None if api_token is None else pulumi.Output.secret(api_token)
             __props__.__dict__["graphql_url"] = graphql_url
-            if organization is None and not opts.urn:
-                raise TypeError("Missing required property 'organization'")
             __props__.__dict__["organization"] = organization
             __props__.__dict__["rest_url"] = rest_url
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["apiToken"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Provider, __self__).__init__(
             'buildkite',
             resource_name,
@@ -160,7 +160,7 @@ class Provider(pulumi.ProviderResource):
 
     @property
     @pulumi.getter(name="apiToken")
-    def api_token(self) -> pulumi.Output[str]:
+    def api_token(self) -> pulumi.Output[Optional[str]]:
         """
         API token with GraphQL access and `write_pipelines, read_pipelines` scopes
         """
@@ -176,7 +176,7 @@ class Provider(pulumi.ProviderResource):
 
     @property
     @pulumi.getter
-    def organization(self) -> pulumi.Output[str]:
+    def organization(self) -> pulumi.Output[Optional[str]]:
         """
         The Buildkite organization slug
         """

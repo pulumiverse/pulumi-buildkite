@@ -22,13 +22,13 @@ export class Provider extends pulumi.ProviderResource {
         if (obj === undefined || obj === null) {
             return false;
         }
-        return obj['__pulumiType'] === Provider.__pulumiType;
+        return obj['__pulumiType'] === "pulumi:providers:" + Provider.__pulumiType;
     }
 
     /**
      * API token with GraphQL access and `write_pipelines, read_pipelines` scopes
      */
-    public readonly apiToken!: pulumi.Output<string>;
+    public readonly apiToken!: pulumi.Output<string | undefined>;
     /**
      * Base URL for the GraphQL API to use
      */
@@ -36,7 +36,7 @@ export class Provider extends pulumi.ProviderResource {
     /**
      * The Buildkite organization slug
      */
-    public readonly organization!: pulumi.Output<string>;
+    public readonly organization!: pulumi.Output<string | undefined>;
     /**
      * Base URL for the REST API to use
      */
@@ -49,22 +49,18 @@ export class Provider extends pulumi.ProviderResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: ProviderArgs, opts?: pulumi.ResourceOptions) {
+    constructor(name: string, args?: ProviderArgs, opts?: pulumi.ResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            if ((!args || args.apiToken === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'apiToken'");
-            }
-            if ((!args || args.organization === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'organization'");
-            }
-            resourceInputs["apiToken"] = args ? args.apiToken : undefined;
+            resourceInputs["apiToken"] = args?.apiToken ? pulumi.secret(args.apiToken) : undefined;
             resourceInputs["graphqlUrl"] = args ? args.graphqlUrl : undefined;
             resourceInputs["organization"] = args ? args.organization : undefined;
             resourceInputs["restUrl"] = args ? args.restUrl : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["apiToken"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -76,7 +72,7 @@ export interface ProviderArgs {
     /**
      * API token with GraphQL access and `write_pipelines, read_pipelines` scopes
      */
-    apiToken: pulumi.Input<string>;
+    apiToken?: pulumi.Input<string>;
     /**
      * Base URL for the GraphQL API to use
      */
@@ -84,7 +80,7 @@ export interface ProviderArgs {
     /**
      * The Buildkite organization slug
      */
-    organization: pulumi.Input<string>;
+    organization?: pulumi.Input<string>;
     /**
      * Base URL for the REST API to use
      */

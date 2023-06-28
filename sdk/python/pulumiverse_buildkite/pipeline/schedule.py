@@ -329,6 +329,44 @@ class Schedule(pulumi.CustomResource):
          $ pulumi import buildkite:Pipeline/schedule:Schedule test myorg/test/1be3e7c7-1e03-4011-accf-b2d8eec90222
         ```
 
+         Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settingss) page.
+
+        The pipeline slug and its relevant schedule UUID can be found with the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/abf9270e-eccf-4c5f-af21-4cd35164ab6c), specifying the organisation slug (when known) and the pipeline search term (PIPELINE_SEARCH_TERM). graphql query getPipelineScheduleUuid {
+
+         organization(slug"ORGANIZATION_SLUG") {
+
+         pipelines(first5, search"PIPELINE_SEARCH_TERM") {
+
+         edges{
+
+         node{
+
+         name
+
+         schedules{
+
+         edges{
+
+        node{
+
+         uuid
+
+         cronline
+
+         }
+
+         }
+
+         }
+
+         }
+
+         }
+
+         }
+
+         } }
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] branch: The branch to use for the build.
@@ -372,6 +410,44 @@ class Schedule(pulumi.CustomResource):
         ```sh
          $ pulumi import buildkite:Pipeline/schedule:Schedule test myorg/test/1be3e7c7-1e03-4011-accf-b2d8eec90222
         ```
+
+         Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settingss) page.
+
+        The pipeline slug and its relevant schedule UUID can be found with the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/abf9270e-eccf-4c5f-af21-4cd35164ab6c), specifying the organisation slug (when known) and the pipeline search term (PIPELINE_SEARCH_TERM). graphql query getPipelineScheduleUuid {
+
+         organization(slug"ORGANIZATION_SLUG") {
+
+         pipelines(first5, search"PIPELINE_SEARCH_TERM") {
+
+         edges{
+
+         node{
+
+         name
+
+         schedules{
+
+         edges{
+
+        node{
+
+         uuid
+
+         cronline
+
+         }
+
+         }
+
+         }
+
+         }
+
+         }
+
+         }
+
+         } }
 
         :param str resource_name: The name of the resource.
         :param ScheduleArgs args: The arguments to use to populate this resource's properties.

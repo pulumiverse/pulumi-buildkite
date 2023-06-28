@@ -141,13 +141,13 @@ def get_pipeline(slug: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('buildkite:Pipeline/getPipeline:getPipeline', __args__, opts=opts, typ=GetPipelineResult).value
 
     return AwaitableGetPipelineResult(
-        default_branch=__ret__.default_branch,
-        description=__ret__.description,
-        id=__ret__.id,
-        name=__ret__.name,
-        repository=__ret__.repository,
-        slug=__ret__.slug,
-        webhook_url=__ret__.webhook_url)
+        default_branch=pulumi.get(__ret__, 'default_branch'),
+        description=pulumi.get(__ret__, 'description'),
+        id=pulumi.get(__ret__, 'id'),
+        name=pulumi.get(__ret__, 'name'),
+        repository=pulumi.get(__ret__, 'repository'),
+        slug=pulumi.get(__ret__, 'slug'),
+        webhook_url=pulumi.get(__ret__, 'webhook_url'))
 
 
 @_utilities.lift_output_func(get_pipeline)

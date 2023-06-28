@@ -15,10 +15,13 @@
 package buildkite
 
 import (
+	"context"
+	_ "embed"
 	"fmt"
 	"path/filepath"
 
 	"github.com/buildkite/terraform-provider-buildkite/buildkite"
+	pfbridge "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
@@ -46,10 +49,16 @@ func preConfigureCallback(_ resource.PropertyMap, _ shim.ResourceConfig) error {
 	return nil
 }
 
+//go:embed cmd/pulumi-resource-buildkite/bridge-metadata.json
+var metadata []byte
+
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
-	p := shimv2.NewProvider(buildkite.Provider(version.Version))
+	p := pfbridge.MuxShimWithPF(context.Background(),
+		shimv2.NewProvider(buildkite.Provider(version.Version)),
+		buildkite.New(version.Version),
+	)
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
@@ -65,6 +74,8 @@ func Provider() tfbridge.ProviderInfo {
 		LogoURL:              "https://raw.githubusercontent.com/pulumiverse/pulumi-buildkite/main/assets/buildkite-logo.png",
 		GitHubOrg:            "buildkite",
 		PluginDownloadURL:    "github://api.github.com/pulumiverse/pulumi-buildkite",
+		MetadataInfo:         tfbridge.NewProviderMetadata(metadata),
+		Version:              version.Version,
 		Config:               map[string]*tfbridge.SchemaInfo{},
 		PreConfigureCallback: preConfigureCallback,
 		Resources: map[string]*tfbridge.ResourceInfo{

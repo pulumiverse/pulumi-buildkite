@@ -47,6 +47,8 @@ namespace Pulumiverse.Buildkite.Organization
     /// ```sh
     ///  $ pulumi import buildkite:Organization/settings:Settings test_settings test_org
     /// ```
+    /// 
+    ///  Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settings) page.
     /// </summary>
     [BuildkiteResourceType("buildkite:Organization/settings:Settings")]
     public partial class Settings : global::Pulumi.CustomResource

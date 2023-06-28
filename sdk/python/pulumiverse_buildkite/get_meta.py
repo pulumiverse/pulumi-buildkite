@@ -64,5 +64,5 @@ def get_meta(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetMetaRes
     __ret__ = pulumi.runtime.invoke('buildkite:index/getMeta:getMeta', __args__, opts=opts, typ=GetMetaResult).value
 
     return AwaitableGetMetaResult(
-        id=__ret__.id,
-        webhook_ips=__ret__.webhook_ips)
+        id=pulumi.get(__ret__, 'id'),
+        webhook_ips=pulumi.get(__ret__, 'webhook_ips'))

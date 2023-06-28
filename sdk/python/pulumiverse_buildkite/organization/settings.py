@@ -104,6 +104,8 @@ class Settings(pulumi.CustomResource):
          $ pulumi import buildkite:Organization/settings:Settings test_settings test_org
         ```
 
+         Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settings) page.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
@@ -139,6 +141,8 @@ class Settings(pulumi.CustomResource):
         ```sh
          $ pulumi import buildkite:Organization/settings:Settings test_settings test_org
         ```
+
+         Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settings) page.
 
         :param str resource_name: The name of the resource.
         :param SettingsArgs args: The arguments to use to populate this resource's properties.
