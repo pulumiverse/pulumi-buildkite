@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
 // ## # Resource: pipeline
@@ -138,6 +139,45 @@ import (
 // ```
 //
 // `deletionProtection` will block `destroy` actions on the **pipeline**. Attached resources, such as `schedules` will still be destroyed.
+// ### With Archive On Delete
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"os"
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
+//
+// )
+//
+//	func readFileOrPanic(path string) pulumi.StringPtrInput {
+//		data, err := os.ReadFile(path)
+//		if err != nil {
+//			panic(err.Error())
+//		}
+//		return pulumi.String(string(data))
+//	}
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := Pipeline.NewPipeline(ctx, "testNew", &Pipeline.PipelineArgs{
+//				Repository:      pulumi.String("https://github.com/buildkite/terraform-provider-buildkite.git"),
+//				Steps:           readFileOrPanic("./deploy-steps.yml"),
+//				ArchiveOnDelete: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// `archiveOnDelete` will archive the **pipeline** when `destroy` is called. Attached resources, such as `schedules` will still be destroyed. In order to delete the pipeline, `archiveOnDelete` must be set to `false` in the configuration, then `destroy` must be called again.
 // ### With GitHub Provider Settings
 //
 // ```go
@@ -212,11 +252,12 @@ type Pipeline struct {
 	pulumi.CustomResourceState
 
 	// A boolean on whether or not to allow rebuilds for the pipeline.
-	AllowRebuilds pulumi.BoolOutput `pulumi:"allowRebuilds"`
+	AllowRebuilds   pulumi.BoolPtrOutput `pulumi:"allowRebuilds"`
+	ArchiveOnDelete pulumi.BoolPtrOutput `pulumi:"archiveOnDelete"`
 	// The pipeline's last build status so you can display build status badge.
 	BadgeUrl pulumi.StringOutput `pulumi:"badgeUrl"`
 	// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
-	BranchConfiguration pulumi.StringOutput `pulumi:"branchConfiguration"`
+	BranchConfiguration pulumi.StringPtrOutput `pulumi:"branchConfiguration"`
 	// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
 	CancelIntermediateBuilds pulumi.BoolOutput `pulumi:"cancelIntermediateBuilds"`
 	// Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
@@ -264,7 +305,7 @@ func NewPipeline(ctx *pulumi.Context,
 	if args.Repository == nil {
 		return nil, errors.New("invalid value for required argument 'Repository'")
 	}
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Pipeline
 	err := ctx.RegisterResource("buildkite:Pipeline/pipeline:Pipeline", name, args, &resource, opts...)
 	if err != nil {
@@ -288,7 +329,8 @@ func GetPipeline(ctx *pulumi.Context,
 // Input properties used for looking up and filtering Pipeline resources.
 type pipelineState struct {
 	// A boolean on whether or not to allow rebuilds for the pipeline.
-	AllowRebuilds *bool `pulumi:"allowRebuilds"`
+	AllowRebuilds   *bool `pulumi:"allowRebuilds"`
+	ArchiveOnDelete *bool `pulumi:"archiveOnDelete"`
 	// The pipeline's last build status so you can display build status badge.
 	BadgeUrl *string `pulumi:"badgeUrl"`
 	// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
@@ -332,7 +374,8 @@ type pipelineState struct {
 
 type PipelineState struct {
 	// A boolean on whether or not to allow rebuilds for the pipeline.
-	AllowRebuilds pulumi.BoolPtrInput
+	AllowRebuilds   pulumi.BoolPtrInput
+	ArchiveOnDelete pulumi.BoolPtrInput
 	// The pipeline's last build status so you can display build status badge.
 	BadgeUrl pulumi.StringPtrInput
 	// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
@@ -380,7 +423,8 @@ func (PipelineState) ElementType() reflect.Type {
 
 type pipelineArgs struct {
 	// A boolean on whether or not to allow rebuilds for the pipeline.
-	AllowRebuilds *bool `pulumi:"allowRebuilds"`
+	AllowRebuilds   *bool `pulumi:"allowRebuilds"`
+	ArchiveOnDelete *bool `pulumi:"archiveOnDelete"`
 	// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
 	BranchConfiguration *string `pulumi:"branchConfiguration"`
 	// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
@@ -419,7 +463,8 @@ type pipelineArgs struct {
 // The set of arguments for constructing a Pipeline resource.
 type PipelineArgs struct {
 	// A boolean on whether or not to allow rebuilds for the pipeline.
-	AllowRebuilds pulumi.BoolPtrInput
+	AllowRebuilds   pulumi.BoolPtrInput
+	ArchiveOnDelete pulumi.BoolPtrInput
 	// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
 	BranchConfiguration pulumi.StringPtrInput
 	// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
@@ -543,8 +588,12 @@ func (o PipelineOutput) ToPipelineOutputWithContext(ctx context.Context) Pipelin
 }
 
 // A boolean on whether or not to allow rebuilds for the pipeline.
-func (o PipelineOutput) AllowRebuilds() pulumi.BoolOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.BoolOutput { return v.AllowRebuilds }).(pulumi.BoolOutput)
+func (o PipelineOutput) AllowRebuilds() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.BoolPtrOutput { return v.AllowRebuilds }).(pulumi.BoolPtrOutput)
+}
+
+func (o PipelineOutput) ArchiveOnDelete() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.BoolPtrOutput { return v.ArchiveOnDelete }).(pulumi.BoolPtrOutput)
 }
 
 // The pipeline's last build status so you can display build status badge.
@@ -553,8 +602,8 @@ func (o PipelineOutput) BadgeUrl() pulumi.StringOutput {
 }
 
 // Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
-func (o PipelineOutput) BranchConfiguration() pulumi.StringOutput {
-	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.BranchConfiguration }).(pulumi.StringOutput)
+func (o PipelineOutput) BranchConfiguration() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringPtrOutput { return v.BranchConfiguration }).(pulumi.StringPtrOutput)
 }
 
 // A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.

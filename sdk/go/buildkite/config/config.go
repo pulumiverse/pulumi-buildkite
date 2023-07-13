@@ -6,7 +6,10 @@ package config
 import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
+
+var _ = internal.GetEnvOrDefault
 
 // API token with GraphQL access and `write_pipelines, read_pipelines` scopes
 func GetApiToken(ctx *pulumi.Context) string {

@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
 // ## # Data Source: team
@@ -43,7 +44,7 @@ import (
 //
 // ```
 func LookupTeam(ctx *pulumi.Context, args *LookupTeamArgs, opts ...pulumi.InvokeOption) (*LookupTeamResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupTeamResult
 	err := ctx.Invoke("buildkite:Team/getTeam:getTeam", args, &rv, opts...)
 	if err != nil {

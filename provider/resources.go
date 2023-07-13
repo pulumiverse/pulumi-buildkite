@@ -39,6 +39,7 @@ const (
 	teamMod         = "Team"
 	organizationMod = "Organization"
 	agentMod        = "Agent"
+	clusterMod      = "Cluster"
 )
 
 // preConfigureCallback is called before the providerConfigure function of the underlying provider.
@@ -89,6 +90,10 @@ func Provider() tfbridge.ProviderInfo {
 			"buildkite_organization_settings": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Settings")},
 			// Agent
 			"buildkite_agent_token": {Tok: tfbridge.MakeResource(mainPkg, agentMod, "AgentToken")},
+			// Cluster
+			"buildkite_cluster":             {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "Cluster")},
+			"buildkite_cluster_agent_token": {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterAgentToken")},
+			"buildkite_cluster_queue":       {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterQueue")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// Pipeline
@@ -97,6 +102,8 @@ func Provider() tfbridge.ProviderInfo {
 			"buildkite_team": {Tok: tfbridge.MakeDataSource(mainPkg, teamMod, "getTeam")},
 			// Organization
 			"buildkite_organization": {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getOrganization")},
+			// Cluster
+			"buildkite_cluster": {Tok: tfbridge.MakeDataSource(mainPkg, clusterMod, "getCluster")},
 			// Anything Else
 			"buildkite_meta": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getMeta")},
 		},

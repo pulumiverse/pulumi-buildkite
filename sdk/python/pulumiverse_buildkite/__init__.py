@@ -12,6 +12,8 @@ from .provider import *
 if typing.TYPE_CHECKING:
     import pulumiverse_buildkite.agent as __agent
     agent = __agent
+    import pulumiverse_buildkite.cluster as __cluster
+    cluster = __cluster
     import pulumiverse_buildkite.config as __config
     config = __config
     import pulumiverse_buildkite.organization as __organization
@@ -22,6 +24,7 @@ if typing.TYPE_CHECKING:
     team = __team
 else:
     agent = _utilities.lazy_import('pulumiverse_buildkite.agent')
+    cluster = _utilities.lazy_import('pulumiverse_buildkite.cluster')
     config = _utilities.lazy_import('pulumiverse_buildkite.config')
     organization = _utilities.lazy_import('pulumiverse_buildkite.organization')
     pipeline = _utilities.lazy_import('pulumiverse_buildkite.pipeline')
@@ -36,6 +39,30 @@ _utilities.register(
   "fqn": "pulumiverse_buildkite.agent",
   "classes": {
    "buildkite:Agent/agentToken:AgentToken": "AgentToken"
+  }
+ },
+ {
+  "pkg": "buildkite",
+  "mod": "Cluster/cluster",
+  "fqn": "pulumiverse_buildkite.cluster",
+  "classes": {
+   "buildkite:Cluster/cluster:Cluster": "Cluster"
+  }
+ },
+ {
+  "pkg": "buildkite",
+  "mod": "Cluster/clusterAgentToken",
+  "fqn": "pulumiverse_buildkite.cluster",
+  "classes": {
+   "buildkite:Cluster/clusterAgentToken:ClusterAgentToken": "ClusterAgentToken"
+  }
+ },
+ {
+  "pkg": "buildkite",
+  "mod": "Cluster/clusterQueue",
+  "fqn": "pulumiverse_buildkite.cluster",
+  "classes": {
+   "buildkite:Cluster/clusterQueue:ClusterQueue": "ClusterQueue"
   }
  },
  {

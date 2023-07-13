@@ -2,6 +2,9 @@
     "mux": {
         "resources": {
             "buildkite:Agent/agentToken:AgentToken": 1,
+            "buildkite:Cluster/cluster:Cluster": 1,
+            "buildkite:Cluster/clusterAgentToken:ClusterAgentToken": 1,
+            "buildkite:Cluster/clusterQueue:ClusterQueue": 1,
             "buildkite:Organization/settings:Settings": 0,
             "buildkite:Pipeline/pipeline:Pipeline": 0,
             "buildkite:Pipeline/schedule:Schedule": 0,
@@ -9,6 +12,7 @@
             "buildkite:Team/team:Team": 0
         },
         "functions": {
+            "buildkite:Cluster/getCluster:getCluster": 1,
             "buildkite:Organization/getOrganization:getOrganization": 0,
             "buildkite:Pipeline/getPipeline:getPipeline": 0,
             "buildkite:Team/getTeam:getTeam": 0,
@@ -18,6 +22,9 @@
     "renames": {
         "resources": {
             "buildkite:Agent/agentToken:AgentToken": "buildkite_agent_token",
+            "buildkite:Cluster/cluster:Cluster": "buildkite_cluster",
+            "buildkite:Cluster/clusterAgentToken:ClusterAgentToken": "buildkite_cluster_agent_token",
+            "buildkite:Cluster/clusterQueue:ClusterQueue": "buildkite_cluster_queue",
             "buildkite:Organization/settings:Settings": "buildkite_organization_settings",
             "buildkite:Pipeline/pipeline:Pipeline": "buildkite_pipeline",
             "buildkite:Pipeline/schedule:Schedule": "buildkite_pipeline_schedule",
@@ -25,12 +32,21 @@
             "buildkite:Team/team:Team": "buildkite_team"
         },
         "functions": {
+            "buildkite:Cluster/getCluster:getCluster": "buildkite_cluster",
             "buildkite:Organization/getOrganization:getOrganization": "buildkite_organization",
             "buildkite:Pipeline/getPipeline:getPipeline": "buildkite_pipeline",
             "buildkite:Team/getTeam:getTeam": "buildkite_team",
             "buildkite:index/getMeta:getMeta": "buildkite_meta"
         },
         "renamedProperties": {
+            "buildkite:Cluster/clusterAgentToken:ClusterAgentToken": {
+                "clusterId": "cluster_id",
+                "clusterUuid": "cluster_uuid"
+            },
+            "buildkite:Cluster/clusterQueue:ClusterQueue": {
+                "clusterId": "cluster_id",
+                "clusterUuid": "cluster_uuid"
+            },
             "buildkite:Organization/getOrganization:getOrganization": {
                 "allowedApiIpAddresses": "allowed_api_ip_addresses"
             },
@@ -67,6 +83,7 @@
             },
             "buildkite:Pipeline/pipeline:Pipeline": {
                 "allowRebuilds": "allow_rebuilds",
+                "archiveOnDelete": "archive_on_delete",
                 "badgeUrl": "badge_url",
                 "branchConfiguration": "branch_configuration",
                 "cancelIntermediateBuilds": "cancel_intermediate_builds",

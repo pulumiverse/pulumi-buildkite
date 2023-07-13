@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
 // ## # Resource: team
@@ -115,7 +116,7 @@ func NewTeam(ctx *pulumi.Context,
 	if args.Privacy == nil {
 		return nil, errors.New("invalid value for required argument 'Privacy'")
 	}
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Team
 	err := ctx.RegisterResource("buildkite:Team/team:Team", name, args, &resource, opts...)
 	if err != nil {

@@ -64,6 +64,21 @@ import * as utilities from "../utilities";
  * ```
  *
  * `deletionProtection` will block `destroy` actions on the **pipeline**. Attached resources, such as `schedules` will still be destroyed.
+ * ### With Archive On Delete
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as buildkite from "@pulumiverse/buildkite";
+ * import * as fs from "fs";
+ *
+ * const testNew = new buildkite.pipeline.Pipeline("testNew", {
+ *     repository: "https://github.com/buildkite/terraform-provider-buildkite.git",
+ *     steps: fs.readFileSync("./deploy-steps.yml"),
+ *     archiveOnDelete: true,
+ * });
+ * ```
+ *
+ * `archiveOnDelete` will archive the **pipeline** when `destroy` is called. Attached resources, such as `schedules` will still be destroyed. In order to delete the pipeline, `archiveOnDelete` must be set to `false` in the configuration, then `destroy` must be called again.
  * ### With GitHub Provider Settings
  *
  * ```typescript
@@ -139,7 +154,8 @@ export class Pipeline extends pulumi.CustomResource {
     /**
      * A boolean on whether or not to allow rebuilds for the pipeline.
      */
-    public readonly allowRebuilds!: pulumi.Output<boolean>;
+    public readonly allowRebuilds!: pulumi.Output<boolean | undefined>;
+    public readonly archiveOnDelete!: pulumi.Output<boolean | undefined>;
     /**
      * The pipeline's last build status so you can display build status badge.
      */
@@ -147,7 +163,7 @@ export class Pipeline extends pulumi.CustomResource {
     /**
      * Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
      */
-    public readonly branchConfiguration!: pulumi.Output<string>;
+    public readonly branchConfiguration!: pulumi.Output<string | undefined>;
     /**
      * A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
      */
@@ -232,6 +248,7 @@ export class Pipeline extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as PipelineState | undefined;
             resourceInputs["allowRebuilds"] = state ? state.allowRebuilds : undefined;
+            resourceInputs["archiveOnDelete"] = state ? state.archiveOnDelete : undefined;
             resourceInputs["badgeUrl"] = state ? state.badgeUrl : undefined;
             resourceInputs["branchConfiguration"] = state ? state.branchConfiguration : undefined;
             resourceInputs["cancelIntermediateBuilds"] = state ? state.cancelIntermediateBuilds : undefined;
@@ -258,6 +275,7 @@ export class Pipeline extends pulumi.CustomResource {
                 throw new Error("Missing required property 'repository'");
             }
             resourceInputs["allowRebuilds"] = args ? args.allowRebuilds : undefined;
+            resourceInputs["archiveOnDelete"] = args ? args.archiveOnDelete : undefined;
             resourceInputs["branchConfiguration"] = args ? args.branchConfiguration : undefined;
             resourceInputs["cancelIntermediateBuilds"] = args ? args.cancelIntermediateBuilds : undefined;
             resourceInputs["cancelIntermediateBuildsBranchFilter"] = args ? args.cancelIntermediateBuildsBranchFilter : undefined;
@@ -292,6 +310,7 @@ export interface PipelineState {
      * A boolean on whether or not to allow rebuilds for the pipeline.
      */
     allowRebuilds?: pulumi.Input<boolean>;
+    archiveOnDelete?: pulumi.Input<boolean>;
     /**
      * The pipeline's last build status so you can display build status badge.
      */
@@ -379,6 +398,7 @@ export interface PipelineArgs {
      * A boolean on whether or not to allow rebuilds for the pipeline.
      */
     allowRebuilds?: pulumi.Input<boolean>;
+    archiveOnDelete?: pulumi.Input<boolean>;
     /**
      * Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
      */

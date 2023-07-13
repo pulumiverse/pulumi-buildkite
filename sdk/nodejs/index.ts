@@ -17,6 +17,7 @@ utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
 
 // Export sub-modules:
 import * as agent from "./agent";
+import * as cluster from "./cluster";
 import * as config from "./config";
 import * as organization from "./organization";
 import * as pipeline from "./pipeline";
@@ -25,6 +26,7 @@ import * as types from "./types";
 
 export {
     agent,
+    cluster,
     config,
     organization,
     pipeline,
