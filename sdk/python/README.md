@@ -24,13 +24,13 @@ This package is available in many languages in the standard packaging formats.
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
 ```bash
-npm install @pulumiverse/pulumi-buildkite
+npm install @pulumiverse/buildkite
 ```
 
 or `yarn`:
 
 ```bash
-yarn add @pulumiverse/pulumi-buildkite
+yarn add @pulumiverse/buildkite
 ```
 
 ### Python
@@ -71,7 +71,7 @@ The following configuration points are available for the `buildkite` provider:
 Example for *Typescript* to create a resource:
 
 ```typescript
-import * as buildkite from '@pulumiverse/pulumi-buildkite';
+import * as buildkite from '@pulumiverse/buildkite';
 
 const args = {};
 const vm = new buildkite.agent.AgentToken(

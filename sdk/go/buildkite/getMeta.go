@@ -5,10 +5,11 @@ package buildkite
 
 import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
 func GetMeta(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetMetaResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetMetaResult
 	err := ctx.Invoke("buildkite:index/getMeta:getMeta", nil, &rv, opts...)
 	if err != nil {

@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
 // ## # Resource: agentToken
@@ -65,7 +66,7 @@ func NewAgentToken(ctx *pulumi.Context,
 		"token",
 	})
 	opts = append(opts, secrets)
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource AgentToken
 	err := ctx.RegisterResource("buildkite:Agent/agentToken:AgentToken", name, args, &resource, opts...)
 	if err != nil {

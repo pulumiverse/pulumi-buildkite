@@ -93,6 +93,28 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// ```
     /// 
     /// `deletion_protection` will block `destroy` actions on the **pipeline**. Attached resources, such as `schedules` will still be destroyed.
+    /// ### With Archive On Delete
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.IO;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Buildkite = Pulumiverse.Buildkite;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var testNew = new Buildkite.Pipeline.Pipeline("testNew", new()
+    ///     {
+    ///         Repository = "https://github.com/buildkite/terraform-provider-buildkite.git",
+    ///         Steps = File.ReadAllText("./deploy-steps.yml"),
+    ///         ArchiveOnDelete = true,
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// `archive_on_delete` will archive the **pipeline** when `destroy` is called. Attached resources, such as `schedules` will still be destroyed. In order to delete the pipeline, `archive_on_delete` must be set to `false` in the configuration, then `destroy` must be called again.
     /// ### With GitHub Provider Settings
     /// 
     /// ```csharp
@@ -155,7 +177,10 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// A boolean on whether or not to allow rebuilds for the pipeline.
         /// </summary>
         [Output("allowRebuilds")]
-        public Output<bool> AllowRebuilds { get; private set; } = null!;
+        public Output<bool?> AllowRebuilds { get; private set; } = null!;
+
+        [Output("archiveOnDelete")]
+        public Output<bool?> ArchiveOnDelete { get; private set; } = null!;
 
         /// <summary>
         /// The pipeline's last build status so you can display build status badge.
@@ -167,7 +192,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
         /// </summary>
         [Output("branchConfiguration")]
-        public Output<string> BranchConfiguration { get; private set; } = null!;
+        public Output<string?> BranchConfiguration { get; private set; } = null!;
 
         /// <summary>
         /// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
@@ -327,6 +352,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         [Input("allowRebuilds")]
         public Input<bool>? AllowRebuilds { get; set; }
 
+        [Input("archiveOnDelete")]
+        public Input<bool>? ArchiveOnDelete { get; set; }
+
         /// <summary>
         /// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
         /// </summary>
@@ -450,6 +478,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// </summary>
         [Input("allowRebuilds")]
         public Input<bool>? AllowRebuilds { get; set; }
+
+        [Input("archiveOnDelete")]
+        public Input<bool>? ArchiveOnDelete { get; set; }
 
         /// <summary>
         /// The pipeline's last build status so you can display build status badge.

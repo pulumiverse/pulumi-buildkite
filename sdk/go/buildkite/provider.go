@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
 // The provider type for the buildkite package. By default, resources use package-wide configuration
@@ -41,7 +42,7 @@ func NewProvider(ctx *pulumi.Context,
 		"apiToken",
 	})
 	opts = append(opts, secrets)
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:buildkite", name, args, &resource, opts...)
 	if err != nil {

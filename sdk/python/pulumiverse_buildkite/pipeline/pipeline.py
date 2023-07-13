@@ -18,6 +18,7 @@ class PipelineArgs:
     def __init__(__self__, *,
                  repository: pulumi.Input[str],
                  allow_rebuilds: Optional[pulumi.Input[bool]] = None,
+                 archive_on_delete: Optional[pulumi.Input[bool]] = None,
                  branch_configuration: Optional[pulumi.Input[str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[str]] = None,
@@ -57,6 +58,8 @@ class PipelineArgs:
         pulumi.set(__self__, "repository", repository)
         if allow_rebuilds is not None:
             pulumi.set(__self__, "allow_rebuilds", allow_rebuilds)
+        if archive_on_delete is not None:
+            pulumi.set(__self__, "archive_on_delete", archive_on_delete)
         if branch_configuration is not None:
             pulumi.set(__self__, "branch_configuration", branch_configuration)
         if cancel_intermediate_builds is not None:
@@ -113,6 +116,15 @@ class PipelineArgs:
     @allow_rebuilds.setter
     def allow_rebuilds(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "allow_rebuilds", value)
+
+    @property
+    @pulumi.getter(name="archiveOnDelete")
+    def archive_on_delete(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "archive_on_delete")
+
+    @archive_on_delete.setter
+    def archive_on_delete(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "archive_on_delete", value)
 
     @property
     @pulumi.getter(name="branchConfiguration")
@@ -308,6 +320,7 @@ class PipelineArgs:
 class _PipelineState:
     def __init__(__self__, *,
                  allow_rebuilds: Optional[pulumi.Input[bool]] = None,
+                 archive_on_delete: Optional[pulumi.Input[bool]] = None,
                  badge_url: Optional[pulumi.Input[str]] = None,
                  branch_configuration: Optional[pulumi.Input[str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[bool]] = None,
@@ -353,6 +366,8 @@ class _PipelineState:
         """
         if allow_rebuilds is not None:
             pulumi.set(__self__, "allow_rebuilds", allow_rebuilds)
+        if archive_on_delete is not None:
+            pulumi.set(__self__, "archive_on_delete", archive_on_delete)
         if badge_url is not None:
             pulumi.set(__self__, "badge_url", badge_url)
         if branch_configuration is not None:
@@ -405,6 +420,15 @@ class _PipelineState:
     @allow_rebuilds.setter
     def allow_rebuilds(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "allow_rebuilds", value)
+
+    @property
+    @pulumi.getter(name="archiveOnDelete")
+    def archive_on_delete(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "archive_on_delete")
+
+    @archive_on_delete.setter
+    def archive_on_delete(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "archive_on_delete", value)
 
     @property
     @pulumi.getter(name="badgeUrl")
@@ -650,6 +674,7 @@ class Pipeline(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allow_rebuilds: Optional[pulumi.Input[bool]] = None,
+                 archive_on_delete: Optional[pulumi.Input[bool]] = None,
                  branch_configuration: Optional[pulumi.Input[str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[str]] = None,
@@ -720,6 +745,19 @@ class Pipeline(pulumi.CustomResource):
         ```
 
         `deletion_protection` will block `destroy` actions on the **pipeline**. Attached resources, such as `schedules` will still be destroyed.
+        ### With Archive On Delete
+
+        ```python
+        import pulumi
+        import pulumiverse_buildkite as buildkite
+
+        test_new = buildkite.pipeline.Pipeline("testNew",
+            repository="https://github.com/buildkite/terraform-provider-buildkite.git",
+            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
+            archive_on_delete=True)
+        ```
+
+        `archive_on_delete` will archive the **pipeline** when `destroy` is called. Attached resources, such as `schedules` will still be destroyed. In order to delete the pipeline, `archive_on_delete` must be set to `false` in the configuration, then `destroy` must be called again.
         ### With GitHub Provider Settings
 
         ```python
@@ -839,6 +877,19 @@ class Pipeline(pulumi.CustomResource):
         ```
 
         `deletion_protection` will block `destroy` actions on the **pipeline**. Attached resources, such as `schedules` will still be destroyed.
+        ### With Archive On Delete
+
+        ```python
+        import pulumi
+        import pulumiverse_buildkite as buildkite
+
+        test_new = buildkite.pipeline.Pipeline("testNew",
+            repository="https://github.com/buildkite/terraform-provider-buildkite.git",
+            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
+            archive_on_delete=True)
+        ```
+
+        `archive_on_delete` will archive the **pipeline** when `destroy` is called. Attached resources, such as `schedules` will still be destroyed. In order to delete the pipeline, `archive_on_delete` must be set to `false` in the configuration, then `destroy` must be called again.
         ### With GitHub Provider Settings
 
         ```python
@@ -896,6 +947,7 @@ class Pipeline(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allow_rebuilds: Optional[pulumi.Input[bool]] = None,
+                 archive_on_delete: Optional[pulumi.Input[bool]] = None,
                  branch_configuration: Optional[pulumi.Input[str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[str]] = None,
@@ -923,6 +975,7 @@ class Pipeline(pulumi.CustomResource):
             __props__ = PipelineArgs.__new__(PipelineArgs)
 
             __props__.__dict__["allow_rebuilds"] = allow_rebuilds
+            __props__.__dict__["archive_on_delete"] = archive_on_delete
             __props__.__dict__["branch_configuration"] = branch_configuration
             __props__.__dict__["cancel_intermediate_builds"] = cancel_intermediate_builds
             __props__.__dict__["cancel_intermediate_builds_branch_filter"] = cancel_intermediate_builds_branch_filter
@@ -956,6 +1009,7 @@ class Pipeline(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             allow_rebuilds: Optional[pulumi.Input[bool]] = None,
+            archive_on_delete: Optional[pulumi.Input[bool]] = None,
             badge_url: Optional[pulumi.Input[str]] = None,
             branch_configuration: Optional[pulumi.Input[str]] = None,
             cancel_intermediate_builds: Optional[pulumi.Input[bool]] = None,
@@ -1009,6 +1063,7 @@ class Pipeline(pulumi.CustomResource):
         __props__ = _PipelineState.__new__(_PipelineState)
 
         __props__.__dict__["allow_rebuilds"] = allow_rebuilds
+        __props__.__dict__["archive_on_delete"] = archive_on_delete
         __props__.__dict__["badge_url"] = badge_url
         __props__.__dict__["branch_configuration"] = branch_configuration
         __props__.__dict__["cancel_intermediate_builds"] = cancel_intermediate_builds
@@ -1033,11 +1088,16 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="allowRebuilds")
-    def allow_rebuilds(self) -> pulumi.Output[bool]:
+    def allow_rebuilds(self) -> pulumi.Output[Optional[bool]]:
         """
         A boolean on whether or not to allow rebuilds for the pipeline.
         """
         return pulumi.get(self, "allow_rebuilds")
+
+    @property
+    @pulumi.getter(name="archiveOnDelete")
+    def archive_on_delete(self) -> pulumi.Output[Optional[bool]]:
+        return pulumi.get(self, "archive_on_delete")
 
     @property
     @pulumi.getter(name="badgeUrl")
@@ -1049,7 +1109,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="branchConfiguration")
-    def branch_configuration(self) -> pulumi.Output[str]:
+    def branch_configuration(self) -> pulumi.Output[Optional[str]]:
         """
         Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
         """

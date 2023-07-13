@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
 // ## # Resource: organizationSettings
@@ -72,7 +73,7 @@ func NewSettings(ctx *pulumi.Context,
 		args = &SettingsArgs{}
 	}
 
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Settings
 	err := ctx.RegisterResource("buildkite:Organization/settings:Settings", name, args, &resource, opts...)
 	if err != nil {

@@ -9,6 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
 // ## # Resource: pipelineSchedule
@@ -134,7 +135,7 @@ func NewSchedule(ctx *pulumi.Context,
 	if args.PipelineId == nil {
 		return nil, errors.New("invalid value for required argument 'PipelineId'")
 	}
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Schedule
 	err := ctx.RegisterResource("buildkite:Pipeline/schedule:Schedule", name, args, &resource, opts...)
 	if err != nil {
