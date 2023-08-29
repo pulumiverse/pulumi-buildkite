@@ -94,7 +94,7 @@ namespace Pulumiverse.Buildkite.Team
         /// Whether team members can create.
         /// </summary>
         [Output("membersCanCreatePipelines")]
-        public Output<bool?> MembersCanCreatePipelines { get; private set; } = null!;
+        public Output<bool> MembersCanCreatePipelines { get; private set; } = null!;
 
         /// <summary>
         /// The name of the team.

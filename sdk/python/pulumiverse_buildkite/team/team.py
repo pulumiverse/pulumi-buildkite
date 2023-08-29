@@ -495,7 +495,7 @@ class Team(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="membersCanCreatePipelines")
-    def members_can_create_pipelines(self) -> pulumi.Output[Optional[bool]]:
+    def members_can_create_pipelines(self) -> pulumi.Output[bool]:
         """
         Whether team members can create.
         """

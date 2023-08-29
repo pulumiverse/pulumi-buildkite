@@ -32,9 +32,9 @@ namespace Pulumiverse.Buildkite.Team
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var myTeam = Buildkite.Team.GetTeam.Invoke(new()
+        ///     var myTeamData = Buildkite.Team.GetTeam.Invoke(new()
         ///     {
-        ///         Slug = "my_team",
+        ///         Id = "&lt;team id&gt;",
         ///     });
         /// 
         /// });
@@ -42,7 +42,7 @@ namespace Pulumiverse.Buildkite.Team
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
-        public static Task<GetTeamResult> InvokeAsync(GetTeamArgs args, InvokeOptions? options = null)
+        public static Task<GetTeamResult> InvokeAsync(GetTeamArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetTeamResult>("buildkite:Team/getTeam:getTeam", args ?? new GetTeamArgs(), options.WithDefaults());
 
         /// <summary>
@@ -65,9 +65,9 @@ namespace Pulumiverse.Buildkite.Team
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var myTeam = Buildkite.Team.GetTeam.Invoke(new()
+        ///     var myTeamData = Buildkite.Team.GetTeam.Invoke(new()
         ///     {
-        ///         Slug = "my_team",
+        ///         Id = "&lt;team id&gt;",
         ///     });
         /// 
         /// });
@@ -75,7 +75,7 @@ namespace Pulumiverse.Buildkite.Team
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
-        public static Output<GetTeamResult> Invoke(GetTeamInvokeArgs args, InvokeOptions? options = null)
+        public static Output<GetTeamResult> Invoke(GetTeamInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetTeamResult>("buildkite:Team/getTeam:getTeam", args ?? new GetTeamInvokeArgs(), options.WithDefaults());
     }
 
@@ -83,10 +83,19 @@ namespace Pulumiverse.Buildkite.Team
     public sealed class GetTeamArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// The slug of the team, available in the URL of the team on buildkite.com
+        /// The GraphQL ID of the team, available in the Settings page for the team.
         /// </summary>
-        [Input("slug", required: true)]
-        public string Slug { get; set; } = null!;
+        [Input("id")]
+        public string? Id { get; set; }
+
+        /// <summary>
+        /// The slug of the team. Available in the URL of the team on buildkite.com; in the format
+        /// "&lt;organizaton/team-name&gt;"
+        /// 
+        /// The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+        /// </summary>
+        [Input("slug")]
+        public string? Slug { get; set; }
 
         public GetTeamArgs()
         {
@@ -97,10 +106,19 @@ namespace Pulumiverse.Buildkite.Team
     public sealed class GetTeamInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// The slug of the team, available in the URL of the team on buildkite.com
+        /// The GraphQL ID of the team, available in the Settings page for the team.
         /// </summary>
-        [Input("slug", required: true)]
-        public Input<string> Slug { get; set; } = null!;
+        [Input("id")]
+        public Input<string>? Id { get; set; }
+
+        /// <summary>
+        /// The slug of the team. Available in the URL of the team on buildkite.com; in the format
+        /// "&lt;organizaton/team-name&gt;"
+        /// 
+        /// The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+        /// </summary>
+        [Input("slug")]
+        public Input<string>? Slug { get; set; }
 
         public GetTeamInvokeArgs()
         {

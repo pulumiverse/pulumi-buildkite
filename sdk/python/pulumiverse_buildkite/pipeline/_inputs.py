@@ -333,20 +333,22 @@ class PipelineProviderSettingsArgs:
 class PipelineTeamArgs:
     def __init__(__self__, *,
                  access_level: pulumi.Input[str],
-                 slug: pulumi.Input[str]):
+                 slug: pulumi.Input[str],
+                 pipeline_team_id: Optional[pulumi.Input[str]] = None,
+                 team_id: Optional[pulumi.Input[str]] = None):
         """
-        :param pulumi.Input[str] access_level: The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
-        :param pulumi.Input[str] slug: The buildkite slug of the team.
+        :param pulumi.Input[str] slug: The slug of the created pipeline.
         """
         pulumi.set(__self__, "access_level", access_level)
         pulumi.set(__self__, "slug", slug)
+        if pipeline_team_id is not None:
+            pulumi.set(__self__, "pipeline_team_id", pipeline_team_id)
+        if team_id is not None:
+            pulumi.set(__self__, "team_id", team_id)
 
     @property
     @pulumi.getter(name="accessLevel")
     def access_level(self) -> pulumi.Input[str]:
-        """
-        The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
-        """
         return pulumi.get(self, "access_level")
 
     @access_level.setter
@@ -357,12 +359,30 @@ class PipelineTeamArgs:
     @pulumi.getter
     def slug(self) -> pulumi.Input[str]:
         """
-        The buildkite slug of the team.
+        The slug of the created pipeline.
         """
         return pulumi.get(self, "slug")
 
     @slug.setter
     def slug(self, value: pulumi.Input[str]):
         pulumi.set(self, "slug", value)
+
+    @property
+    @pulumi.getter(name="pipelineTeamId")
+    def pipeline_team_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "pipeline_team_id")
+
+    @pipeline_team_id.setter
+    def pipeline_team_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "pipeline_team_id", value)
+
+    @property
+    @pulumi.getter(name="teamId")
+    def team_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "team_id")
+
+    @team_id.setter
+    def team_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "team_id", value)
 
 

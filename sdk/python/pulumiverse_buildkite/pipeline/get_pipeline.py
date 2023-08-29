@@ -63,9 +63,6 @@ class GetPipelineResult:
     @property
     @pulumi.getter
     def id(self) -> str:
-        """
-        The provider-assigned unique ID for this managed resource.
-        """
         return pulumi.get(self, "id")
 
     @property
@@ -93,7 +90,7 @@ class GetPipelineResult:
     @pulumi.getter(name="webhookUrl")
     def webhook_url(self) -> str:
         """
-        The default branch to prefill when new builds are created or triggered.
+        The Buildkite webhook URL that triggers builds on this pipeline.
         """
         return pulumi.get(self, "webhook_url")
 

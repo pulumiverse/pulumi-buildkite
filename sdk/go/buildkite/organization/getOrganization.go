@@ -4,9 +4,6 @@
 package organization
 
 import (
-	"context"
-	"reflect"
-
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
@@ -23,7 +20,7 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/ec2"
+//	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws/ec2"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Organization"
 //
@@ -53,83 +50,20 @@ import (
 //	}
 //
 // ```
-func GetOrganization(ctx *pulumi.Context, args *GetOrganizationArgs, opts ...pulumi.InvokeOption) (*GetOrganizationResult, error) {
+func LookupOrganization(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*LookupOrganizationResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
-	var rv GetOrganizationResult
-	err := ctx.Invoke("buildkite:Organization/getOrganization:getOrganization", args, &rv, opts...)
+	var rv LookupOrganizationResult
+	err := ctx.Invoke("buildkite:Organization/getOrganization:getOrganization", nil, &rv, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &rv, nil
 }
 
-// A collection of arguments for invoking getOrganization.
-type GetOrganizationArgs struct {
+// A collection of values returned by getOrganization.
+type LookupOrganizationResult struct {
 	// list of IP addresses in CIDR format that are allowed to access the Buildkite API.
 	AllowedApiIpAddresses []string `pulumi:"allowedApiIpAddresses"`
-}
-
-// A collection of values returned by getOrganization.
-type GetOrganizationResult struct {
-	// list of IP addresses in CIDR format that are allowed to access the Buildkite API.
-	AllowedApiIpAddresses []string `pulumi:"allowedApiIpAddresses"`
-	// The provider-assigned unique ID for this managed resource.
-	Id   string `pulumi:"id"`
-	Uuid string `pulumi:"uuid"`
-}
-
-func GetOrganizationOutput(ctx *pulumi.Context, args GetOrganizationOutputArgs, opts ...pulumi.InvokeOption) GetOrganizationResultOutput {
-	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetOrganizationResult, error) {
-			args := v.(GetOrganizationArgs)
-			r, err := GetOrganization(ctx, &args, opts...)
-			var s GetOrganizationResult
-			if r != nil {
-				s = *r
-			}
-			return s, err
-		}).(GetOrganizationResultOutput)
-}
-
-// A collection of arguments for invoking getOrganization.
-type GetOrganizationOutputArgs struct {
-	// list of IP addresses in CIDR format that are allowed to access the Buildkite API.
-	AllowedApiIpAddresses pulumi.StringArrayInput `pulumi:"allowedApiIpAddresses"`
-}
-
-func (GetOrganizationOutputArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetOrganizationArgs)(nil)).Elem()
-}
-
-// A collection of values returned by getOrganization.
-type GetOrganizationResultOutput struct{ *pulumi.OutputState }
-
-func (GetOrganizationResultOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetOrganizationResult)(nil)).Elem()
-}
-
-func (o GetOrganizationResultOutput) ToGetOrganizationResultOutput() GetOrganizationResultOutput {
-	return o
-}
-
-func (o GetOrganizationResultOutput) ToGetOrganizationResultOutputWithContext(ctx context.Context) GetOrganizationResultOutput {
-	return o
-}
-
-// list of IP addresses in CIDR format that are allowed to access the Buildkite API.
-func (o GetOrganizationResultOutput) AllowedApiIpAddresses() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetOrganizationResult) []string { return v.AllowedApiIpAddresses }).(pulumi.StringArrayOutput)
-}
-
-// The provider-assigned unique ID for this managed resource.
-func (o GetOrganizationResultOutput) Id() pulumi.StringOutput {
-	return o.ApplyT(func(v GetOrganizationResult) string { return v.Id }).(pulumi.StringOutput)
-}
-
-func (o GetOrganizationResultOutput) Uuid() pulumi.StringOutput {
-	return o.ApplyT(func(v GetOrganizationResult) string { return v.Uuid }).(pulumi.StringOutput)
-}
-
-func init() {
-	pulumi.RegisterOutputType(GetOrganizationResultOutput{})
+	Id                    string   `pulumi:"id"`
+	Uuid                  string   `pulumi:"uuid"`
 }

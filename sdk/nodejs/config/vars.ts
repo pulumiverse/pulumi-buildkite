@@ -8,12 +8,23 @@ declare var exports: any;
 const __config = new pulumi.Config("buildkite");
 
 /**
- * API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+ * API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
  */
 export declare const apiToken: string | undefined;
 Object.defineProperty(exports, "apiToken", {
     get() {
         return __config.get("apiToken");
+    },
+    enumerable: true,
+});
+
+/**
+ * Archive pipelines when destroying instead of completely deleting.
+ */
+export declare const archivePipelineOnDelete: boolean | undefined;
+Object.defineProperty(exports, "archivePipelineOnDelete", {
+    get() {
+        return __config.getObject<boolean>("archivePipelineOnDelete");
     },
     enumerable: true,
 });

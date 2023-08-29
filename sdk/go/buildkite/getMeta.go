@@ -20,7 +20,6 @@ func GetMeta(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetMetaResult, 
 
 // A collection of values returned by getMeta.
 type GetMetaResult struct {
-	// The provider-assigned unique ID for this managed resource.
 	Id string `pulumi:"id"`
 	// A list of strings, each one an IP address (x.x.x.x) or CIDR address (x.x.x.x/32) that Buildkite may use to send webhooks and other external requests.
 	WebhookIps []string `pulumi:"webhookIps"`

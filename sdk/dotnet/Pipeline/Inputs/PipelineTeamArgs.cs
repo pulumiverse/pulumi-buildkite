@@ -13,17 +13,20 @@ namespace Pulumiverse.Buildkite.Pipeline.Inputs
 
     public sealed class PipelineTeamArgs : global::Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
-        /// </summary>
         [Input("accessLevel", required: true)]
         public Input<string> AccessLevel { get; set; } = null!;
 
+        [Input("pipelineTeamId")]
+        public Input<string>? PipelineTeamId { get; set; }
+
         /// <summary>
-        /// The buildkite slug of the team.
+        /// The slug of the created pipeline.
         /// </summary>
         [Input("slug", required: true)]
         public Input<string> Slug { get; set; } = null!;
+
+        [Input("teamId")]
+        public Input<string>? TeamId { get; set; }
 
         public PipelineTeamArgs()
         {

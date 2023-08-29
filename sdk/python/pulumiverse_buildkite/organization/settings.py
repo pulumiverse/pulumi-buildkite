@@ -81,6 +81,8 @@ class Settings(pulumi.CustomResource):
         """
         ## # Resource: organization_settings
 
+        **Note**: This resource has been deprecated. In a future minor release, we will remove this resource in favour of the newer `Organization.Organization` resource that aligns with the datasource of the same name.
+
         This resource allows you to manage the settings for an organization.
 
         You must be an organization administrator to manage organization settings.
@@ -118,6 +120,8 @@ class Settings(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ## # Resource: organization_settings
+
+        **Note**: This resource has been deprecated. In a future minor release, we will remove this resource in favour of the newer `Organization.Organization` resource that aligns with the datasource of the same name.
 
         This resource allows you to manage the settings for an organization.
 

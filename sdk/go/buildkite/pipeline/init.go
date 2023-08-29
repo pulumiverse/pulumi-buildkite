@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Pipeline{}
 	case "buildkite:Pipeline/schedule:Schedule":
 		r = &Schedule{}
+	case "buildkite:Pipeline/team:Team":
+		r = &Team{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
@@ -46,6 +48,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"buildkite",
 		"Pipeline/schedule",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"buildkite",
+		"Pipeline/team",
 		&module{version},
 	)
 }

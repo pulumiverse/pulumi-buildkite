@@ -18,15 +18,17 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
  *
- * const myTeam = buildkite.Team.getTeam({
- *     slug: "my_team",
+ * const myTeamData = buildkite.Team.getTeam({
+ *     id: "<team id>",
  * });
  * ```
  */
-export function getTeam(args: GetTeamArgs, opts?: pulumi.InvokeOptions): Promise<GetTeamResult> {
+export function getTeam(args?: GetTeamArgs, opts?: pulumi.InvokeOptions): Promise<GetTeamResult> {
+    args = args || {};
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("buildkite:Team/getTeam:getTeam", {
+        "id": args.id,
         "slug": args.slug,
     }, opts);
 }
@@ -36,9 +38,16 @@ export function getTeam(args: GetTeamArgs, opts?: pulumi.InvokeOptions): Promise
  */
 export interface GetTeamArgs {
     /**
-     * The slug of the team, available in the URL of the team on buildkite.com
+     * The GraphQL ID of the team, available in the Settings page for the team.
      */
-    slug: string;
+    id?: string;
+    /**
+     * The slug of the team. Available in the URL of the team on buildkite.com; in the format
+     * "<organizaton/team-name>"
+     *
+     * The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+     */
+    slug?: string;
 }
 
 /**
@@ -93,12 +102,12 @@ export interface GetTeamResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
  *
- * const myTeam = buildkite.Team.getTeam({
- *     slug: "my_team",
+ * const myTeamData = buildkite.Team.getTeam({
+ *     id: "<team id>",
  * });
  * ```
  */
-export function getTeamOutput(args: GetTeamOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetTeamResult> {
+export function getTeamOutput(args?: GetTeamOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetTeamResult> {
     return pulumi.output(args).apply((a: any) => getTeam(a, opts))
 }
 
@@ -107,7 +116,14 @@ export function getTeamOutput(args: GetTeamOutputArgs, opts?: pulumi.InvokeOptio
  */
 export interface GetTeamOutputArgs {
     /**
-     * The slug of the team, available in the URL of the team on buildkite.com
+     * The GraphQL ID of the team, available in the Settings page for the team.
      */
-    slug: pulumi.Input<string>;
+    id?: pulumi.Input<string>;
+    /**
+     * The slug of the team. Available in the URL of the team on buildkite.com; in the format
+     * "<organizaton/team-name>"
+     *
+     * The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+     */
+    slug?: pulumi.Input<string>;
 }

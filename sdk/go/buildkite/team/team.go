@@ -89,7 +89,7 @@ type Team struct {
 	// The description to assign to the team.
 	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// Whether team members can create.
-	MembersCanCreatePipelines pulumi.BoolPtrOutput `pulumi:"membersCanCreatePipelines"`
+	MembersCanCreatePipelines pulumi.BoolOutput `pulumi:"membersCanCreatePipelines"`
 	// The name of the team.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// The privacy level to set the team too.
@@ -314,8 +314,8 @@ func (o TeamOutput) Description() pulumi.StringPtrOutput {
 }
 
 // Whether team members can create.
-func (o TeamOutput) MembersCanCreatePipelines() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Team) pulumi.BoolPtrOutput { return v.MembersCanCreatePipelines }).(pulumi.BoolPtrOutput)
+func (o TeamOutput) MembersCanCreatePipelines() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Team) pulumi.BoolOutput { return v.MembersCanCreatePipelines }).(pulumi.BoolOutput)
 }
 
 // The name of the team.

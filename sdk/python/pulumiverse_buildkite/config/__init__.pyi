@@ -11,7 +11,12 @@ from .. import _utilities
 
 apiToken: Optional[str]
 """
-API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
+"""
+
+archivePipelineOnDelete: Optional[bool]
+"""
+Archive pipelines when destroying instead of completely deleting.
 """
 
 graphqlUrl: Optional[str]

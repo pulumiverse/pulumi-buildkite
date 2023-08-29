@@ -22,6 +22,8 @@ if typing.TYPE_CHECKING:
     pipeline = __pipeline
     import pulumiverse_buildkite.team as __team
     team = __team
+    import pulumiverse_buildkite.testsuite as __testsuite
+    testsuite = __testsuite
 else:
     agent = _utilities.lazy_import('pulumiverse_buildkite.agent')
     cluster = _utilities.lazy_import('pulumiverse_buildkite.cluster')
@@ -29,6 +31,7 @@ else:
     organization = _utilities.lazy_import('pulumiverse_buildkite.organization')
     pipeline = _utilities.lazy_import('pulumiverse_buildkite.pipeline')
     team = _utilities.lazy_import('pulumiverse_buildkite.team')
+    testsuite = _utilities.lazy_import('pulumiverse_buildkite.testsuite')
 
 _utilities.register(
     resource_modules="""
@@ -67,6 +70,14 @@ _utilities.register(
  },
  {
   "pkg": "buildkite",
+  "mod": "Organization/organization",
+  "fqn": "pulumiverse_buildkite.organization",
+  "classes": {
+   "buildkite:Organization/organization:Organization": "Organization"
+  }
+ },
+ {
+  "pkg": "buildkite",
   "mod": "Organization/settings",
   "fqn": "pulumiverse_buildkite.organization",
   "classes": {
@@ -91,6 +102,14 @@ _utilities.register(
  },
  {
   "pkg": "buildkite",
+  "mod": "Pipeline/team",
+  "fqn": "pulumiverse_buildkite.pipeline",
+  "classes": {
+   "buildkite:Pipeline/team:Team": "Team"
+  }
+ },
+ {
+  "pkg": "buildkite",
   "mod": "Team/member",
   "fqn": "pulumiverse_buildkite.team",
   "classes": {
@@ -103,6 +122,22 @@ _utilities.register(
   "fqn": "pulumiverse_buildkite.team",
   "classes": {
    "buildkite:Team/team:Team": "Team"
+  }
+ },
+ {
+  "pkg": "buildkite",
+  "mod": "TestSuite/team",
+  "fqn": "pulumiverse_buildkite.testsuite",
+  "classes": {
+   "buildkite:TestSuite/team:Team": "Team"
+  }
+ },
+ {
+  "pkg": "buildkite",
+  "mod": "TestSuite/testSuite",
+  "fqn": "pulumiverse_buildkite.testsuite",
+  "classes": {
+   "buildkite:TestSuite/testSuite:TestSuite": "TestSuite"
   }
  }
 ]

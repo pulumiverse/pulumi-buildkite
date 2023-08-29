@@ -53,9 +53,6 @@ export interface GetPipelineResult {
      * A description of the pipeline.
      */
     readonly description: string;
-    /**
-     * The provider-assigned unique ID for this managed resource.
-     */
     readonly id: string;
     /**
      * The name of the pipeline.
@@ -67,7 +64,7 @@ export interface GetPipelineResult {
     readonly repository: string;
     readonly slug: string;
     /**
-     * The default branch to prefill when new builds are created or triggered.
+     * The Buildkite webhook URL that triggers builds on this pipeline.
      */
     readonly webhookUrl: string;
 }

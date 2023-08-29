@@ -40,19 +40,15 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     /// ## Import
     /// 
-    /// Pipeline schedules can be imported using a slug (which consists of `$BUILDKITE_ORGANIZATION_SLUG/$BUILDKITE_PIPELINE_SLUG/$PIPELINE_SCHEDULE_UUID`), e.g.
+    /// Pipeline schedules can be imported using their `GraphQL ID`, e.g.
     /// 
     /// ```sh
-    ///  $ pulumi import buildkite:Pipeline/schedule:Schedule test myorg/test/1be3e7c7-1e03-4011-accf-b2d8eec90222
+    ///  $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
     /// ```
     /// 
-    ///  Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settingss) page.
+    ///  Your pipeline schedules' GraphQL ID can be found with the below GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/45687b7c-2565-4acb-8a74-750a3647875f), specifying the organisation slug (when known) and the pipeline search term (PIPELINE_SEARCH_TERM). graphql query getPipelineScheduleId {
     /// 
-    /// The pipeline slug and its relevant schedule UUID can be found with the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/abf9270e-eccf-4c5f-af21-4cd35164ab6c), specifying the organisation slug (when known) and the pipeline search term (PIPELINE_SEARCH_TERM). graphql query getPipelineScheduleUuid {
-    /// 
-    ///  organization(slug"ORGANIZATION_SLUG") {
-    /// 
-    ///  pipelines(first5, search"PIPELINE_SEARCH_TERM") {
+    ///  organization(slug"ORGANIZATION_SLUG") { 		pipelines(first5, search"PIPELINE_SEARCH_TERM") {
     /// 
     ///  edges{
     /// 
@@ -66,9 +62,7 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     /// node{
     /// 
-    ///  uuid
-    /// 
-    ///  cronline
+    ///  id
     /// 
     ///  }
     /// 
@@ -97,7 +91,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// The commit ref to use for the build.
         /// </summary>
         [Output("commit")]
-        public Output<string?> Commit { get; private set; } = null!;
+        public Output<string> Commit { get; private set; } = null!;
 
         /// <summary>
         /// Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
@@ -109,7 +103,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// Whether the schedule should run.
         /// </summary>
         [Output("enabled")]
-        public Output<bool?> Enabled { get; private set; } = null!;
+        public Output<bool> Enabled { get; private set; } = null!;
 
         /// <summary>
         /// A map of environment variables to use for the build.
@@ -127,8 +121,11 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// The message to use for the build.
         /// </summary>
         [Output("message")]
-        public Output<string> Message { get; private set; } = null!;
+        public Output<string?> Message { get; private set; } = null!;
 
+        /// <summary>
+        /// The ID of the pipeline that this schedule belongs to.
+        /// </summary>
         [Output("pipelineId")]
         public Output<string> PipelineId { get; private set; } = null!;
 
@@ -233,6 +230,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         [Input("message")]
         public Input<string>? Message { get; set; }
 
+        /// <summary>
+        /// The ID of the pipeline that this schedule belongs to.
+        /// </summary>
         [Input("pipelineId", required: true)]
         public Input<string> PipelineId { get; set; } = null!;
 
@@ -292,6 +292,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         [Input("message")]
         public Input<string>? Message { get; set; }
 
+        /// <summary>
+        /// The ID of the pipeline that this schedule belongs to.
+        /// </summary>
         [Input("pipelineId")]
         public Input<string>? PipelineId { get; set; }
 

@@ -20,7 +20,7 @@ namespace Pulumiverse.Buildkite
     public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
-        /// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+        /// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
         /// </summary>
         [Output("apiToken")]
         public Output<string?> ApiToken { get; private set; } = null!;
@@ -80,7 +80,7 @@ namespace Pulumiverse.Buildkite
         private Input<string>? _apiToken;
 
         /// <summary>
-        /// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+        /// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
         /// </summary>
         public Input<string>? ApiToken
         {
@@ -91,6 +91,12 @@ namespace Pulumiverse.Buildkite
                 _apiToken = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
+
+        /// <summary>
+        /// Archive pipelines when destroying instead of completely deleting.
+        /// </summary>
+        [Input("archivePipelineOnDelete", json: true)]
+        public Input<bool>? ArchivePipelineOnDelete { get; set; }
 
         /// <summary>
         /// Base URL for the GraphQL API to use

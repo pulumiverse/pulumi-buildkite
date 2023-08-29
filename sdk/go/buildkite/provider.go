@@ -18,7 +18,7 @@ import (
 type Provider struct {
 	pulumi.ProviderResourceState
 
-	// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+	// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
 	ApiToken pulumi.StringPtrOutput `pulumi:"apiToken"`
 	// Base URL for the GraphQL API to use
 	GraphqlUrl pulumi.StringPtrOutput `pulumi:"graphqlUrl"`
@@ -52,8 +52,10 @@ func NewProvider(ctx *pulumi.Context,
 }
 
 type providerArgs struct {
-	// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+	// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
 	ApiToken *string `pulumi:"apiToken"`
+	// Archive pipelines when destroying instead of completely deleting.
+	ArchivePipelineOnDelete *bool `pulumi:"archivePipelineOnDelete"`
 	// Base URL for the GraphQL API to use
 	GraphqlUrl *string `pulumi:"graphqlUrl"`
 	// The Buildkite organization slug
@@ -64,8 +66,10 @@ type providerArgs struct {
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
-	// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+	// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
 	ApiToken pulumi.StringPtrInput
+	// Archive pipelines when destroying instead of completely deleting.
+	ArchivePipelineOnDelete pulumi.BoolPtrInput
 	// Base URL for the GraphQL API to use
 	GraphqlUrl pulumi.StringPtrInput
 	// The Buildkite organization slug
@@ -111,7 +115,7 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 	return o
 }
 
-// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
 func (o ProviderOutput) ApiToken() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiToken }).(pulumi.StringPtrOutput)
 }

@@ -20,6 +20,11 @@ export type Schedule = import("./schedule").Schedule;
 export const Schedule: typeof import("./schedule").Schedule = null as any;
 utilities.lazyLoad(exports, ["Schedule"], () => require("./schedule"));
 
+export { TeamArgs, TeamState } from "./team";
+export type Team = import("./team").Team;
+export const Team: typeof import("./team").Team = null as any;
+utilities.lazyLoad(exports, ["Team"], () => require("./team"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -29,6 +34,8 @@ const _module = {
                 return new Pipeline(name, <any>undefined, { urn })
             case "buildkite:Pipeline/schedule:Schedule":
                 return new Schedule(name, <any>undefined, { urn })
+            case "buildkite:Pipeline/team:Team":
+                return new Team(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
@@ -36,3 +43,4 @@ const _module = {
 };
 pulumi.runtime.registerResourceModule("buildkite", "Pipeline/pipeline", _module)
 pulumi.runtime.registerResourceModule("buildkite", "Pipeline/schedule", _module)
+pulumi.runtime.registerResourceModule("buildkite", "Pipeline/team", _module)

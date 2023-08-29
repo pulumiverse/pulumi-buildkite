@@ -33,7 +33,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			_, err := Team.GetTeam(ctx, &team.GetTeamArgs{
-//				Slug: "my_team",
+//				Id: pulumi.StringRef("<team id>"),
 //			}, nil)
 //			if err != nil {
 //				return err
@@ -55,8 +55,13 @@ func LookupTeam(ctx *pulumi.Context, args *LookupTeamArgs, opts ...pulumi.Invoke
 
 // A collection of arguments for invoking getTeam.
 type LookupTeamArgs struct {
-	// The slug of the team, available in the URL of the team on buildkite.com
-	Slug string `pulumi:"slug"`
+	// The GraphQL ID of the team, available in the Settings page for the team.
+	Id *string `pulumi:"id"`
+	// The slug of the team. Available in the URL of the team on buildkite.com; in the format
+	// "<organizaton/team-name>"
+	//
+	// The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+	Slug *string `pulumi:"slug"`
 }
 
 // A collection of values returned by getTeam.
@@ -95,8 +100,13 @@ func LookupTeamOutput(ctx *pulumi.Context, args LookupTeamOutputArgs, opts ...pu
 
 // A collection of arguments for invoking getTeam.
 type LookupTeamOutputArgs struct {
-	// The slug of the team, available in the URL of the team on buildkite.com
-	Slug pulumi.StringInput `pulumi:"slug"`
+	// The GraphQL ID of the team, available in the Settings page for the team.
+	Id pulumi.StringPtrInput `pulumi:"id"`
+	// The slug of the team. Available in the URL of the team on buildkite.com; in the format
+	// "<organizaton/team-name>"
+	//
+	// The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+	Slug pulumi.StringPtrInput `pulumi:"slug"`
 }
 
 func (LookupTeamOutputArgs) ElementType() reflect.Type {

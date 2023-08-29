@@ -52,92 +52,8 @@ namespace Pulumiverse.Buildkite.Organization
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
-        public static Task<GetOrganizationResult> InvokeAsync(GetOrganizationArgs? args = null, InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.InvokeAsync<GetOrganizationResult>("buildkite:Organization/getOrganization:getOrganization", args ?? new GetOrganizationArgs(), options.WithDefaults());
-
-        /// <summary>
-        /// ## # Data Source: organization
-        /// 
-        /// Use this data source to look up the organization settings. It currently supports
-        /// allowed_api_ip_addresses.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Aws = Pulumi.Aws;
-        /// using Buildkite = Pulumi.Buildkite;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var testkite = Buildkite.Organization.GetOrganization.Invoke();
-        /// 
-        ///     var fromBuildkite = new Aws.Ec2.SecurityGroup("fromBuildkite", new()
-        ///     {
-        ///         Ingress = new[]
-        ///         {
-        ///             new Aws.Ec2.Inputs.SecurityGroupIngressArgs
-        ///             {
-        ///                 FromPort = "*",
-        ///                 ToPort = 443,
-        ///                 Protocol = "tcp",
-        ///                 CidrBlocks = data.Buildkite_organization.Allowed_api_ip_addresses,
-        ///             },
-        ///         },
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
-        /// </summary>
-        public static Output<GetOrganizationResult> Invoke(GetOrganizationInvokeArgs? args = null, InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.Invoke<GetOrganizationResult>("buildkite:Organization/getOrganization:getOrganization", args ?? new GetOrganizationInvokeArgs(), options.WithDefaults());
-    }
-
-
-    public sealed class GetOrganizationArgs : global::Pulumi.InvokeArgs
-    {
-        [Input("allowedApiIpAddresses")]
-        private List<string>? _allowedApiIpAddresses;
-
-        /// <summary>
-        /// list of IP addresses in CIDR format that are allowed to access the Buildkite API.
-        /// </summary>
-        public List<string> AllowedApiIpAddresses
-        {
-            get => _allowedApiIpAddresses ?? (_allowedApiIpAddresses = new List<string>());
-            set => _allowedApiIpAddresses = value;
-        }
-
-        public GetOrganizationArgs()
-        {
-        }
-        public static new GetOrganizationArgs Empty => new GetOrganizationArgs();
-    }
-
-    public sealed class GetOrganizationInvokeArgs : global::Pulumi.InvokeArgs
-    {
-        [Input("allowedApiIpAddresses")]
-        private InputList<string>? _allowedApiIpAddresses;
-
-        /// <summary>
-        /// list of IP addresses in CIDR format that are allowed to access the Buildkite API.
-        /// </summary>
-        public InputList<string> AllowedApiIpAddresses
-        {
-            get => _allowedApiIpAddresses ?? (_allowedApiIpAddresses = new InputList<string>());
-            set => _allowedApiIpAddresses = value;
-        }
-
-        public GetOrganizationInvokeArgs()
-        {
-        }
-        public static new GetOrganizationInvokeArgs Empty => new GetOrganizationInvokeArgs();
+        public static Task<GetOrganizationResult> InvokeAsync(InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetOrganizationResult>("buildkite:Organization/getOrganization:getOrganization", InvokeArgs.Empty, options.WithDefaults());
     }
 
 
@@ -148,9 +64,6 @@ namespace Pulumiverse.Buildkite.Organization
         /// list of IP addresses in CIDR format that are allowed to access the Buildkite API.
         /// </summary>
         public readonly ImmutableArray<string> AllowedApiIpAddresses;
-        /// <summary>
-        /// The provider-assigned unique ID for this managed resource.
-        /// </summary>
         public readonly string Id;
         public readonly string Uuid;
 

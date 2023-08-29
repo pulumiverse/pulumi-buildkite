@@ -99,7 +99,7 @@ export class Team extends pulumi.CustomResource {
     /**
      * Whether team members can create.
      */
-    public readonly membersCanCreatePipelines!: pulumi.Output<boolean | undefined>;
+    public readonly membersCanCreatePipelines!: pulumi.Output<boolean>;
     /**
      * The name of the team.
      */

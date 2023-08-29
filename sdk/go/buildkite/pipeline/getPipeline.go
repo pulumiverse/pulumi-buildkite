@@ -65,14 +65,13 @@ type LookupPipelineResult struct {
 	DefaultBranch string `pulumi:"defaultBranch"`
 	// A description of the pipeline.
 	Description string `pulumi:"description"`
-	// The provider-assigned unique ID for this managed resource.
-	Id string `pulumi:"id"`
+	Id          string `pulumi:"id"`
 	// The name of the pipeline.
 	Name string `pulumi:"name"`
 	// The git URL of the repository.
 	Repository string `pulumi:"repository"`
 	Slug       string `pulumi:"slug"`
-	// The default branch to prefill when new builds are created or triggered.
+	// The Buildkite webhook URL that triggers builds on this pipeline.
 	WebhookUrl string `pulumi:"webhookUrl"`
 }
 
@@ -124,7 +123,6 @@ func (o LookupPipelineResultOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPipelineResult) string { return v.Description }).(pulumi.StringOutput)
 }
 
-// The provider-assigned unique ID for this managed resource.
 func (o LookupPipelineResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPipelineResult) string { return v.Id }).(pulumi.StringOutput)
 }
@@ -143,7 +141,7 @@ func (o LookupPipelineResultOutput) Slug() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPipelineResult) string { return v.Slug }).(pulumi.StringOutput)
 }
 
-// The default branch to prefill when new builds are created or triggered.
+// The Buildkite webhook URL that triggers builds on this pipeline.
 func (o LookupPipelineResultOutput) WebhookUrl() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPipelineResult) string { return v.WebhookUrl }).(pulumi.StringOutput)
 }
