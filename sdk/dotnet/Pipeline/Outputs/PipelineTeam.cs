@@ -14,23 +14,28 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
     [OutputType]
     public sealed class PipelineTeam
     {
-        /// <summary>
-        /// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
-        /// </summary>
         public readonly string AccessLevel;
+        public readonly string? PipelineTeamId;
         /// <summary>
-        /// The buildkite slug of the team.
+        /// The slug of the created pipeline.
         /// </summary>
         public readonly string Slug;
+        public readonly string? TeamId;
 
         [OutputConstructor]
         private PipelineTeam(
             string accessLevel,
 
-            string slug)
+            string? pipelineTeamId,
+
+            string slug,
+
+            string? teamId)
         {
             AccessLevel = accessLevel;
+            PipelineTeamId = pipelineTeamId;
             Slug = slug;
+            TeamId = teamId;
         }
     }
 }

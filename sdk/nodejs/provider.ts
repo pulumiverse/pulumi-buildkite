@@ -26,7 +26,7 @@ export class Provider extends pulumi.ProviderResource {
     }
 
     /**
-     * API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+     * API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
      */
     public readonly apiToken!: pulumi.Output<string | undefined>;
     /**
@@ -54,6 +54,7 @@ export class Provider extends pulumi.ProviderResource {
         opts = opts || {};
         {
             resourceInputs["apiToken"] = args?.apiToken ? pulumi.secret(args.apiToken) : undefined;
+            resourceInputs["archivePipelineOnDelete"] = pulumi.output(args ? args.archivePipelineOnDelete : undefined).apply(JSON.stringify);
             resourceInputs["graphqlUrl"] = args ? args.graphqlUrl : undefined;
             resourceInputs["organization"] = args ? args.organization : undefined;
             resourceInputs["restUrl"] = args ? args.restUrl : undefined;
@@ -70,9 +71,13 @@ export class Provider extends pulumi.ProviderResource {
  */
 export interface ProviderArgs {
     /**
-     * API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+     * API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
      */
     apiToken?: pulumi.Input<string>;
+    /**
+     * Archive pipelines when destroying instead of completely deleting.
+     */
+    archivePipelineOnDelete?: pulumi.Input<boolean>;
     /**
      * Base URL for the GraphQL API to use
      */

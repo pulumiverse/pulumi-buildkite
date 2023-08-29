@@ -45,7 +45,7 @@ class PipelineArgs:
         :param pulumi.Input[str] cluster_id: The GraphQL ID of the cluster you want to use for the pipeline.
         :param pulumi.Input[str] default_branch: The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
         :param pulumi.Input[int] default_timeout_in_minutes: The default timeout for commands in this pipeline, in minutes.
-        :param pulumi.Input[bool] deletion_protection: Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+        :param pulumi.Input[bool] deletion_protection: **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
         :param pulumi.Input[str] description: A description of the pipeline.
         :param pulumi.Input[int] maximum_timeout_in_minutes: The maximum timeout for commands in this pipeline, in minutes.
         :param pulumi.Input[str] name: The name of the pipeline.
@@ -53,11 +53,14 @@ class PipelineArgs:
         :param pulumi.Input[bool] skip_intermediate_builds: A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
         :param pulumi.Input[str] skip_intermediate_builds_branch_filter: Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
         :param pulumi.Input[str] steps: The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
-        :param pulumi.Input[Sequence[pulumi.Input['PipelineTeamArgs']]] teams: Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+        :param pulumi.Input[Sequence[pulumi.Input['PipelineTeamArgs']]] teams: **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
         """
         pulumi.set(__self__, "repository", repository)
         if allow_rebuilds is not None:
             pulumi.set(__self__, "allow_rebuilds", allow_rebuilds)
+        if archive_on_delete is not None:
+            warnings.warn("""This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""", DeprecationWarning)
+            pulumi.log.warn("""archive_on_delete is deprecated: This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""")
         if archive_on_delete is not None:
             pulumi.set(__self__, "archive_on_delete", archive_on_delete)
         if branch_configuration is not None:
@@ -72,6 +75,9 @@ class PipelineArgs:
             pulumi.set(__self__, "default_branch", default_branch)
         if default_timeout_in_minutes is not None:
             pulumi.set(__self__, "default_timeout_in_minutes", default_timeout_in_minutes)
+        if deletion_protection is not None:
+            warnings.warn("""Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""", DeprecationWarning)
+            pulumi.log.warn("""deletion_protection is deprecated: Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""")
         if deletion_protection is not None:
             pulumi.set(__self__, "deletion_protection", deletion_protection)
         if description is not None:
@@ -90,6 +96,9 @@ class PipelineArgs:
             pulumi.set(__self__, "steps", steps)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if teams is not None:
+            warnings.warn("""This block is deprecated. Please use `buildkite_pipeline_team` instead.""", DeprecationWarning)
+            pulumi.log.warn("""teams is deprecated: This block is deprecated. Please use `buildkite_pipeline_team` instead.""")
         if teams is not None:
             pulumi.set(__self__, "teams", teams)
 
@@ -120,6 +129,9 @@ class PipelineArgs:
     @property
     @pulumi.getter(name="archiveOnDelete")
     def archive_on_delete(self) -> Optional[pulumi.Input[bool]]:
+        warnings.warn("""This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""", DeprecationWarning)
+        pulumi.log.warn("""archive_on_delete is deprecated: This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""")
+
         return pulumi.get(self, "archive_on_delete")
 
     @archive_on_delete.setter
@@ -202,8 +214,11 @@ class PipelineArgs:
     @pulumi.getter(name="deletionProtection")
     def deletion_protection(self) -> Optional[pulumi.Input[bool]]:
         """
-        Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+        **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
         """
+        warnings.warn("""Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""", DeprecationWarning)
+        pulumi.log.warn("""deletion_protection is deprecated: Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""")
+
         return pulumi.get(self, "deletion_protection")
 
     @deletion_protection.setter
@@ -307,8 +322,11 @@ class PipelineArgs:
     @pulumi.getter
     def teams(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PipelineTeamArgs']]]]:
         """
-        Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+        **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
         """
+        warnings.warn("""This block is deprecated. Please use `buildkite_pipeline_team` instead.""", DeprecationWarning)
+        pulumi.log.warn("""teams is deprecated: This block is deprecated. Please use `buildkite_pipeline_team` instead.""")
+
         return pulumi.get(self, "teams")
 
     @teams.setter
@@ -351,7 +369,7 @@ class _PipelineState:
         :param pulumi.Input[str] cluster_id: The GraphQL ID of the cluster you want to use for the pipeline.
         :param pulumi.Input[str] default_branch: The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
         :param pulumi.Input[int] default_timeout_in_minutes: The default timeout for commands in this pipeline, in minutes.
-        :param pulumi.Input[bool] deletion_protection: Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+        :param pulumi.Input[bool] deletion_protection: **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
         :param pulumi.Input[str] description: A description of the pipeline.
         :param pulumi.Input[int] maximum_timeout_in_minutes: The maximum timeout for commands in this pipeline, in minutes.
         :param pulumi.Input[str] name: The name of the pipeline.
@@ -359,13 +377,16 @@ class _PipelineState:
         :param pulumi.Input[str] repository: The git URL of the repository.
         :param pulumi.Input[bool] skip_intermediate_builds: A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
         :param pulumi.Input[str] skip_intermediate_builds_branch_filter: Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
-        :param pulumi.Input[str] slug: The buildkite slug of the team.
+        :param pulumi.Input[str] slug: The slug of the created pipeline.
         :param pulumi.Input[str] steps: The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
-        :param pulumi.Input[Sequence[pulumi.Input['PipelineTeamArgs']]] teams: Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+        :param pulumi.Input[Sequence[pulumi.Input['PipelineTeamArgs']]] teams: **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
         :param pulumi.Input[str] webhook_url: The Buildkite webhook URL to configure on the repository to trigger builds on this pipeline.
         """
         if allow_rebuilds is not None:
             pulumi.set(__self__, "allow_rebuilds", allow_rebuilds)
+        if archive_on_delete is not None:
+            warnings.warn("""This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""", DeprecationWarning)
+            pulumi.log.warn("""archive_on_delete is deprecated: This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""")
         if archive_on_delete is not None:
             pulumi.set(__self__, "archive_on_delete", archive_on_delete)
         if badge_url is not None:
@@ -382,6 +403,9 @@ class _PipelineState:
             pulumi.set(__self__, "default_branch", default_branch)
         if default_timeout_in_minutes is not None:
             pulumi.set(__self__, "default_timeout_in_minutes", default_timeout_in_minutes)
+        if deletion_protection is not None:
+            warnings.warn("""Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""", DeprecationWarning)
+            pulumi.log.warn("""deletion_protection is deprecated: Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""")
         if deletion_protection is not None:
             pulumi.set(__self__, "deletion_protection", deletion_protection)
         if description is not None:
@@ -405,6 +429,9 @@ class _PipelineState:
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
         if teams is not None:
+            warnings.warn("""This block is deprecated. Please use `buildkite_pipeline_team` instead.""", DeprecationWarning)
+            pulumi.log.warn("""teams is deprecated: This block is deprecated. Please use `buildkite_pipeline_team` instead.""")
+        if teams is not None:
             pulumi.set(__self__, "teams", teams)
         if webhook_url is not None:
             pulumi.set(__self__, "webhook_url", webhook_url)
@@ -424,6 +451,9 @@ class _PipelineState:
     @property
     @pulumi.getter(name="archiveOnDelete")
     def archive_on_delete(self) -> Optional[pulumi.Input[bool]]:
+        warnings.warn("""This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""", DeprecationWarning)
+        pulumi.log.warn("""archive_on_delete is deprecated: This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""")
+
         return pulumi.get(self, "archive_on_delete")
 
     @archive_on_delete.setter
@@ -518,8 +548,11 @@ class _PipelineState:
     @pulumi.getter(name="deletionProtection")
     def deletion_protection(self) -> Optional[pulumi.Input[bool]]:
         """
-        Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+        **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
         """
+        warnings.warn("""Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""", DeprecationWarning)
+        pulumi.log.warn("""deletion_protection is deprecated: Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""")
+
         return pulumi.get(self, "deletion_protection")
 
     @deletion_protection.setter
@@ -614,7 +647,7 @@ class _PipelineState:
     @pulumi.getter
     def slug(self) -> Optional[pulumi.Input[str]]:
         """
-        The buildkite slug of the team.
+        The slug of the created pipeline.
         """
         return pulumi.get(self, "slug")
 
@@ -647,8 +680,11 @@ class _PipelineState:
     @pulumi.getter
     def teams(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PipelineTeamArgs']]]]:
         """
-        Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+        **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
         """
+        warnings.warn("""This block is deprecated. Please use `buildkite_pipeline_team` instead.""", DeprecationWarning)
+        pulumi.log.warn("""teams is deprecated: This block is deprecated. Please use `buildkite_pipeline_team` instead.""")
+
         return pulumi.get(self, "teams")
 
     @teams.setter
@@ -694,95 +730,6 @@ class Pipeline(pulumi.CustomResource):
                  teams: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PipelineTeamArgs']]]]] = None,
                  __props__=None):
         """
-        ## # Resource: pipeline
-
-        This resource allows you to create and manage pipelines for repositories.
-
-        Buildkite Documentation: https://buildkite.com/docs/pipelines
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        # in ./steps.yml:
-        # steps:
-        #   - label: ':pipeline:'
-        #     command: buildkite-agent pipeline upload
-        repo2 = buildkite.pipeline.Pipeline("repo2",
-            repository="git@github.com:org/repo2",
-            steps=(lambda path: open(path).read())("./steps.yml"),
-            teams=[buildkite.pipeline.PipelineTeamArgs(
-                slug="everyone",
-                access_level="READ_ONLY",
-            )])
-        ```
-        ### With Command Timeouts
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        test_new = buildkite.pipeline.Pipeline("testNew",
-            repository="https://github.com/buildkite/terraform-provider-buildkite.git",
-            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
-            default_timeout_in_minutes=60,
-            maximum_timeout_in_minutes=120)
-        ```
-
-        Currently, the `default_timeout_in_minutes` and `maximum_timeout_in_minutes` will be retained in state even if removed from the configuration. In order to remove them, you must set them to `0` in either the configuration or the web UI.
-        ### With Deletion Protection
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        test_new = buildkite.pipeline.Pipeline("testNew",
-            repository="https://github.com/buildkite/terraform-provider-buildkite.git",
-            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
-            deletion_protection=True)
-        ```
-
-        `deletion_protection` will block `destroy` actions on the **pipeline**. Attached resources, such as `schedules` will still be destroyed.
-        ### With Archive On Delete
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        test_new = buildkite.pipeline.Pipeline("testNew",
-            repository="https://github.com/buildkite/terraform-provider-buildkite.git",
-            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
-            archive_on_delete=True)
-        ```
-
-        `archive_on_delete` will archive the **pipeline** when `destroy` is called. Attached resources, such as `schedules` will still be destroyed. In order to delete the pipeline, `archive_on_delete` must be set to `false` in the configuration, then `destroy` must be called again.
-        ### With GitHub Provider Settings
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        # Pipeline that should not be triggered from a GitHub webhook
-        repo2_deploy = buildkite.pipeline.Pipeline("repo2-deploy",
-            repository="git@github.com:org/repo2",
-            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
-            provider_settings=buildkite.pipeline.PipelineProviderSettingsArgs(
-                trigger_mode="none",
-            ))
-        # Release pipeline (triggered only when tags are pushed)
-        repo2_release = buildkite.pipeline.Pipeline("repo2-release",
-            repository="git@github.com:org/repo2",
-            steps=(lambda path: open(path).read())("./release-steps.yml"),
-            provider_settings=buildkite.pipeline.PipelineProviderSettingsArgs(
-                build_branches=False,
-                build_tags=True,
-                build_pull_requests=False,
-                trigger_mode="code",
-            ))
-        ```
-
         ## Import
 
         Pipelines can be imported using the `GraphQL ID` (not UUID), e.g.
@@ -808,7 +755,7 @@ class Pipeline(pulumi.CustomResource):
         :param pulumi.Input[str] cluster_id: The GraphQL ID of the cluster you want to use for the pipeline.
         :param pulumi.Input[str] default_branch: The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
         :param pulumi.Input[int] default_timeout_in_minutes: The default timeout for commands in this pipeline, in minutes.
-        :param pulumi.Input[bool] deletion_protection: Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+        :param pulumi.Input[bool] deletion_protection: **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
         :param pulumi.Input[str] description: A description of the pipeline.
         :param pulumi.Input[int] maximum_timeout_in_minutes: The maximum timeout for commands in this pipeline, in minutes.
         :param pulumi.Input[str] name: The name of the pipeline.
@@ -817,7 +764,7 @@ class Pipeline(pulumi.CustomResource):
         :param pulumi.Input[bool] skip_intermediate_builds: A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
         :param pulumi.Input[str] skip_intermediate_builds_branch_filter: Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
         :param pulumi.Input[str] steps: The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PipelineTeamArgs']]]] teams: Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PipelineTeamArgs']]]] teams: **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
         """
         ...
     @overload
@@ -826,95 +773,6 @@ class Pipeline(pulumi.CustomResource):
                  args: PipelineArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # Resource: pipeline
-
-        This resource allows you to create and manage pipelines for repositories.
-
-        Buildkite Documentation: https://buildkite.com/docs/pipelines
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        # in ./steps.yml:
-        # steps:
-        #   - label: ':pipeline:'
-        #     command: buildkite-agent pipeline upload
-        repo2 = buildkite.pipeline.Pipeline("repo2",
-            repository="git@github.com:org/repo2",
-            steps=(lambda path: open(path).read())("./steps.yml"),
-            teams=[buildkite.pipeline.PipelineTeamArgs(
-                slug="everyone",
-                access_level="READ_ONLY",
-            )])
-        ```
-        ### With Command Timeouts
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        test_new = buildkite.pipeline.Pipeline("testNew",
-            repository="https://github.com/buildkite/terraform-provider-buildkite.git",
-            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
-            default_timeout_in_minutes=60,
-            maximum_timeout_in_minutes=120)
-        ```
-
-        Currently, the `default_timeout_in_minutes` and `maximum_timeout_in_minutes` will be retained in state even if removed from the configuration. In order to remove them, you must set them to `0` in either the configuration or the web UI.
-        ### With Deletion Protection
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        test_new = buildkite.pipeline.Pipeline("testNew",
-            repository="https://github.com/buildkite/terraform-provider-buildkite.git",
-            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
-            deletion_protection=True)
-        ```
-
-        `deletion_protection` will block `destroy` actions on the **pipeline**. Attached resources, such as `schedules` will still be destroyed.
-        ### With Archive On Delete
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        test_new = buildkite.pipeline.Pipeline("testNew",
-            repository="https://github.com/buildkite/terraform-provider-buildkite.git",
-            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
-            archive_on_delete=True)
-        ```
-
-        `archive_on_delete` will archive the **pipeline** when `destroy` is called. Attached resources, such as `schedules` will still be destroyed. In order to delete the pipeline, `archive_on_delete` must be set to `false` in the configuration, then `destroy` must be called again.
-        ### With GitHub Provider Settings
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        # Pipeline that should not be triggered from a GitHub webhook
-        repo2_deploy = buildkite.pipeline.Pipeline("repo2-deploy",
-            repository="git@github.com:org/repo2",
-            steps=(lambda path: open(path).read())("./deploy-steps.yml"),
-            provider_settings=buildkite.pipeline.PipelineProviderSettingsArgs(
-                trigger_mode="none",
-            ))
-        # Release pipeline (triggered only when tags are pushed)
-        repo2_release = buildkite.pipeline.Pipeline("repo2-release",
-            repository="git@github.com:org/repo2",
-            steps=(lambda path: open(path).read())("./release-steps.yml"),
-            provider_settings=buildkite.pipeline.PipelineProviderSettingsArgs(
-                build_branches=False,
-                build_tags=True,
-                build_pull_requests=False,
-                trigger_mode="code",
-            ))
-        ```
-
         ## Import
 
         Pipelines can be imported using the `GraphQL ID` (not UUID), e.g.
@@ -975,6 +833,9 @@ class Pipeline(pulumi.CustomResource):
             __props__ = PipelineArgs.__new__(PipelineArgs)
 
             __props__.__dict__["allow_rebuilds"] = allow_rebuilds
+            if archive_on_delete is not None and not opts.urn:
+                warnings.warn("""This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""", DeprecationWarning)
+                pulumi.log.warn("""archive_on_delete is deprecated: This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""")
             __props__.__dict__["archive_on_delete"] = archive_on_delete
             __props__.__dict__["branch_configuration"] = branch_configuration
             __props__.__dict__["cancel_intermediate_builds"] = cancel_intermediate_builds
@@ -982,6 +843,9 @@ class Pipeline(pulumi.CustomResource):
             __props__.__dict__["cluster_id"] = cluster_id
             __props__.__dict__["default_branch"] = default_branch
             __props__.__dict__["default_timeout_in_minutes"] = default_timeout_in_minutes
+            if deletion_protection is not None and not opts.urn:
+                warnings.warn("""Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""", DeprecationWarning)
+                pulumi.log.warn("""deletion_protection is deprecated: Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""")
             __props__.__dict__["deletion_protection"] = deletion_protection
             __props__.__dict__["description"] = description
             __props__.__dict__["maximum_timeout_in_minutes"] = maximum_timeout_in_minutes
@@ -994,6 +858,9 @@ class Pipeline(pulumi.CustomResource):
             __props__.__dict__["skip_intermediate_builds_branch_filter"] = skip_intermediate_builds_branch_filter
             __props__.__dict__["steps"] = steps
             __props__.__dict__["tags"] = tags
+            if teams is not None and not opts.urn:
+                warnings.warn("""This block is deprecated. Please use `buildkite_pipeline_team` instead.""", DeprecationWarning)
+                pulumi.log.warn("""teams is deprecated: This block is deprecated. Please use `buildkite_pipeline_team` instead.""")
             __props__.__dict__["teams"] = teams
             __props__.__dict__["badge_url"] = None
             __props__.__dict__["slug"] = None
@@ -1045,7 +912,7 @@ class Pipeline(pulumi.CustomResource):
         :param pulumi.Input[str] cluster_id: The GraphQL ID of the cluster you want to use for the pipeline.
         :param pulumi.Input[str] default_branch: The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
         :param pulumi.Input[int] default_timeout_in_minutes: The default timeout for commands in this pipeline, in minutes.
-        :param pulumi.Input[bool] deletion_protection: Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+        :param pulumi.Input[bool] deletion_protection: **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
         :param pulumi.Input[str] description: A description of the pipeline.
         :param pulumi.Input[int] maximum_timeout_in_minutes: The maximum timeout for commands in this pipeline, in minutes.
         :param pulumi.Input[str] name: The name of the pipeline.
@@ -1053,9 +920,9 @@ class Pipeline(pulumi.CustomResource):
         :param pulumi.Input[str] repository: The git URL of the repository.
         :param pulumi.Input[bool] skip_intermediate_builds: A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
         :param pulumi.Input[str] skip_intermediate_builds_branch_filter: Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
-        :param pulumi.Input[str] slug: The buildkite slug of the team.
+        :param pulumi.Input[str] slug: The slug of the created pipeline.
         :param pulumi.Input[str] steps: The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PipelineTeamArgs']]]] teams: Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PipelineTeamArgs']]]] teams: **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
         :param pulumi.Input[str] webhook_url: The Buildkite webhook URL to configure on the repository to trigger builds on this pipeline.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -1088,7 +955,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="allowRebuilds")
-    def allow_rebuilds(self) -> pulumi.Output[Optional[bool]]:
+    def allow_rebuilds(self) -> pulumi.Output[bool]:
         """
         A boolean on whether or not to allow rebuilds for the pipeline.
         """
@@ -1096,7 +963,10 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="archiveOnDelete")
-    def archive_on_delete(self) -> pulumi.Output[Optional[bool]]:
+    def archive_on_delete(self) -> pulumi.Output[bool]:
+        warnings.warn("""This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""", DeprecationWarning)
+        pulumi.log.warn("""archive_on_delete is deprecated: This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.""")
+
         return pulumi.get(self, "archive_on_delete")
 
     @property
@@ -1157,10 +1027,13 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="deletionProtection")
-    def deletion_protection(self) -> pulumi.Output[Optional[bool]]:
+    def deletion_protection(self) -> pulumi.Output[bool]:
         """
-        Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+        **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
         """
+        warnings.warn("""Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""", DeprecationWarning)
+        pulumi.log.warn("""deletion_protection is deprecated: Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.""")
+
         return pulumi.get(self, "deletion_protection")
 
     @property
@@ -1189,7 +1062,7 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="providerSettings")
-    def provider_settings(self) -> pulumi.Output['outputs.PipelineProviderSettings']:
+    def provider_settings(self) -> pulumi.Output[Optional['outputs.PipelineProviderSettings']]:
         """
         Source control provider settings for the pipeline. See Provider Settings Configuration below for details.
         """
@@ -1223,13 +1096,13 @@ class Pipeline(pulumi.CustomResource):
     @pulumi.getter
     def slug(self) -> pulumi.Output[str]:
         """
-        The buildkite slug of the team.
+        The slug of the created pipeline.
         """
         return pulumi.get(self, "slug")
 
     @property
     @pulumi.getter
-    def steps(self) -> pulumi.Output[Optional[str]]:
+    def steps(self) -> pulumi.Output[str]:
         """
         The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
         """
@@ -1237,15 +1110,18 @@ class Pipeline(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def tags(self) -> pulumi.Output[Optional[Sequence[str]]]:
+    def tags(self) -> pulumi.Output[Sequence[str]]:
         return pulumi.get(self, "tags")
 
     @property
     @pulumi.getter
     def teams(self) -> pulumi.Output[Optional[Sequence['outputs.PipelineTeam']]]:
         """
-        Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+        **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
         """
+        warnings.warn("""This block is deprecated. Please use `buildkite_pipeline_team` instead.""", DeprecationWarning)
+        pulumi.log.warn("""teams is deprecated: This block is deprecated. Please use `buildkite_pipeline_team` instead.""")
+
         return pulumi.get(self, "teams")
 
     @property

@@ -87,13 +87,12 @@ export namespace Pipeline {
     }
 
     export interface PipelineTeam {
-        /**
-         * The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
-         */
         accessLevel: pulumi.Input<string>;
+        pipelineTeamId?: pulumi.Input<string>;
         /**
-         * The buildkite slug of the team.
+         * The slug of the created pipeline.
          */
         slug: pulumi.Input<string>;
+        teamId?: pulumi.Input<string>;
     }
 }

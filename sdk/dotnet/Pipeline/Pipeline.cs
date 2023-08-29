@@ -11,149 +11,6 @@ using Pulumi;
 namespace Pulumiverse.Buildkite.Pipeline
 {
     /// <summary>
-    /// ## # Resource: pipeline
-    /// 
-    /// This resource allows you to create and manage pipelines for repositories.
-    /// 
-    /// Buildkite Documentation: https://buildkite.com/docs/pipelines
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.IO;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     // in ./steps.yml:
-    ///     // steps:
-    ///     //   - label: ':pipeline:'
-    ///     //     command: buildkite-agent pipeline upload
-    ///     var repo2 = new Buildkite.Pipeline.Pipeline("repo2", new()
-    ///     {
-    ///         Repository = "git@github.com:org/repo2",
-    ///         Steps = File.ReadAllText("./steps.yml"),
-    ///         Teams = new[]
-    ///         {
-    ///             new Buildkite.Pipeline.Inputs.PipelineTeamArgs
-    ///             {
-    ///                 Slug = "everyone",
-    ///                 AccessLevel = "READ_ONLY",
-    ///             },
-    ///         },
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// ### With Command Timeouts
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.IO;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var testNew = new Buildkite.Pipeline.Pipeline("testNew", new()
-    ///     {
-    ///         Repository = "https://github.com/buildkite/terraform-provider-buildkite.git",
-    ///         Steps = File.ReadAllText("./deploy-steps.yml"),
-    ///         DefaultTimeoutInMinutes = 60,
-    ///         MaximumTimeoutInMinutes = 120,
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// Currently, the `default_timeout_in_minutes` and `maximum_timeout_in_minutes` will be retained in state even if removed from the configuration. In order to remove them, you must set them to `0` in either the configuration or the web UI.
-    /// ### With Deletion Protection
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.IO;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var testNew = new Buildkite.Pipeline.Pipeline("testNew", new()
-    ///     {
-    ///         Repository = "https://github.com/buildkite/terraform-provider-buildkite.git",
-    ///         Steps = File.ReadAllText("./deploy-steps.yml"),
-    ///         DeletionProtection = true,
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// `deletion_protection` will block `destroy` actions on the **pipeline**. Attached resources, such as `schedules` will still be destroyed.
-    /// ### With Archive On Delete
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.IO;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var testNew = new Buildkite.Pipeline.Pipeline("testNew", new()
-    ///     {
-    ///         Repository = "https://github.com/buildkite/terraform-provider-buildkite.git",
-    ///         Steps = File.ReadAllText("./deploy-steps.yml"),
-    ///         ArchiveOnDelete = true,
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
-    /// `archive_on_delete` will archive the **pipeline** when `destroy` is called. Attached resources, such as `schedules` will still be destroyed. In order to delete the pipeline, `archive_on_delete` must be set to `false` in the configuration, then `destroy` must be called again.
-    /// ### With GitHub Provider Settings
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.IO;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     // Pipeline that should not be triggered from a GitHub webhook
-    ///     var repo2_deploy = new Buildkite.Pipeline.Pipeline("repo2-deploy", new()
-    ///     {
-    ///         Repository = "git@github.com:org/repo2",
-    ///         Steps = File.ReadAllText("./deploy-steps.yml"),
-    ///         ProviderSettings = new Buildkite.Pipeline.Inputs.PipelineProviderSettingsArgs
-    ///         {
-    ///             TriggerMode = "none",
-    ///         },
-    ///     });
-    /// 
-    ///     // Release pipeline (triggered only when tags are pushed)
-    ///     var repo2_release = new Buildkite.Pipeline.Pipeline("repo2-release", new()
-    ///     {
-    ///         Repository = "git@github.com:org/repo2",
-    ///         Steps = File.ReadAllText("./release-steps.yml"),
-    ///         ProviderSettings = new Buildkite.Pipeline.Inputs.PipelineProviderSettingsArgs
-    ///         {
-    ///             BuildBranches = false,
-    ///             BuildTags = true,
-    ///             BuildPullRequests = false,
-    ///             TriggerMode = "code",
-    ///         },
-    ///     });
-    /// 
-    /// });
-    /// ```
-    /// 
     /// ## Import
     /// 
     /// Pipelines can be imported using the `GraphQL ID` (not UUID), e.g.
@@ -177,10 +34,10 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// A boolean on whether or not to allow rebuilds for the pipeline.
         /// </summary>
         [Output("allowRebuilds")]
-        public Output<bool?> AllowRebuilds { get; private set; } = null!;
+        public Output<bool> AllowRebuilds { get; private set; } = null!;
 
         [Output("archiveOnDelete")]
-        public Output<bool?> ArchiveOnDelete { get; private set; } = null!;
+        public Output<bool> ArchiveOnDelete { get; private set; } = null!;
 
         /// <summary>
         /// The pipeline's last build status so you can display build status badge.
@@ -225,10 +82,10 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Output<int> DefaultTimeoutInMinutes { get; private set; } = null!;
 
         /// <summary>
-        /// Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: &lt;pipeline name&gt;"
+        /// **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: &lt;pipeline name&gt;"
         /// </summary>
         [Output("deletionProtection")]
-        public Output<bool?> DeletionProtection { get; private set; } = null!;
+        public Output<bool> DeletionProtection { get; private set; } = null!;
 
         /// <summary>
         /// A description of the pipeline.
@@ -252,7 +109,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// Source control provider settings for the pipeline. See Provider Settings Configuration below for details.
         /// </summary>
         [Output("providerSettings")]
-        public Output<Outputs.PipelineProviderSettings> ProviderSettings { get; private set; } = null!;
+        public Output<Outputs.PipelineProviderSettings?> ProviderSettings { get; private set; } = null!;
 
         /// <summary>
         /// The git URL of the repository.
@@ -273,7 +130,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Output<string> SkipIntermediateBuildsBranchFilter { get; private set; } = null!;
 
         /// <summary>
-        /// The buildkite slug of the team.
+        /// The slug of the created pipeline.
         /// </summary>
         [Output("slug")]
         public Output<string> Slug { get; private set; } = null!;
@@ -282,13 +139,13 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
         /// </summary>
         [Output("steps")]
-        public Output<string?> Steps { get; private set; } = null!;
+        public Output<string> Steps { get; private set; } = null!;
 
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
 
         /// <summary>
-        /// Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+        /// **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
         /// </summary>
         [Output("teams")]
         public Output<ImmutableArray<Outputs.PipelineTeam>> Teams { get; private set; } = null!;
@@ -392,7 +249,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Input<int>? DefaultTimeoutInMinutes { get; set; }
 
         /// <summary>
-        /// Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: &lt;pipeline name&gt;"
+        /// **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: &lt;pipeline name&gt;"
         /// </summary>
         [Input("deletionProtection")]
         public Input<bool>? DeletionProtection { get; set; }
@@ -457,8 +314,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         private InputList<Inputs.PipelineTeamArgs>? _teams;
 
         /// <summary>
-        /// Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+        /// **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
         /// </summary>
+        [Obsolete(@"This block is deprecated. Please use `buildkite_pipeline_team` instead.")]
         public InputList<Inputs.PipelineTeamArgs> Teams
         {
             get => _teams ?? (_teams = new InputList<Inputs.PipelineTeamArgs>());
@@ -525,7 +383,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Input<int>? DefaultTimeoutInMinutes { get; set; }
 
         /// <summary>
-        /// Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: &lt;pipeline name&gt;"
+        /// **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: &lt;pipeline name&gt;"
         /// </summary>
         [Input("deletionProtection")]
         public Input<bool>? DeletionProtection { get; set; }
@@ -573,7 +431,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Input<string>? SkipIntermediateBuildsBranchFilter { get; set; }
 
         /// <summary>
-        /// The buildkite slug of the team.
+        /// The slug of the created pipeline.
         /// </summary>
         [Input("slug")]
         public Input<string>? Slug { get; set; }
@@ -596,8 +454,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         private InputList<Inputs.PipelineTeamGetArgs>? _teams;
 
         /// <summary>
-        /// Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+        /// **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
         /// </summary>
+        [Obsolete(@"This block is deprecated. Please use `buildkite_pipeline_team` instead.")]
         public InputList<Inputs.PipelineTeamGetArgs> Teams
         {
             get => _teams ?? (_teams = new InputList<Inputs.PipelineTeamGetArgs>());

@@ -8,5 +8,6 @@ import typing
 from .get_pipeline import *
 from .pipeline import *
 from .schedule import *
+from .team import *
 from ._inputs import *
 from . import outputs

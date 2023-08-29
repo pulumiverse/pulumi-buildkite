@@ -7,106 +7,6 @@ import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
 /**
- * ## # Resource: pipeline
- *
- * This resource allows you to create and manage pipelines for repositories.
- *
- * Buildkite Documentation: https://buildkite.com/docs/pipelines
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as buildkite from "@pulumiverse/buildkite";
- * import * as fs from "fs";
- *
- * // in ./steps.yml:
- * // steps:
- * //   - label: ':pipeline:'
- * //     command: buildkite-agent pipeline upload
- * const repo2 = new buildkite.pipeline.Pipeline("repo2", {
- *     repository: "git@github.com:org/repo2",
- *     steps: fs.readFileSync("./steps.yml"),
- *     teams: [{
- *         slug: "everyone",
- *         accessLevel: "READ_ONLY",
- *     }],
- * });
- * ```
- * ### With Command Timeouts
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as buildkite from "@pulumiverse/buildkite";
- * import * as fs from "fs";
- *
- * const testNew = new buildkite.pipeline.Pipeline("testNew", {
- *     repository: "https://github.com/buildkite/terraform-provider-buildkite.git",
- *     steps: fs.readFileSync("./deploy-steps.yml"),
- *     defaultTimeoutInMinutes: 60,
- *     maximumTimeoutInMinutes: 120,
- * });
- * ```
- *
- * Currently, the `defaultTimeoutInMinutes` and `maximumTimeoutInMinutes` will be retained in state even if removed from the configuration. In order to remove them, you must set them to `0` in either the configuration or the web UI.
- * ### With Deletion Protection
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as buildkite from "@pulumiverse/buildkite";
- * import * as fs from "fs";
- *
- * const testNew = new buildkite.pipeline.Pipeline("testNew", {
- *     repository: "https://github.com/buildkite/terraform-provider-buildkite.git",
- *     steps: fs.readFileSync("./deploy-steps.yml"),
- *     deletionProtection: true,
- * });
- * ```
- *
- * `deletionProtection` will block `destroy` actions on the **pipeline**. Attached resources, such as `schedules` will still be destroyed.
- * ### With Archive On Delete
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as buildkite from "@pulumiverse/buildkite";
- * import * as fs from "fs";
- *
- * const testNew = new buildkite.pipeline.Pipeline("testNew", {
- *     repository: "https://github.com/buildkite/terraform-provider-buildkite.git",
- *     steps: fs.readFileSync("./deploy-steps.yml"),
- *     archiveOnDelete: true,
- * });
- * ```
- *
- * `archiveOnDelete` will archive the **pipeline** when `destroy` is called. Attached resources, such as `schedules` will still be destroyed. In order to delete the pipeline, `archiveOnDelete` must be set to `false` in the configuration, then `destroy` must be called again.
- * ### With GitHub Provider Settings
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as buildkite from "@pulumiverse/buildkite";
- * import * as fs from "fs";
- *
- * // Pipeline that should not be triggered from a GitHub webhook
- * const repo2_deploy = new buildkite.pipeline.Pipeline("repo2-deploy", {
- *     repository: "git@github.com:org/repo2",
- *     steps: fs.readFileSync("./deploy-steps.yml"),
- *     providerSettings: {
- *         triggerMode: "none",
- *     },
- * });
- * // Release pipeline (triggered only when tags are pushed)
- * const repo2_release = new buildkite.pipeline.Pipeline("repo2-release", {
- *     repository: "git@github.com:org/repo2",
- *     steps: fs.readFileSync("./release-steps.yml"),
- *     providerSettings: {
- *         buildBranches: false,
- *         buildTags: true,
- *         buildPullRequests: false,
- *         triggerMode: "code",
- *     },
- * });
- * ```
- *
  * ## Import
  *
  * Pipelines can be imported using the `GraphQL ID` (not UUID), e.g.
@@ -154,8 +54,11 @@ export class Pipeline extends pulumi.CustomResource {
     /**
      * A boolean on whether or not to allow rebuilds for the pipeline.
      */
-    public readonly allowRebuilds!: pulumi.Output<boolean | undefined>;
-    public readonly archiveOnDelete!: pulumi.Output<boolean | undefined>;
+    public readonly allowRebuilds!: pulumi.Output<boolean>;
+    /**
+     * @deprecated This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.
+     */
+    public readonly archiveOnDelete!: pulumi.Output<boolean>;
     /**
      * The pipeline's last build status so you can display build status badge.
      */
@@ -185,9 +88,11 @@ export class Pipeline extends pulumi.CustomResource {
      */
     public readonly defaultTimeoutInMinutes!: pulumi.Output<number>;
     /**
-     * Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+     * **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+     *
+     * @deprecated Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.
      */
-    public readonly deletionProtection!: pulumi.Output<boolean | undefined>;
+    public readonly deletionProtection!: pulumi.Output<boolean>;
     /**
      * A description of the pipeline.
      */
@@ -203,7 +108,7 @@ export class Pipeline extends pulumi.CustomResource {
     /**
      * Source control provider settings for the pipeline. See Provider Settings Configuration below for details.
      */
-    public readonly providerSettings!: pulumi.Output<outputs.Pipeline.PipelineProviderSettings>;
+    public readonly providerSettings!: pulumi.Output<outputs.Pipeline.PipelineProviderSettings | undefined>;
     /**
      * The git URL of the repository.
      */
@@ -217,16 +122,18 @@ export class Pipeline extends pulumi.CustomResource {
      */
     public readonly skipIntermediateBuildsBranchFilter!: pulumi.Output<string>;
     /**
-     * The buildkite slug of the team.
+     * The slug of the created pipeline.
      */
     public /*out*/ readonly slug!: pulumi.Output<string>;
     /**
      * The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
      */
-    public readonly steps!: pulumi.Output<string | undefined>;
-    public readonly tags!: pulumi.Output<string[] | undefined>;
+    public readonly steps!: pulumi.Output<string>;
+    public readonly tags!: pulumi.Output<string[]>;
     /**
-     * Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+     * **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
+     *
+     * @deprecated This block is deprecated. Please use `buildkite_pipeline_team` instead.
      */
     public readonly teams!: pulumi.Output<outputs.Pipeline.PipelineTeam[] | undefined>;
     /**
@@ -310,6 +217,9 @@ export interface PipelineState {
      * A boolean on whether or not to allow rebuilds for the pipeline.
      */
     allowRebuilds?: pulumi.Input<boolean>;
+    /**
+     * @deprecated This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.
+     */
     archiveOnDelete?: pulumi.Input<boolean>;
     /**
      * The pipeline's last build status so you can display build status badge.
@@ -340,7 +250,9 @@ export interface PipelineState {
      */
     defaultTimeoutInMinutes?: pulumi.Input<number>;
     /**
-     * Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+     * **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+     *
+     * @deprecated Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.
      */
     deletionProtection?: pulumi.Input<boolean>;
     /**
@@ -372,7 +284,7 @@ export interface PipelineState {
      */
     skipIntermediateBuildsBranchFilter?: pulumi.Input<string>;
     /**
-     * The buildkite slug of the team.
+     * The slug of the created pipeline.
      */
     slug?: pulumi.Input<string>;
     /**
@@ -381,7 +293,9 @@ export interface PipelineState {
     steps?: pulumi.Input<string>;
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+     * **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
+     *
+     * @deprecated This block is deprecated. Please use `buildkite_pipeline_team` instead.
      */
     teams?: pulumi.Input<pulumi.Input<inputs.Pipeline.PipelineTeam>[]>;
     /**
@@ -398,6 +312,9 @@ export interface PipelineArgs {
      * A boolean on whether or not to allow rebuilds for the pipeline.
      */
     allowRebuilds?: pulumi.Input<boolean>;
+    /**
+     * @deprecated This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.
+     */
     archiveOnDelete?: pulumi.Input<boolean>;
     /**
      * Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
@@ -424,7 +341,9 @@ export interface PipelineArgs {
      */
     defaultTimeoutInMinutes?: pulumi.Input<number>;
     /**
-     * Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+     * **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
+     *
+     * @deprecated Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.
      */
     deletionProtection?: pulumi.Input<boolean>;
     /**
@@ -461,7 +380,9 @@ export interface PipelineArgs {
     steps?: pulumi.Input<string>;
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Set team access for the pipeline. Can be specified multiple times for each team. See Teams Configuration below for details.
+     * **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
+     *
+     * @deprecated This block is deprecated. Please use `buildkite_pipeline_team` instead.
      */
     teams?: pulumi.Input<pulumi.Input<inputs.Pipeline.PipelineTeam>[]>;
 }

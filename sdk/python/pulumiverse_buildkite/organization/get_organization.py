@@ -13,7 +13,6 @@ __all__ = [
     'GetOrganizationResult',
     'AwaitableGetOrganizationResult',
     'get_organization',
-    'get_organization_output',
 ]
 
 @pulumi.output_type
@@ -34,7 +33,7 @@ class GetOrganizationResult:
 
     @property
     @pulumi.getter(name="allowedApiIpAddresses")
-    def allowed_api_ip_addresses(self) -> Optional[Sequence[str]]:
+    def allowed_api_ip_addresses(self) -> Sequence[str]:
         """
         list of IP addresses in CIDR format that are allowed to access the Buildkite API.
         """
@@ -43,9 +42,6 @@ class GetOrganizationResult:
     @property
     @pulumi.getter
     def id(self) -> str:
-        """
-        The provider-assigned unique ID for this managed resource.
-        """
         return pulumi.get(self, "id")
 
     @property
@@ -65,8 +61,7 @@ class AwaitableGetOrganizationResult(GetOrganizationResult):
             uuid=self.uuid)
 
 
-def get_organization(allowed_api_ip_addresses: Optional[Sequence[str]] = None,
-                     opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetOrganizationResult:
+def get_organization(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetOrganizationResult:
     """
     ## # Data Source: organization
 
@@ -88,12 +83,8 @@ def get_organization(allowed_api_ip_addresses: Optional[Sequence[str]] = None,
         cidr_blocks=data["buildkite_organization"]["allowed_api_ip_addresses"],
     )])
     ```
-
-
-    :param Sequence[str] allowed_api_ip_addresses: list of IP addresses in CIDR format that are allowed to access the Buildkite API.
     """
     __args__ = dict()
-    __args__['allowedApiIpAddresses'] = allowed_api_ip_addresses
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('buildkite:Organization/getOrganization:getOrganization', __args__, opts=opts, typ=GetOrganizationResult).value
 
@@ -101,34 +92,3 @@ def get_organization(allowed_api_ip_addresses: Optional[Sequence[str]] = None,
         allowed_api_ip_addresses=pulumi.get(__ret__, 'allowed_api_ip_addresses'),
         id=pulumi.get(__ret__, 'id'),
         uuid=pulumi.get(__ret__, 'uuid'))
-
-
-@_utilities.lift_output_func(get_organization)
-def get_organization_output(allowed_api_ip_addresses: Optional[pulumi.Input[Optional[Sequence[str]]]] = None,
-                            opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetOrganizationResult]:
-    """
-    ## # Data Source: organization
-
-    Use this data source to look up the organization settings. It currently supports
-    allowed_api_ip_addresses.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_aws as aws
-    import pulumi_buildkite as buildkite
-
-    testkite = buildkite.Organization.get_organization()
-    from_buildkite = aws.ec2.SecurityGroup("fromBuildkite", ingress=[aws.ec2.SecurityGroupIngressArgs(
-        from_port="*",
-        to_port=443,
-        protocol="tcp",
-        cidr_blocks=data["buildkite_organization"]["allowed_api_ip_addresses"],
-    )])
-    ```
-
-
-    :param Sequence[str] allowed_api_ip_addresses: list of IP addresses in CIDR format that are allowed to access the Buildkite API.
-    """
-    ...

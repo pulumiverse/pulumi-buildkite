@@ -505,10 +505,11 @@ func (o PipelineProviderSettingsPtrOutput) TriggerMode() pulumi.StringPtrOutput 
 }
 
 type PipelineTeam struct {
-	// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
-	AccessLevel string `pulumi:"accessLevel"`
-	// The buildkite slug of the team.
-	Slug string `pulumi:"slug"`
+	AccessLevel    string  `pulumi:"accessLevel"`
+	PipelineTeamId *string `pulumi:"pipelineTeamId"`
+	// The slug of the created pipeline.
+	Slug   string  `pulumi:"slug"`
+	TeamId *string `pulumi:"teamId"`
 }
 
 // PipelineTeamInput is an input type that accepts PipelineTeamArgs and PipelineTeamOutput values.
@@ -523,10 +524,11 @@ type PipelineTeamInput interface {
 }
 
 type PipelineTeamArgs struct {
-	// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
-	AccessLevel pulumi.StringInput `pulumi:"accessLevel"`
-	// The buildkite slug of the team.
-	Slug pulumi.StringInput `pulumi:"slug"`
+	AccessLevel    pulumi.StringInput    `pulumi:"accessLevel"`
+	PipelineTeamId pulumi.StringPtrInput `pulumi:"pipelineTeamId"`
+	// The slug of the created pipeline.
+	Slug   pulumi.StringInput    `pulumi:"slug"`
+	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
 }
 
 func (PipelineTeamArgs) ElementType() reflect.Type {
@@ -580,14 +582,21 @@ func (o PipelineTeamOutput) ToPipelineTeamOutputWithContext(ctx context.Context)
 	return o
 }
 
-// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
 func (o PipelineTeamOutput) AccessLevel() pulumi.StringOutput {
 	return o.ApplyT(func(v PipelineTeam) string { return v.AccessLevel }).(pulumi.StringOutput)
 }
 
-// The buildkite slug of the team.
+func (o PipelineTeamOutput) PipelineTeamId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PipelineTeam) *string { return v.PipelineTeamId }).(pulumi.StringPtrOutput)
+}
+
+// The slug of the created pipeline.
 func (o PipelineTeamOutput) Slug() pulumi.StringOutput {
 	return o.ApplyT(func(v PipelineTeam) string { return v.Slug }).(pulumi.StringOutput)
+}
+
+func (o PipelineTeamOutput) TeamId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PipelineTeam) *string { return v.TeamId }).(pulumi.StringPtrOutput)
 }
 
 type PipelineTeamArrayOutput struct{ *pulumi.OutputState }

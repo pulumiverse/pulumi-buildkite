@@ -34,12 +34,22 @@ namespace Pulumiverse.Buildkite
 
         private static readonly __Value<string?> _apiToken = new __Value<string?>(() => __config.Get("apiToken"));
         /// <summary>
-        /// API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+        /// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
         /// </summary>
         public static string? ApiToken
         {
             get => _apiToken.Get();
             set => _apiToken.Set(value);
+        }
+
+        private static readonly __Value<bool?> _archivePipelineOnDelete = new __Value<bool?>(() => __config.GetBoolean("archivePipelineOnDelete"));
+        /// <summary>
+        /// Archive pipelines when destroying instead of completely deleting.
+        /// </summary>
+        public static bool? ArchivePipelineOnDelete
+        {
+            get => _archivePipelineOnDelete.Get();
+            set => _archivePipelineOnDelete.Set(value);
         }
 
         private static readonly __Value<string?> _graphqlUrl = new __Value<string?>(() => __config.Get("graphqlUrl"));

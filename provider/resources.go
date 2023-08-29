@@ -36,6 +36,7 @@ const (
 	// modules:
 	mainMod         = "index" //nolint:deadcode,unused,varcheck
 	pipelineMod     = "Pipeline"
+	testMod         = "TestSuite"
 	teamMod         = "Team"
 	organizationMod = "Organization"
 	agentMod        = "Agent"
@@ -83,10 +84,15 @@ func Provider() tfbridge.ProviderInfo {
 			// Pipeline
 			"buildkite_pipeline":          {Tok: tfbridge.MakeResource(mainPkg, pipelineMod, "Pipeline")},
 			"buildkite_pipeline_schedule": {Tok: tfbridge.MakeResource(mainPkg, pipelineMod, "Schedule")},
+			"buildkite_pipeline_team":     {Tok: tfbridge.MakeResource(mainPkg, pipelineMod, "Team")},
 			// Team
 			"buildkite_team":        {Tok: tfbridge.MakeResource(mainPkg, teamMod, "Team")},
 			"buildkite_team_member": {Tok: tfbridge.MakeResource(mainPkg, teamMod, "Member")},
+			// Test
+			"buildkite_test_suite":      {Tok: tfbridge.MakeResource(mainPkg, testMod, "TestSuite")},
+			"buildkite_test_suite_team": {Tok: tfbridge.MakeResource(mainPkg, testMod, "Team")},
 			// Organization
+			"buildkite_organization":          {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Organization")},
 			"buildkite_organization_settings": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Settings")},
 			// Agent
 			"buildkite_agent_token": {Tok: tfbridge.MakeResource(mainPkg, agentMod, "AgentToken")},

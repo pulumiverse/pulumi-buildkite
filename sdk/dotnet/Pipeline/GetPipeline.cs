@@ -120,9 +120,6 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// A description of the pipeline.
         /// </summary>
         public readonly string Description;
-        /// <summary>
-        /// The provider-assigned unique ID for this managed resource.
-        /// </summary>
         public readonly string Id;
         /// <summary>
         /// The name of the pipeline.
@@ -134,7 +131,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         public readonly string Repository;
         public readonly string Slug;
         /// <summary>
-        /// The default branch to prefill when new builds are created or triggered.
+        /// The Buildkite webhook URL that triggers builds on this pipeline.
         /// </summary>
         public readonly string WebhookUrl;
 

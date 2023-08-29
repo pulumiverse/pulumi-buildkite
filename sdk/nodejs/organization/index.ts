@@ -5,10 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 // Export members:
-export { GetOrganizationArgs, GetOrganizationResult, GetOrganizationOutputArgs } from "./getOrganization";
+export { GetOrganizationResult } from "./getOrganization";
 export const getOrganization: typeof import("./getOrganization").getOrganization = null as any;
-export const getOrganizationOutput: typeof import("./getOrganization").getOrganizationOutput = null as any;
-utilities.lazyLoad(exports, ["getOrganization","getOrganizationOutput"], () => require("./getOrganization"));
+utilities.lazyLoad(exports, ["getOrganization"], () => require("./getOrganization"));
+
+export { OrganizationArgs, OrganizationState } from "./organization";
+export type Organization = import("./organization").Organization;
+export const Organization: typeof import("./organization").Organization = null as any;
+utilities.lazyLoad(exports, ["Organization"], () => require("./organization"));
 
 export { SettingsArgs, SettingsState } from "./settings";
 export type Settings = import("./settings").Settings;
@@ -20,6 +24,8 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "buildkite:Organization/organization:Organization":
+                return new Organization(name, <any>undefined, { urn })
             case "buildkite:Organization/settings:Settings":
                 return new Settings(name, <any>undefined, { urn })
             default:
@@ -27,4 +33,5 @@ const _module = {
         }
     },
 };
+pulumi.runtime.registerResourceModule("buildkite", "Organization/organization", _module)
 pulumi.runtime.registerResourceModule("buildkite", "Organization/settings", _module)

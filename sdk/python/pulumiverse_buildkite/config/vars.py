@@ -18,9 +18,16 @@ class _ExportableConfig(types.ModuleType):
     @property
     def api_token(self) -> Optional[str]:
         """
-        API token with GraphQL access and `write_pipelines, read_pipelines` scopes
+        API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
         """
         return __config__.get('apiToken')
+
+    @property
+    def archive_pipeline_on_delete(self) -> Optional[bool]:
+        """
+        Archive pipelines when destroying instead of completely deleting.
+        """
+        return __config__.get_bool('archivePipelineOnDelete')
 
     @property
     def graphql_url(self) -> Optional[str]:

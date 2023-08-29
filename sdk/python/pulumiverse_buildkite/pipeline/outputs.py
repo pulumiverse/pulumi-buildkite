@@ -313,6 +313,10 @@ class PipelineTeam(dict):
         suggest = None
         if key == "accessLevel":
             suggest = "access_level"
+        elif key == "pipelineTeamId":
+            suggest = "pipeline_team_id"
+        elif key == "teamId":
+            suggest = "team_id"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in PipelineTeam. Access the value via the '{suggest}' property getter instead.")
@@ -327,28 +331,40 @@ class PipelineTeam(dict):
 
     def __init__(__self__, *,
                  access_level: str,
-                 slug: str):
+                 slug: str,
+                 pipeline_team_id: Optional[str] = None,
+                 team_id: Optional[str] = None):
         """
-        :param str access_level: The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
-        :param str slug: The buildkite slug of the team.
+        :param str slug: The slug of the created pipeline.
         """
         pulumi.set(__self__, "access_level", access_level)
         pulumi.set(__self__, "slug", slug)
+        if pipeline_team_id is not None:
+            pulumi.set(__self__, "pipeline_team_id", pipeline_team_id)
+        if team_id is not None:
+            pulumi.set(__self__, "team_id", team_id)
 
     @property
     @pulumi.getter(name="accessLevel")
     def access_level(self) -> str:
-        """
-        The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
-        """
         return pulumi.get(self, "access_level")
 
     @property
     @pulumi.getter
     def slug(self) -> str:
         """
-        The buildkite slug of the team.
+        The slug of the created pipeline.
         """
         return pulumi.get(self, "slug")
+
+    @property
+    @pulumi.getter(name="pipelineTeamId")
+    def pipeline_team_id(self) -> Optional[str]:
+        return pulumi.get(self, "pipeline_team_id")
+
+    @property
+    @pulumi.getter(name="teamId")
+    def team_id(self) -> Optional[str]:
+        return pulumi.get(self, "team_id")
 
 

@@ -27,19 +27,15 @@ import * as utilities from "../utilities";
  *
  * ## Import
  *
- * Pipeline schedules can be imported using a slug (which consists of `$BUILDKITE_ORGANIZATION_SLUG/$BUILDKITE_PIPELINE_SLUG/$PIPELINE_SCHEDULE_UUID`), e.g.
+ * Pipeline schedules can be imported using their `GraphQL ID`, e.g.
  *
  * ```sh
- *  $ pulumi import buildkite:Pipeline/schedule:Schedule test myorg/test/1be3e7c7-1e03-4011-accf-b2d8eec90222
+ *  $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
  * ```
  *
- *  Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settingss) page.
+ *  Your pipeline schedules' GraphQL ID can be found with the below GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/45687b7c-2565-4acb-8a74-750a3647875f), specifying the organisation slug (when known) and the pipeline search term (PIPELINE_SEARCH_TERM). graphql query getPipelineScheduleId {
  *
- * The pipeline slug and its relevant schedule UUID can be found with the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/abf9270e-eccf-4c5f-af21-4cd35164ab6c), specifying the organisation slug (when known) and the pipeline search term (PIPELINE_SEARCH_TERM). graphql query getPipelineScheduleUuid {
- *
- *  organization(slug"ORGANIZATION_SLUG") {
- *
- *  pipelines(first5, search"PIPELINE_SEARCH_TERM") {
+ *  organization(slug"ORGANIZATION_SLUG") { 		pipelines(first5, search"PIPELINE_SEARCH_TERM") {
  *
  *  edges{
  *
@@ -53,9 +49,7 @@ import * as utilities from "../utilities";
  *
  * node{
  *
- *  uuid
- *
- *  cronline
+ *  id
  *
  *  }
  *
@@ -106,7 +100,7 @@ export class Schedule extends pulumi.CustomResource {
     /**
      * The commit ref to use for the build.
      */
-    public readonly commit!: pulumi.Output<string | undefined>;
+    public readonly commit!: pulumi.Output<string>;
     /**
      * Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
      */
@@ -114,7 +108,7 @@ export class Schedule extends pulumi.CustomResource {
     /**
      * Whether the schedule should run.
      */
-    public readonly enabled!: pulumi.Output<boolean | undefined>;
+    public readonly enabled!: pulumi.Output<boolean>;
     /**
      * A map of environment variables to use for the build.
      */
@@ -126,7 +120,10 @@ export class Schedule extends pulumi.CustomResource {
     /**
      * The message to use for the build.
      */
-    public readonly message!: pulumi.Output<string>;
+    public readonly message!: pulumi.Output<string | undefined>;
+    /**
+     * The ID of the pipeline that this schedule belongs to.
+     */
     public readonly pipelineId!: pulumi.Output<string>;
     /**
      * The UUID of the pipeline schedule
@@ -216,6 +213,9 @@ export interface ScheduleState {
      * The message to use for the build.
      */
     message?: pulumi.Input<string>;
+    /**
+     * The ID of the pipeline that this schedule belongs to.
+     */
     pipelineId?: pulumi.Input<string>;
     /**
      * The UUID of the pipeline schedule
@@ -255,5 +255,8 @@ export interface ScheduleArgs {
      * The message to use for the build.
      */
     message?: pulumi.Input<string>;
+    /**
+     * The ID of the pipeline that this schedule belongs to.
+     */
     pipelineId: pulumi.Input<string>;
 }

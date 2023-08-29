@@ -22,6 +22,7 @@ import * as config from "./config";
 import * as organization from "./organization";
 import * as pipeline from "./pipeline";
 import * as team from "./team";
+import * as testsuite from "./testsuite";
 import * as types from "./types";
 
 export {
@@ -31,6 +32,7 @@ export {
     organization,
     pipeline,
     team,
+    testsuite,
     types,
 };
 pulumi.runtime.registerResourcePackage("buildkite", {

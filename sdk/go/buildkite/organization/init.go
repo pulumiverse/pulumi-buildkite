@@ -21,6 +21,8 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "buildkite:Organization/organization:Organization":
+		r = &Organization{}
 	case "buildkite:Organization/settings:Settings":
 		r = &Settings{}
 	default:
@@ -36,6 +38,11 @@ func init() {
 	if err != nil {
 		version = semver.Version{Major: 1}
 	}
+	pulumi.RegisterResourceModule(
+		"buildkite",
+		"Organization/organization",
+		&module{version},
+	)
 	pulumi.RegisterResourceModule(
 		"buildkite",
 		"Organization/settings",

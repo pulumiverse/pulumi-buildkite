@@ -137,7 +137,8 @@ class AwaitableGetTeamResult(GetTeamResult):
             uuid=self.uuid)
 
 
-def get_team(slug: Optional[str] = None,
+def get_team(id: Optional[str] = None,
+             slug: Optional[str] = None,
              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetTeamResult:
     """
     ## # Data Source: team
@@ -153,13 +154,18 @@ def get_team(slug: Optional[str] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    my_team = buildkite.Team.get_team(slug="my_team")
+    my_team_data = buildkite.Team.get_team(id="<team id>")
     ```
 
 
-    :param str slug: The slug of the team, available in the URL of the team on buildkite.com
+    :param str id: The GraphQL ID of the team, available in the Settings page for the team.
+    :param str slug: The slug of the team. Available in the URL of the team on buildkite.com; in the format
+           "<organizaton/team-name>"
+           
+           The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
     """
     __args__ = dict()
+    __args__['id'] = id
     __args__['slug'] = slug
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('buildkite:Team/getTeam:getTeam', __args__, opts=opts, typ=GetTeamResult).value
@@ -177,7 +183,8 @@ def get_team(slug: Optional[str] = None,
 
 
 @_utilities.lift_output_func(get_team)
-def get_team_output(slug: Optional[pulumi.Input[str]] = None,
+def get_team_output(id: Optional[pulumi.Input[Optional[str]]] = None,
+                    slug: Optional[pulumi.Input[Optional[str]]] = None,
                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetTeamResult]:
     """
     ## # Data Source: team
@@ -193,10 +200,14 @@ def get_team_output(slug: Optional[pulumi.Input[str]] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    my_team = buildkite.Team.get_team(slug="my_team")
+    my_team_data = buildkite.Team.get_team(id="<team id>")
     ```
 
 
-    :param str slug: The slug of the team, available in the URL of the team on buildkite.com
+    :param str id: The GraphQL ID of the team, available in the Settings page for the team.
+    :param str slug: The slug of the team. Available in the URL of the team on buildkite.com; in the format
+           "<organizaton/team-name>"
+           
+           The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
     """
     ...
