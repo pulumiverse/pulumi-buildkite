@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.3.1](https://github.com/pulumiverse/pulumi-buildkite/compare/v2.3.0...v2.3.1) (2023-09-11)
+
+
+### Miscellaneous Chores
+
+* **deps:** bump github.com/pulumi/pulumi-terraform-bridge/pf ([9ae4f78](https://github.com/pulumiverse/pulumi-buildkite/commit/9ae4f788455e322c26b8c9cd419fa28655126254))
+* **deps:** bump github.com/pulumi/pulumi-terraform-bridge/pf ([0b45bda](https://github.com/pulumiverse/pulumi-buildkite/commit/0b45bdaf090ab07fd5bbc0ada3275fa674df855b))
+* **deps:** bump github.com/pulumi/pulumi/sdk/v3 in /provider ([e61c406](https://github.com/pulumiverse/pulumi-buildkite/commit/e61c406cbbc6746eecaa68ca2040fc4be028102d))
+* **deps:** bump github.com/pulumi/pulumi/sdk/v3 in /provider ([dd9c64e](https://github.com/pulumiverse/pulumi-buildkite/commit/dd9c64e057109b09e2a48f75aaa90d358f683475))
+* **deps:** bump github.com/pulumi/pulumi/sdk/v3 in /sdk ([12f2b13](https://github.com/pulumiverse/pulumi-buildkite/commit/12f2b1374e908a2da3c6c3be2ae37462fbeac2eb))
+* **deps:** bump github.com/pulumi/pulumi/sdk/v3 in /sdk ([eb9e1b1](https://github.com/pulumiverse/pulumi-buildkite/commit/eb9e1b150d4158466f2f058976641f483c376db8))
+* **deps:** bump github.com/pulumi/pulumi/sdk/v3 in /sdk ([356be88](https://github.com/pulumiverse/pulumi-buildkite/commit/356be88c684173637183eadd16b050d5179877d4))
+* **deps:** bump github.com/pulumi/pulumi/sdk/v3 in /sdk ([57545ea](https://github.com/pulumiverse/pulumi-buildkite/commit/57545ea5e2f63d317594d379e90ecd073d009945))
+* **deps:** bump github.com/pulumi/pulumi/sdk/v3 in /sdk ([554c31d](https://github.com/pulumiverse/pulumi-buildkite/commit/554c31dec7a0afe7e257608a5327e45ba284e8fa))
+* **deps:** update actions/checkout action to v4 ([2377fc8](https://github.com/pulumiverse/pulumi-buildkite/commit/2377fc8f8d1db06b953afced5faa3602971abd3d))
+* **deps:** update sigstore/cosign-installer action to v3.1.2 ([cc2c405](https://github.com/pulumiverse/pulumi-buildkite/commit/cc2c405d3cff47f1708f8d2768f887f967b3e1f0))
+* **deps:** update upstream to 0.25.1 ([6c1a6c2](https://github.com/pulumiverse/pulumi-buildkite/commit/6c1a6c205b1fb1b2d7479865885a601253a231ce))
+
 ## [2.3.0](https://github.com/pulumiverse/pulumi-buildkite/compare/v2.2.0...v2.3.0) (2023-07-13)
 
 
