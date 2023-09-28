@@ -11,13 +11,9 @@ using Pulumi;
 namespace Pulumiverse.Buildkite.Organization
 {
     /// <summary>
-    /// ## # Resource: organization
-    /// 
     /// This resource allows you to manage the settings for an organization.
     /// 
-    /// You must be an organization administrator to manage organization settings.
-    /// 
-    /// Note: The "Allowed API IP Addresses" feature must be enabled on your organization in order to manage the `allowed_api_ip_addresses` attribute.
+    /// The user of your API token must be an organization administrator to manage organization settings.
     /// 
     /// ## Example Usage
     /// 
@@ -29,12 +25,14 @@ namespace Pulumiverse.Buildkite.Organization
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var testSettings = new Buildkite.Organization.Organization("testSettings", new()
+    ///     // allow api access only from 1.1.1.1 and enforce 2fa for all members
+    ///     var settings = new Buildkite.Organization.Organization("settings", new()
     ///     {
     ///         AllowedApiIpAddresses = new[]
     ///         {
     ///             "1.1.1.1/32",
     ///         },
+    ///         Enforce2fa = true,
     ///     });
     /// 
     /// });
@@ -42,23 +40,30 @@ namespace Pulumiverse.Buildkite.Organization
     /// 
     /// ## Import
     /// 
-    /// Organization settings can be imported by passing the organization slug to the import command, along with the identifier of the resource.
+    /// import the organization settings via the organization slug
     /// 
     /// ```sh
-    ///  $ pulumi import buildkite:Organization/organization:Organization test_settings test_org
+    /// $ pulumi import buildkite:Organization/organization:Organization settings &lt;organization slug&gt;
     /// ```
-    /// 
-    ///  Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settings) page.
     /// </summary>
     [BuildkiteResourceType("buildkite:Organization/organization:Organization")]
     public partial class Organization : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        /// A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
         /// </summary>
         [Output("allowedApiIpAddresses")]
         public Output<ImmutableArray<string>> AllowedApiIpAddresses { get; private set; } = null!;
 
+        /// <summary>
+        /// Sets whether the organization requires two-factor authentication for all members.
+        /// </summary>
+        [Output("enforce2fa")]
+        public Output<bool> Enforce2fa { get; private set; } = null!;
+
+        /// <summary>
+        /// The UUID of the organization.
+        /// </summary>
         [Output("uuid")]
         public Output<string> Uuid { get; private set; } = null!;
 
@@ -113,13 +118,19 @@ namespace Pulumiverse.Buildkite.Organization
         private InputList<string>? _allowedApiIpAddresses;
 
         /// <summary>
-        /// A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        /// A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
         /// </summary>
         public InputList<string> AllowedApiIpAddresses
         {
             get => _allowedApiIpAddresses ?? (_allowedApiIpAddresses = new InputList<string>());
             set => _allowedApiIpAddresses = value;
         }
+
+        /// <summary>
+        /// Sets whether the organization requires two-factor authentication for all members.
+        /// </summary>
+        [Input("enforce2fa")]
+        public Input<bool>? Enforce2fa { get; set; }
 
         public OrganizationArgs()
         {
@@ -133,7 +144,7 @@ namespace Pulumiverse.Buildkite.Organization
         private InputList<string>? _allowedApiIpAddresses;
 
         /// <summary>
-        /// A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        /// A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
         /// </summary>
         public InputList<string> AllowedApiIpAddresses
         {
@@ -141,6 +152,15 @@ namespace Pulumiverse.Buildkite.Organization
             set => _allowedApiIpAddresses = value;
         }
 
+        /// <summary>
+        /// Sets whether the organization requires two-factor authentication for all members.
+        /// </summary>
+        [Input("enforce2fa")]
+        public Input<bool>? Enforce2fa { get; set; }
+
+        /// <summary>
+        /// The UUID of the organization.
+        /// </summary>
         [Input("uuid")]
         public Input<string>? Uuid { get; set; }
 

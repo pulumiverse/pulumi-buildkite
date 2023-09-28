@@ -7,5 +7,6 @@ import typing
 # Export this package's modules as members:
 from .cluster import *
 from .cluster_agent_token import *
+from .cluster_default_queue import *
 from .cluster_queue import *
 from .get_cluster import *

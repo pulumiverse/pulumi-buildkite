@@ -5,11 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Resource: clusterAgentToken
- *
- * This resource allows you to create and manage cluster agent tokens.
- *
- * Buildkite Documentation: https://buildkite.com/docs/clusters/manage-clusters#set-up-clusters-connect-agents-to-a-cluster
+ * A Cluster Agent Token is a token used to connect an agent to a cluster in Buildkite.
  *
  * ## Example Usage
  *
@@ -17,9 +13,29 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const cluster_token_1 = new buildkite.cluster.ClusterAgentToken("cluster-token-1", {
- *     clusterId: "Q2x1c3Rlci0tLTkyMmVjOTA4LWRmNWItNDhhYS1hMThjLTczMzE0YjQ1ZGYyMA==",
- *     description: "agent token for cluster-1",
+ * // create a cluster
+ * const primary = new buildkite.cluster.Cluster("primary", {
+ *     description: "Runs the monolith build and deploy",
+ *     emoji: "🚀",
+ *     color: "#bada55",
+ * });
+ * // create an agent token for the cluster
+ * const defaultClusterAgentToken = new buildkite.cluster.ClusterAgentToken("defaultClusterAgentToken", {
+ *     description: "Default cluster token",
+ *     clusterId: primary.id,
+ * });
+ * const ipLimitedToken = new buildkite.cluster.ClusterAgentToken("ipLimitedToken", {
+ *     description: "Token with allowed IP range",
+ *     clusterId: primary.id,
+ *     allowedIpAddresses: ["10.100.1.0/28"],
+ * });
+ * const monolith = new buildkite.pipeline.Pipeline("monolith", {
+ *     repository: "https://github.com/...",
+ *     clusterId: primary.id,
+ * });
+ * const defaultClusterQueue = new buildkite.cluster.ClusterQueue("defaultClusterQueue", {
+ *     clusterId: primary.id,
+ *     key: "default",
  * });
  * ```
  */
@@ -52,20 +68,27 @@ export class ClusterAgentToken extends pulumi.CustomResource {
     }
 
     /**
-     * The ID of the cluster that this cluster queue belongs to.
+     * A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+     */
+    public readonly allowedIpAddresses!: pulumi.Output<string[] | undefined>;
+    /**
+     * The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
      */
     public readonly clusterId!: pulumi.Output<string>;
     /**
-     * The UUID of the cluster that this cluster queue belongs to.
+     * The UUID of the Cluster that this token belongs to.
      */
     public /*out*/ readonly clusterUuid!: pulumi.Output<string>;
     /**
      * A description about what this cluster agent token is used for.
      */
     public readonly description!: pulumi.Output<string>;
+    /**
+     * The token value used by an agent to register with the API.
+     */
     public /*out*/ readonly token!: pulumi.Output<string>;
     /**
-     * The UUID of the created cluster queue.
+     * The UUID of the token.
      */
     public /*out*/ readonly uuid!: pulumi.Output<string>;
 
@@ -82,6 +105,7 @@ export class ClusterAgentToken extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ClusterAgentTokenState | undefined;
+            resourceInputs["allowedIpAddresses"] = state ? state.allowedIpAddresses : undefined;
             resourceInputs["clusterId"] = state ? state.clusterId : undefined;
             resourceInputs["clusterUuid"] = state ? state.clusterUuid : undefined;
             resourceInputs["description"] = state ? state.description : undefined;
@@ -95,6 +119,7 @@ export class ClusterAgentToken extends pulumi.CustomResource {
             if ((!args || args.description === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'description'");
             }
+            resourceInputs["allowedIpAddresses"] = args ? args.allowedIpAddresses : undefined;
             resourceInputs["clusterId"] = args ? args.clusterId : undefined;
             resourceInputs["description"] = args ? args.description : undefined;
             resourceInputs["clusterUuid"] = undefined /*out*/;
@@ -113,20 +138,27 @@ export class ClusterAgentToken extends pulumi.CustomResource {
  */
 export interface ClusterAgentTokenState {
     /**
-     * The ID of the cluster that this cluster queue belongs to.
+     * A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+     */
+    allowedIpAddresses?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
      */
     clusterId?: pulumi.Input<string>;
     /**
-     * The UUID of the cluster that this cluster queue belongs to.
+     * The UUID of the Cluster that this token belongs to.
      */
     clusterUuid?: pulumi.Input<string>;
     /**
      * A description about what this cluster agent token is used for.
      */
     description?: pulumi.Input<string>;
+    /**
+     * The token value used by an agent to register with the API.
+     */
     token?: pulumi.Input<string>;
     /**
-     * The UUID of the created cluster queue.
+     * The UUID of the token.
      */
     uuid?: pulumi.Input<string>;
 }
@@ -136,7 +168,11 @@ export interface ClusterAgentTokenState {
  */
 export interface ClusterAgentTokenArgs {
     /**
-     * The ID of the cluster that this cluster queue belongs to.
+     * A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+     */
+    allowedIpAddresses?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
      */
     clusterId: pulumi.Input<string>;
     /**

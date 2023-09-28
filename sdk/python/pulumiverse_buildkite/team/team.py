@@ -22,11 +22,11 @@ class TeamArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Team resource.
-        :param pulumi.Input[str] default_member_role: Default role to assign to a team member.
-        :param pulumi.Input[bool] default_team: Whether to assign this team to a user by default.
-        :param pulumi.Input[str] privacy: The privacy level to set the team too.
-        :param pulumi.Input[str] description: The description to assign to the team.
-        :param pulumi.Input[bool] members_can_create_pipelines: Whether team members can create.
+        :param pulumi.Input[str] default_member_role: The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
+        :param pulumi.Input[bool] default_team: Whether this is the default team for the organization.
+        :param pulumi.Input[str] privacy: The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
+        :param pulumi.Input[str] description: A description for the team. This is displayed in the Buildkite UI.
+        :param pulumi.Input[bool] members_can_create_pipelines: Whether members of the team can create Pipelines.
         :param pulumi.Input[str] name: The name of the team.
         """
         pulumi.set(__self__, "default_member_role", default_member_role)
@@ -43,7 +43,7 @@ class TeamArgs:
     @pulumi.getter(name="defaultMemberRole")
     def default_member_role(self) -> pulumi.Input[str]:
         """
-        Default role to assign to a team member.
+        The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
         """
         return pulumi.get(self, "default_member_role")
 
@@ -55,7 +55,7 @@ class TeamArgs:
     @pulumi.getter(name="defaultTeam")
     def default_team(self) -> pulumi.Input[bool]:
         """
-        Whether to assign this team to a user by default.
+        Whether this is the default team for the organization.
         """
         return pulumi.get(self, "default_team")
 
@@ -67,7 +67,7 @@ class TeamArgs:
     @pulumi.getter
     def privacy(self) -> pulumi.Input[str]:
         """
-        The privacy level to set the team too.
+        The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
         """
         return pulumi.get(self, "privacy")
 
@@ -79,7 +79,7 @@ class TeamArgs:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[str]]:
         """
-        The description to assign to the team.
+        A description for the team. This is displayed in the Buildkite UI.
         """
         return pulumi.get(self, "description")
 
@@ -91,7 +91,7 @@ class TeamArgs:
     @pulumi.getter(name="membersCanCreatePipelines")
     def members_can_create_pipelines(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether team members can create.
+        Whether members of the team can create Pipelines.
         """
         return pulumi.get(self, "members_can_create_pipelines")
 
@@ -125,14 +125,14 @@ class _TeamState:
                  uuid: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Team resources.
-        :param pulumi.Input[str] default_member_role: Default role to assign to a team member.
-        :param pulumi.Input[bool] default_team: Whether to assign this team to a user by default.
-        :param pulumi.Input[str] description: The description to assign to the team.
-        :param pulumi.Input[bool] members_can_create_pipelines: Whether team members can create.
+        :param pulumi.Input[str] default_member_role: The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
+        :param pulumi.Input[bool] default_team: Whether this is the default team for the organization.
+        :param pulumi.Input[str] description: A description for the team. This is displayed in the Buildkite UI.
+        :param pulumi.Input[bool] members_can_create_pipelines: Whether members of the team can create Pipelines.
         :param pulumi.Input[str] name: The name of the team.
-        :param pulumi.Input[str] privacy: The privacy level to set the team too.
-        :param pulumi.Input[str] slug: The name of the team.
-        :param pulumi.Input[str] uuid: The UUID for the team.
+        :param pulumi.Input[str] privacy: The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
+        :param pulumi.Input[str] slug: The generated slug for the team.
+        :param pulumi.Input[str] uuid: The UUID of the team.
         """
         if default_member_role is not None:
             pulumi.set(__self__, "default_member_role", default_member_role)
@@ -155,7 +155,7 @@ class _TeamState:
     @pulumi.getter(name="defaultMemberRole")
     def default_member_role(self) -> Optional[pulumi.Input[str]]:
         """
-        Default role to assign to a team member.
+        The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
         """
         return pulumi.get(self, "default_member_role")
 
@@ -167,7 +167,7 @@ class _TeamState:
     @pulumi.getter(name="defaultTeam")
     def default_team(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether to assign this team to a user by default.
+        Whether this is the default team for the organization.
         """
         return pulumi.get(self, "default_team")
 
@@ -179,7 +179,7 @@ class _TeamState:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[str]]:
         """
-        The description to assign to the team.
+        A description for the team. This is displayed in the Buildkite UI.
         """
         return pulumi.get(self, "description")
 
@@ -191,7 +191,7 @@ class _TeamState:
     @pulumi.getter(name="membersCanCreatePipelines")
     def members_can_create_pipelines(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether team members can create.
+        Whether members of the team can create Pipelines.
         """
         return pulumi.get(self, "members_can_create_pipelines")
 
@@ -215,7 +215,7 @@ class _TeamState:
     @pulumi.getter
     def privacy(self) -> Optional[pulumi.Input[str]]:
         """
-        The privacy level to set the team too.
+        The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
         """
         return pulumi.get(self, "privacy")
 
@@ -227,7 +227,7 @@ class _TeamState:
     @pulumi.getter
     def slug(self) -> Optional[pulumi.Input[str]]:
         """
-        The name of the team.
+        The generated slug for the team.
         """
         return pulumi.get(self, "slug")
 
@@ -239,7 +239,7 @@ class _TeamState:
     @pulumi.getter
     def uuid(self) -> Optional[pulumi.Input[str]]:
         """
-        The UUID for the team.
+        The UUID of the team.
         """
         return pulumi.get(self, "uuid")
 
@@ -261,13 +261,7 @@ class Team(pulumi.CustomResource):
                  privacy: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## # Resource: team
-
-        This resource allows you to create and manage teams.
-
-        Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions
-
-        Note: You must first enable Teams on your organization.
+        A Team is a group of users that can be given permissions for using Pipelines.This feature is only available to Business and Enterprise customers.  You can find out more about Teams in the Buildkite [documentation](https://buildkite.com/docs/team-management/permissions).
 
         ## Example Usage
 
@@ -275,25 +269,25 @@ class Team(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        team = buildkite.team.Team("team",
+        everyone = buildkite.team.Team("everyone",
             default_member_role="MEMBER",
-            default_team=True,
+            default_team=False,
             privacy="VISIBLE")
         ```
 
         ## Import
 
-        Teams can be imported using the `GraphQL ID` (not UUID), e.g.
+        import a team resource using the GraphQL ID
 
-        ```sh
-         $ pulumi import buildkite:Team/team:Team fleet UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
-        ```
+        # 
 
-         To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/6e74c89c-4e91-4d1d-92ca-4fb19d0ea453), where you will need fo fill in the organization slug and search term (TEAM_SEARCH_TERM) for the team. graphql query getTeamId {
+         you can use this query to find the ID:
 
-         organization(slug"ORGANIZATION_SLUG") {
+         query getTeamId {
 
-         teams(first1, search"TEAM_SEARCH_TERM") {
+         organization(slug: "ORGANIZATION_SLUG") {
+
+         teams(first: 1, search: "TEAM_SEARCH_TERM") {
 
          edges {
 
@@ -309,16 +303,22 @@ class Team(pulumi.CustomResource):
 
          }
 
-         } }
+         }
+
+         }
+
+        ```sh
+        $ pulumi import buildkite:Team/team:Team everyone UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
+        ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] default_member_role: Default role to assign to a team member.
-        :param pulumi.Input[bool] default_team: Whether to assign this team to a user by default.
-        :param pulumi.Input[str] description: The description to assign to the team.
-        :param pulumi.Input[bool] members_can_create_pipelines: Whether team members can create.
+        :param pulumi.Input[str] default_member_role: The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
+        :param pulumi.Input[bool] default_team: Whether this is the default team for the organization.
+        :param pulumi.Input[str] description: A description for the team. This is displayed in the Buildkite UI.
+        :param pulumi.Input[bool] members_can_create_pipelines: Whether members of the team can create Pipelines.
         :param pulumi.Input[str] name: The name of the team.
-        :param pulumi.Input[str] privacy: The privacy level to set the team too.
+        :param pulumi.Input[str] privacy: The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
         """
         ...
     @overload
@@ -327,13 +327,7 @@ class Team(pulumi.CustomResource):
                  args: TeamArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # Resource: team
-
-        This resource allows you to create and manage teams.
-
-        Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions
-
-        Note: You must first enable Teams on your organization.
+        A Team is a group of users that can be given permissions for using Pipelines.This feature is only available to Business and Enterprise customers.  You can find out more about Teams in the Buildkite [documentation](https://buildkite.com/docs/team-management/permissions).
 
         ## Example Usage
 
@@ -341,25 +335,25 @@ class Team(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        team = buildkite.team.Team("team",
+        everyone = buildkite.team.Team("everyone",
             default_member_role="MEMBER",
-            default_team=True,
+            default_team=False,
             privacy="VISIBLE")
         ```
 
         ## Import
 
-        Teams can be imported using the `GraphQL ID` (not UUID), e.g.
+        import a team resource using the GraphQL ID
 
-        ```sh
-         $ pulumi import buildkite:Team/team:Team fleet UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
-        ```
+        # 
 
-         To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/6e74c89c-4e91-4d1d-92ca-4fb19d0ea453), where you will need fo fill in the organization slug and search term (TEAM_SEARCH_TERM) for the team. graphql query getTeamId {
+         you can use this query to find the ID:
 
-         organization(slug"ORGANIZATION_SLUG") {
+         query getTeamId {
 
-         teams(first1, search"TEAM_SEARCH_TERM") {
+         organization(slug: "ORGANIZATION_SLUG") {
+
+         teams(first: 1, search: "TEAM_SEARCH_TERM") {
 
          edges {
 
@@ -375,7 +369,13 @@ class Team(pulumi.CustomResource):
 
          }
 
-         } }
+         }
+
+         }
+
+        ```sh
+        $ pulumi import buildkite:Team/team:Team everyone UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
+        ```
 
         :param str resource_name: The name of the resource.
         :param TeamArgs args: The arguments to use to populate this resource's properties.
@@ -446,14 +446,14 @@ class Team(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] default_member_role: Default role to assign to a team member.
-        :param pulumi.Input[bool] default_team: Whether to assign this team to a user by default.
-        :param pulumi.Input[str] description: The description to assign to the team.
-        :param pulumi.Input[bool] members_can_create_pipelines: Whether team members can create.
+        :param pulumi.Input[str] default_member_role: The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
+        :param pulumi.Input[bool] default_team: Whether this is the default team for the organization.
+        :param pulumi.Input[str] description: A description for the team. This is displayed in the Buildkite UI.
+        :param pulumi.Input[bool] members_can_create_pipelines: Whether members of the team can create Pipelines.
         :param pulumi.Input[str] name: The name of the team.
-        :param pulumi.Input[str] privacy: The privacy level to set the team too.
-        :param pulumi.Input[str] slug: The name of the team.
-        :param pulumi.Input[str] uuid: The UUID for the team.
+        :param pulumi.Input[str] privacy: The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
+        :param pulumi.Input[str] slug: The generated slug for the team.
+        :param pulumi.Input[str] uuid: The UUID of the team.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -473,7 +473,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter(name="defaultMemberRole")
     def default_member_role(self) -> pulumi.Output[str]:
         """
-        Default role to assign to a team member.
+        The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
         """
         return pulumi.get(self, "default_member_role")
 
@@ -481,7 +481,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter(name="defaultTeam")
     def default_team(self) -> pulumi.Output[bool]:
         """
-        Whether to assign this team to a user by default.
+        Whether this is the default team for the organization.
         """
         return pulumi.get(self, "default_team")
 
@@ -489,7 +489,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter
     def description(self) -> pulumi.Output[Optional[str]]:
         """
-        The description to assign to the team.
+        A description for the team. This is displayed in the Buildkite UI.
         """
         return pulumi.get(self, "description")
 
@@ -497,7 +497,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter(name="membersCanCreatePipelines")
     def members_can_create_pipelines(self) -> pulumi.Output[bool]:
         """
-        Whether team members can create.
+        Whether members of the team can create Pipelines.
         """
         return pulumi.get(self, "members_can_create_pipelines")
 
@@ -513,7 +513,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter
     def privacy(self) -> pulumi.Output[str]:
         """
-        The privacy level to set the team too.
+        The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
         """
         return pulumi.get(self, "privacy")
 
@@ -521,7 +521,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter
     def slug(self) -> pulumi.Output[str]:
         """
-        The name of the team.
+        The generated slug for the team.
         """
         return pulumi.get(self, "slug")
 
@@ -529,7 +529,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter
     def uuid(self) -> pulumi.Output[str]:
         """
-        The UUID for the team.
+        The UUID of the team.
         """
         return pulumi.get(self, "uuid")
 

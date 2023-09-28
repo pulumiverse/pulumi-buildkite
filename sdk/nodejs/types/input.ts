@@ -5,6 +5,24 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface ProviderTimeouts {
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+     */
+    create?: pulumi.Input<string>;
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs.
+     */
+    delete?: pulumi.Input<string>;
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
+     */
+    read?: pulumi.Input<string>;
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+     */
+    update?: pulumi.Input<string>;
+}
 export namespace Pipeline {
     export interface PipelineProviderSettings {
         /**
@@ -19,33 +37,32 @@ export namespace Pipeline {
          * Whether to create builds for pull requests when labels are added or removed.
          */
         buildPullRequestLabelsChanged?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a pull request changes to "Ready for review".
+         */
         buildPullRequestReadyForReview?: pulumi.Input<boolean>;
         /**
-         * Whether to create builds for commits that are part of a Pull Request.
+         * Whether to create builds for commits that are part of a pull request.
          */
         buildPullRequests?: pulumi.Input<boolean>;
         /**
          * Whether to create builds when tags are pushed.
-         *
-         * Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
          */
         buildTags?: pulumi.Input<boolean>;
         /**
-         * A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
-         *
-         * Additional properties available for GitHub:
+         * Automatically cancel running builds for a branch if the branch is deleted.
          */
         cancelDeletedBranchBuilds?: pulumi.Input<boolean>;
         /**
-         * The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines)
+         * The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines).
          */
         filterCondition?: pulumi.Input<string>;
         /**
-         * [true/false] Whether to filter builds to only run when the condition in `filterCondition` is true
+         * Whether to filter builds to only run when the condition in `filterCondition` is true.
          */
         filterEnabled?: pulumi.Input<boolean>;
         /**
-         * Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the `master` branch from `some-user` will become `some-user:master`.
+         * Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
          */
         prefixPullRequestForkBranchNames?: pulumi.Input<boolean>;
         /**
@@ -61,11 +78,11 @@ export namespace Pipeline {
          */
         publishCommitStatusPerStep?: pulumi.Input<boolean>;
         /**
-         * The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+         * Filter pull requests builds by the branch filter.
          */
         pullRequestBranchFilterConfiguration?: pulumi.Input<string>;
         /**
-         * Whether to limit the creation of builds to specific branches or patterns.
+         * Filter pull request builds.
          */
         pullRequestBranchFilterEnabled?: pulumi.Input<boolean>;
         /**
@@ -73,7 +90,7 @@ export namespace Pipeline {
          */
         separatePullRequestStatuses?: pulumi.Input<boolean>;
         /**
-         * Whether to skip creating a new build if an existing build for the commit and branch already exists.
+         * Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
          */
         skipBuildsForExistingCommits?: pulumi.Input<boolean>;
         /**
@@ -82,17 +99,16 @@ export namespace Pipeline {
         skipPullRequestBuildsForExistingCommits?: pulumi.Input<boolean>;
         /**
          * What type of event to trigger builds on. Must be one of:
+         * 	- `code` will create builds when code is pushed to GitHub.
+         * 	- `deployment` will create builds when a deployment is created in GitHub.
+         * 	- `fork` will create builds when the GitHub repository is forked.
+         * 	- `none` will not create any builds based on GitHub activity.
+         *
+         * 	> `triggerMode` is only valid if the pipeline uses a GitHub repository.
          */
         triggerMode?: pulumi.Input<string>;
     }
+}
 
-    export interface PipelineTeam {
-        accessLevel: pulumi.Input<string>;
-        pipelineTeamId?: pulumi.Input<string>;
-        /**
-         * The slug of the created pipeline.
-         */
-        slug: pulumi.Input<string>;
-        teamId?: pulumi.Input<string>;
-    }
+export namespace config {
 }

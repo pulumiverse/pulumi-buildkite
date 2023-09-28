@@ -21,10 +21,10 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "buildkite:Organization/banner:Banner":
+		r = &Banner{}
 	case "buildkite:Organization/organization:Organization":
 		r = &Organization{}
-	case "buildkite:Organization/settings:Settings":
-		r = &Settings{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
@@ -40,12 +40,12 @@ func init() {
 	}
 	pulumi.RegisterResourceModule(
 		"buildkite",
-		"Organization/organization",
+		"Organization/banner",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"buildkite",
-		"Organization/settings",
+		"Organization/organization",
 		&module{version},
 	)
 }

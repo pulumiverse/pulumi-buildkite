@@ -7,21 +7,19 @@ import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
 /**
+ * This resource allows you to create and manage pipelines for repositories.
+ *
+ * More information on pipelines can be found in the [documentation](https://buildkite.com/docs/pipelines).
+ *
  * ## Import
  *
- * Pipelines can be imported using the `GraphQL ID` (not UUID), e.g.
+ * import a pipeline resource using the pipelines GraphQL ID
+ *
+ *  GraphQL ID for a pipeline can be found on its settings page
  *
  * ```sh
- *  $ pulumi import buildkite:Pipeline/pipeline:Pipeline fleet UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
+ * $ pulumi import buildkite:Pipeline/pipeline:Pipeline pipeline UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
  * ```
- *
- *  To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/04e6ac1d-222e-49f9-8167-4767ab0f5362). graphql query getPipelineId {
- *
- *  pipeline(slug"ORGANIZATION_SLUG/PIPELINE_SLUG") {
- *
- *  id
- *
- *  } }
  */
 export class Pipeline extends pulumi.CustomResource {
     /**
@@ -52,92 +50,99 @@ export class Pipeline extends pulumi.CustomResource {
     }
 
     /**
-     * A boolean on whether or not to allow rebuilds for the pipeline.
+     * Whether rebuilds are allowed for this pipeline.
      */
     public readonly allowRebuilds!: pulumi.Output<boolean>;
     /**
-     * @deprecated This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.
-     */
-    public readonly archiveOnDelete!: pulumi.Output<boolean>;
-    /**
-     * The pipeline's last build status so you can display build status badge.
+     * The badge URL showing build state.
      */
     public /*out*/ readonly badgeUrl!: pulumi.Output<string>;
     /**
-     * Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
+     * Configure the pipeline to only build on this branch conditional.
      */
     public readonly branchConfiguration!: pulumi.Output<string | undefined>;
     /**
-     * A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
+     * Whether to cancel builds when a new commit is pushed to a matching branch.
      */
     public readonly cancelIntermediateBuilds!: pulumi.Output<boolean>;
     /**
-     * Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
+     * Filter the `cancel_intermediate_builds` setting based on this branch condition.
      */
     public readonly cancelIntermediateBuildsBranchFilter!: pulumi.Output<string>;
     /**
-     * The GraphQL ID of the cluster you want to use for the pipeline.
+     * Attach this pipeline to the given cluster GraphQL ID.
      */
     public readonly clusterId!: pulumi.Output<string | undefined>;
     /**
-     * The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+     * A color hex code to represent this pipeline.
+     */
+    public readonly color!: pulumi.Output<string | undefined>;
+    /**
+     * Default branch of the pipeline.
      */
     public readonly defaultBranch!: pulumi.Output<string>;
     /**
-     * The default timeout for commands in this pipeline, in minutes.
+     * The GraphQL ID of the team to use as the default owner of the pipeline.
+     */
+    public readonly defaultTeamId!: pulumi.Output<string | undefined>;
+    /**
+     * Set pipeline wide timeout for command steps.
      */
     public readonly defaultTimeoutInMinutes!: pulumi.Output<number>;
     /**
-     * **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
-     *
-     * @deprecated Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.
-     */
-    public readonly deletionProtection!: pulumi.Output<boolean>;
-    /**
-     * A description of the pipeline.
+     * Description for the pipeline. Can include emoji 🙌.
      */
     public readonly description!: pulumi.Output<string>;
     /**
-     * The maximum timeout for commands in this pipeline, in minutes.
+     * An emoji that represents this pipeline.
+     */
+    public readonly emoji!: pulumi.Output<string | undefined>;
+    /**
+     * Set pipeline wide maximum timeout for command steps.
      */
     public readonly maximumTimeoutInMinutes!: pulumi.Output<number>;
     /**
-     * The name of the pipeline.
+     * Name to give the pipeline.
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * Source control provider settings for the pipeline. See Provider Settings Configuration below for details.
+     * The GraphQL ID of the pipeline template applied to this pipeline.
+     */
+    public readonly pipelineTemplateId!: pulumi.Output<string | undefined>;
+    /**
+     * Control settings depending on the VCS provider used in `repository`.
      */
     public readonly providerSettings!: pulumi.Output<outputs.Pipeline.PipelineProviderSettings | undefined>;
     /**
-     * The git URL of the repository.
+     * URL to the repository this pipeline is configured for.
      */
     public readonly repository!: pulumi.Output<string>;
     /**
-     * A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
+     * Whether to skip queued builds if a new commit is pushed to a matching branch.
      */
     public readonly skipIntermediateBuilds!: pulumi.Output<boolean>;
     /**
-     * Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
+     * Filter the `skip_intermediate_builds` setting based on this branch condition.
      */
     public readonly skipIntermediateBuildsBranchFilter!: pulumi.Output<string>;
     /**
-     * The slug of the created pipeline.
+     * The slug generated for the pipeline.
      */
     public /*out*/ readonly slug!: pulumi.Output<string>;
     /**
-     * The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
+     * The YAML steps to configure for the pipeline. Defaults to `buildkite-agent pipeline upload`.
      */
     public readonly steps!: pulumi.Output<string>;
+    /**
+     * Tags to attribute to the pipeline. Useful for searching by in the UI.
+     */
     public readonly tags!: pulumi.Output<string[]>;
     /**
-     * **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
-     *
-     * @deprecated This block is deprecated. Please use `buildkite_pipeline_team` instead.
+     * The UUID of the pipeline.
      */
-    public readonly teams!: pulumi.Output<outputs.Pipeline.PipelineTeam[] | undefined>;
+    public /*out*/ readonly uuid!: pulumi.Output<string>;
     /**
-     * The Buildkite webhook URL to configure on the repository to trigger builds on this pipeline.
+     * The webhook URL used to trigger builds from VCS providers.
      */
     public /*out*/ readonly webhookUrl!: pulumi.Output<string>;
 
@@ -155,18 +160,20 @@ export class Pipeline extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as PipelineState | undefined;
             resourceInputs["allowRebuilds"] = state ? state.allowRebuilds : undefined;
-            resourceInputs["archiveOnDelete"] = state ? state.archiveOnDelete : undefined;
             resourceInputs["badgeUrl"] = state ? state.badgeUrl : undefined;
             resourceInputs["branchConfiguration"] = state ? state.branchConfiguration : undefined;
             resourceInputs["cancelIntermediateBuilds"] = state ? state.cancelIntermediateBuilds : undefined;
             resourceInputs["cancelIntermediateBuildsBranchFilter"] = state ? state.cancelIntermediateBuildsBranchFilter : undefined;
             resourceInputs["clusterId"] = state ? state.clusterId : undefined;
+            resourceInputs["color"] = state ? state.color : undefined;
             resourceInputs["defaultBranch"] = state ? state.defaultBranch : undefined;
+            resourceInputs["defaultTeamId"] = state ? state.defaultTeamId : undefined;
             resourceInputs["defaultTimeoutInMinutes"] = state ? state.defaultTimeoutInMinutes : undefined;
-            resourceInputs["deletionProtection"] = state ? state.deletionProtection : undefined;
             resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["emoji"] = state ? state.emoji : undefined;
             resourceInputs["maximumTimeoutInMinutes"] = state ? state.maximumTimeoutInMinutes : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["pipelineTemplateId"] = state ? state.pipelineTemplateId : undefined;
             resourceInputs["providerSettings"] = state ? state.providerSettings : undefined;
             resourceInputs["repository"] = state ? state.repository : undefined;
             resourceInputs["skipIntermediateBuilds"] = state ? state.skipIntermediateBuilds : undefined;
@@ -174,7 +181,7 @@ export class Pipeline extends pulumi.CustomResource {
             resourceInputs["slug"] = state ? state.slug : undefined;
             resourceInputs["steps"] = state ? state.steps : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
-            resourceInputs["teams"] = state ? state.teams : undefined;
+            resourceInputs["uuid"] = state ? state.uuid : undefined;
             resourceInputs["webhookUrl"] = state ? state.webhookUrl : undefined;
         } else {
             const args = argsOrState as PipelineArgs | undefined;
@@ -182,26 +189,28 @@ export class Pipeline extends pulumi.CustomResource {
                 throw new Error("Missing required property 'repository'");
             }
             resourceInputs["allowRebuilds"] = args ? args.allowRebuilds : undefined;
-            resourceInputs["archiveOnDelete"] = args ? args.archiveOnDelete : undefined;
             resourceInputs["branchConfiguration"] = args ? args.branchConfiguration : undefined;
             resourceInputs["cancelIntermediateBuilds"] = args ? args.cancelIntermediateBuilds : undefined;
             resourceInputs["cancelIntermediateBuildsBranchFilter"] = args ? args.cancelIntermediateBuildsBranchFilter : undefined;
             resourceInputs["clusterId"] = args ? args.clusterId : undefined;
+            resourceInputs["color"] = args ? args.color : undefined;
             resourceInputs["defaultBranch"] = args ? args.defaultBranch : undefined;
+            resourceInputs["defaultTeamId"] = args ? args.defaultTeamId : undefined;
             resourceInputs["defaultTimeoutInMinutes"] = args ? args.defaultTimeoutInMinutes : undefined;
-            resourceInputs["deletionProtection"] = args ? args.deletionProtection : undefined;
             resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["emoji"] = args ? args.emoji : undefined;
             resourceInputs["maximumTimeoutInMinutes"] = args ? args.maximumTimeoutInMinutes : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["pipelineTemplateId"] = args ? args.pipelineTemplateId : undefined;
             resourceInputs["providerSettings"] = args ? args.providerSettings : undefined;
             resourceInputs["repository"] = args ? args.repository : undefined;
             resourceInputs["skipIntermediateBuilds"] = args ? args.skipIntermediateBuilds : undefined;
             resourceInputs["skipIntermediateBuildsBranchFilter"] = args ? args.skipIntermediateBuildsBranchFilter : undefined;
             resourceInputs["steps"] = args ? args.steps : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
-            resourceInputs["teams"] = args ? args.teams : undefined;
             resourceInputs["badgeUrl"] = undefined /*out*/;
             resourceInputs["slug"] = undefined /*out*/;
+            resourceInputs["uuid"] = undefined /*out*/;
             resourceInputs["webhookUrl"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -214,92 +223,99 @@ export class Pipeline extends pulumi.CustomResource {
  */
 export interface PipelineState {
     /**
-     * A boolean on whether or not to allow rebuilds for the pipeline.
+     * Whether rebuilds are allowed for this pipeline.
      */
     allowRebuilds?: pulumi.Input<boolean>;
     /**
-     * @deprecated This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.
-     */
-    archiveOnDelete?: pulumi.Input<boolean>;
-    /**
-     * The pipeline's last build status so you can display build status badge.
+     * The badge URL showing build state.
      */
     badgeUrl?: pulumi.Input<string>;
     /**
-     * Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
+     * Configure the pipeline to only build on this branch conditional.
      */
     branchConfiguration?: pulumi.Input<string>;
     /**
-     * A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
+     * Whether to cancel builds when a new commit is pushed to a matching branch.
      */
     cancelIntermediateBuilds?: pulumi.Input<boolean>;
     /**
-     * Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
+     * Filter the `cancel_intermediate_builds` setting based on this branch condition.
      */
     cancelIntermediateBuildsBranchFilter?: pulumi.Input<string>;
     /**
-     * The GraphQL ID of the cluster you want to use for the pipeline.
+     * Attach this pipeline to the given cluster GraphQL ID.
      */
     clusterId?: pulumi.Input<string>;
     /**
-     * The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+     * A color hex code to represent this pipeline.
+     */
+    color?: pulumi.Input<string>;
+    /**
+     * Default branch of the pipeline.
      */
     defaultBranch?: pulumi.Input<string>;
     /**
-     * The default timeout for commands in this pipeline, in minutes.
+     * The GraphQL ID of the team to use as the default owner of the pipeline.
+     */
+    defaultTeamId?: pulumi.Input<string>;
+    /**
+     * Set pipeline wide timeout for command steps.
      */
     defaultTimeoutInMinutes?: pulumi.Input<number>;
     /**
-     * **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
-     *
-     * @deprecated Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.
-     */
-    deletionProtection?: pulumi.Input<boolean>;
-    /**
-     * A description of the pipeline.
+     * Description for the pipeline. Can include emoji 🙌.
      */
     description?: pulumi.Input<string>;
     /**
-     * The maximum timeout for commands in this pipeline, in minutes.
+     * An emoji that represents this pipeline.
+     */
+    emoji?: pulumi.Input<string>;
+    /**
+     * Set pipeline wide maximum timeout for command steps.
      */
     maximumTimeoutInMinutes?: pulumi.Input<number>;
     /**
-     * The name of the pipeline.
+     * Name to give the pipeline.
      */
     name?: pulumi.Input<string>;
     /**
-     * Source control provider settings for the pipeline. See Provider Settings Configuration below for details.
+     * The GraphQL ID of the pipeline template applied to this pipeline.
+     */
+    pipelineTemplateId?: pulumi.Input<string>;
+    /**
+     * Control settings depending on the VCS provider used in `repository`.
      */
     providerSettings?: pulumi.Input<inputs.Pipeline.PipelineProviderSettings>;
     /**
-     * The git URL of the repository.
+     * URL to the repository this pipeline is configured for.
      */
     repository?: pulumi.Input<string>;
     /**
-     * A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
+     * Whether to skip queued builds if a new commit is pushed to a matching branch.
      */
     skipIntermediateBuilds?: pulumi.Input<boolean>;
     /**
-     * Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
+     * Filter the `skip_intermediate_builds` setting based on this branch condition.
      */
     skipIntermediateBuildsBranchFilter?: pulumi.Input<string>;
     /**
-     * The slug of the created pipeline.
+     * The slug generated for the pipeline.
      */
     slug?: pulumi.Input<string>;
     /**
-     * The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
+     * The YAML steps to configure for the pipeline. Defaults to `buildkite-agent pipeline upload`.
      */
     steps?: pulumi.Input<string>;
+    /**
+     * Tags to attribute to the pipeline. Useful for searching by in the UI.
+     */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
-     *
-     * @deprecated This block is deprecated. Please use `buildkite_pipeline_team` instead.
+     * The UUID of the pipeline.
      */
-    teams?: pulumi.Input<pulumi.Input<inputs.Pipeline.PipelineTeam>[]>;
+    uuid?: pulumi.Input<string>;
     /**
-     * The Buildkite webhook URL to configure on the repository to trigger builds on this pipeline.
+     * The webhook URL used to trigger builds from VCS providers.
      */
     webhookUrl?: pulumi.Input<string>;
 }
@@ -309,80 +325,83 @@ export interface PipelineState {
  */
 export interface PipelineArgs {
     /**
-     * A boolean on whether or not to allow rebuilds for the pipeline.
+     * Whether rebuilds are allowed for this pipeline.
      */
     allowRebuilds?: pulumi.Input<boolean>;
     /**
-     * @deprecated This attribute has been deprecated and will be removed in v0.27.0. Please use provider configuration `archive_pipeline_on_delete` instead.
-     */
-    archiveOnDelete?: pulumi.Input<boolean>;
-    /**
-     * Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
+     * Configure the pipeline to only build on this branch conditional.
      */
     branchConfiguration?: pulumi.Input<string>;
     /**
-     * A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
+     * Whether to cancel builds when a new commit is pushed to a matching branch.
      */
     cancelIntermediateBuilds?: pulumi.Input<boolean>;
     /**
-     * Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
+     * Filter the `cancel_intermediate_builds` setting based on this branch condition.
      */
     cancelIntermediateBuildsBranchFilter?: pulumi.Input<string>;
     /**
-     * The GraphQL ID of the cluster you want to use for the pipeline.
+     * Attach this pipeline to the given cluster GraphQL ID.
      */
     clusterId?: pulumi.Input<string>;
     /**
-     * The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+     * A color hex code to represent this pipeline.
+     */
+    color?: pulumi.Input<string>;
+    /**
+     * Default branch of the pipeline.
      */
     defaultBranch?: pulumi.Input<string>;
     /**
-     * The default timeout for commands in this pipeline, in minutes.
+     * The GraphQL ID of the team to use as the default owner of the pipeline.
+     */
+    defaultTeamId?: pulumi.Input<string>;
+    /**
+     * Set pipeline wide timeout for command steps.
      */
     defaultTimeoutInMinutes?: pulumi.Input<number>;
     /**
-     * **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: <pipeline name>"
-     *
-     * @deprecated Deletion protection will be removed in a future release. A similar solution already exists and is supported by Terraform. See https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle.
-     */
-    deletionProtection?: pulumi.Input<boolean>;
-    /**
-     * A description of the pipeline.
+     * Description for the pipeline. Can include emoji 🙌.
      */
     description?: pulumi.Input<string>;
     /**
-     * The maximum timeout for commands in this pipeline, in minutes.
+     * An emoji that represents this pipeline.
+     */
+    emoji?: pulumi.Input<string>;
+    /**
+     * Set pipeline wide maximum timeout for command steps.
      */
     maximumTimeoutInMinutes?: pulumi.Input<number>;
     /**
-     * The name of the pipeline.
+     * Name to give the pipeline.
      */
     name?: pulumi.Input<string>;
     /**
-     * Source control provider settings for the pipeline. See Provider Settings Configuration below for details.
+     * The GraphQL ID of the pipeline template applied to this pipeline.
+     */
+    pipelineTemplateId?: pulumi.Input<string>;
+    /**
+     * Control settings depending on the VCS provider used in `repository`.
      */
     providerSettings?: pulumi.Input<inputs.Pipeline.PipelineProviderSettings>;
     /**
-     * The git URL of the repository.
+     * URL to the repository this pipeline is configured for.
      */
     repository: pulumi.Input<string>;
     /**
-     * A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
+     * Whether to skip queued builds if a new commit is pushed to a matching branch.
      */
     skipIntermediateBuilds?: pulumi.Input<boolean>;
     /**
-     * Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
+     * Filter the `skip_intermediate_builds` setting based on this branch condition.
      */
     skipIntermediateBuildsBranchFilter?: pulumi.Input<string>;
     /**
-     * The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
+     * The YAML steps to configure for the pipeline. Defaults to `buildkite-agent pipeline upload`.
      */
     steps?: pulumi.Input<string>;
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
-     *
-     * @deprecated This block is deprecated. Please use `buildkite_pipeline_team` instead.
+     * Tags to attribute to the pipeline. Useful for searching by in the UI.
      */
-    teams?: pulumi.Input<pulumi.Input<inputs.Pipeline.PipelineTeam>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[]>;
 }

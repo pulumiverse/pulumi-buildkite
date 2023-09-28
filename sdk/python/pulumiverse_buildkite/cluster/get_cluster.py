@@ -45,7 +45,7 @@ class GetClusterResult:
     @pulumi.getter
     def color(self) -> str:
         """
-        The color given the cluster.
+        The color of the cluster.
         """
         return pulumi.get(self, "color")
 
@@ -61,7 +61,7 @@ class GetClusterResult:
     @pulumi.getter
     def emoji(self) -> str:
         """
-        The emoji given the cluster.
+        The emoji of the cluster.
         """
         return pulumi.get(self, "emoji")
 
@@ -76,13 +76,16 @@ class GetClusterResult:
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        The name of the cluster to retrieve.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def uuid(self) -> str:
         """
-        The UUID of the cluster.
+        The UUID of the cluster
         """
         return pulumi.get(self, "uuid")
 
@@ -104,9 +107,24 @@ class AwaitableGetClusterResult(GetClusterResult):
 def get_cluster(name: Optional[str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetClusterResult:
     """
-    Use this data source to access information about an existing resource.
+    Use this data source to retrieve a cluster by name. You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/clusters/overview).
 
-    :param str name: The name of the cluster to lookup.
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_buildkite as buildkite
+    import pulumiverse_buildkite as buildkite
+
+    default = buildkite.Cluster.get_cluster(name="default")
+    # Assign a pipeline to that cluster
+    terraform_provider_buildkite = buildkite.pipeline.Pipeline("terraform-provider-buildkite",
+        repository="git@github.com:buildkite/terraform-provider-buildkite.git",
+        cluster_id=default.id)
+    ```
+
+
+    :param str name: The name of the cluster to retrieve.
     """
     __args__ = dict()
     __args__['name'] = name
@@ -126,8 +144,23 @@ def get_cluster(name: Optional[str] = None,
 def get_cluster_output(name: Optional[pulumi.Input[str]] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetClusterResult]:
     """
-    Use this data source to access information about an existing resource.
+    Use this data source to retrieve a cluster by name. You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/clusters/overview).
 
-    :param str name: The name of the cluster to lookup.
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_buildkite as buildkite
+    import pulumiverse_buildkite as buildkite
+
+    default = buildkite.Cluster.get_cluster(name="default")
+    # Assign a pipeline to that cluster
+    terraform_provider_buildkite = buildkite.pipeline.Pipeline("terraform-provider-buildkite",
+        repository="git@github.com:buildkite/terraform-provider-buildkite.git",
+        cluster_id=default.id)
+    ```
+
+
+    :param str name: The name of the cluster to retrieve.
     """
     ...

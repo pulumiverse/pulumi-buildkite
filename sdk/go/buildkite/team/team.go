@@ -12,13 +12,7 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Resource: team
-//
-// This resource allows you to create and manage teams.
-//
-// Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions
-//
-// Note: You must first enable Teams on your organization.
+// A Team is a group of users that can be given permissions for using Pipelines.This feature is only available to Business and Enterprise customers.  You can find out more about Teams in the Buildkite [documentation](https://buildkite.com/docs/team-management/permissions).
 //
 // ## Example Usage
 //
@@ -34,9 +28,9 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := Team.NewTeam(ctx, "team", &Team.TeamArgs{
+//			_, err := Team.NewTeam(ctx, "everyone", &Team.TeamArgs{
 //				DefaultMemberRole: pulumi.String("MEMBER"),
-//				DefaultTeam:       pulumi.Bool(true),
+//				DefaultTeam:       pulumi.Bool(false),
 //				Privacy:           pulumi.String("VISIBLE"),
 //			})
 //			if err != nil {
@@ -50,19 +44,17 @@ import (
 //
 // ## Import
 //
-// Teams can be imported using the `GraphQL ID` (not UUID), e.g.
+// import a team resource using the GraphQL ID
 //
-// ```sh
+// #
 //
-//	$ pulumi import buildkite:Team/team:Team fleet UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
+//	you can use this query to find the ID:
 //
-// ```
+//	query getTeamId {
 //
-//	To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/6e74c89c-4e91-4d1d-92ca-4fb19d0ea453), where you will need fo fill in the organization slug and search term (TEAM_SEARCH_TERM) for the team. graphql query getTeamId {
+//	organization(slug: "ORGANIZATION_SLUG") {
 //
-//	organization(slug"ORGANIZATION_SLUG") {
-//
-//	teams(first1, search"TEAM_SEARCH_TERM") {
+//	teams(first: 1, search: "TEAM_SEARCH_TERM") {
 //
 //	edges {
 //
@@ -78,25 +70,31 @@ import (
 //
 //	}
 //
-//	} }
+//	}
+//
+//	}
+//
+// ```sh
+// $ pulumi import buildkite:Team/team:Team everyone UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
+// ```
 type Team struct {
 	pulumi.CustomResourceState
 
-	// Default role to assign to a team member.
+	// The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
 	DefaultMemberRole pulumi.StringOutput `pulumi:"defaultMemberRole"`
-	// Whether to assign this team to a user by default.
+	// Whether this is the default team for the organization.
 	DefaultTeam pulumi.BoolOutput `pulumi:"defaultTeam"`
-	// The description to assign to the team.
+	// A description for the team. This is displayed in the Buildkite UI.
 	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// Whether team members can create.
+	// Whether members of the team can create Pipelines.
 	MembersCanCreatePipelines pulumi.BoolOutput `pulumi:"membersCanCreatePipelines"`
 	// The name of the team.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The privacy level to set the team too.
+	// The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
 	Privacy pulumi.StringOutput `pulumi:"privacy"`
-	// The name of the team.
+	// The generated slug for the team.
 	Slug pulumi.StringOutput `pulumi:"slug"`
-	// The UUID for the team.
+	// The UUID of the team.
 	Uuid pulumi.StringOutput `pulumi:"uuid"`
 }
 
@@ -139,40 +137,40 @@ func GetTeam(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Team resources.
 type teamState struct {
-	// Default role to assign to a team member.
+	// The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
 	DefaultMemberRole *string `pulumi:"defaultMemberRole"`
-	// Whether to assign this team to a user by default.
+	// Whether this is the default team for the organization.
 	DefaultTeam *bool `pulumi:"defaultTeam"`
-	// The description to assign to the team.
+	// A description for the team. This is displayed in the Buildkite UI.
 	Description *string `pulumi:"description"`
-	// Whether team members can create.
+	// Whether members of the team can create Pipelines.
 	MembersCanCreatePipelines *bool `pulumi:"membersCanCreatePipelines"`
 	// The name of the team.
 	Name *string `pulumi:"name"`
-	// The privacy level to set the team too.
+	// The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
 	Privacy *string `pulumi:"privacy"`
-	// The name of the team.
+	// The generated slug for the team.
 	Slug *string `pulumi:"slug"`
-	// The UUID for the team.
+	// The UUID of the team.
 	Uuid *string `pulumi:"uuid"`
 }
 
 type TeamState struct {
-	// Default role to assign to a team member.
+	// The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
 	DefaultMemberRole pulumi.StringPtrInput
-	// Whether to assign this team to a user by default.
+	// Whether this is the default team for the organization.
 	DefaultTeam pulumi.BoolPtrInput
-	// The description to assign to the team.
+	// A description for the team. This is displayed in the Buildkite UI.
 	Description pulumi.StringPtrInput
-	// Whether team members can create.
+	// Whether members of the team can create Pipelines.
 	MembersCanCreatePipelines pulumi.BoolPtrInput
 	// The name of the team.
 	Name pulumi.StringPtrInput
-	// The privacy level to set the team too.
+	// The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
 	Privacy pulumi.StringPtrInput
-	// The name of the team.
+	// The generated slug for the team.
 	Slug pulumi.StringPtrInput
-	// The UUID for the team.
+	// The UUID of the team.
 	Uuid pulumi.StringPtrInput
 }
 
@@ -181,33 +179,33 @@ func (TeamState) ElementType() reflect.Type {
 }
 
 type teamArgs struct {
-	// Default role to assign to a team member.
+	// The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
 	DefaultMemberRole string `pulumi:"defaultMemberRole"`
-	// Whether to assign this team to a user by default.
+	// Whether this is the default team for the organization.
 	DefaultTeam bool `pulumi:"defaultTeam"`
-	// The description to assign to the team.
+	// A description for the team. This is displayed in the Buildkite UI.
 	Description *string `pulumi:"description"`
-	// Whether team members can create.
+	// Whether members of the team can create Pipelines.
 	MembersCanCreatePipelines *bool `pulumi:"membersCanCreatePipelines"`
 	// The name of the team.
 	Name *string `pulumi:"name"`
-	// The privacy level to set the team too.
+	// The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
 	Privacy string `pulumi:"privacy"`
 }
 
 // The set of arguments for constructing a Team resource.
 type TeamArgs struct {
-	// Default role to assign to a team member.
+	// The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
 	DefaultMemberRole pulumi.StringInput
-	// Whether to assign this team to a user by default.
+	// Whether this is the default team for the organization.
 	DefaultTeam pulumi.BoolInput
-	// The description to assign to the team.
+	// A description for the team. This is displayed in the Buildkite UI.
 	Description pulumi.StringPtrInput
-	// Whether team members can create.
+	// Whether members of the team can create Pipelines.
 	MembersCanCreatePipelines pulumi.BoolPtrInput
 	// The name of the team.
 	Name pulumi.StringPtrInput
-	// The privacy level to set the team too.
+	// The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
 	Privacy pulumi.StringInput
 }
 
@@ -298,22 +296,22 @@ func (o TeamOutput) ToTeamOutputWithContext(ctx context.Context) TeamOutput {
 	return o
 }
 
-// Default role to assign to a team member.
+// The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
 func (o TeamOutput) DefaultMemberRole() pulumi.StringOutput {
 	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.DefaultMemberRole }).(pulumi.StringOutput)
 }
 
-// Whether to assign this team to a user by default.
+// Whether this is the default team for the organization.
 func (o TeamOutput) DefaultTeam() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Team) pulumi.BoolOutput { return v.DefaultTeam }).(pulumi.BoolOutput)
 }
 
-// The description to assign to the team.
+// A description for the team. This is displayed in the Buildkite UI.
 func (o TeamOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Team) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
-// Whether team members can create.
+// Whether members of the team can create Pipelines.
 func (o TeamOutput) MembersCanCreatePipelines() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Team) pulumi.BoolOutput { return v.MembersCanCreatePipelines }).(pulumi.BoolOutput)
 }
@@ -323,17 +321,17 @@ func (o TeamOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The privacy level to set the team too.
+// The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
 func (o TeamOutput) Privacy() pulumi.StringOutput {
 	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.Privacy }).(pulumi.StringOutput)
 }
 
-// The name of the team.
+// The generated slug for the team.
 func (o TeamOutput) Slug() pulumi.StringOutput {
 	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.Slug }).(pulumi.StringOutput)
 }
 
-// The UUID for the team.
+// The UUID of the team.
 func (o TeamOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
 }

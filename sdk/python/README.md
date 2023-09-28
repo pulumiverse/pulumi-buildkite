@@ -17,6 +17,11 @@ The provider is built on https://github.com/buildkite/terraform-provider-buildki
 
 ## Installing
 
+> [!IMPORTANT]
+> The provider version `v2.3.1` was built on the Terraform provider `v0.25.1` which was a pre-release version.
+> From `v3.0.0` onwards this provider is compatible with the Terraform provider `v1.x.x`.
+> Please note that backwards compatibility might not be given.
+
 This package is available in many languages in the standard packaging formats.
 
 ### Node.js (JavaScript/TypeScript)

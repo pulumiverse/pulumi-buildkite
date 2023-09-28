@@ -13,12 +13,8 @@ namespace Pulumiverse.Buildkite.Team
     public static class GetTeam
     {
         /// <summary>
-        /// ## # Data Source: team
-        /// 
-        /// Use this data source to look up properties of a team. This can be used to
-        /// validate that a team exists before setting the team slug on a pipeline.
-        /// 
-        /// Buildkite documentation: https://buildkite.com/docs/pipelines/permissions
+        /// Use this data source to retrieve a team by slug or id. You can find out more about teams in the Buildkite
+        /// [documentation](https://buildkite.com/docs/pipelines/permissions).
         /// 
         /// {{% examples %}}
         /// ## Example Usage
@@ -32,9 +28,14 @@ namespace Pulumiverse.Buildkite.Team
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var myTeamData = Buildkite.Team.GetTeam.Invoke(new()
+        ///     var teamDev = Buildkite.Team.GetTeam.Invoke(new()
         ///     {
-        ///         Id = "&lt;team id&gt;",
+        ///         Id = buildkite_team.Team_dev.Id,
+        ///     });
+        /// 
+        ///     var team = Buildkite.Team.GetTeam.Invoke(new()
+        ///     {
+        ///         Slug = "Everyone",
         ///     });
         /// 
         /// });
@@ -46,12 +47,8 @@ namespace Pulumiverse.Buildkite.Team
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetTeamResult>("buildkite:Team/getTeam:getTeam", args ?? new GetTeamArgs(), options.WithDefaults());
 
         /// <summary>
-        /// ## # Data Source: team
-        /// 
-        /// Use this data source to look up properties of a team. This can be used to
-        /// validate that a team exists before setting the team slug on a pipeline.
-        /// 
-        /// Buildkite documentation: https://buildkite.com/docs/pipelines/permissions
+        /// Use this data source to retrieve a team by slug or id. You can find out more about teams in the Buildkite
+        /// [documentation](https://buildkite.com/docs/pipelines/permissions).
         /// 
         /// {{% examples %}}
         /// ## Example Usage
@@ -65,9 +62,14 @@ namespace Pulumiverse.Buildkite.Team
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var myTeamData = Buildkite.Team.GetTeam.Invoke(new()
+        ///     var teamDev = Buildkite.Team.GetTeam.Invoke(new()
         ///     {
-        ///         Id = "&lt;team id&gt;",
+        ///         Id = buildkite_team.Team_dev.Id,
+        ///     });
+        /// 
+        ///     var team = Buildkite.Team.GetTeam.Invoke(new()
+        ///     {
+        ///         Slug = "Everyone",
         ///     });
         /// 
         /// });
@@ -83,16 +85,13 @@ namespace Pulumiverse.Buildkite.Team
     public sealed class GetTeamArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// The GraphQL ID of the team, available in the Settings page for the team.
+        /// The GraphQL ID of the team to find.
         /// </summary>
         [Input("id")]
         public string? Id { get; set; }
 
         /// <summary>
-        /// The slug of the team. Available in the URL of the team on buildkite.com; in the format
-        /// "&lt;organizaton/team-name&gt;"
-        /// 
-        /// The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+        /// The slug of the team to find.
         /// </summary>
         [Input("slug")]
         public string? Slug { get; set; }
@@ -106,16 +105,13 @@ namespace Pulumiverse.Buildkite.Team
     public sealed class GetTeamInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// The GraphQL ID of the team, available in the Settings page for the team.
+        /// The GraphQL ID of the team to find.
         /// </summary>
         [Input("id")]
         public Input<string>? Id { get; set; }
 
         /// <summary>
-        /// The slug of the team. Available in the URL of the team on buildkite.com; in the format
-        /// "&lt;organizaton/team-name&gt;"
-        /// 
-        /// The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+        /// The slug of the team to find.
         /// </summary>
         [Input("slug")]
         public Input<string>? Slug { get; set; }
@@ -131,36 +127,39 @@ namespace Pulumiverse.Buildkite.Team
     public sealed class GetTeamResult
     {
         /// <summary>
-        /// Default role to assign to a team member
+        /// The default member role of the team.
         /// </summary>
         public readonly string DefaultMemberRole;
         /// <summary>
-        /// Whether new org members will be automatically added to this team
+        /// Whether the team is the default team.
         /// </summary>
         public readonly bool DefaultTeam;
         /// <summary>
-        /// A description of the team
+        /// The description of the team.
         /// </summary>
         public readonly string Description;
         /// <summary>
-        /// The GraphQL ID of the team
+        /// The GraphQL ID of the team to find.
         /// </summary>
         public readonly string Id;
         /// <summary>
-        /// Whether team members can create new pipelines and add them to the team
+        /// Whether members can create pipelines.
         /// </summary>
         public readonly bool MembersCanCreatePipelines;
         /// <summary>
-        /// The name of the team
+        /// The name of the team.
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// Whether the team is visible to org members outside this team
+        /// The privacy setting of the team.
         /// </summary>
         public readonly string Privacy;
+        /// <summary>
+        /// The slug of the team to find.
+        /// </summary>
         public readonly string Slug;
         /// <summary>
-        /// The UUID of the team
+        /// The UUID of the team.
         /// </summary>
         public readonly string Uuid;
 

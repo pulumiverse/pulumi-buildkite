@@ -5,11 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Resource: clusterQueue
- *
- * This resource allows you to create and manage cluster queues.
- *
- * Buildkite Documentation: https://buildkite.com/docs/clusters/manage-clusters#set-up-clusters-create-a-queue
+ * A Cluster Queue is a queue belonging to a specific Cluster for its Agents to target builds on.
  *
  * ## Example Usage
  *
@@ -17,48 +13,38 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const queue1 = new buildkite.cluster.ClusterQueue("queue1", {
- *     clusterId: "Q2x1c3Rlci0tLTMzMDc0ZDhiLTM4MjctNDRkNC05YTQ3LTkwN2E2NWZjODViNg==",
- *     description: "Prod deployment cluster queue",
- *     key: "prod-deploy",
+ * // create a cluster
+ * const primary = new buildkite.cluster.Cluster("primary", {
+ *     description: "Runs the monolith build and deploy",
+ *     emoji: "🚀",
+ *     color: "#bada55",
+ * });
+ * const monolith = new buildkite.pipeline.Pipeline("monolith", {
+ *     repository: "https://github.com/...",
+ *     clusterId: primary.id,
+ * });
+ * // create a queue to put pipeline builds in
+ * const _default = new buildkite.cluster.ClusterQueue("default", {
+ *     clusterId: primary.id,
+ *     key: "default",
  * });
  * ```
  *
  * ## Import
  *
- * Cluster queues can be imported using its `GraphQL ID`, along with its respective cluster `UUID`, separated by a comma. e.g.
+ * import a cluster queue resource using the GraphQL ID along with its respective cluster UUID
  *
- * ```sh
- *  $ pulumi import buildkite:Cluster/clusterQueue:ClusterQueue test Q2x1c3RlclF1ZXVlLS0tYjJiOGRhNTEtOWY5My00Y2MyLTkyMjktMGRiNzg3ZDQzOTAz,35498aaf-ad05-4fa5-9a07-91bf6cacd2bd
- * ```
+ * # 
  *
- *  To find the cluster's `UUID` to utilize, you can use the below GraphQL query below. Alternatively, you can use this [pre-saved query](https://buildkite.com/user/graphql/console/3adf0389-02bd-45ef-adcd-4e8e5ae57f25), where you will need fo fill in the organization slug (ORGANIZATION_SLUG) for obtaining the relevant cluster name/`UUID` that the cluster queue is in. graphql query getClusters {
+ *  you can use this query to find the ID:
  *
- *  organization(slug"ORGANIZATION_SLUG") {
+ *  query getClusterQueues {
  *
- *  clusters(first50) {
+ *  organization(slug: "ORGANIZATION_SLUG") {
  *
- *  edges{
+ *  cluster(id: "CLUSTER_UUID") {
  *
- *  node{
- *
- *  name
- *
- *  uuid
- *
- *  }
- *
- *  }
- *
- *  }
- *
- *  } } After the cluster `UUID` has been found, you can use the below GraphQL query to find the cluster queue's `GraphQL ID`. Alternatively, this [pre-saved query](https://buildkite.com/user/graphql/console/1d913905-900e-40e7-8f46-651543487b5a) can be used, specifying the organization slug (ORGANIZATION_SLUG) and the cluster `UUID` from above (CLUSTER_UUID). graphql query getClusterQueues {
- *
- *  organization(slug"ORGANIZATION_SLUG") {
- *
- *  cluster(id"CLUSTER_UUID") {
- *
- *  queues(first50) {
+ *  queues(first: 50) {
  *
  *  edges {
  *
@@ -76,7 +62,13 @@ import * as utilities from "../utilities";
  *
  *  }
  *
- *  } }
+ *  }
+ *
+ *  }
+ *
+ * ```sh
+ * $ pulumi import buildkite:Cluster/clusterQueue:ClusterQueue test Q2x1c3RlclF1ZXVlLS0tYjJiOGRhNTEtOWY5My00Y2MyLTkyMjktMGRiNzg3ZDQzOTAz,35498aaf-ad05-4fa5-9a07-91bf6cacd2bd
+ * ```
  */
 export class ClusterQueue extends pulumi.CustomResource {
     /**
@@ -111,11 +103,11 @@ export class ClusterQueue extends pulumi.CustomResource {
      */
     public readonly clusterId!: pulumi.Output<string>;
     /**
-     * The UUID of the cluster that this cluster queue belongs to.
+     * The UUID of the cluster this queue belongs to.
      */
     public /*out*/ readonly clusterUuid!: pulumi.Output<string>;
     /**
-     * The description of the cluster queue.
+     * A description for the cluster queue.
      */
     public readonly description!: pulumi.Output<string | undefined>;
     /**
@@ -123,7 +115,7 @@ export class ClusterQueue extends pulumi.CustomResource {
      */
     public readonly key!: pulumi.Output<string>;
     /**
-     * The UUID of the created cluster queue.
+     * The UUID of the cluster queue.
      */
     public /*out*/ readonly uuid!: pulumi.Output<string>;
 
@@ -173,11 +165,11 @@ export interface ClusterQueueState {
      */
     clusterId?: pulumi.Input<string>;
     /**
-     * The UUID of the cluster that this cluster queue belongs to.
+     * The UUID of the cluster this queue belongs to.
      */
     clusterUuid?: pulumi.Input<string>;
     /**
-     * The description of the cluster queue.
+     * A description for the cluster queue.
      */
     description?: pulumi.Input<string>;
     /**
@@ -185,7 +177,7 @@ export interface ClusterQueueState {
      */
     key?: pulumi.Input<string>;
     /**
-     * The UUID of the created cluster queue.
+     * The UUID of the cluster queue.
      */
     uuid?: pulumi.Input<string>;
 }
@@ -199,7 +191,7 @@ export interface ClusterQueueArgs {
      */
     clusterId: pulumi.Input<string>;
     /**
-     * The description of the cluster queue.
+     * A description for the cluster queue.
      */
     description?: pulumi.Input<string>;
     /**

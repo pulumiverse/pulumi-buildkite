@@ -5,11 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Resource: testSuite
- *
- * This resources allows you to create and manage a Test Suite.
- *
- * Buildkite documentation: https://buildkite.com/docs/test-analytics
+ * A test suite is a collection of tests. A run is to a suite what a build is to a Pipeline.Use this resource to manage [Test Suites](https://buildkite.com/docs/test-analytics) on Buildkite.
  *
  * ## Example Usage
  *
@@ -17,14 +13,10 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const test = new buildkite.team.Team("test", {
- *     privacy: "VISIBLE",
- *     defaultTeam: false,
- *     defaultMemberRole: "MEMBER",
- * });
- * const unitTests = new buildkite.testsuite.TestSuite("unitTests", {
+ * // create a test suite for the main repository
+ * const main = new buildkite.testsuite.TestSuite("main", {
  *     defaultBranch: "main",
- *     teamOwnerId: test.id,
+ *     teamOwnerId: "VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi",
  * });
  * ```
  */
@@ -57,27 +49,27 @@ export class TestSuite extends pulumi.CustomResource {
     }
 
     /**
-     * This is the unique API token used when send test results.
+     * The API token to use to send test run data to the API.
      */
     public /*out*/ readonly apiToken!: pulumi.Output<string>;
     /**
-     * This is the default branch used to compare tests against.
+     * The default branch for the repository this test suite is for.
      */
     public readonly defaultBranch!: pulumi.Output<string>;
     /**
-     * This is the name of the test suite.
+     * The name to give the test suite.
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * This is the unique slug generated from the name upon creation.
+     * The generated slug of the test suite.
      */
     public /*out*/ readonly slug!: pulumi.Output<string>;
     /**
-     * This is a single team linked to the test suite upon creation.
+     * The GraphQL ID of the team to mark as the owner/admin of the test suite.
      */
     public readonly teamOwnerId!: pulumi.Output<string>;
     /**
-     * This is the UUID of the suite.
+     * The UUID of the test suite.
      */
     public /*out*/ readonly uuid!: pulumi.Output<string>;
 
@@ -127,27 +119,27 @@ export class TestSuite extends pulumi.CustomResource {
  */
 export interface TestSuiteState {
     /**
-     * This is the unique API token used when send test results.
+     * The API token to use to send test run data to the API.
      */
     apiToken?: pulumi.Input<string>;
     /**
-     * This is the default branch used to compare tests against.
+     * The default branch for the repository this test suite is for.
      */
     defaultBranch?: pulumi.Input<string>;
     /**
-     * This is the name of the test suite.
+     * The name to give the test suite.
      */
     name?: pulumi.Input<string>;
     /**
-     * This is the unique slug generated from the name upon creation.
+     * The generated slug of the test suite.
      */
     slug?: pulumi.Input<string>;
     /**
-     * This is a single team linked to the test suite upon creation.
+     * The GraphQL ID of the team to mark as the owner/admin of the test suite.
      */
     teamOwnerId?: pulumi.Input<string>;
     /**
-     * This is the UUID of the suite.
+     * The UUID of the test suite.
      */
     uuid?: pulumi.Input<string>;
 }
@@ -157,15 +149,15 @@ export interface TestSuiteState {
  */
 export interface TestSuiteArgs {
     /**
-     * This is the default branch used to compare tests against.
+     * The default branch for the repository this test suite is for.
      */
     defaultBranch: pulumi.Input<string>;
     /**
-     * This is the name of the test suite.
+     * The name to give the test suite.
      */
     name?: pulumi.Input<string>;
     /**
-     * This is a single team linked to the test suite upon creation.
+     * The GraphQL ID of the team to mark as the owner/admin of the test suite.
      */
     teamOwnerId: pulumi.Input<string>;
 }

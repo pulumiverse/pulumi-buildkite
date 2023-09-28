@@ -11,7 +11,6 @@ from .. import _utilities
 
 __all__ = [
     'PipelineProviderSettingsArgs',
-    'PipelineTeamArgs',
 ]
 
 @pulumi.input_type
@@ -40,25 +39,28 @@ class PipelineProviderSettingsArgs:
         :param pulumi.Input[bool] build_branches: Whether to create builds when branches are pushed.
         :param pulumi.Input[bool] build_pull_request_forks: Whether to create builds for pull requests from third-party forks.
         :param pulumi.Input[bool] build_pull_request_labels_changed: Whether to create builds for pull requests when labels are added or removed.
-        :param pulumi.Input[bool] build_pull_requests: Whether to create builds for commits that are part of a Pull Request.
+        :param pulumi.Input[bool] build_pull_request_ready_for_review: Whether to create a build when a pull request changes to "Ready for review".
+        :param pulumi.Input[bool] build_pull_requests: Whether to create builds for commits that are part of a pull request.
         :param pulumi.Input[bool] build_tags: Whether to create builds when tags are pushed.
-               
-               Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
-        :param pulumi.Input[bool] cancel_deleted_branch_builds: A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
-               
-               Additional properties available for GitHub:
-        :param pulumi.Input[str] filter_condition: The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines)
-        :param pulumi.Input[bool] filter_enabled: [true/false] Whether to filter builds to only run when the condition in `filter_condition` is true
-        :param pulumi.Input[bool] prefix_pull_request_fork_branch_names: Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the `master` branch from `some-user` will become `some-user:master`.
+        :param pulumi.Input[bool] cancel_deleted_branch_builds: Automatically cancel running builds for a branch if the branch is deleted.
+        :param pulumi.Input[str] filter_condition: The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines).
+        :param pulumi.Input[bool] filter_enabled: Whether to filter builds to only run when the condition in `filter_condition` is true.
+        :param pulumi.Input[bool] prefix_pull_request_fork_branch_names: Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
         :param pulumi.Input[bool] publish_blocked_as_pending: The status to use for blocked builds. Pending can be used with [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) to prevent merging pull requests with blocked builds.
         :param pulumi.Input[bool] publish_commit_status: Whether to update the status of commits in Bitbucket or GitHub.
         :param pulumi.Input[bool] publish_commit_status_per_step: Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
-        :param pulumi.Input[str] pull_request_branch_filter_configuration: The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
-        :param pulumi.Input[bool] pull_request_branch_filter_enabled: Whether to limit the creation of builds to specific branches or patterns.
+        :param pulumi.Input[str] pull_request_branch_filter_configuration: Filter pull requests builds by the branch filter.
+        :param pulumi.Input[bool] pull_request_branch_filter_enabled: Filter pull request builds.
         :param pulumi.Input[bool] separate_pull_request_statuses: Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.
-        :param pulumi.Input[bool] skip_builds_for_existing_commits: Whether to skip creating a new build if an existing build for the commit and branch already exists.
+        :param pulumi.Input[bool] skip_builds_for_existing_commits: Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
         :param pulumi.Input[bool] skip_pull_request_builds_for_existing_commits: Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
         :param pulumi.Input[str] trigger_mode: What type of event to trigger builds on. Must be one of:
+               	- `code` will create builds when code is pushed to GitHub.
+               	- `deployment` will create builds when a deployment is created in GitHub.
+               	- `fork` will create builds when the GitHub repository is forked.
+               	- `none` will not create any builds based on GitHub activity.
+               
+               	> `trigger_mode` is only valid if the pipeline uses a GitHub repository.
         """
         if build_branches is not None:
             pulumi.set(__self__, "build_branches", build_branches)
@@ -138,6 +140,9 @@ class PipelineProviderSettingsArgs:
     @property
     @pulumi.getter(name="buildPullRequestReadyForReview")
     def build_pull_request_ready_for_review(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to create a build when a pull request changes to "Ready for review".
+        """
         return pulumi.get(self, "build_pull_request_ready_for_review")
 
     @build_pull_request_ready_for_review.setter
@@ -148,7 +153,7 @@ class PipelineProviderSettingsArgs:
     @pulumi.getter(name="buildPullRequests")
     def build_pull_requests(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether to create builds for commits that are part of a Pull Request.
+        Whether to create builds for commits that are part of a pull request.
         """
         return pulumi.get(self, "build_pull_requests")
 
@@ -161,8 +166,6 @@ class PipelineProviderSettingsArgs:
     def build_tags(self) -> Optional[pulumi.Input[bool]]:
         """
         Whether to create builds when tags are pushed.
-
-        Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
         """
         return pulumi.get(self, "build_tags")
 
@@ -174,9 +177,7 @@ class PipelineProviderSettingsArgs:
     @pulumi.getter(name="cancelDeletedBranchBuilds")
     def cancel_deleted_branch_builds(self) -> Optional[pulumi.Input[bool]]:
         """
-        A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
-
-        Additional properties available for GitHub:
+        Automatically cancel running builds for a branch if the branch is deleted.
         """
         return pulumi.get(self, "cancel_deleted_branch_builds")
 
@@ -188,7 +189,7 @@ class PipelineProviderSettingsArgs:
     @pulumi.getter(name="filterCondition")
     def filter_condition(self) -> Optional[pulumi.Input[str]]:
         """
-        The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines)
+        The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines).
         """
         return pulumi.get(self, "filter_condition")
 
@@ -200,7 +201,7 @@ class PipelineProviderSettingsArgs:
     @pulumi.getter(name="filterEnabled")
     def filter_enabled(self) -> Optional[pulumi.Input[bool]]:
         """
-        [true/false] Whether to filter builds to only run when the condition in `filter_condition` is true
+        Whether to filter builds to only run when the condition in `filter_condition` is true.
         """
         return pulumi.get(self, "filter_enabled")
 
@@ -212,7 +213,7 @@ class PipelineProviderSettingsArgs:
     @pulumi.getter(name="prefixPullRequestForkBranchNames")
     def prefix_pull_request_fork_branch_names(self) -> Optional[pulumi.Input[bool]]:
         """
-        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the `master` branch from `some-user` will become `some-user:master`.
+        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
         """
         return pulumi.get(self, "prefix_pull_request_fork_branch_names")
 
@@ -260,7 +261,7 @@ class PipelineProviderSettingsArgs:
     @pulumi.getter(name="pullRequestBranchFilterConfiguration")
     def pull_request_branch_filter_configuration(self) -> Optional[pulumi.Input[str]]:
         """
-        The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+        Filter pull requests builds by the branch filter.
         """
         return pulumi.get(self, "pull_request_branch_filter_configuration")
 
@@ -272,7 +273,7 @@ class PipelineProviderSettingsArgs:
     @pulumi.getter(name="pullRequestBranchFilterEnabled")
     def pull_request_branch_filter_enabled(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether to limit the creation of builds to specific branches or patterns.
+        Filter pull request builds.
         """
         return pulumi.get(self, "pull_request_branch_filter_enabled")
 
@@ -296,7 +297,7 @@ class PipelineProviderSettingsArgs:
     @pulumi.getter(name="skipBuildsForExistingCommits")
     def skip_builds_for_existing_commits(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether to skip creating a new build if an existing build for the commit and branch already exists.
+        Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
         """
         return pulumi.get(self, "skip_builds_for_existing_commits")
 
@@ -321,68 +322,17 @@ class PipelineProviderSettingsArgs:
     def trigger_mode(self) -> Optional[pulumi.Input[str]]:
         """
         What type of event to trigger builds on. Must be one of:
+        	- `code` will create builds when code is pushed to GitHub.
+        	- `deployment` will create builds when a deployment is created in GitHub.
+        	- `fork` will create builds when the GitHub repository is forked.
+        	- `none` will not create any builds based on GitHub activity.
+
+        	> `trigger_mode` is only valid if the pipeline uses a GitHub repository.
         """
         return pulumi.get(self, "trigger_mode")
 
     @trigger_mode.setter
     def trigger_mode(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "trigger_mode", value)
-
-
-@pulumi.input_type
-class PipelineTeamArgs:
-    def __init__(__self__, *,
-                 access_level: pulumi.Input[str],
-                 slug: pulumi.Input[str],
-                 pipeline_team_id: Optional[pulumi.Input[str]] = None,
-                 team_id: Optional[pulumi.Input[str]] = None):
-        """
-        :param pulumi.Input[str] slug: The slug of the created pipeline.
-        """
-        pulumi.set(__self__, "access_level", access_level)
-        pulumi.set(__self__, "slug", slug)
-        if pipeline_team_id is not None:
-            pulumi.set(__self__, "pipeline_team_id", pipeline_team_id)
-        if team_id is not None:
-            pulumi.set(__self__, "team_id", team_id)
-
-    @property
-    @pulumi.getter(name="accessLevel")
-    def access_level(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "access_level")
-
-    @access_level.setter
-    def access_level(self, value: pulumi.Input[str]):
-        pulumi.set(self, "access_level", value)
-
-    @property
-    @pulumi.getter
-    def slug(self) -> pulumi.Input[str]:
-        """
-        The slug of the created pipeline.
-        """
-        return pulumi.get(self, "slug")
-
-    @slug.setter
-    def slug(self, value: pulumi.Input[str]):
-        pulumi.set(self, "slug", value)
-
-    @property
-    @pulumi.getter(name="pipelineTeamId")
-    def pipeline_team_id(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "pipeline_team_id")
-
-    @pipeline_team_id.setter
-    def pipeline_team_id(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "pipeline_team_id", value)
-
-    @property
-    @pulumi.getter(name="teamId")
-    def team_id(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "team_id")
-
-    @team_id.setter
-    def team_id(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "team_id", value)
 
 

@@ -5,12 +5,9 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Data Source: pipeline
+ * Use this data source to look up properties on a specific pipeline. This is particularly useful for looking up the webhook URL for each pipeline.
  *
- * Use this data source to look up properties on a specific pipeline. This is
- * particularly useful for looking up the webhook URL for each pipeline.
- *
- * Buildkite Documentation: https://buildkite.com/docs/pipelines
+ * More info in the Buildkite [documentation](https://buildkite.com/docs/pipelines).
  *
  * ## Example Usage
  *
@@ -18,8 +15,8 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
  *
- * const repo2 = buildkite.Pipeline.getPipeline({
- *     slug: "repo2",
+ * const pipeline = buildkite.Pipeline.getPipeline({
+ *     slug: "buildkite",
  * });
  * ```
  */
@@ -36,7 +33,7 @@ export function getPipeline(args: GetPipelineArgs, opts?: pulumi.InvokeOptions):
  */
 export interface GetPipelineArgs {
     /**
-     * The slug of the pipeline, available in the URL of the pipeline on buildkite.com
+     * The slug of the pipeline.
      */
     slug: string;
 }
@@ -46,13 +43,16 @@ export interface GetPipelineArgs {
  */
 export interface GetPipelineResult {
     /**
-     * The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+     * The default branch to prefill when new builds are created or triggered.
      */
     readonly defaultBranch: string;
     /**
-     * A description of the pipeline.
+     * The description of the pipeline.
      */
     readonly description: string;
+    /**
+     * The GraphQL ID of the pipeline.
+     */
     readonly id: string;
     /**
      * The name of the pipeline.
@@ -62,19 +62,23 @@ export interface GetPipelineResult {
      * The git URL of the repository.
      */
     readonly repository: string;
+    /**
+     * The slug of the pipeline.
+     */
     readonly slug: string;
+    /**
+     * The UUID of the pipeline.
+     */
+    readonly uuid: string;
     /**
      * The Buildkite webhook URL that triggers builds on this pipeline.
      */
     readonly webhookUrl: string;
 }
 /**
- * ## # Data Source: pipeline
+ * Use this data source to look up properties on a specific pipeline. This is particularly useful for looking up the webhook URL for each pipeline.
  *
- * Use this data source to look up properties on a specific pipeline. This is
- * particularly useful for looking up the webhook URL for each pipeline.
- *
- * Buildkite Documentation: https://buildkite.com/docs/pipelines
+ * More info in the Buildkite [documentation](https://buildkite.com/docs/pipelines).
  *
  * ## Example Usage
  *
@@ -82,8 +86,8 @@ export interface GetPipelineResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
  *
- * const repo2 = buildkite.Pipeline.getPipeline({
- *     slug: "repo2",
+ * const pipeline = buildkite.Pipeline.getPipeline({
+ *     slug: "buildkite",
  * });
  * ```
  */
@@ -96,7 +100,7 @@ export function getPipelineOutput(args: GetPipelineOutputArgs, opts?: pulumi.Inv
  */
 export interface GetPipelineOutputArgs {
     /**
-     * The slug of the pipeline, available in the URL of the pipeline on buildkite.com
+     * The slug of the pipeline.
      */
     slug: pulumi.Input<string>;
 }

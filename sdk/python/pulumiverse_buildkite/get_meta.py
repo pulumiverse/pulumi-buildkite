@@ -13,6 +13,7 @@ __all__ = [
     'GetMetaResult',
     'AwaitableGetMetaResult',
     'get_meta',
+    'get_meta_output',
 ]
 
 @pulumi.output_type
@@ -31,13 +32,16 @@ class GetMetaResult:
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        Fixed value: `https://api.buildkite.com/v2/meta`.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="webhookIps")
     def webhook_ips(self) -> Sequence[str]:
         """
-        A list of strings, each one an IP address (x.x.x.x) or CIDR address (x.x.x.x/32) that Buildkite may use to send webhooks and other external requests.
+        List of IPs in CIDR format.
         """
         return pulumi.get(self, "webhook_ips")
 
@@ -54,7 +58,27 @@ class AwaitableGetMetaResult(GetMetaResult):
 
 def get_meta(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetMetaResult:
     """
-    Use this data source to access information about an existing resource.
+    Use this data source to look up the source IP addresses that Buildkite may use to send external requests,
+    including webhooks and API calls to source control systems (like GitHub Enterprise Server and BitBucket Server).
+
+    More info in the Buildkite [documentation](https://buildkite.com/docs/apis/rest-api/meta).
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_aws as aws
+    import pulumi_buildkite as buildkite
+
+    ips = buildkite.get_meta()
+    # Create an AWS security group allowing ingress from Buildkite
+    from_buildkite = aws.ec2.SecurityGroup("fromBuildkite", ingress=[aws.ec2.SecurityGroupIngressArgs(
+        from_port="*",
+        to_port=443,
+        protocol="tcp",
+        cidr_blocks=ips.webhook_ips,
+    )])
+    ```
     """
     __args__ = dict()
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
@@ -63,3 +87,31 @@ def get_meta(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetMetaRes
     return AwaitableGetMetaResult(
         id=pulumi.get(__ret__, 'id'),
         webhook_ips=pulumi.get(__ret__, 'webhook_ips'))
+
+
+@_utilities.lift_output_func(get_meta)
+def get_meta_output(opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetMetaResult]:
+    """
+    Use this data source to look up the source IP addresses that Buildkite may use to send external requests,
+    including webhooks and API calls to source control systems (like GitHub Enterprise Server and BitBucket Server).
+
+    More info in the Buildkite [documentation](https://buildkite.com/docs/apis/rest-api/meta).
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_aws as aws
+    import pulumi_buildkite as buildkite
+
+    ips = buildkite.get_meta()
+    # Create an AWS security group allowing ingress from Buildkite
+    from_buildkite = aws.ec2.SecurityGroup("fromBuildkite", ingress=[aws.ec2.SecurityGroupIngressArgs(
+        from_port="*",
+        to_port=443,
+        protocol="tcp",
+        cidr_blocks=ips.webhook_ips,
+    )])
+    ```
+    """
+    ...

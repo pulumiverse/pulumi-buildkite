@@ -11,11 +11,9 @@ using Pulumi;
 namespace Pulumiverse.Buildkite.Cluster
 {
     /// <summary>
-    /// ## # Resource: cluster
-    /// 
-    /// This resource allows you to create, manage and import Clusters.
-    /// 
-    /// Buildkite documentation: https://buildkite.com/docs/clusters/overview
+    /// This resource allows you to create and manage a Buildkite Cluster to run your builds in.
+    /// Clusters are useful for grouping agents by there capabilities or permissions.
+    /// Find out more information in our [documentation](https://buildkite.com/docs/clusters/overview).
     /// 
     /// ## Example Usage
     /// 
@@ -27,40 +25,97 @@ namespace Pulumiverse.Buildkite.Cluster
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var linux = new Buildkite.Cluster.Cluster("linux");
+    ///     // create a cluster
+    ///     var primary = new Buildkite.Cluster.Cluster("primary", new()
+    ///     {
+    ///         Description = "Runs the monolith build and deploy",
+    ///         Emoji = "🚀",
+    ///         Color = "#bada55",
+    ///     });
+    /// 
+    ///     // add a pipeline to the cluster
+    ///     var monolith = new Buildkite.Pipeline.Pipeline("monolith", new()
+    ///     {
+    ///         Repository = "https://github.com/...",
+    ///         ClusterId = primary.Id,
+    ///     });
+    /// 
+    ///     var @default = new Buildkite.Cluster.ClusterQueue("default", new()
+    ///     {
+    ///         ClusterId = primary.Id,
+    ///         Key = "default",
+    ///     });
     /// 
     /// });
+    /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// import a cluster resource using the GraphQL ID
+    /// 
+    /// # 
+    /// 
+    ///  you can use this query to find the ID:
+    /// 
+    ///  query getClusters {
+    /// 
+    ///  organization(slug: "ORGANIZATION"){
+    /// 
+    ///  clusters(first: 5, order:NAME) {
+    /// 
+    ///  edges{
+    /// 
+    ///  node {
+    /// 
+    ///  id
+    /// 
+    ///  name
+    /// 
+    ///  }
+    /// 
+    ///  }
+    /// 
+    ///  }
+    /// 
+    ///  }
+    /// 
+    ///  }
+    /// 
+    /// ```sh
+    /// $ pulumi import buildkite:Cluster/cluster:Cluster primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
     /// ```
     /// </summary>
     [BuildkiteResourceType("buildkite:Cluster/cluster:Cluster")]
     public partial class Cluster : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+        /// A color representation of the Cluster. Accepts hex codes, eg #BADA55.
         /// </summary>
         [Output("color")]
         public Output<string?> Color { get; private set; } = null!;
 
         /// <summary>
-        /// This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+        /// This is a description for the cluster, this may describe the usage for it, the region, or something else
+        /// which would help identify the Cluster's purpose.
         /// </summary>
         [Output("description")]
         public Output<string?> Description { get; private set; } = null!;
 
         /// <summary>
-        /// An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+        /// An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+        /// emoji itself, such as 🚀.
         /// </summary>
         [Output("emoji")]
         public Output<string?> Emoji { get; private set; } = null!;
 
         /// <summary>
-        /// This is the name of the cluster.
+        /// The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The UUID created with the Cluster.
+        /// The UUID of the cluster.
         /// </summary>
         [Output("uuid")]
         public Output<string> Uuid { get; private set; } = null!;
@@ -113,25 +168,27 @@ namespace Pulumiverse.Buildkite.Cluster
     public sealed class ClusterArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+        /// A color representation of the Cluster. Accepts hex codes, eg #BADA55.
         /// </summary>
         [Input("color")]
         public Input<string>? Color { get; set; }
 
         /// <summary>
-        /// This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+        /// This is a description for the cluster, this may describe the usage for it, the region, or something else
+        /// which would help identify the Cluster's purpose.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+        /// An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+        /// emoji itself, such as 🚀.
         /// </summary>
         [Input("emoji")]
         public Input<string>? Emoji { get; set; }
 
         /// <summary>
-        /// This is the name of the cluster.
+        /// The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -145,31 +202,33 @@ namespace Pulumiverse.Buildkite.Cluster
     public sealed class ClusterState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+        /// A color representation of the Cluster. Accepts hex codes, eg #BADA55.
         /// </summary>
         [Input("color")]
         public Input<string>? Color { get; set; }
 
         /// <summary>
-        /// This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+        /// This is a description for the cluster, this may describe the usage for it, the region, or something else
+        /// which would help identify the Cluster's purpose.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+        /// An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+        /// emoji itself, such as 🚀.
         /// </summary>
         [Input("emoji")]
         public Input<string>? Emoji { get; set; }
 
         /// <summary>
-        /// This is the name of the cluster.
+        /// The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The UUID created with the Cluster.
+        /// The UUID of the cluster.
         /// </summary>
         [Input("uuid")]
         public Input<string>? Uuid { get; set; }

@@ -5,12 +5,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Data Source: team
- *
- * Use this data source to look up properties of a team. This can be used to
- * validate that a team exists before setting the team slug on a pipeline.
- *
- * Buildkite documentation: https://buildkite.com/docs/pipelines/permissions
+ * Use this data source to retrieve a team by slug or id. You can find out more about teams in the Buildkite
+ * [documentation](https://buildkite.com/docs/pipelines/permissions).
  *
  * ## Example Usage
  *
@@ -18,8 +14,11 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
  *
- * const myTeamData = buildkite.Team.getTeam({
- *     id: "<team id>",
+ * const teamDev = buildkite.Team.getTeam({
+ *     id: buildkite_team.team_dev.id,
+ * });
+ * const team = buildkite.Team.getTeam({
+ *     slug: "Everyone",
  * });
  * ```
  */
@@ -38,14 +37,11 @@ export function getTeam(args?: GetTeamArgs, opts?: pulumi.InvokeOptions): Promis
  */
 export interface GetTeamArgs {
     /**
-     * The GraphQL ID of the team, available in the Settings page for the team.
+     * The GraphQL ID of the team to find.
      */
     id?: string;
     /**
-     * The slug of the team. Available in the URL of the team on buildkite.com; in the format
-     * "<organizaton/team-name>"
-     *
-     * The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+     * The slug of the team to find.
      */
     slug?: string;
 }
@@ -55,46 +51,45 @@ export interface GetTeamArgs {
  */
 export interface GetTeamResult {
     /**
-     * Default role to assign to a team member
+     * The default member role of the team.
      */
     readonly defaultMemberRole: string;
     /**
-     * Whether new org members will be automatically added to this team
+     * Whether the team is the default team.
      */
     readonly defaultTeam: boolean;
     /**
-     * A description of the team
+     * The description of the team.
      */
     readonly description: string;
     /**
-     * The GraphQL ID of the team
+     * The GraphQL ID of the team to find.
      */
     readonly id: string;
     /**
-     * Whether team members can create new pipelines and add them to the team
+     * Whether members can create pipelines.
      */
     readonly membersCanCreatePipelines: boolean;
     /**
-     * The name of the team
+     * The name of the team.
      */
     readonly name: string;
     /**
-     * Whether the team is visible to org members outside this team
+     * The privacy setting of the team.
      */
     readonly privacy: string;
+    /**
+     * The slug of the team to find.
+     */
     readonly slug: string;
     /**
-     * The UUID of the team
+     * The UUID of the team.
      */
     readonly uuid: string;
 }
 /**
- * ## # Data Source: team
- *
- * Use this data source to look up properties of a team. This can be used to
- * validate that a team exists before setting the team slug on a pipeline.
- *
- * Buildkite documentation: https://buildkite.com/docs/pipelines/permissions
+ * Use this data source to retrieve a team by slug or id. You can find out more about teams in the Buildkite
+ * [documentation](https://buildkite.com/docs/pipelines/permissions).
  *
  * ## Example Usage
  *
@@ -102,8 +97,11 @@ export interface GetTeamResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
  *
- * const myTeamData = buildkite.Team.getTeam({
- *     id: "<team id>",
+ * const teamDev = buildkite.Team.getTeam({
+ *     id: buildkite_team.team_dev.id,
+ * });
+ * const team = buildkite.Team.getTeam({
+ *     slug: "Everyone",
  * });
  * ```
  */
@@ -116,14 +114,11 @@ export function getTeamOutput(args?: GetTeamOutputArgs, opts?: pulumi.InvokeOpti
  */
 export interface GetTeamOutputArgs {
     /**
-     * The GraphQL ID of the team, available in the Settings page for the team.
+     * The GraphQL ID of the team to find.
      */
     id?: pulumi.Input<string>;
     /**
-     * The slug of the team. Available in the URL of the team on buildkite.com; in the format
-     * "<organizaton/team-name>"
-     *
-     * The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+     * The slug of the team to find.
      */
     slug?: pulumi.Input<string>;
 }

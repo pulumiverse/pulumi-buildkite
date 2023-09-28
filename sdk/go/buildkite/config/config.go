@@ -11,27 +11,32 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
-// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
 func GetApiToken(ctx *pulumi.Context) string {
 	return config.Get(ctx, "buildkite:apiToken")
 }
 
-// Archive pipelines when destroying instead of completely deleting.
+// Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
 func GetArchivePipelineOnDelete(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "buildkite:archivePipelineOnDelete")
 }
 
-// Base URL for the GraphQL API to use
+// Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+// variable.
 func GetGraphqlUrl(ctx *pulumi.Context) string {
 	return config.Get(ctx, "buildkite:graphqlUrl")
 }
 
-// The Buildkite organization slug
+// The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+// page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
 func GetOrganization(ctx *pulumi.Context) string {
 	return config.Get(ctx, "buildkite:organization")
 }
 
-// Base URL for the REST API to use
+// Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+// variable.
 func GetRestUrl(ctx *pulumi.Context) string {
 	return config.Get(ctx, "buildkite:restUrl")
+}
+func GetTimeouts(ctx *pulumi.Context) string {
+	return config.Get(ctx, "buildkite:timeouts")
 }

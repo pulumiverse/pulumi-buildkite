@@ -7,7 +7,8 @@ import * as utilities from "./utilities";
 // Export members:
 export { GetMetaResult } from "./getMeta";
 export const getMeta: typeof import("./getMeta").getMeta = null as any;
-utilities.lazyLoad(exports, ["getMeta"], () => require("./getMeta"));
+export const getMetaOutput: typeof import("./getMeta").getMetaOutput = null as any;
+utilities.lazyLoad(exports, ["getMeta","getMetaOutput"], () => require("./getMeta"));
 
 export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;

@@ -8,6 +8,7 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+from ._inputs import *
 
 __all__ = ['ProviderArgs', 'Provider']
 
@@ -18,14 +19,21 @@ class ProviderArgs:
                  archive_pipeline_on_delete: Optional[pulumi.Input[bool]] = None,
                  graphql_url: Optional[pulumi.Input[str]] = None,
                  organization: Optional[pulumi.Input[str]] = None,
-                 rest_url: Optional[pulumi.Input[str]] = None):
+                 rest_url: Optional[pulumi.Input[str]] = None,
+                 timeouts: Optional[pulumi.Input['ProviderTimeoutsArgs']] = None):
         """
         The set of arguments for constructing a Provider resource.
-        :param pulumi.Input[str] api_token: API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
-        :param pulumi.Input[bool] archive_pipeline_on_delete: Archive pipelines when destroying instead of completely deleting.
-        :param pulumi.Input[str] graphql_url: Base URL for the GraphQL API to use
-        :param pulumi.Input[str] organization: The Buildkite organization slug
-        :param pulumi.Input[str] rest_url: Base URL for the REST API to use
+        :param pulumi.Input[str] api_token: API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can
+               generate a token from [your settings
+               page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql).
+               If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
+        :param pulumi.Input[bool] archive_pipeline_on_delete: Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
+        :param pulumi.Input[str] graphql_url: Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+               variable.
+        :param pulumi.Input[str] organization: The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+               page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
+        :param pulumi.Input[str] rest_url: Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+               variable.
         """
         if api_token is not None:
             pulumi.set(__self__, "api_token", api_token)
@@ -37,12 +45,17 @@ class ProviderArgs:
             pulumi.set(__self__, "organization", organization)
         if rest_url is not None:
             pulumi.set(__self__, "rest_url", rest_url)
+        if timeouts is not None:
+            pulumi.set(__self__, "timeouts", timeouts)
 
     @property
     @pulumi.getter(name="apiToken")
     def api_token(self) -> Optional[pulumi.Input[str]]:
         """
-        API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
+        API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can
+        generate a token from [your settings
+        page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql).
+        If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
         """
         return pulumi.get(self, "api_token")
 
@@ -54,7 +67,7 @@ class ProviderArgs:
     @pulumi.getter(name="archivePipelineOnDelete")
     def archive_pipeline_on_delete(self) -> Optional[pulumi.Input[bool]]:
         """
-        Archive pipelines when destroying instead of completely deleting.
+        Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
         """
         return pulumi.get(self, "archive_pipeline_on_delete")
 
@@ -66,7 +79,8 @@ class ProviderArgs:
     @pulumi.getter(name="graphqlUrl")
     def graphql_url(self) -> Optional[pulumi.Input[str]]:
         """
-        Base URL for the GraphQL API to use
+        Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+        variable.
         """
         return pulumi.get(self, "graphql_url")
 
@@ -78,7 +92,8 @@ class ProviderArgs:
     @pulumi.getter
     def organization(self) -> Optional[pulumi.Input[str]]:
         """
-        The Buildkite organization slug
+        The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+        page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
         """
         return pulumi.get(self, "organization")
 
@@ -90,13 +105,23 @@ class ProviderArgs:
     @pulumi.getter(name="restUrl")
     def rest_url(self) -> Optional[pulumi.Input[str]]:
         """
-        Base URL for the REST API to use
+        Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+        variable.
         """
         return pulumi.get(self, "rest_url")
 
     @rest_url.setter
     def rest_url(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "rest_url", value)
+
+    @property
+    @pulumi.getter
+    def timeouts(self) -> Optional[pulumi.Input['ProviderTimeoutsArgs']]:
+        return pulumi.get(self, "timeouts")
+
+    @timeouts.setter
+    def timeouts(self, value: Optional[pulumi.Input['ProviderTimeoutsArgs']]):
+        pulumi.set(self, "timeouts", value)
 
 
 class Provider(pulumi.ProviderResource):
@@ -109,6 +134,7 @@ class Provider(pulumi.ProviderResource):
                  graphql_url: Optional[pulumi.Input[str]] = None,
                  organization: Optional[pulumi.Input[str]] = None,
                  rest_url: Optional[pulumi.Input[str]] = None,
+                 timeouts: Optional[pulumi.Input[pulumi.InputType['ProviderTimeoutsArgs']]] = None,
                  __props__=None):
         """
         The provider type for the buildkite package. By default, resources use package-wide configuration
@@ -118,11 +144,17 @@ class Provider(pulumi.ProviderResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] api_token: API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
-        :param pulumi.Input[bool] archive_pipeline_on_delete: Archive pipelines when destroying instead of completely deleting.
-        :param pulumi.Input[str] graphql_url: Base URL for the GraphQL API to use
-        :param pulumi.Input[str] organization: The Buildkite organization slug
-        :param pulumi.Input[str] rest_url: Base URL for the REST API to use
+        :param pulumi.Input[str] api_token: API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can
+               generate a token from [your settings
+               page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql).
+               If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
+        :param pulumi.Input[bool] archive_pipeline_on_delete: Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
+        :param pulumi.Input[str] graphql_url: Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+               variable.
+        :param pulumi.Input[str] organization: The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+               page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
+        :param pulumi.Input[str] rest_url: Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+               variable.
         """
         ...
     @overload
@@ -156,6 +188,7 @@ class Provider(pulumi.ProviderResource):
                  graphql_url: Optional[pulumi.Input[str]] = None,
                  organization: Optional[pulumi.Input[str]] = None,
                  rest_url: Optional[pulumi.Input[str]] = None,
+                 timeouts: Optional[pulumi.Input[pulumi.InputType['ProviderTimeoutsArgs']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -170,6 +203,7 @@ class Provider(pulumi.ProviderResource):
             __props__.__dict__["graphql_url"] = graphql_url
             __props__.__dict__["organization"] = organization
             __props__.__dict__["rest_url"] = rest_url
+            __props__.__dict__["timeouts"] = pulumi.Output.from_input(timeouts).apply(pulumi.runtime.to_json) if timeouts is not None else None
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["apiToken"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Provider, __self__).__init__(
@@ -182,7 +216,10 @@ class Provider(pulumi.ProviderResource):
     @pulumi.getter(name="apiToken")
     def api_token(self) -> pulumi.Output[Optional[str]]:
         """
-        API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
+        API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can
+        generate a token from [your settings
+        page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql).
+        If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
         """
         return pulumi.get(self, "api_token")
 
@@ -190,7 +227,8 @@ class Provider(pulumi.ProviderResource):
     @pulumi.getter(name="graphqlUrl")
     def graphql_url(self) -> pulumi.Output[Optional[str]]:
         """
-        Base URL for the GraphQL API to use
+        Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+        variable.
         """
         return pulumi.get(self, "graphql_url")
 
@@ -198,7 +236,8 @@ class Provider(pulumi.ProviderResource):
     @pulumi.getter
     def organization(self) -> pulumi.Output[Optional[str]]:
         """
-        The Buildkite organization slug
+        The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+        page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
         """
         return pulumi.get(self, "organization")
 
@@ -206,7 +245,8 @@ class Provider(pulumi.ProviderResource):
     @pulumi.getter(name="restUrl")
     def rest_url(self) -> pulumi.Output[Optional[str]]:
         """
-        Base URL for the REST API to use
+        Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+        variable.
         """
         return pulumi.get(self, "rest_url")
 

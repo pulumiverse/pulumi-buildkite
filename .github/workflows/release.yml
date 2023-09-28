@@ -27,7 +27,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: google-github-actions/release-please-action@v3
+      - uses: google-github-actions/release-please-action@v4
         id: release
         with:
           command: manifest
@@ -44,7 +44,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.20.x]
+        go-version: [1.21.x]
 
     steps:
       - name: Checkout repository
@@ -53,21 +53,21 @@ jobs:
           fetch-depth: 0
 
       - name: Install Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: "${{ matrix.go-version }}"
 
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        uses: jaxxstorm/action-install-gh-release@v1.11.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/actions@v4
+        uses: pulumi/actions@v5
 
       - name: Install cosign
-        uses: sigstore/cosign-installer@v3.1.2
+        uses: sigstore/cosign-installer@v3.4.0
       - name: Download Syft
-        uses: anchore/sbom-action/download-syft@v0.14.3
+        uses: anchore/sbom-action/download-syft@v0.15.9
 
       - name: Release via GoReleaser
         uses: goreleaser/goreleaser-action@v5
@@ -91,7 +91,7 @@ jobs:
       max-parallel: 10
       fail-fast: true
       matrix:
-        go-version: [1.20.x]
+        go-version: [1.21.x]
         node-version: [18.x]
         dotnet-version: [3.1.301]
         python-version: [3.9]
@@ -108,29 +108,29 @@ jobs:
           fetch-depth: 0
 
       - name: Install Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: "${{ matrix.go-version }}"
 
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        uses: jaxxstorm/action-install-gh-release@v1.11.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/actions@v4
+        uses: pulumi/actions@v5
 
       - name: Setup DotNet
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "${{ matrix.dotnet-version }}"
         if: matrix.language == 'dotnet'
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "${{ matrix.python-version }}"
         if: matrix.language == 'python'
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "${{ matrix.node-version }}"
         if: matrix.language == 'nodejs'
@@ -160,7 +160,7 @@ jobs:
         run: cp -rf ${{ github.workspace }}/sdk/nodejs/scripts ${{ github.workspace }}/sdk/nodejs/bin/
         if: matrix.language == 'nodejs'
       - name: Publish NodeJS SDK
-        uses: JS-DevTools/npm-publish@v2
+        uses: JS-DevTools/npm-publish@v3
         with:
           package: ./sdk/nodejs/bin/package.json
           access: public

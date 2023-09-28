@@ -2,14 +2,13 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../types/input";
+import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
 declare var exports: any;
 const __config = new pulumi.Config("buildkite");
 
-/**
- * API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
- */
 export declare const apiToken: string | undefined;
 Object.defineProperty(exports, "apiToken", {
     get() {
@@ -19,7 +18,7 @@ Object.defineProperty(exports, "apiToken", {
 });
 
 /**
- * Archive pipelines when destroying instead of completely deleting.
+ * Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
  */
 export declare const archivePipelineOnDelete: boolean | undefined;
 Object.defineProperty(exports, "archivePipelineOnDelete", {
@@ -30,7 +29,8 @@ Object.defineProperty(exports, "archivePipelineOnDelete", {
 });
 
 /**
- * Base URL for the GraphQL API to use
+ * Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+ * variable.
  */
 export declare const graphqlUrl: string | undefined;
 Object.defineProperty(exports, "graphqlUrl", {
@@ -41,7 +41,8 @@ Object.defineProperty(exports, "graphqlUrl", {
 });
 
 /**
- * The Buildkite organization slug
+ * The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+ * page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
  */
 export declare const organization: string | undefined;
 Object.defineProperty(exports, "organization", {
@@ -52,12 +53,21 @@ Object.defineProperty(exports, "organization", {
 });
 
 /**
- * Base URL for the REST API to use
+ * Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+ * variable.
  */
 export declare const restUrl: string | undefined;
 Object.defineProperty(exports, "restUrl", {
     get() {
         return __config.get("restUrl");
+    },
+    enumerable: true,
+});
+
+export declare const timeouts: outputs.config.Timeouts | undefined;
+Object.defineProperty(exports, "timeouts", {
+    get() {
+        return __config.getObject<outputs.config.Timeouts>("timeouts");
     },
     enumerable: true,
 });

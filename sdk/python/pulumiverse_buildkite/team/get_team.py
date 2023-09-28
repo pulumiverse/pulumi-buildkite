@@ -54,7 +54,7 @@ class GetTeamResult:
     @pulumi.getter(name="defaultMemberRole")
     def default_member_role(self) -> str:
         """
-        Default role to assign to a team member
+        The default member role of the team.
         """
         return pulumi.get(self, "default_member_role")
 
@@ -62,7 +62,7 @@ class GetTeamResult:
     @pulumi.getter(name="defaultTeam")
     def default_team(self) -> bool:
         """
-        Whether new org members will be automatically added to this team
+        Whether the team is the default team.
         """
         return pulumi.get(self, "default_team")
 
@@ -70,7 +70,7 @@ class GetTeamResult:
     @pulumi.getter
     def description(self) -> str:
         """
-        A description of the team
+        The description of the team.
         """
         return pulumi.get(self, "description")
 
@@ -78,7 +78,7 @@ class GetTeamResult:
     @pulumi.getter
     def id(self) -> str:
         """
-        The GraphQL ID of the team
+        The GraphQL ID of the team to find.
         """
         return pulumi.get(self, "id")
 
@@ -86,7 +86,7 @@ class GetTeamResult:
     @pulumi.getter(name="membersCanCreatePipelines")
     def members_can_create_pipelines(self) -> bool:
         """
-        Whether team members can create new pipelines and add them to the team
+        Whether members can create pipelines.
         """
         return pulumi.get(self, "members_can_create_pipelines")
 
@@ -94,7 +94,7 @@ class GetTeamResult:
     @pulumi.getter
     def name(self) -> str:
         """
-        The name of the team
+        The name of the team.
         """
         return pulumi.get(self, "name")
 
@@ -102,20 +102,23 @@ class GetTeamResult:
     @pulumi.getter
     def privacy(self) -> str:
         """
-        Whether the team is visible to org members outside this team
+        The privacy setting of the team.
         """
         return pulumi.get(self, "privacy")
 
     @property
     @pulumi.getter
     def slug(self) -> str:
+        """
+        The slug of the team to find.
+        """
         return pulumi.get(self, "slug")
 
     @property
     @pulumi.getter
     def uuid(self) -> str:
         """
-        The UUID of the team
+        The UUID of the team.
         """
         return pulumi.get(self, "uuid")
 
@@ -141,12 +144,8 @@ def get_team(id: Optional[str] = None,
              slug: Optional[str] = None,
              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetTeamResult:
     """
-    ## # Data Source: team
-
-    Use this data source to look up properties of a team. This can be used to
-    validate that a team exists before setting the team slug on a pipeline.
-
-    Buildkite documentation: https://buildkite.com/docs/pipelines/permissions
+    Use this data source to retrieve a team by slug or id. You can find out more about teams in the Buildkite
+    [documentation](https://buildkite.com/docs/pipelines/permissions).
 
     ## Example Usage
 
@@ -154,15 +153,13 @@ def get_team(id: Optional[str] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    my_team_data = buildkite.Team.get_team(id="<team id>")
+    team_dev = buildkite.Team.get_team(id=buildkite_team["team_dev"]["id"])
+    team = buildkite.Team.get_team(slug="Everyone")
     ```
 
 
-    :param str id: The GraphQL ID of the team, available in the Settings page for the team.
-    :param str slug: The slug of the team. Available in the URL of the team on buildkite.com; in the format
-           "<organizaton/team-name>"
-           
-           The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+    :param str id: The GraphQL ID of the team to find.
+    :param str slug: The slug of the team to find.
     """
     __args__ = dict()
     __args__['id'] = id
@@ -187,12 +184,8 @@ def get_team_output(id: Optional[pulumi.Input[Optional[str]]] = None,
                     slug: Optional[pulumi.Input[Optional[str]]] = None,
                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetTeamResult]:
     """
-    ## # Data Source: team
-
-    Use this data source to look up properties of a team. This can be used to
-    validate that a team exists before setting the team slug on a pipeline.
-
-    Buildkite documentation: https://buildkite.com/docs/pipelines/permissions
+    Use this data source to retrieve a team by slug or id. You can find out more about teams in the Buildkite
+    [documentation](https://buildkite.com/docs/pipelines/permissions).
 
     ## Example Usage
 
@@ -200,14 +193,12 @@ def get_team_output(id: Optional[pulumi.Input[Optional[str]]] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    my_team_data = buildkite.Team.get_team(id="<team id>")
+    team_dev = buildkite.Team.get_team(id=buildkite_team["team_dev"]["id"])
+    team = buildkite.Team.get_team(slug="Everyone")
     ```
 
 
-    :param str id: The GraphQL ID of the team, available in the Settings page for the team.
-    :param str slug: The slug of the team. Available in the URL of the team on buildkite.com; in the format
-           "<organizaton/team-name>"
-           
-           The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+    :param str id: The GraphQL ID of the team to find.
+    :param str slug: The slug of the team to find.
     """
     ...

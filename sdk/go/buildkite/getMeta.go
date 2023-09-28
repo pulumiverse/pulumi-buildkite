@@ -4,10 +4,56 @@
 package buildkite
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
+// Use this data source to look up the source IP addresses that Buildkite may use to send external requests,
+// including webhooks and API calls to source control systems (like GitHub Enterprise Server and BitBucket Server).
+//
+// More info in the Buildkite [documentation](https://buildkite.com/docs/apis/rest-api/meta).
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws/ec2"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			ips, err := buildkite.GetMeta(ctx, nil, nil)
+//			if err != nil {
+//				return err
+//			}
+//			// Create an AWS security group allowing ingress from Buildkite
+//			_, err = ec2.NewSecurityGroup(ctx, "fromBuildkite", &ec2.SecurityGroupArgs{
+//				Ingress: ec2.SecurityGroupIngressArray{
+//					&ec2.SecurityGroupIngressArgs{
+//						FromPort:   pulumi.Int("*"),
+//						ToPort:     pulumi.Int(443),
+//						Protocol:   pulumi.String("tcp"),
+//						CidrBlocks: interface{}(ips.WebhookIps),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func GetMeta(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetMetaResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetMetaResult
@@ -20,7 +66,48 @@ func GetMeta(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetMetaResult, 
 
 // A collection of values returned by getMeta.
 type GetMetaResult struct {
+	// Fixed value: `https://api.buildkite.com/v2/meta`.
 	Id string `pulumi:"id"`
-	// A list of strings, each one an IP address (x.x.x.x) or CIDR address (x.x.x.x/32) that Buildkite may use to send webhooks and other external requests.
+	// List of IPs in CIDR format.
 	WebhookIps []string `pulumi:"webhookIps"`
+}
+
+func GetMetaOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) GetMetaResultOutput {
+	return pulumi.ToOutput(0).ApplyT(func(int) (GetMetaResult, error) {
+		r, err := GetMeta(ctx, opts...)
+		var s GetMetaResult
+		if r != nil {
+			s = *r
+		}
+		return s, err
+	}).(GetMetaResultOutput)
+}
+
+// A collection of values returned by getMeta.
+type GetMetaResultOutput struct{ *pulumi.OutputState }
+
+func (GetMetaResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetMetaResult)(nil)).Elem()
+}
+
+func (o GetMetaResultOutput) ToGetMetaResultOutput() GetMetaResultOutput {
+	return o
+}
+
+func (o GetMetaResultOutput) ToGetMetaResultOutputWithContext(ctx context.Context) GetMetaResultOutput {
+	return o
+}
+
+// Fixed value: `https://api.buildkite.com/v2/meta`.
+func (o GetMetaResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetMetaResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// List of IPs in CIDR format.
+func (o GetMetaResultOutput) WebhookIps() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetMetaResult) []string { return v.WebhookIps }).(pulumi.StringArrayOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(GetMetaResultOutput{})
 }

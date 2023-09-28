@@ -5,13 +5,9 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Resource: organization
- *
  * This resource allows you to manage the settings for an organization.
  *
- * You must be an organization administrator to manage organization settings.
- *
- * Note: The "Allowed API IP Addresses" feature must be enabled on your organization in order to manage the `allowedApiIpAddresses` attribute.
+ * The user of your API token must be an organization administrator to manage organization settings.
  *
  * ## Example Usage
  *
@@ -19,18 +15,20 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const testSettings = new buildkite.organization.Organization("testSettings", {allowedApiIpAddresses: ["1.1.1.1/32"]});
+ * // allow api access only from 1.1.1.1 and enforce 2fa for all members
+ * const settings = new buildkite.organization.Organization("settings", {
+ *     allowedApiIpAddresses: ["1.1.1.1/32"],
+ *     enforce2fa: true,
+ * });
  * ```
  *
  * ## Import
  *
- * Organization settings can be imported by passing the organization slug to the import command, along with the identifier of the resource.
+ * import the organization settings via the organization slug
  *
  * ```sh
- *  $ pulumi import buildkite:Organization/organization:Organization test_settings test_org
+ * $ pulumi import buildkite:Organization/organization:Organization settings <organization slug>
  * ```
- *
- *  Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settings) page.
  */
 export class Organization extends pulumi.CustomResource {
     /**
@@ -61,9 +59,16 @@ export class Organization extends pulumi.CustomResource {
     }
 
     /**
-     * A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+     * A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
      */
     public readonly allowedApiIpAddresses!: pulumi.Output<string[] | undefined>;
+    /**
+     * Sets whether the organization requires two-factor authentication for all members.
+     */
+    public readonly enforce2fa!: pulumi.Output<boolean>;
+    /**
+     * The UUID of the organization.
+     */
     public /*out*/ readonly uuid!: pulumi.Output<string>;
 
     /**
@@ -80,10 +85,12 @@ export class Organization extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as OrganizationState | undefined;
             resourceInputs["allowedApiIpAddresses"] = state ? state.allowedApiIpAddresses : undefined;
+            resourceInputs["enforce2fa"] = state ? state.enforce2fa : undefined;
             resourceInputs["uuid"] = state ? state.uuid : undefined;
         } else {
             const args = argsOrState as OrganizationArgs | undefined;
             resourceInputs["allowedApiIpAddresses"] = args ? args.allowedApiIpAddresses : undefined;
+            resourceInputs["enforce2fa"] = args ? args.enforce2fa : undefined;
             resourceInputs["uuid"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -96,9 +103,16 @@ export class Organization extends pulumi.CustomResource {
  */
 export interface OrganizationState {
     /**
-     * A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+     * A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
      */
     allowedApiIpAddresses?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Sets whether the organization requires two-factor authentication for all members.
+     */
+    enforce2fa?: pulumi.Input<boolean>;
+    /**
+     * The UUID of the organization.
+     */
     uuid?: pulumi.Input<string>;
 }
 
@@ -107,7 +121,11 @@ export interface OrganizationState {
  */
 export interface OrganizationArgs {
     /**
-     * A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+     * A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
      */
     allowedApiIpAddresses?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Sets whether the organization requires two-factor authentication for all members.
+     */
+    enforce2fa?: pulumi.Input<boolean>;
 }

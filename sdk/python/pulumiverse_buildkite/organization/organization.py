@@ -14,46 +14,23 @@ __all__ = ['OrganizationArgs', 'Organization']
 @pulumi.input_type
 class OrganizationArgs:
     def __init__(__self__, *,
-                 allowed_api_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
+                 allowed_api_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 enforce2fa: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a Organization resource.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        :param pulumi.Input[bool] enforce2fa: Sets whether the organization requires two-factor authentication for all members.
         """
         if allowed_api_ip_addresses is not None:
             pulumi.set(__self__, "allowed_api_ip_addresses", allowed_api_ip_addresses)
+        if enforce2fa is not None:
+            pulumi.set(__self__, "enforce2fa", enforce2fa)
 
     @property
     @pulumi.getter(name="allowedApiIpAddresses")
     def allowed_api_ip_addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
-        """
-        return pulumi.get(self, "allowed_api_ip_addresses")
-
-    @allowed_api_ip_addresses.setter
-    def allowed_api_ip_addresses(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
-        pulumi.set(self, "allowed_api_ip_addresses", value)
-
-
-@pulumi.input_type
-class _OrganizationState:
-    def __init__(__self__, *,
-                 allowed_api_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-                 uuid: Optional[pulumi.Input[str]] = None):
-        """
-        Input properties used for looking up and filtering Organization resources.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
-        """
-        if allowed_api_ip_addresses is not None:
-            pulumi.set(__self__, "allowed_api_ip_addresses", allowed_api_ip_addresses)
-        if uuid is not None:
-            pulumi.set(__self__, "uuid", uuid)
-
-    @property
-    @pulumi.getter(name="allowedApiIpAddresses")
-    def allowed_api_ip_addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
-        """
-        A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
         """
         return pulumi.get(self, "allowed_api_ip_addresses")
 
@@ -63,7 +40,66 @@ class _OrganizationState:
 
     @property
     @pulumi.getter
+    def enforce2fa(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Sets whether the organization requires two-factor authentication for all members.
+        """
+        return pulumi.get(self, "enforce2fa")
+
+    @enforce2fa.setter
+    def enforce2fa(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enforce2fa", value)
+
+
+@pulumi.input_type
+class _OrganizationState:
+    def __init__(__self__, *,
+                 allowed_api_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 enforce2fa: Optional[pulumi.Input[bool]] = None,
+                 uuid: Optional[pulumi.Input[str]] = None):
+        """
+        Input properties used for looking up and filtering Organization resources.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        :param pulumi.Input[bool] enforce2fa: Sets whether the organization requires two-factor authentication for all members.
+        :param pulumi.Input[str] uuid: The UUID of the organization.
+        """
+        if allowed_api_ip_addresses is not None:
+            pulumi.set(__self__, "allowed_api_ip_addresses", allowed_api_ip_addresses)
+        if enforce2fa is not None:
+            pulumi.set(__self__, "enforce2fa", enforce2fa)
+        if uuid is not None:
+            pulumi.set(__self__, "uuid", uuid)
+
+    @property
+    @pulumi.getter(name="allowedApiIpAddresses")
+    def allowed_api_ip_addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        """
+        return pulumi.get(self, "allowed_api_ip_addresses")
+
+    @allowed_api_ip_addresses.setter
+    def allowed_api_ip_addresses(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "allowed_api_ip_addresses", value)
+
+    @property
+    @pulumi.getter
+    def enforce2fa(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Sets whether the organization requires two-factor authentication for all members.
+        """
+        return pulumi.get(self, "enforce2fa")
+
+    @enforce2fa.setter
+    def enforce2fa(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enforce2fa", value)
+
+    @property
+    @pulumi.getter
     def uuid(self) -> Optional[pulumi.Input[str]]:
+        """
+        The UUID of the organization.
+        """
         return pulumi.get(self, "uuid")
 
     @uuid.setter
@@ -77,15 +113,12 @@ class Organization(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allowed_api_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 enforce2fa: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
-        ## # Resource: organization
-
         This resource allows you to manage the settings for an organization.
 
-        You must be an organization administrator to manage organization settings.
-
-        Note: The "Allowed API IP Addresses" feature must be enabled on your organization in order to manage the `allowed_api_ip_addresses` attribute.
+        The user of your API token must be an organization administrator to manage organization settings.
 
         ## Example Usage
 
@@ -93,22 +126,24 @@ class Organization(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        test_settings = buildkite.organization.Organization("testSettings", allowed_api_ip_addresses=["1.1.1.1/32"])
+        # allow api access only from 1.1.1.1 and enforce 2fa for all members
+        settings = buildkite.organization.Organization("settings",
+            allowed_api_ip_addresses=["1.1.1.1/32"],
+            enforce2fa=True)
         ```
 
         ## Import
 
-        Organization settings can be imported by passing the organization slug to the import command, along with the identifier of the resource.
+        import the organization settings via the organization slug
 
         ```sh
-         $ pulumi import buildkite:Organization/organization:Organization test_settings test_org
+        $ pulumi import buildkite:Organization/organization:Organization settings <organization slug>
         ```
-
-         Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settings) page.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        :param pulumi.Input[bool] enforce2fa: Sets whether the organization requires two-factor authentication for all members.
         """
         ...
     @overload
@@ -117,13 +152,9 @@ class Organization(pulumi.CustomResource):
                  args: Optional[OrganizationArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # Resource: organization
-
         This resource allows you to manage the settings for an organization.
 
-        You must be an organization administrator to manage organization settings.
-
-        Note: The "Allowed API IP Addresses" feature must be enabled on your organization in order to manage the `allowed_api_ip_addresses` attribute.
+        The user of your API token must be an organization administrator to manage organization settings.
 
         ## Example Usage
 
@@ -131,18 +162,19 @@ class Organization(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        test_settings = buildkite.organization.Organization("testSettings", allowed_api_ip_addresses=["1.1.1.1/32"])
+        # allow api access only from 1.1.1.1 and enforce 2fa for all members
+        settings = buildkite.organization.Organization("settings",
+            allowed_api_ip_addresses=["1.1.1.1/32"],
+            enforce2fa=True)
         ```
 
         ## Import
 
-        Organization settings can be imported by passing the organization slug to the import command, along with the identifier of the resource.
+        import the organization settings via the organization slug
 
         ```sh
-         $ pulumi import buildkite:Organization/organization:Organization test_settings test_org
+        $ pulumi import buildkite:Organization/organization:Organization settings <organization slug>
         ```
-
-         Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settings) page.
 
         :param str resource_name: The name of the resource.
         :param OrganizationArgs args: The arguments to use to populate this resource's properties.
@@ -160,6 +192,7 @@ class Organization(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allowed_api_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 enforce2fa: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -170,6 +203,7 @@ class Organization(pulumi.CustomResource):
             __props__ = OrganizationArgs.__new__(OrganizationArgs)
 
             __props__.__dict__["allowed_api_ip_addresses"] = allowed_api_ip_addresses
+            __props__.__dict__["enforce2fa"] = enforce2fa
             __props__.__dict__["uuid"] = None
         super(Organization, __self__).__init__(
             'buildkite:Organization/organization:Organization',
@@ -182,6 +216,7 @@ class Organization(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             allowed_api_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            enforce2fa: Optional[pulumi.Input[bool]] = None,
             uuid: Optional[pulumi.Input[str]] = None) -> 'Organization':
         """
         Get an existing Organization resource's state with the given name, id, and optional extra
@@ -190,13 +225,16 @@ class Organization(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        :param pulumi.Input[bool] enforce2fa: Sets whether the organization requires two-factor authentication for all members.
+        :param pulumi.Input[str] uuid: The UUID of the organization.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _OrganizationState.__new__(_OrganizationState)
 
         __props__.__dict__["allowed_api_ip_addresses"] = allowed_api_ip_addresses
+        __props__.__dict__["enforce2fa"] = enforce2fa
         __props__.__dict__["uuid"] = uuid
         return Organization(resource_name, opts=opts, __props__=__props__)
 
@@ -204,12 +242,23 @@ class Organization(pulumi.CustomResource):
     @pulumi.getter(name="allowedApiIpAddresses")
     def allowed_api_ip_addresses(self) -> pulumi.Output[Optional[Sequence[str]]]:
         """
-        A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
         """
         return pulumi.get(self, "allowed_api_ip_addresses")
 
     @property
     @pulumi.getter
+    def enforce2fa(self) -> pulumi.Output[bool]:
+        """
+        Sets whether the organization requires two-factor authentication for all members.
+        """
+        return pulumi.get(self, "enforce2fa")
+
+    @property
+    @pulumi.getter
     def uuid(self) -> pulumi.Output[str]:
+        """
+        The UUID of the organization.
+        """
         return pulumi.get(self, "uuid")
 

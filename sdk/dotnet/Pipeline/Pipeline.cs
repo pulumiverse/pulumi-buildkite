@@ -11,147 +11,163 @@ using Pulumi;
 namespace Pulumiverse.Buildkite.Pipeline
 {
     /// <summary>
+    /// This resource allows you to create and manage pipelines for repositories.
+    /// 
+    /// More information on pipelines can be found in the [documentation](https://buildkite.com/docs/pipelines).
+    /// 
     /// ## Import
     /// 
-    /// Pipelines can be imported using the `GraphQL ID` (not UUID), e.g.
+    /// import a pipeline resource using the pipelines GraphQL ID
+    /// 
+    ///  GraphQL ID for a pipeline can be found on its settings page
     /// 
     /// ```sh
-    ///  $ pulumi import buildkite:Pipeline/pipeline:Pipeline fleet UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
+    /// $ pulumi import buildkite:Pipeline/pipeline:Pipeline pipeline UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
     /// ```
-    /// 
-    ///  To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/04e6ac1d-222e-49f9-8167-4767ab0f5362). graphql query getPipelineId {
-    /// 
-    ///  pipeline(slug"ORGANIZATION_SLUG/PIPELINE_SLUG") {
-    /// 
-    ///  id
-    /// 
-    ///  } }
     /// </summary>
     [BuildkiteResourceType("buildkite:Pipeline/pipeline:Pipeline")]
     public partial class Pipeline : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// A boolean on whether or not to allow rebuilds for the pipeline.
+        /// Whether rebuilds are allowed for this pipeline.
         /// </summary>
         [Output("allowRebuilds")]
         public Output<bool> AllowRebuilds { get; private set; } = null!;
 
-        [Output("archiveOnDelete")]
-        public Output<bool> ArchiveOnDelete { get; private set; } = null!;
-
         /// <summary>
-        /// The pipeline's last build status so you can display build status badge.
+        /// The badge URL showing build state.
         /// </summary>
         [Output("badgeUrl")]
         public Output<string> BadgeUrl { get; private set; } = null!;
 
         /// <summary>
-        /// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
+        /// Configure the pipeline to only build on this branch conditional.
         /// </summary>
         [Output("branchConfiguration")]
         public Output<string?> BranchConfiguration { get; private set; } = null!;
 
         /// <summary>
-        /// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
+        /// Whether to cancel builds when a new commit is pushed to a matching branch.
         /// </summary>
         [Output("cancelIntermediateBuilds")]
         public Output<bool> CancelIntermediateBuilds { get; private set; } = null!;
 
         /// <summary>
-        /// Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
+        /// Filter the `cancel_intermediate_builds` setting based on this branch condition.
         /// </summary>
         [Output("cancelIntermediateBuildsBranchFilter")]
         public Output<string> CancelIntermediateBuildsBranchFilter { get; private set; } = null!;
 
         /// <summary>
-        /// The GraphQL ID of the cluster you want to use for the pipeline.
+        /// Attach this pipeline to the given cluster GraphQL ID.
         /// </summary>
         [Output("clusterId")]
         public Output<string?> ClusterId { get; private set; } = null!;
 
         /// <summary>
-        /// The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+        /// A color hex code to represent this pipeline.
+        /// </summary>
+        [Output("color")]
+        public Output<string?> Color { get; private set; } = null!;
+
+        /// <summary>
+        /// Default branch of the pipeline.
         /// </summary>
         [Output("defaultBranch")]
         public Output<string> DefaultBranch { get; private set; } = null!;
 
         /// <summary>
-        /// The default timeout for commands in this pipeline, in minutes.
+        /// The GraphQL ID of the team to use as the default owner of the pipeline.
+        /// </summary>
+        [Output("defaultTeamId")]
+        public Output<string?> DefaultTeamId { get; private set; } = null!;
+
+        /// <summary>
+        /// Set pipeline wide timeout for command steps.
         /// </summary>
         [Output("defaultTimeoutInMinutes")]
         public Output<int> DefaultTimeoutInMinutes { get; private set; } = null!;
 
         /// <summary>
-        /// **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: &lt;pipeline name&gt;"
-        /// </summary>
-        [Output("deletionProtection")]
-        public Output<bool> DeletionProtection { get; private set; } = null!;
-
-        /// <summary>
-        /// A description of the pipeline.
+        /// Description for the pipeline. Can include emoji 🙌.
         /// </summary>
         [Output("description")]
         public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
-        /// The maximum timeout for commands in this pipeline, in minutes.
+        /// An emoji that represents this pipeline.
+        /// </summary>
+        [Output("emoji")]
+        public Output<string?> Emoji { get; private set; } = null!;
+
+        /// <summary>
+        /// Set pipeline wide maximum timeout for command steps.
         /// </summary>
         [Output("maximumTimeoutInMinutes")]
         public Output<int> MaximumTimeoutInMinutes { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the pipeline.
+        /// Name to give the pipeline.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// Source control provider settings for the pipeline. See Provider Settings Configuration below for details.
+        /// The GraphQL ID of the pipeline template applied to this pipeline.
+        /// </summary>
+        [Output("pipelineTemplateId")]
+        public Output<string?> PipelineTemplateId { get; private set; } = null!;
+
+        /// <summary>
+        /// Control settings depending on the VCS provider used in `repository`.
         /// </summary>
         [Output("providerSettings")]
         public Output<Outputs.PipelineProviderSettings?> ProviderSettings { get; private set; } = null!;
 
         /// <summary>
-        /// The git URL of the repository.
+        /// URL to the repository this pipeline is configured for.
         /// </summary>
         [Output("repository")]
         public Output<string> Repository { get; private set; } = null!;
 
         /// <summary>
-        /// A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
+        /// Whether to skip queued builds if a new commit is pushed to a matching branch.
         /// </summary>
         [Output("skipIntermediateBuilds")]
         public Output<bool> SkipIntermediateBuilds { get; private set; } = null!;
 
         /// <summary>
-        /// Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
+        /// Filter the `skip_intermediate_builds` setting based on this branch condition.
         /// </summary>
         [Output("skipIntermediateBuildsBranchFilter")]
         public Output<string> SkipIntermediateBuildsBranchFilter { get; private set; } = null!;
 
         /// <summary>
-        /// The slug of the created pipeline.
+        /// The slug generated for the pipeline.
         /// </summary>
         [Output("slug")]
         public Output<string> Slug { get; private set; } = null!;
 
         /// <summary>
-        /// The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
+        /// The YAML steps to configure for the pipeline. Defaults to `buildkite-agent pipeline upload`.
         /// </summary>
         [Output("steps")]
         public Output<string> Steps { get; private set; } = null!;
 
+        /// <summary>
+        /// Tags to attribute to the pipeline. Useful for searching by in the UI.
+        /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
 
         /// <summary>
-        /// **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
+        /// The UUID of the pipeline.
         /// </summary>
-        [Output("teams")]
-        public Output<ImmutableArray<Outputs.PipelineTeam>> Teams { get; private set; } = null!;
+        [Output("uuid")]
+        public Output<string> Uuid { get; private set; } = null!;
 
         /// <summary>
-        /// The Buildkite webhook URL to configure on the repository to trigger builds on this pipeline.
+        /// The webhook URL used to trigger builds from VCS providers.
         /// </summary>
         [Output("webhookUrl")]
         public Output<string> WebhookUrl { get; private set; } = null!;
@@ -204,123 +220,129 @@ namespace Pulumiverse.Buildkite.Pipeline
     public sealed class PipelineArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// A boolean on whether or not to allow rebuilds for the pipeline.
+        /// Whether rebuilds are allowed for this pipeline.
         /// </summary>
         [Input("allowRebuilds")]
         public Input<bool>? AllowRebuilds { get; set; }
 
-        [Input("archiveOnDelete")]
-        public Input<bool>? ArchiveOnDelete { get; set; }
-
         /// <summary>
-        /// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
+        /// Configure the pipeline to only build on this branch conditional.
         /// </summary>
         [Input("branchConfiguration")]
         public Input<string>? BranchConfiguration { get; set; }
 
         /// <summary>
-        /// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
+        /// Whether to cancel builds when a new commit is pushed to a matching branch.
         /// </summary>
         [Input("cancelIntermediateBuilds")]
         public Input<bool>? CancelIntermediateBuilds { get; set; }
 
         /// <summary>
-        /// Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
+        /// Filter the `cancel_intermediate_builds` setting based on this branch condition.
         /// </summary>
         [Input("cancelIntermediateBuildsBranchFilter")]
         public Input<string>? CancelIntermediateBuildsBranchFilter { get; set; }
 
         /// <summary>
-        /// The GraphQL ID of the cluster you want to use for the pipeline.
+        /// Attach this pipeline to the given cluster GraphQL ID.
         /// </summary>
         [Input("clusterId")]
         public Input<string>? ClusterId { get; set; }
 
         /// <summary>
-        /// The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+        /// A color hex code to represent this pipeline.
+        /// </summary>
+        [Input("color")]
+        public Input<string>? Color { get; set; }
+
+        /// <summary>
+        /// Default branch of the pipeline.
         /// </summary>
         [Input("defaultBranch")]
         public Input<string>? DefaultBranch { get; set; }
 
         /// <summary>
-        /// The default timeout for commands in this pipeline, in minutes.
+        /// The GraphQL ID of the team to use as the default owner of the pipeline.
+        /// </summary>
+        [Input("defaultTeamId")]
+        public Input<string>? DefaultTeamId { get; set; }
+
+        /// <summary>
+        /// Set pipeline wide timeout for command steps.
         /// </summary>
         [Input("defaultTimeoutInMinutes")]
         public Input<int>? DefaultTimeoutInMinutes { get; set; }
 
         /// <summary>
-        /// **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: &lt;pipeline name&gt;"
-        /// </summary>
-        [Input("deletionProtection")]
-        public Input<bool>? DeletionProtection { get; set; }
-
-        /// <summary>
-        /// A description of the pipeline.
+        /// Description for the pipeline. Can include emoji 🙌.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// The maximum timeout for commands in this pipeline, in minutes.
+        /// An emoji that represents this pipeline.
+        /// </summary>
+        [Input("emoji")]
+        public Input<string>? Emoji { get; set; }
+
+        /// <summary>
+        /// Set pipeline wide maximum timeout for command steps.
         /// </summary>
         [Input("maximumTimeoutInMinutes")]
         public Input<int>? MaximumTimeoutInMinutes { get; set; }
 
         /// <summary>
-        /// The name of the pipeline.
+        /// Name to give the pipeline.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// Source control provider settings for the pipeline. See Provider Settings Configuration below for details.
+        /// The GraphQL ID of the pipeline template applied to this pipeline.
+        /// </summary>
+        [Input("pipelineTemplateId")]
+        public Input<string>? PipelineTemplateId { get; set; }
+
+        /// <summary>
+        /// Control settings depending on the VCS provider used in `repository`.
         /// </summary>
         [Input("providerSettings")]
         public Input<Inputs.PipelineProviderSettingsArgs>? ProviderSettings { get; set; }
 
         /// <summary>
-        /// The git URL of the repository.
+        /// URL to the repository this pipeline is configured for.
         /// </summary>
         [Input("repository", required: true)]
         public Input<string> Repository { get; set; } = null!;
 
         /// <summary>
-        /// A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
+        /// Whether to skip queued builds if a new commit is pushed to a matching branch.
         /// </summary>
         [Input("skipIntermediateBuilds")]
         public Input<bool>? SkipIntermediateBuilds { get; set; }
 
         /// <summary>
-        /// Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
+        /// Filter the `skip_intermediate_builds` setting based on this branch condition.
         /// </summary>
         [Input("skipIntermediateBuildsBranchFilter")]
         public Input<string>? SkipIntermediateBuildsBranchFilter { get; set; }
 
         /// <summary>
-        /// The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
+        /// The YAML steps to configure for the pipeline. Defaults to `buildkite-agent pipeline upload`.
         /// </summary>
         [Input("steps")]
         public Input<string>? Steps { get; set; }
 
         [Input("tags")]
         private InputList<string>? _tags;
+
+        /// <summary>
+        /// Tags to attribute to the pipeline. Useful for searching by in the UI.
+        /// </summary>
         public InputList<string> Tags
         {
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
-        }
-
-        [Input("teams")]
-        private InputList<Inputs.PipelineTeamArgs>? _teams;
-
-        /// <summary>
-        /// **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
-        /// </summary>
-        [Obsolete(@"This block is deprecated. Please use `buildkite_pipeline_team` instead.")]
-        public InputList<Inputs.PipelineTeamArgs> Teams
-        {
-            get => _teams ?? (_teams = new InputList<Inputs.PipelineTeamArgs>());
-            set => _teams = value;
         }
 
         public PipelineArgs()
@@ -332,139 +354,151 @@ namespace Pulumiverse.Buildkite.Pipeline
     public sealed class PipelineState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// A boolean on whether or not to allow rebuilds for the pipeline.
+        /// Whether rebuilds are allowed for this pipeline.
         /// </summary>
         [Input("allowRebuilds")]
         public Input<bool>? AllowRebuilds { get; set; }
 
-        [Input("archiveOnDelete")]
-        public Input<bool>? ArchiveOnDelete { get; set; }
-
         /// <summary>
-        /// The pipeline's last build status so you can display build status badge.
+        /// The badge URL showing build state.
         /// </summary>
         [Input("badgeUrl")]
         public Input<string>? BadgeUrl { get; set; }
 
         /// <summary>
-        /// Limit which branches and tags cause new builds to be created, either via a code push or via the Builds REST API.
+        /// Configure the pipeline to only build on this branch conditional.
         /// </summary>
         [Input("branchConfiguration")]
         public Input<string>? BranchConfiguration { get; set; }
 
         /// <summary>
-        /// A boolean to enable automatically cancelling any running builds on the same branch when a new build is created.
+        /// Whether to cancel builds when a new commit is pushed to a matching branch.
         /// </summary>
         [Input("cancelIntermediateBuilds")]
         public Input<bool>? CancelIntermediateBuilds { get; set; }
 
         /// <summary>
-        /// Limit which branches build cancelling applies to, for example !master will ensure that the master branch won't have its builds automatically cancelled.
+        /// Filter the `cancel_intermediate_builds` setting based on this branch condition.
         /// </summary>
         [Input("cancelIntermediateBuildsBranchFilter")]
         public Input<string>? CancelIntermediateBuildsBranchFilter { get; set; }
 
         /// <summary>
-        /// The GraphQL ID of the cluster you want to use for the pipeline.
+        /// Attach this pipeline to the given cluster GraphQL ID.
         /// </summary>
         [Input("clusterId")]
         public Input<string>? ClusterId { get; set; }
 
         /// <summary>
-        /// The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+        /// A color hex code to represent this pipeline.
+        /// </summary>
+        [Input("color")]
+        public Input<string>? Color { get; set; }
+
+        /// <summary>
+        /// Default branch of the pipeline.
         /// </summary>
         [Input("defaultBranch")]
         public Input<string>? DefaultBranch { get; set; }
 
         /// <summary>
-        /// The default timeout for commands in this pipeline, in minutes.
+        /// The GraphQL ID of the team to use as the default owner of the pipeline.
+        /// </summary>
+        [Input("defaultTeamId")]
+        public Input<string>? DefaultTeamId { get; set; }
+
+        /// <summary>
+        /// Set pipeline wide timeout for command steps.
         /// </summary>
         [Input("defaultTimeoutInMinutes")]
         public Input<int>? DefaultTimeoutInMinutes { get; set; }
 
         /// <summary>
-        /// **DEPRECATED** (Optional) Set to either `true` or `false`. When set to `true`, `destroy` actions on a pipeline will be blocked and fail with a message "Deletion protection is enabled for pipeline: &lt;pipeline name&gt;"
-        /// </summary>
-        [Input("deletionProtection")]
-        public Input<bool>? DeletionProtection { get; set; }
-
-        /// <summary>
-        /// A description of the pipeline.
+        /// Description for the pipeline. Can include emoji 🙌.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// The maximum timeout for commands in this pipeline, in minutes.
+        /// An emoji that represents this pipeline.
+        /// </summary>
+        [Input("emoji")]
+        public Input<string>? Emoji { get; set; }
+
+        /// <summary>
+        /// Set pipeline wide maximum timeout for command steps.
         /// </summary>
         [Input("maximumTimeoutInMinutes")]
         public Input<int>? MaximumTimeoutInMinutes { get; set; }
 
         /// <summary>
-        /// The name of the pipeline.
+        /// Name to give the pipeline.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// Source control provider settings for the pipeline. See Provider Settings Configuration below for details.
+        /// The GraphQL ID of the pipeline template applied to this pipeline.
+        /// </summary>
+        [Input("pipelineTemplateId")]
+        public Input<string>? PipelineTemplateId { get; set; }
+
+        /// <summary>
+        /// Control settings depending on the VCS provider used in `repository`.
         /// </summary>
         [Input("providerSettings")]
         public Input<Inputs.PipelineProviderSettingsGetArgs>? ProviderSettings { get; set; }
 
         /// <summary>
-        /// The git URL of the repository.
+        /// URL to the repository this pipeline is configured for.
         /// </summary>
         [Input("repository")]
         public Input<string>? Repository { get; set; }
 
         /// <summary>
-        /// A boolean to enable automatically skipping any unstarted builds on the same branch when a new build is created.
+        /// Whether to skip queued builds if a new commit is pushed to a matching branch.
         /// </summary>
         [Input("skipIntermediateBuilds")]
         public Input<bool>? SkipIntermediateBuilds { get; set; }
 
         /// <summary>
-        /// Limit which branches build skipping applies to, for example `!master` will ensure that the master branch won't have its builds automatically skipped.
+        /// Filter the `skip_intermediate_builds` setting based on this branch condition.
         /// </summary>
         [Input("skipIntermediateBuildsBranchFilter")]
         public Input<string>? SkipIntermediateBuildsBranchFilter { get; set; }
 
         /// <summary>
-        /// The slug of the created pipeline.
+        /// The slug generated for the pipeline.
         /// </summary>
         [Input("slug")]
         public Input<string>? Slug { get; set; }
 
         /// <summary>
-        /// The string YAML steps to run the pipeline. Defaults to `buildkite-agent pipeline upload` if not specified.
+        /// The YAML steps to configure for the pipeline. Defaults to `buildkite-agent pipeline upload`.
         /// </summary>
         [Input("steps")]
         public Input<string>? Steps { get; set; }
 
         [Input("tags")]
         private InputList<string>? _tags;
+
+        /// <summary>
+        /// Tags to attribute to the pipeline. Useful for searching by in the UI.
+        /// </summary>
         public InputList<string> Tags
         {
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
 
-        [Input("teams")]
-        private InputList<Inputs.PipelineTeamGetArgs>? _teams;
-
         /// <summary>
-        /// **DEPRECATED** Set team access for the pipeline. Can be specified multiple times for each team.
+        /// The UUID of the pipeline.
         /// </summary>
-        [Obsolete(@"This block is deprecated. Please use `buildkite_pipeline_team` instead.")]
-        public InputList<Inputs.PipelineTeamGetArgs> Teams
-        {
-            get => _teams ?? (_teams = new InputList<Inputs.PipelineTeamGetArgs>());
-            set => _teams = value;
-        }
+        [Input("uuid")]
+        public Input<string>? Uuid { get; set; }
 
         /// <summary>
-        /// The Buildkite webhook URL to configure on the repository to trigger builds on this pipeline.
+        /// The webhook URL used to trigger builds from VCS providers.
         /// </summary>
         [Input("webhookUrl")]
         public Input<string>? WebhookUrl { get; set; }

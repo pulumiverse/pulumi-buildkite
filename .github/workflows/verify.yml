@@ -36,8 +36,8 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.20.x]
-        golangci-lint-version: [v1.52.1]
+        go-version: [1.21.x]
+        golangci-lint-version: [v1.54.2]
 
     steps:
       - name: Checkout repository
@@ -46,21 +46,21 @@ jobs:
           fetch-depth: 0
 
       - name: Install Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: "${{ matrix.go-version }}"
 
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        uses: jaxxstorm/action-install-gh-release@v1.11.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/actions@v4
+        uses: pulumi/actions@v5
 
       - name: Build Provider
         run: make provider
       - name: Lint Provider
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v4
         with:
           version: "${{ matrix.golangci-lint-version }}"
           working-directory: provider
@@ -74,7 +74,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.20.x]
+        go-version: [1.21.x]
         node-version: [18.x]
         dotnet-version: [3.1.301]
         python-version: [3.9]
@@ -91,29 +91,29 @@ jobs:
           fetch-depth: 0
 
       - name: Install Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: "${{ matrix.go-version }}"
 
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        uses: jaxxstorm/action-install-gh-release@v1.11.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/actions@v4
+        uses: pulumi/actions@v5
 
       - name: Setup DotNet
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "${{ matrix.dotnet-version }}"
         if: matrix.language == 'dotnet'
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "${{ matrix.python-version }}"
         if: matrix.language == 'python'
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "${{ matrix.node-version }}"
         if: matrix.language == 'nodejs'

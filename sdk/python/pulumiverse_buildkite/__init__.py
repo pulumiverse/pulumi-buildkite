@@ -7,6 +7,7 @@ import typing
 # Export this package's modules as members:
 from .get_meta import *
 from .provider import *
+from ._inputs import *
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
@@ -62,6 +63,14 @@ _utilities.register(
  },
  {
   "pkg": "buildkite",
+  "mod": "Cluster/clusterDefaultQueue",
+  "fqn": "pulumiverse_buildkite.cluster",
+  "classes": {
+   "buildkite:Cluster/clusterDefaultQueue:ClusterDefaultQueue": "ClusterDefaultQueue"
+  }
+ },
+ {
+  "pkg": "buildkite",
   "mod": "Cluster/clusterQueue",
   "fqn": "pulumiverse_buildkite.cluster",
   "classes": {
@@ -70,18 +79,18 @@ _utilities.register(
  },
  {
   "pkg": "buildkite",
-  "mod": "Organization/organization",
+  "mod": "Organization/banner",
   "fqn": "pulumiverse_buildkite.organization",
   "classes": {
-   "buildkite:Organization/organization:Organization": "Organization"
+   "buildkite:Organization/banner:Banner": "Banner"
   }
  },
  {
   "pkg": "buildkite",
-  "mod": "Organization/settings",
+  "mod": "Organization/organization",
   "fqn": "pulumiverse_buildkite.organization",
   "classes": {
-   "buildkite:Organization/settings:Settings": "Settings"
+   "buildkite:Organization/organization:Organization": "Organization"
   }
  },
  {
@@ -106,6 +115,14 @@ _utilities.register(
   "fqn": "pulumiverse_buildkite.pipeline",
   "classes": {
    "buildkite:Pipeline/team:Team": "Team"
+  }
+ },
+ {
+  "pkg": "buildkite",
+  "mod": "Pipeline/template",
+  "fqn": "pulumiverse_buildkite.pipeline",
+  "classes": {
+   "buildkite:Pipeline/template:Template": "Template"
   }
  },
  {

@@ -19,9 +19,9 @@ class MemberArgs:
                  user_id: pulumi.Input[str]):
         """
         The set of arguments for constructing a Member resource.
-        :param pulumi.Input[str] role: Either MEMBER or MAINTAINER.
-        :param pulumi.Input[str] team_id: The GraphQL ID of the team to add to/remove from.
-        :param pulumi.Input[str] user_id: The GraphQL ID of the user to add/remove.
+        :param pulumi.Input[str] role: The role for the user. Either `MEMBER` or `MAINTAINER`.
+        :param pulumi.Input[str] team_id: The GraphQL ID of the team.
+        :param pulumi.Input[str] user_id: The GraphQL ID of the user.
         """
         pulumi.set(__self__, "role", role)
         pulumi.set(__self__, "team_id", team_id)
@@ -31,7 +31,7 @@ class MemberArgs:
     @pulumi.getter
     def role(self) -> pulumi.Input[str]:
         """
-        Either MEMBER or MAINTAINER.
+        The role for the user. Either `MEMBER` or `MAINTAINER`.
         """
         return pulumi.get(self, "role")
 
@@ -43,7 +43,7 @@ class MemberArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Input[str]:
         """
-        The GraphQL ID of the team to add to/remove from.
+        The GraphQL ID of the team.
         """
         return pulumi.get(self, "team_id")
 
@@ -55,7 +55,7 @@ class MemberArgs:
     @pulumi.getter(name="userId")
     def user_id(self) -> pulumi.Input[str]:
         """
-        The GraphQL ID of the user to add/remove.
+        The GraphQL ID of the user.
         """
         return pulumi.get(self, "user_id")
 
@@ -73,10 +73,10 @@ class _MemberState:
                  uuid: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Member resources.
-        :param pulumi.Input[str] role: Either MEMBER or MAINTAINER.
-        :param pulumi.Input[str] team_id: The GraphQL ID of the team to add to/remove from.
-        :param pulumi.Input[str] user_id: The GraphQL ID of the user to add/remove.
-        :param pulumi.Input[str] uuid: The UUID for the team membership.
+        :param pulumi.Input[str] role: The role for the user. Either `MEMBER` or `MAINTAINER`.
+        :param pulumi.Input[str] team_id: The GraphQL ID of the team.
+        :param pulumi.Input[str] user_id: The GraphQL ID of the user.
+        :param pulumi.Input[str] uuid: The UUID of the team membership.
         """
         if role is not None:
             pulumi.set(__self__, "role", role)
@@ -91,7 +91,7 @@ class _MemberState:
     @pulumi.getter
     def role(self) -> Optional[pulumi.Input[str]]:
         """
-        Either MEMBER or MAINTAINER.
+        The role for the user. Either `MEMBER` or `MAINTAINER`.
         """
         return pulumi.get(self, "role")
 
@@ -103,7 +103,7 @@ class _MemberState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The GraphQL ID of the team to add to/remove from.
+        The GraphQL ID of the team.
         """
         return pulumi.get(self, "team_id")
 
@@ -115,7 +115,7 @@ class _MemberState:
     @pulumi.getter(name="userId")
     def user_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The GraphQL ID of the user to add/remove.
+        The GraphQL ID of the user.
         """
         return pulumi.get(self, "user_id")
 
@@ -127,7 +127,7 @@ class _MemberState:
     @pulumi.getter
     def uuid(self) -> Optional[pulumi.Input[str]]:
         """
-        The UUID for the team membership.
+        The UUID of the team membership.
         """
         return pulumi.get(self, "uuid")
 
@@ -146,15 +146,7 @@ class Member(pulumi.CustomResource):
                  user_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## # Resource: team_member
-
-        This resource allows manage team membership for existing organization users.
-
-        The user must already be part of the organization to which you are managing team membership. This will not invite a new user to the organization.
-
-        Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions
-
-        Note: You must first enable Teams on your organization.
+        A team member resource allows for the management of team membership for existing organization users.
 
         ## Example Usage
 
@@ -162,35 +154,35 @@ class Member(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        team = buildkite.team.Team("team",
+        everyone = buildkite.team.Team("everyone",
             privacy="VISIBLE",
-            default_team=True,
+            default_team=False,
             default_member_role="MEMBER")
         a_smith = buildkite.team.Member("aSmith",
-            role="MEMBER",
-            team_id=team.id,
-            user_id="VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==")
+            team_id=everyone.id,
+            user_id="VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==",
+            role="MEMBER")
         ```
 
         ## Import
 
-        Team members can be imported using the GraphQL ID of the membership. Note this is different to the ID of the user.
+        import a team member resource using the GraphQL ID
 
-        ```sh
-         $ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==
-        ```
+        # 
 
-         To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/ce4540dd-4f60-4e79-8e8f-9f4c3bc8784e), where you will need fo fill in the organization slug and search terms for teams and members. Both search terms (TEAM_SEARCH_TERM and TEAM_MEMBER_SEARCH_TERM) work on the name of the associated object. graphql query getTeamMemberId {
+         you can use this query to find the ID:
 
-         organization(slug"ORGANIZATION_SLUG") {
+         query getTeamMemberId {
 
-         teams(first2, search"TEAM_SEARCH_TERM") {
+         organization(slug: "ORGANIZATION_SLUG") {
+
+         teams(first: 2, search: "TEAM_SEARCH_TERM") {
 
          edges {
 
          node {
 
-         members(first2, search"TEAM_MEMBER_SEARCH_TERM") {
+         members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
 
          edges {
 
@@ -210,13 +202,19 @@ class Member(pulumi.CustomResource):
 
          }
 
-         } }
+         }
+
+         }
+
+        ```sh
+        $ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==
+        ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] role: Either MEMBER or MAINTAINER.
-        :param pulumi.Input[str] team_id: The GraphQL ID of the team to add to/remove from.
-        :param pulumi.Input[str] user_id: The GraphQL ID of the user to add/remove.
+        :param pulumi.Input[str] role: The role for the user. Either `MEMBER` or `MAINTAINER`.
+        :param pulumi.Input[str] team_id: The GraphQL ID of the team.
+        :param pulumi.Input[str] user_id: The GraphQL ID of the user.
         """
         ...
     @overload
@@ -225,15 +223,7 @@ class Member(pulumi.CustomResource):
                  args: MemberArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # Resource: team_member
-
-        This resource allows manage team membership for existing organization users.
-
-        The user must already be part of the organization to which you are managing team membership. This will not invite a new user to the organization.
-
-        Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions
-
-        Note: You must first enable Teams on your organization.
+        A team member resource allows for the management of team membership for existing organization users.
 
         ## Example Usage
 
@@ -241,35 +231,35 @@ class Member(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        team = buildkite.team.Team("team",
+        everyone = buildkite.team.Team("everyone",
             privacy="VISIBLE",
-            default_team=True,
+            default_team=False,
             default_member_role="MEMBER")
         a_smith = buildkite.team.Member("aSmith",
-            role="MEMBER",
-            team_id=team.id,
-            user_id="VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ==")
+            team_id=everyone.id,
+            user_id="VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==",
+            role="MEMBER")
         ```
 
         ## Import
 
-        Team members can be imported using the GraphQL ID of the membership. Note this is different to the ID of the user.
+        import a team member resource using the GraphQL ID
 
-        ```sh
-         $ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==
-        ```
+        # 
 
-         To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/ce4540dd-4f60-4e79-8e8f-9f4c3bc8784e), where you will need fo fill in the organization slug and search terms for teams and members. Both search terms (TEAM_SEARCH_TERM and TEAM_MEMBER_SEARCH_TERM) work on the name of the associated object. graphql query getTeamMemberId {
+         you can use this query to find the ID:
 
-         organization(slug"ORGANIZATION_SLUG") {
+         query getTeamMemberId {
 
-         teams(first2, search"TEAM_SEARCH_TERM") {
+         organization(slug: "ORGANIZATION_SLUG") {
+
+         teams(first: 2, search: "TEAM_SEARCH_TERM") {
 
          edges {
 
          node {
 
-         members(first2, search"TEAM_MEMBER_SEARCH_TERM") {
+         members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
 
          edges {
 
@@ -289,7 +279,13 @@ class Member(pulumi.CustomResource):
 
          }
 
-         } }
+         }
+
+         }
+
+        ```sh
+        $ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==
+        ```
 
         :param str resource_name: The name of the resource.
         :param MemberArgs args: The arguments to use to populate this resource's properties.
@@ -349,10 +345,10 @@ class Member(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] role: Either MEMBER or MAINTAINER.
-        :param pulumi.Input[str] team_id: The GraphQL ID of the team to add to/remove from.
-        :param pulumi.Input[str] user_id: The GraphQL ID of the user to add/remove.
-        :param pulumi.Input[str] uuid: The UUID for the team membership.
+        :param pulumi.Input[str] role: The role for the user. Either `MEMBER` or `MAINTAINER`.
+        :param pulumi.Input[str] team_id: The GraphQL ID of the team.
+        :param pulumi.Input[str] user_id: The GraphQL ID of the user.
+        :param pulumi.Input[str] uuid: The UUID of the team membership.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -368,7 +364,7 @@ class Member(pulumi.CustomResource):
     @pulumi.getter
     def role(self) -> pulumi.Output[str]:
         """
-        Either MEMBER or MAINTAINER.
+        The role for the user. Either `MEMBER` or `MAINTAINER`.
         """
         return pulumi.get(self, "role")
 
@@ -376,7 +372,7 @@ class Member(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The GraphQL ID of the team to add to/remove from.
+        The GraphQL ID of the team.
         """
         return pulumi.get(self, "team_id")
 
@@ -384,7 +380,7 @@ class Member(pulumi.CustomResource):
     @pulumi.getter(name="userId")
     def user_id(self) -> pulumi.Output[str]:
         """
-        The GraphQL ID of the user to add/remove.
+        The GraphQL ID of the user.
         """
         return pulumi.get(self, "user_id")
 
@@ -392,7 +388,7 @@ class Member(pulumi.CustomResource):
     @pulumi.getter
     def uuid(self) -> pulumi.Output[str]:
         """
-        The UUID for the team membership.
+        The UUID of the team membership.
         """
         return pulumi.get(self, "uuid")
 

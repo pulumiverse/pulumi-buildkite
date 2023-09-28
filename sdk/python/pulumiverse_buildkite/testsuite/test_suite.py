@@ -19,9 +19,9 @@ class TestSuiteArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a TestSuite resource.
-        :param pulumi.Input[str] default_branch: This is the default branch used to compare tests against.
-        :param pulumi.Input[str] team_owner_id: This is a single team linked to the test suite upon creation.
-        :param pulumi.Input[str] name: This is the name of the test suite.
+        :param pulumi.Input[str] default_branch: The default branch for the repository this test suite is for.
+        :param pulumi.Input[str] team_owner_id: The GraphQL ID of the team to mark as the owner/admin of the test suite.
+        :param pulumi.Input[str] name: The name to give the test suite.
         """
         pulumi.set(__self__, "default_branch", default_branch)
         pulumi.set(__self__, "team_owner_id", team_owner_id)
@@ -32,7 +32,7 @@ class TestSuiteArgs:
     @pulumi.getter(name="defaultBranch")
     def default_branch(self) -> pulumi.Input[str]:
         """
-        This is the default branch used to compare tests against.
+        The default branch for the repository this test suite is for.
         """
         return pulumi.get(self, "default_branch")
 
@@ -44,7 +44,7 @@ class TestSuiteArgs:
     @pulumi.getter(name="teamOwnerId")
     def team_owner_id(self) -> pulumi.Input[str]:
         """
-        This is a single team linked to the test suite upon creation.
+        The GraphQL ID of the team to mark as the owner/admin of the test suite.
         """
         return pulumi.get(self, "team_owner_id")
 
@@ -56,7 +56,7 @@ class TestSuiteArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        This is the name of the test suite.
+        The name to give the test suite.
         """
         return pulumi.get(self, "name")
 
@@ -76,12 +76,12 @@ class _TestSuiteState:
                  uuid: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering TestSuite resources.
-        :param pulumi.Input[str] api_token: This is the unique API token used when send test results.
-        :param pulumi.Input[str] default_branch: This is the default branch used to compare tests against.
-        :param pulumi.Input[str] name: This is the name of the test suite.
-        :param pulumi.Input[str] slug: This is the unique slug generated from the name upon creation.
-        :param pulumi.Input[str] team_owner_id: This is a single team linked to the test suite upon creation.
-        :param pulumi.Input[str] uuid: This is the UUID of the suite.
+        :param pulumi.Input[str] api_token: The API token to use to send test run data to the API.
+        :param pulumi.Input[str] default_branch: The default branch for the repository this test suite is for.
+        :param pulumi.Input[str] name: The name to give the test suite.
+        :param pulumi.Input[str] slug: The generated slug of the test suite.
+        :param pulumi.Input[str] team_owner_id: The GraphQL ID of the team to mark as the owner/admin of the test suite.
+        :param pulumi.Input[str] uuid: The UUID of the test suite.
         """
         if api_token is not None:
             pulumi.set(__self__, "api_token", api_token)
@@ -100,7 +100,7 @@ class _TestSuiteState:
     @pulumi.getter(name="apiToken")
     def api_token(self) -> Optional[pulumi.Input[str]]:
         """
-        This is the unique API token used when send test results.
+        The API token to use to send test run data to the API.
         """
         return pulumi.get(self, "api_token")
 
@@ -112,7 +112,7 @@ class _TestSuiteState:
     @pulumi.getter(name="defaultBranch")
     def default_branch(self) -> Optional[pulumi.Input[str]]:
         """
-        This is the default branch used to compare tests against.
+        The default branch for the repository this test suite is for.
         """
         return pulumi.get(self, "default_branch")
 
@@ -124,7 +124,7 @@ class _TestSuiteState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        This is the name of the test suite.
+        The name to give the test suite.
         """
         return pulumi.get(self, "name")
 
@@ -136,7 +136,7 @@ class _TestSuiteState:
     @pulumi.getter
     def slug(self) -> Optional[pulumi.Input[str]]:
         """
-        This is the unique slug generated from the name upon creation.
+        The generated slug of the test suite.
         """
         return pulumi.get(self, "slug")
 
@@ -148,7 +148,7 @@ class _TestSuiteState:
     @pulumi.getter(name="teamOwnerId")
     def team_owner_id(self) -> Optional[pulumi.Input[str]]:
         """
-        This is a single team linked to the test suite upon creation.
+        The GraphQL ID of the team to mark as the owner/admin of the test suite.
         """
         return pulumi.get(self, "team_owner_id")
 
@@ -160,7 +160,7 @@ class _TestSuiteState:
     @pulumi.getter
     def uuid(self) -> Optional[pulumi.Input[str]]:
         """
-        This is the UUID of the suite.
+        The UUID of the test suite.
         """
         return pulumi.get(self, "uuid")
 
@@ -179,11 +179,7 @@ class TestSuite(pulumi.CustomResource):
                  team_owner_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## # Resource: test_suite
-
-        This resources allows you to create and manage a Test Suite.
-
-        Buildkite documentation: https://buildkite.com/docs/test-analytics
+        A test suite is a collection of tests. A run is to a suite what a build is to a Pipeline.Use this resource to manage [Test Suites](https://buildkite.com/docs/test-analytics) on Buildkite.
 
         ## Example Usage
 
@@ -191,20 +187,17 @@ class TestSuite(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        test = buildkite.team.Team("test",
-            privacy="VISIBLE",
-            default_team=False,
-            default_member_role="MEMBER")
-        unit_tests = buildkite.test_suite.TestSuite("unitTests",
+        # create a test suite for the main repository
+        main = buildkite.test_suite.TestSuite("main",
             default_branch="main",
-            team_owner_id=test.id)
+            team_owner_id="VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi")
         ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] default_branch: This is the default branch used to compare tests against.
-        :param pulumi.Input[str] name: This is the name of the test suite.
-        :param pulumi.Input[str] team_owner_id: This is a single team linked to the test suite upon creation.
+        :param pulumi.Input[str] default_branch: The default branch for the repository this test suite is for.
+        :param pulumi.Input[str] name: The name to give the test suite.
+        :param pulumi.Input[str] team_owner_id: The GraphQL ID of the team to mark as the owner/admin of the test suite.
         """
         ...
     @overload
@@ -213,11 +206,7 @@ class TestSuite(pulumi.CustomResource):
                  args: TestSuiteArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # Resource: test_suite
-
-        This resources allows you to create and manage a Test Suite.
-
-        Buildkite documentation: https://buildkite.com/docs/test-analytics
+        A test suite is a collection of tests. A run is to a suite what a build is to a Pipeline.Use this resource to manage [Test Suites](https://buildkite.com/docs/test-analytics) on Buildkite.
 
         ## Example Usage
 
@@ -225,13 +214,10 @@ class TestSuite(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        test = buildkite.team.Team("test",
-            privacy="VISIBLE",
-            default_team=False,
-            default_member_role="MEMBER")
-        unit_tests = buildkite.test_suite.TestSuite("unitTests",
+        # create a test suite for the main repository
+        main = buildkite.test_suite.TestSuite("main",
             default_branch="main",
-            team_owner_id=test.id)
+            team_owner_id="VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi")
         ```
 
         :param str resource_name: The name of the resource.
@@ -296,12 +282,12 @@ class TestSuite(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] api_token: This is the unique API token used when send test results.
-        :param pulumi.Input[str] default_branch: This is the default branch used to compare tests against.
-        :param pulumi.Input[str] name: This is the name of the test suite.
-        :param pulumi.Input[str] slug: This is the unique slug generated from the name upon creation.
-        :param pulumi.Input[str] team_owner_id: This is a single team linked to the test suite upon creation.
-        :param pulumi.Input[str] uuid: This is the UUID of the suite.
+        :param pulumi.Input[str] api_token: The API token to use to send test run data to the API.
+        :param pulumi.Input[str] default_branch: The default branch for the repository this test suite is for.
+        :param pulumi.Input[str] name: The name to give the test suite.
+        :param pulumi.Input[str] slug: The generated slug of the test suite.
+        :param pulumi.Input[str] team_owner_id: The GraphQL ID of the team to mark as the owner/admin of the test suite.
+        :param pulumi.Input[str] uuid: The UUID of the test suite.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -319,7 +305,7 @@ class TestSuite(pulumi.CustomResource):
     @pulumi.getter(name="apiToken")
     def api_token(self) -> pulumi.Output[str]:
         """
-        This is the unique API token used when send test results.
+        The API token to use to send test run data to the API.
         """
         return pulumi.get(self, "api_token")
 
@@ -327,7 +313,7 @@ class TestSuite(pulumi.CustomResource):
     @pulumi.getter(name="defaultBranch")
     def default_branch(self) -> pulumi.Output[str]:
         """
-        This is the default branch used to compare tests against.
+        The default branch for the repository this test suite is for.
         """
         return pulumi.get(self, "default_branch")
 
@@ -335,7 +321,7 @@ class TestSuite(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
         """
-        This is the name of the test suite.
+        The name to give the test suite.
         """
         return pulumi.get(self, "name")
 
@@ -343,7 +329,7 @@ class TestSuite(pulumi.CustomResource):
     @pulumi.getter
     def slug(self) -> pulumi.Output[str]:
         """
-        This is the unique slug generated from the name upon creation.
+        The generated slug of the test suite.
         """
         return pulumi.get(self, "slug")
 
@@ -351,7 +337,7 @@ class TestSuite(pulumi.CustomResource):
     @pulumi.getter(name="teamOwnerId")
     def team_owner_id(self) -> pulumi.Output[str]:
         """
-        This is a single team linked to the test suite upon creation.
+        The GraphQL ID of the team to mark as the owner/admin of the test suite.
         """
         return pulumi.get(self, "team_owner_id")
 
@@ -359,7 +345,7 @@ class TestSuite(pulumi.CustomResource):
     @pulumi.getter
     def uuid(self) -> pulumi.Output[str]:
         """
-        This is the UUID of the suite.
+        The UUID of the test suite.
         """
         return pulumi.get(self, "uuid")
 

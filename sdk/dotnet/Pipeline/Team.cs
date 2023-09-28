@@ -11,11 +11,7 @@ using Pulumi;
 namespace Pulumiverse.Buildkite.Pipeline
 {
     /// <summary>
-    /// ## # Resource: pipeline_team
-    /// 
-    /// This resource allows you to create and manage team configuration in a pipeline.
-    /// 
-    /// Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions#permissions-with-teams-pipeline-level-permissions
+    /// Manage team access to a pipeline.
     /// 
     /// ## Example Usage
     /// 
@@ -27,11 +23,24 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var developers = new Buildkite.Pipeline.Team("developers", new()
+    ///     var pipeline = new Buildkite.Pipeline.Pipeline("pipeline", new()
     ///     {
-    ///         PipelineId = buildkite_pipeline.Repo2,
-    ///         TeamId = buildkite_team.Test.Id,
-    ///         AccessLevel = "MANAGE_BUILD_AND_READ",
+    ///         Repository = "https://github.com/...",
+    ///     });
+    /// 
+    ///     var team = new Buildkite.Team.Team("team", new()
+    ///     {
+    ///         Privacy = "VISIBLE",
+    ///         DefaultTeam = false,
+    ///         DefaultMemberRole = "MEMBER",
+    ///     });
+    /// 
+    ///     // allow everyone in the "Everyone" team read-only access to pipeline
+    ///     var pipelineTeam = new Buildkite.Pipeline.Team("pipelineTeam", new()
+    ///     {
+    ///         PipelineId = pipeline.Id,
+    ///         TeamId = team.Id,
+    ///         AccessLevel = "READ_ONLY",
     ///     });
     /// 
     /// });
@@ -39,17 +48,17 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     /// ## Import
     /// 
-    /// Pipeline teams can be imported using their `GraphQL ID`, e.g.
+    /// import a pipeline team resource using the GraphQL ID
     /// 
-    /// ```sh
-    ///  $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
-    /// ```
+    /// # 
     /// 
-    ///  Your pipeline team's GraphQL ID can be found with the below GraphQL query below.
+    ///  you can use this query to find the ID:
     /// 
-    ///  graphql query getPipelineTeamId {
+    ///  query getPipelineTeamId {
     /// 
-    ///  pipeline(slug"ORGANIZATION_SLUG/PIPELINE_SLUG") { 		teams(first5, search"PIPELINE_SEARCH_TERM") {
+    ///  pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
+    /// 
+    ///  teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
     /// 
     ///  edges{
     /// 
@@ -57,19 +66,25 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     ///  id
     /// 
-    /// }
+    ///  }
+    /// 
+    ///  }
     /// 
     ///  }
     /// 
     ///  }
     /// 
-    ///  } }
+    ///  }
+    /// 
+    /// ```sh
+    /// $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
+    /// ```
     /// </summary>
     [BuildkiteResourceType("buildkite:Pipeline/team:Team")]
     public partial class Team : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+        /// The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         /// </summary>
         [Output("accessLevel")]
         public Output<string> AccessLevel { get; private set; } = null!;
@@ -81,13 +96,13 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Output<string> PipelineId { get; private set; } = null!;
 
         /// <summary>
-        /// The GraphQL ID of the team to add to/remove from.
+        /// The GraphQL ID of the team.
         /// </summary>
         [Output("teamId")]
         public Output<string> TeamId { get; private set; } = null!;
 
         /// <summary>
-        /// The UUID of the pipeline schedule
+        /// The UUID of the pipeline-team relationship.
         /// </summary>
         [Output("uuid")]
         public Output<string> Uuid { get; private set; } = null!;
@@ -140,7 +155,7 @@ namespace Pulumiverse.Buildkite.Pipeline
     public sealed class TeamArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+        /// The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         /// </summary>
         [Input("accessLevel", required: true)]
         public Input<string> AccessLevel { get; set; } = null!;
@@ -152,7 +167,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Input<string> PipelineId { get; set; } = null!;
 
         /// <summary>
-        /// The GraphQL ID of the team to add to/remove from.
+        /// The GraphQL ID of the team.
         /// </summary>
         [Input("teamId", required: true)]
         public Input<string> TeamId { get; set; } = null!;
@@ -166,7 +181,7 @@ namespace Pulumiverse.Buildkite.Pipeline
     public sealed class TeamState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+        /// The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         /// </summary>
         [Input("accessLevel")]
         public Input<string>? AccessLevel { get; set; }
@@ -178,13 +193,13 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Input<string>? PipelineId { get; set; }
 
         /// <summary>
-        /// The GraphQL ID of the team to add to/remove from.
+        /// The GraphQL ID of the team.
         /// </summary>
         [Input("teamId")]
         public Input<string>? TeamId { get; set; }
 
         /// <summary>
-        /// The UUID of the pipeline schedule
+        /// The UUID of the pipeline-team relationship.
         /// </summary>
         [Input("uuid")]
         public Input<string>? Uuid { get; set; }

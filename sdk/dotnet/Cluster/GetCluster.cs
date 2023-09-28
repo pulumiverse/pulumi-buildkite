@@ -12,9 +12,75 @@ namespace Pulumiverse.Buildkite.Cluster
 {
     public static class GetCluster
     {
+        /// <summary>
+        /// Use this data source to retrieve a cluster by name. You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/clusters/overview).
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Buildkite = Pulumi.Buildkite;
+        /// using Buildkite = Pulumiverse.Buildkite;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var @default = Buildkite.Cluster.GetCluster.Invoke(new()
+        ///     {
+        ///         Name = "default",
+        ///     });
+        /// 
+        ///     // Assign a pipeline to that cluster
+        ///     var terraform_provider_buildkite = new Buildkite.Pipeline.Pipeline("terraform-provider-buildkite", new()
+        ///     {
+        ///         Repository = "git@github.com:buildkite/terraform-provider-buildkite.git",
+        ///         ClusterId = @default.Apply(@default =&gt; @default.Apply(getClusterResult =&gt; getClusterResult.Id)),
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
         public static Task<GetClusterResult> InvokeAsync(GetClusterArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetClusterResult>("buildkite:Cluster/getCluster:getCluster", args ?? new GetClusterArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Use this data source to retrieve a cluster by name. You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/clusters/overview).
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Buildkite = Pulumi.Buildkite;
+        /// using Buildkite = Pulumiverse.Buildkite;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var @default = Buildkite.Cluster.GetCluster.Invoke(new()
+        ///     {
+        ///         Name = "default",
+        ///     });
+        /// 
+        ///     // Assign a pipeline to that cluster
+        ///     var terraform_provider_buildkite = new Buildkite.Pipeline.Pipeline("terraform-provider-buildkite", new()
+        ///     {
+        ///         Repository = "git@github.com:buildkite/terraform-provider-buildkite.git",
+        ///         ClusterId = @default.Apply(@default =&gt; @default.Apply(getClusterResult =&gt; getClusterResult.Id)),
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
         public static Output<GetClusterResult> Invoke(GetClusterInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetClusterResult>("buildkite:Cluster/getCluster:getCluster", args ?? new GetClusterInvokeArgs(), options.WithDefaults());
     }
@@ -23,7 +89,7 @@ namespace Pulumiverse.Buildkite.Cluster
     public sealed class GetClusterArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// The name of the cluster to lookup.
+        /// The name of the cluster to retrieve.
         /// </summary>
         [Input("name", required: true)]
         public string Name { get; set; } = null!;
@@ -37,7 +103,7 @@ namespace Pulumiverse.Buildkite.Cluster
     public sealed class GetClusterInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// The name of the cluster to lookup.
+        /// The name of the cluster to retrieve.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
@@ -53,7 +119,7 @@ namespace Pulumiverse.Buildkite.Cluster
     public sealed class GetClusterResult
     {
         /// <summary>
-        /// The color given the cluster.
+        /// The color of the cluster.
         /// </summary>
         public readonly string Color;
         /// <summary>
@@ -61,16 +127,19 @@ namespace Pulumiverse.Buildkite.Cluster
         /// </summary>
         public readonly string Description;
         /// <summary>
-        /// The emoji given the cluster.
+        /// The emoji of the cluster.
         /// </summary>
         public readonly string Emoji;
         /// <summary>
         /// The GraphQL ID of the cluster.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The name of the cluster to retrieve.
+        /// </summary>
         public readonly string Name;
         /// <summary>
-        /// The UUID of the cluster.
+        /// The UUID of the cluster
         /// </summary>
         public readonly string Uuid;
 

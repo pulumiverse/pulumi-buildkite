@@ -10,6 +10,16 @@ export const getPipeline: typeof import("./getPipeline").getPipeline = null as a
 export const getPipelineOutput: typeof import("./getPipeline").getPipelineOutput = null as any;
 utilities.lazyLoad(exports, ["getPipeline","getPipelineOutput"], () => require("./getPipeline"));
 
+export { GetSignedStepsArgs, GetSignedStepsResult, GetSignedStepsOutputArgs } from "./getSignedSteps";
+export const getSignedSteps: typeof import("./getSignedSteps").getSignedSteps = null as any;
+export const getSignedStepsOutput: typeof import("./getSignedSteps").getSignedStepsOutput = null as any;
+utilities.lazyLoad(exports, ["getSignedSteps","getSignedStepsOutput"], () => require("./getSignedSteps"));
+
+export { GetTemplateArgs, GetTemplateResult, GetTemplateOutputArgs } from "./getTemplate";
+export const getTemplate: typeof import("./getTemplate").getTemplate = null as any;
+export const getTemplateOutput: typeof import("./getTemplate").getTemplateOutput = null as any;
+utilities.lazyLoad(exports, ["getTemplate","getTemplateOutput"], () => require("./getTemplate"));
+
 export { PipelineArgs, PipelineState } from "./pipeline";
 export type Pipeline = import("./pipeline").Pipeline;
 export const Pipeline: typeof import("./pipeline").Pipeline = null as any;
@@ -25,6 +35,11 @@ export type Team = import("./team").Team;
 export const Team: typeof import("./team").Team = null as any;
 utilities.lazyLoad(exports, ["Team"], () => require("./team"));
 
+export { TemplateArgs, TemplateState } from "./template";
+export type Template = import("./template").Template;
+export const Template: typeof import("./template").Template = null as any;
+utilities.lazyLoad(exports, ["Template"], () => require("./template"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -36,6 +51,8 @@ const _module = {
                 return new Schedule(name, <any>undefined, { urn })
             case "buildkite:Pipeline/team:Team":
                 return new Team(name, <any>undefined, { urn })
+            case "buildkite:Pipeline/template:Template":
+                return new Template(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
@@ -44,3 +61,4 @@ const _module = {
 pulumi.runtime.registerResourceModule("buildkite", "Pipeline/pipeline", _module)
 pulumi.runtime.registerResourceModule("buildkite", "Pipeline/schedule", _module)
 pulumi.runtime.registerResourceModule("buildkite", "Pipeline/team", _module)
+pulumi.runtime.registerResourceModule("buildkite", "Pipeline/template", _module)

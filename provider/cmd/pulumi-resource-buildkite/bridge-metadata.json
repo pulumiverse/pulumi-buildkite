@@ -1,26 +1,26 @@
 {
     "mux": {
         "resources": {
-            "buildkite:Agent/agentToken:AgentToken": 1,
-            "buildkite:Cluster/cluster:Cluster": 1,
-            "buildkite:Cluster/clusterAgentToken:ClusterAgentToken": 1,
-            "buildkite:Cluster/clusterQueue:ClusterQueue": 1,
-            "buildkite:Organization/organization:Organization": 1,
-            "buildkite:Organization/settings:Settings": 0,
-            "buildkite:Pipeline/pipeline:Pipeline": 1,
-            "buildkite:Pipeline/schedule:Schedule": 1,
-            "buildkite:Pipeline/team:Team": 1,
-            "buildkite:Team/member:Member": 1,
-            "buildkite:Team/team:Team": 1,
-            "buildkite:TestSuite/team:Team": 1,
-            "buildkite:TestSuite/testSuite:TestSuite": 1
+            "buildkite:Agent/agentToken:AgentToken": 0,
+            "buildkite:Cluster/cluster:Cluster": 0,
+            "buildkite:Cluster/clusterAgentToken:ClusterAgentToken": 0,
+            "buildkite:Cluster/clusterDefaultQueue:ClusterDefaultQueue": 0,
+            "buildkite:Cluster/clusterQueue:ClusterQueue": 0,
+            "buildkite:Organization/organization:Organization": 0,
+            "buildkite:Pipeline/pipeline:Pipeline": 0,
+            "buildkite:Pipeline/schedule:Schedule": 0,
+            "buildkite:Pipeline/team:Team": 0,
+            "buildkite:Team/member:Member": 0,
+            "buildkite:Team/team:Team": 0,
+            "buildkite:TestSuite/team:Team": 0,
+            "buildkite:TestSuite/testSuite:TestSuite": 0
         },
         "functions": {
-            "buildkite:Cluster/getCluster:getCluster": 1,
-            "buildkite:Organization/getOrganization:getOrganization": 1,
-            "buildkite:Pipeline/getPipeline:getPipeline": 1,
-            "buildkite:Team/getTeam:getTeam": 1,
-            "buildkite:index/getMeta:getMeta": 1
+            "buildkite:Cluster/getCluster:getCluster": 0,
+            "buildkite:Organization/getOrganization:getOrganization": 0,
+            "buildkite:Pipeline/getPipeline:getPipeline": 0,
+            "buildkite:Team/getTeam:getTeam": 0,
+            "buildkite:index/getMeta:getMeta": 0
         }
     },
     "renames": {
@@ -28,12 +28,14 @@
             "buildkite:Agent/agentToken:AgentToken": "buildkite_agent_token",
             "buildkite:Cluster/cluster:Cluster": "buildkite_cluster",
             "buildkite:Cluster/clusterAgentToken:ClusterAgentToken": "buildkite_cluster_agent_token",
+            "buildkite:Cluster/clusterDefaultQueue:ClusterDefaultQueue": "buildkite_cluster_default_queue",
             "buildkite:Cluster/clusterQueue:ClusterQueue": "buildkite_cluster_queue",
+            "buildkite:Organization/banner:Banner": "buildkite_organization_banner",
             "buildkite:Organization/organization:Organization": "buildkite_organization",
-            "buildkite:Organization/settings:Settings": "buildkite_organization_settings",
             "buildkite:Pipeline/pipeline:Pipeline": "buildkite_pipeline",
             "buildkite:Pipeline/schedule:Schedule": "buildkite_pipeline_schedule",
             "buildkite:Pipeline/team:Team": "buildkite_pipeline_team",
+            "buildkite:Pipeline/template:Template": "buildkite_pipeline_template",
             "buildkite:Team/member:Member": "buildkite_team_member",
             "buildkite:Team/team:Team": "buildkite_team",
             "buildkite:TestSuite/team:Team": "buildkite_test_suite_team",
@@ -43,13 +45,20 @@
             "buildkite:Cluster/getCluster:getCluster": "buildkite_cluster",
             "buildkite:Organization/getOrganization:getOrganization": "buildkite_organization",
             "buildkite:Pipeline/getPipeline:getPipeline": "buildkite_pipeline",
+            "buildkite:Pipeline/getSignedSteps:getSignedSteps": "buildkite_signed_pipeline_steps",
+            "buildkite:Pipeline/getTemplate:getTemplate": "buildkite_pipeline_template",
             "buildkite:Team/getTeam:getTeam": "buildkite_team",
             "buildkite:index/getMeta:getMeta": "buildkite_meta"
         },
         "renamedProperties": {
             "buildkite:Cluster/clusterAgentToken:ClusterAgentToken": {
+                "allowedIpAddresses": "allowed_ip_addresses",
                 "clusterId": "cluster_id",
                 "clusterUuid": "cluster_uuid"
+            },
+            "buildkite:Cluster/clusterDefaultQueue:ClusterDefaultQueue": {
+                "clusterId": "cluster_id",
+                "queueId": "queue_id"
             },
             "buildkite:Cluster/clusterQueue:ClusterQueue": {
                 "clusterId": "cluster_id",
@@ -59,10 +68,8 @@
                 "allowedApiIpAddresses": "allowed_api_ip_addresses"
             },
             "buildkite:Organization/organization:Organization": {
-                "allowedApiIpAddresses": "allowed_api_ip_addresses"
-            },
-            "buildkite:Organization/settings:Settings": {
-                "allowedApiIpAddresses": "allowed_api_ip_addresses"
+                "allowedApiIpAddresses": "allowed_api_ip_addresses",
+                "enforce2fa": "enforce_2fa"
             },
             "buildkite:Pipeline/PipelineProviderSettings:PipelineProviderSettings": {
                 "buildBranches": "build_branches",
@@ -85,31 +92,30 @@
                 "skipPullRequestBuildsForExistingCommits": "skip_pull_request_builds_for_existing_commits",
                 "triggerMode": "trigger_mode"
             },
-            "buildkite:Pipeline/PipelineTeam:PipelineTeam": {
-                "accessLevel": "access_level",
-                "pipelineTeamId": "pipeline_team_id",
-                "teamId": "team_id"
-            },
             "buildkite:Pipeline/getPipeline:getPipeline": {
                 "defaultBranch": "default_branch",
                 "webhookUrl": "webhook_url"
             },
+            "buildkite:Pipeline/getSignedSteps:getSignedSteps": {
+                "jwksFile": "jwks_file",
+                "jwksKeyId": "jwks_key_id",
+                "unsignedSteps": "unsigned_steps"
+            },
             "buildkite:Pipeline/pipeline:Pipeline": {
                 "allowRebuilds": "allow_rebuilds",
-                "archiveOnDelete": "archive_on_delete",
                 "badgeUrl": "badge_url",
                 "branchConfiguration": "branch_configuration",
                 "cancelIntermediateBuilds": "cancel_intermediate_builds",
                 "cancelIntermediateBuildsBranchFilter": "cancel_intermediate_builds_branch_filter",
                 "clusterId": "cluster_id",
                 "defaultBranch": "default_branch",
+                "defaultTeamId": "default_team_id",
                 "defaultTimeoutInMinutes": "default_timeout_in_minutes",
-                "deletionProtection": "deletion_protection",
                 "maximumTimeoutInMinutes": "maximum_timeout_in_minutes",
+                "pipelineTemplateId": "pipeline_template_id",
                 "providerSettings": "provider_settings",
                 "skipIntermediateBuilds": "skip_intermediate_builds",
                 "skipIntermediateBuildsBranchFilter": "skip_intermediate_builds_branch_filter",
-                "teams": "team",
                 "webhookUrl": "webhook_url"
             },
             "buildkite:Pipeline/schedule:Schedule": {
