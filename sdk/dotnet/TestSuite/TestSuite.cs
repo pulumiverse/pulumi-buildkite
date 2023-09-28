@@ -11,11 +11,7 @@ using Pulumi;
 namespace Pulumiverse.Buildkite.TestSuite
 {
     /// <summary>
-    /// ## # Resource: test_suite
-    /// 
-    /// This resources allows you to create and manage a Test Suite.
-    /// 
-    /// Buildkite documentation: https://buildkite.com/docs/test-analytics
+    /// A test suite is a collection of tests. A run is to a suite what a build is to a Pipeline.Use this resource to manage [Test Suites](https://buildkite.com/docs/test-analytics) on Buildkite.
     /// 
     /// ## Example Usage
     /// 
@@ -27,17 +23,11 @@ namespace Pulumiverse.Buildkite.TestSuite
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var test = new Buildkite.Team.Team("test", new()
-    ///     {
-    ///         Privacy = "VISIBLE",
-    ///         DefaultTeam = false,
-    ///         DefaultMemberRole = "MEMBER",
-    ///     });
-    /// 
-    ///     var unitTests = new Buildkite.TestSuite.TestSuite("unitTests", new()
+    ///     // create a test suite for the main repository
+    ///     var main = new Buildkite.TestSuite.TestSuite("main", new()
     ///     {
     ///         DefaultBranch = "main",
-    ///         TeamOwnerId = test.Id,
+    ///         TeamOwnerId = "VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi",
     ///     });
     /// 
     /// });
@@ -47,37 +37,37 @@ namespace Pulumiverse.Buildkite.TestSuite
     public partial class TestSuite : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// This is the unique API token used when send test results.
+        /// The API token to use to send test run data to the API.
         /// </summary>
         [Output("apiToken")]
         public Output<string> ApiToken { get; private set; } = null!;
 
         /// <summary>
-        /// This is the default branch used to compare tests against.
+        /// The default branch for the repository this test suite is for.
         /// </summary>
         [Output("defaultBranch")]
         public Output<string> DefaultBranch { get; private set; } = null!;
 
         /// <summary>
-        /// This is the name of the test suite.
+        /// The name to give the test suite.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// This is the unique slug generated from the name upon creation.
+        /// The generated slug of the test suite.
         /// </summary>
         [Output("slug")]
         public Output<string> Slug { get; private set; } = null!;
 
         /// <summary>
-        /// This is a single team linked to the test suite upon creation.
+        /// The GraphQL ID of the team to mark as the owner/admin of the test suite.
         /// </summary>
         [Output("teamOwnerId")]
         public Output<string> TeamOwnerId { get; private set; } = null!;
 
         /// <summary>
-        /// This is the UUID of the suite.
+        /// The UUID of the test suite.
         /// </summary>
         [Output("uuid")]
         public Output<string> Uuid { get; private set; } = null!;
@@ -134,19 +124,19 @@ namespace Pulumiverse.Buildkite.TestSuite
     public sealed class TestSuiteArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// This is the default branch used to compare tests against.
+        /// The default branch for the repository this test suite is for.
         /// </summary>
         [Input("defaultBranch", required: true)]
         public Input<string> DefaultBranch { get; set; } = null!;
 
         /// <summary>
-        /// This is the name of the test suite.
+        /// The name to give the test suite.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// This is a single team linked to the test suite upon creation.
+        /// The GraphQL ID of the team to mark as the owner/admin of the test suite.
         /// </summary>
         [Input("teamOwnerId", required: true)]
         public Input<string> TeamOwnerId { get; set; } = null!;
@@ -163,7 +153,7 @@ namespace Pulumiverse.Buildkite.TestSuite
         private Input<string>? _apiToken;
 
         /// <summary>
-        /// This is the unique API token used when send test results.
+        /// The API token to use to send test run data to the API.
         /// </summary>
         public Input<string>? ApiToken
         {
@@ -176,31 +166,31 @@ namespace Pulumiverse.Buildkite.TestSuite
         }
 
         /// <summary>
-        /// This is the default branch used to compare tests against.
+        /// The default branch for the repository this test suite is for.
         /// </summary>
         [Input("defaultBranch")]
         public Input<string>? DefaultBranch { get; set; }
 
         /// <summary>
-        /// This is the name of the test suite.
+        /// The name to give the test suite.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// This is the unique slug generated from the name upon creation.
+        /// The generated slug of the test suite.
         /// </summary>
         [Input("slug")]
         public Input<string>? Slug { get; set; }
 
         /// <summary>
-        /// This is a single team linked to the test suite upon creation.
+        /// The GraphQL ID of the team to mark as the owner/admin of the test suite.
         /// </summary>
         [Input("teamOwnerId")]
         public Input<string>? TeamOwnerId { get; set; }
 
         /// <summary>
-        /// This is the UUID of the suite.
+        /// The UUID of the test suite.
         /// </summary>
         [Input("uuid")]
         public Input<string>? Uuid { get; set; }

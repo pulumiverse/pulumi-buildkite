@@ -12,11 +12,9 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Resource: pipelineSchedule
+// A pipeline schedule is a schedule that triggers a pipeline to run at a specific time.
 //
-// This resource allows you to create and manage pipeline schedules.
-//
-// Buildkite Documentation: https://buildkite.com/docs/pipelines/scheduled-builds
+// You can find more information in the [documentation](https://buildkite.com/docs/pipelines/scheduled-builds).
 //
 // ## Example Usage
 //
@@ -32,11 +30,19 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := Pipeline.NewSchedule(ctx, "repo2Nightly", &Pipeline.ScheduleArgs{
-//				PipelineId: pulumi.Any(buildkite_pipeline.Repo2.Id),
+//			// create a pipeline
+//			_, err := Pipeline.NewPipeline(ctx, "pipeline", &Pipeline.PipelineArgs{
+//				Repository: pulumi.String("https://github.com/..."),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// schedule a build at midnight every day
+//			_, err = Pipeline.NewSchedule(ctx, "nightly", &Pipeline.ScheduleArgs{
+//				PipelineId: pulumi.Any(buildkite_pipeline.Repo.Id),
 //				Label:      pulumi.String("Nightly build"),
 //				Cronline:   pulumi.String("@midnight"),
-//				Branch:     pulumi.Any(buildkite_pipeline.Repo2.Default_branch),
+//				Branch:     pulumi.Any(buildkite_pipeline.Repo.Default_branch),
 //			})
 //			if err != nil {
 //				return err
@@ -49,17 +55,17 @@ import (
 //
 // ## Import
 //
-// Pipeline schedules can be imported using their `GraphQL ID`, e.g.
+// import a pipeline schedule resource using the schedules GraphQL ID
 //
-// ```sh
+// #
 //
-//	$ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
+//	you can use this query to find the schedule:
 //
-// ```
+//	query getPipelineScheduleId {
 //
-//	Your pipeline schedules' GraphQL ID can be found with the below GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/45687b7c-2565-4acb-8a74-750a3647875f), specifying the organisation slug (when known) and the pipeline search term (PIPELINE_SEARCH_TERM). graphql query getPipelineScheduleId {
+//	organization(slug: "ORGANIZATION_SLUG") {
 //
-//	organization(slug"ORGANIZATION_SLUG") { 		pipelines(first5, search"PIPELINE_SEARCH_TERM") {
+//	pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
 //
 //	edges{
 //
@@ -71,7 +77,7 @@ import (
 //
 //	edges{
 //
-// node{
+//	node{
 //
 //	id
 //
@@ -87,27 +93,33 @@ import (
 //
 //	}
 //
-//	} }
+//	}
+//
+//	}
+//
+// ```sh
+// $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
+// ```
 type Schedule struct {
 	pulumi.CustomResourceState
 
-	// The branch to use for the build.
+	// The branch that the schedule should run on.
 	Branch pulumi.StringOutput `pulumi:"branch"`
-	// The commit ref to use for the build.
+	// The commit that the schedule should run on.
 	Commit pulumi.StringOutput `pulumi:"commit"`
-	// Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+	// The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
 	Cronline pulumi.StringOutput `pulumi:"cronline"`
-	// Whether the schedule should run.
+	// Whether the schedule is enabled or not.
 	Enabled pulumi.BoolOutput `pulumi:"enabled"`
-	// A map of environment variables to use for the build.
+	// The environment variables that scheduled builds should use.
 	Env pulumi.StringMapOutput `pulumi:"env"`
-	// Schedule label.
+	// A label to describe the schedule.
 	Label pulumi.StringOutput `pulumi:"label"`
-	// The message to use for the build.
+	// The message the builds show for builds created by this schedule.
 	Message pulumi.StringPtrOutput `pulumi:"message"`
-	// The ID of the pipeline that this schedule belongs to.
+	// The GraphQL ID of the pipeline that this schedule belongs to.
 	PipelineId pulumi.StringOutput `pulumi:"pipelineId"`
-	// The UUID of the pipeline schedule
+	// The UUID of the schedule.
 	Uuid pulumi.StringOutput `pulumi:"uuid"`
 }
 
@@ -153,44 +165,44 @@ func GetSchedule(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Schedule resources.
 type scheduleState struct {
-	// The branch to use for the build.
+	// The branch that the schedule should run on.
 	Branch *string `pulumi:"branch"`
-	// The commit ref to use for the build.
+	// The commit that the schedule should run on.
 	Commit *string `pulumi:"commit"`
-	// Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+	// The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
 	Cronline *string `pulumi:"cronline"`
-	// Whether the schedule should run.
+	// Whether the schedule is enabled or not.
 	Enabled *bool `pulumi:"enabled"`
-	// A map of environment variables to use for the build.
+	// The environment variables that scheduled builds should use.
 	Env map[string]string `pulumi:"env"`
-	// Schedule label.
+	// A label to describe the schedule.
 	Label *string `pulumi:"label"`
-	// The message to use for the build.
+	// The message the builds show for builds created by this schedule.
 	Message *string `pulumi:"message"`
-	// The ID of the pipeline that this schedule belongs to.
+	// The GraphQL ID of the pipeline that this schedule belongs to.
 	PipelineId *string `pulumi:"pipelineId"`
-	// The UUID of the pipeline schedule
+	// The UUID of the schedule.
 	Uuid *string `pulumi:"uuid"`
 }
 
 type ScheduleState struct {
-	// The branch to use for the build.
+	// The branch that the schedule should run on.
 	Branch pulumi.StringPtrInput
-	// The commit ref to use for the build.
+	// The commit that the schedule should run on.
 	Commit pulumi.StringPtrInput
-	// Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+	// The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
 	Cronline pulumi.StringPtrInput
-	// Whether the schedule should run.
+	// Whether the schedule is enabled or not.
 	Enabled pulumi.BoolPtrInput
-	// A map of environment variables to use for the build.
+	// The environment variables that scheduled builds should use.
 	Env pulumi.StringMapInput
-	// Schedule label.
+	// A label to describe the schedule.
 	Label pulumi.StringPtrInput
-	// The message to use for the build.
+	// The message the builds show for builds created by this schedule.
 	Message pulumi.StringPtrInput
-	// The ID of the pipeline that this schedule belongs to.
+	// The GraphQL ID of the pipeline that this schedule belongs to.
 	PipelineId pulumi.StringPtrInput
-	// The UUID of the pipeline schedule
+	// The UUID of the schedule.
 	Uuid pulumi.StringPtrInput
 }
 
@@ -199,41 +211,41 @@ func (ScheduleState) ElementType() reflect.Type {
 }
 
 type scheduleArgs struct {
-	// The branch to use for the build.
+	// The branch that the schedule should run on.
 	Branch string `pulumi:"branch"`
-	// The commit ref to use for the build.
+	// The commit that the schedule should run on.
 	Commit *string `pulumi:"commit"`
-	// Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+	// The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
 	Cronline string `pulumi:"cronline"`
-	// Whether the schedule should run.
+	// Whether the schedule is enabled or not.
 	Enabled *bool `pulumi:"enabled"`
-	// A map of environment variables to use for the build.
+	// The environment variables that scheduled builds should use.
 	Env map[string]string `pulumi:"env"`
-	// Schedule label.
+	// A label to describe the schedule.
 	Label string `pulumi:"label"`
-	// The message to use for the build.
+	// The message the builds show for builds created by this schedule.
 	Message *string `pulumi:"message"`
-	// The ID of the pipeline that this schedule belongs to.
+	// The GraphQL ID of the pipeline that this schedule belongs to.
 	PipelineId string `pulumi:"pipelineId"`
 }
 
 // The set of arguments for constructing a Schedule resource.
 type ScheduleArgs struct {
-	// The branch to use for the build.
+	// The branch that the schedule should run on.
 	Branch pulumi.StringInput
-	// The commit ref to use for the build.
+	// The commit that the schedule should run on.
 	Commit pulumi.StringPtrInput
-	// Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+	// The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
 	Cronline pulumi.StringInput
-	// Whether the schedule should run.
+	// Whether the schedule is enabled or not.
 	Enabled pulumi.BoolPtrInput
-	// A map of environment variables to use for the build.
+	// The environment variables that scheduled builds should use.
 	Env pulumi.StringMapInput
-	// Schedule label.
+	// A label to describe the schedule.
 	Label pulumi.StringInput
-	// The message to use for the build.
+	// The message the builds show for builds created by this schedule.
 	Message pulumi.StringPtrInput
-	// The ID of the pipeline that this schedule belongs to.
+	// The GraphQL ID of the pipeline that this schedule belongs to.
 	PipelineId pulumi.StringInput
 }
 
@@ -324,47 +336,47 @@ func (o ScheduleOutput) ToScheduleOutputWithContext(ctx context.Context) Schedul
 	return o
 }
 
-// The branch to use for the build.
+// The branch that the schedule should run on.
 func (o ScheduleOutput) Branch() pulumi.StringOutput {
 	return o.ApplyT(func(v *Schedule) pulumi.StringOutput { return v.Branch }).(pulumi.StringOutput)
 }
 
-// The commit ref to use for the build.
+// The commit that the schedule should run on.
 func (o ScheduleOutput) Commit() pulumi.StringOutput {
 	return o.ApplyT(func(v *Schedule) pulumi.StringOutput { return v.Commit }).(pulumi.StringOutput)
 }
 
-// Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+// The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
 func (o ScheduleOutput) Cronline() pulumi.StringOutput {
 	return o.ApplyT(func(v *Schedule) pulumi.StringOutput { return v.Cronline }).(pulumi.StringOutput)
 }
 
-// Whether the schedule should run.
+// Whether the schedule is enabled or not.
 func (o ScheduleOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Schedule) pulumi.BoolOutput { return v.Enabled }).(pulumi.BoolOutput)
 }
 
-// A map of environment variables to use for the build.
+// The environment variables that scheduled builds should use.
 func (o ScheduleOutput) Env() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *Schedule) pulumi.StringMapOutput { return v.Env }).(pulumi.StringMapOutput)
 }
 
-// Schedule label.
+// A label to describe the schedule.
 func (o ScheduleOutput) Label() pulumi.StringOutput {
 	return o.ApplyT(func(v *Schedule) pulumi.StringOutput { return v.Label }).(pulumi.StringOutput)
 }
 
-// The message to use for the build.
+// The message the builds show for builds created by this schedule.
 func (o ScheduleOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Schedule) pulumi.StringPtrOutput { return v.Message }).(pulumi.StringPtrOutput)
 }
 
-// The ID of the pipeline that this schedule belongs to.
+// The GraphQL ID of the pipeline that this schedule belongs to.
 func (o ScheduleOutput) PipelineId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Schedule) pulumi.StringOutput { return v.PipelineId }).(pulumi.StringOutput)
 }
 
-// The UUID of the pipeline schedule
+// The UUID of the schedule.
 func (o ScheduleOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *Schedule) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
 }

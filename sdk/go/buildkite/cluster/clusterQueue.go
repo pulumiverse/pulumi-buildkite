@@ -12,11 +12,7 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Resource: clusterQueue
-//
-// This resource allows you to create and manage cluster queues.
-//
-// Buildkite Documentation: https://buildkite.com/docs/clusters/manage-clusters#set-up-clusters-create-a-queue
+// A Cluster Queue is a queue belonging to a specific Cluster for its Agents to target builds on.
 //
 // ## Example Usage
 //
@@ -27,15 +23,32 @@ import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Cluster"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := Cluster.NewClusterQueue(ctx, "queue1", &Cluster.ClusterQueueArgs{
-//				ClusterId:   pulumi.String("Q2x1c3Rlci0tLTMzMDc0ZDhiLTM4MjctNDRkNC05YTQ3LTkwN2E2NWZjODViNg=="),
-//				Description: pulumi.String("Prod deployment cluster queue"),
-//				Key:         pulumi.String("prod-deploy"),
+//			// create a cluster
+//			primary, err := Cluster.NewCluster(ctx, "primary", &Cluster.ClusterArgs{
+//				Description: pulumi.String("Runs the monolith build and deploy"),
+//				Emoji:       pulumi.String("🚀"),
+//				Color:       pulumi.String("#bada55"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = Pipeline.NewPipeline(ctx, "monolith", &Pipeline.PipelineArgs{
+//				Repository: pulumi.String("https://github.com/..."),
+//				ClusterId:  primary.ID(),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// create a queue to put pipeline builds in
+//			_, err = Cluster.NewClusterQueue(ctx, "default", &Cluster.ClusterQueueArgs{
+//				ClusterId: primary.ID(),
+//				Key:       pulumi.String("default"),
 //			})
 //			if err != nil {
 //				return err
@@ -48,41 +61,19 @@ import (
 //
 // ## Import
 //
-// Cluster queues can be imported using its `GraphQL ID`, along with its respective cluster `UUID`, separated by a comma. e.g.
+// import a cluster queue resource using the GraphQL ID along with its respective cluster UUID
 //
-// ```sh
+// #
 //
-//	$ pulumi import buildkite:Cluster/clusterQueue:ClusterQueue test Q2x1c3RlclF1ZXVlLS0tYjJiOGRhNTEtOWY5My00Y2MyLTkyMjktMGRiNzg3ZDQzOTAz,35498aaf-ad05-4fa5-9a07-91bf6cacd2bd
+//	you can use this query to find the ID:
 //
-// ```
+//	query getClusterQueues {
 //
-//	To find the cluster's `UUID` to utilize, you can use the below GraphQL query below. Alternatively, you can use this [pre-saved query](https://buildkite.com/user/graphql/console/3adf0389-02bd-45ef-adcd-4e8e5ae57f25), where you will need fo fill in the organization slug (ORGANIZATION_SLUG) for obtaining the relevant cluster name/`UUID` that the cluster queue is in. graphql query getClusters {
+//	organization(slug: "ORGANIZATION_SLUG") {
 //
-//	organization(slug"ORGANIZATION_SLUG") {
+//	cluster(id: "CLUSTER_UUID") {
 //
-//	clusters(first50) {
-//
-//	edges{
-//
-//	node{
-//
-//	name
-//
-//	uuid
-//
-//	}
-//
-//	}
-//
-//	}
-//
-//	} } After the cluster `UUID` has been found, you can use the below GraphQL query to find the cluster queue's `GraphQL ID`. Alternatively, this [pre-saved query](https://buildkite.com/user/graphql/console/1d913905-900e-40e7-8f46-651543487b5a) can be used, specifying the organization slug (ORGANIZATION_SLUG) and the cluster `UUID` from above (CLUSTER_UUID). graphql query getClusterQueues {
-//
-//	organization(slug"ORGANIZATION_SLUG") {
-//
-//	cluster(id"CLUSTER_UUID") {
-//
-//	queues(first50) {
+//	queues(first: 50) {
 //
 //	edges {
 //
@@ -100,19 +91,25 @@ import (
 //
 //	}
 //
-//	} }
+//	}
+//
+//	}
+//
+// ```sh
+// $ pulumi import buildkite:Cluster/clusterQueue:ClusterQueue test Q2x1c3RlclF1ZXVlLS0tYjJiOGRhNTEtOWY5My00Y2MyLTkyMjktMGRiNzg3ZDQzOTAz,35498aaf-ad05-4fa5-9a07-91bf6cacd2bd
+// ```
 type ClusterQueue struct {
 	pulumi.CustomResourceState
 
 	// The ID of the cluster that this cluster queue belongs to.
 	ClusterId pulumi.StringOutput `pulumi:"clusterId"`
-	// The UUID of the cluster that this cluster queue belongs to.
+	// The UUID of the cluster this queue belongs to.
 	ClusterUuid pulumi.StringOutput `pulumi:"clusterUuid"`
-	// The description of the cluster queue.
+	// A description for the cluster queue.
 	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// The key of the cluster queue.
 	Key pulumi.StringOutput `pulumi:"key"`
-	// The UUID of the created cluster queue.
+	// The UUID of the cluster queue.
 	Uuid pulumi.StringOutput `pulumi:"uuid"`
 }
 
@@ -154,26 +151,26 @@ func GetClusterQueue(ctx *pulumi.Context,
 type clusterQueueState struct {
 	// The ID of the cluster that this cluster queue belongs to.
 	ClusterId *string `pulumi:"clusterId"`
-	// The UUID of the cluster that this cluster queue belongs to.
+	// The UUID of the cluster this queue belongs to.
 	ClusterUuid *string `pulumi:"clusterUuid"`
-	// The description of the cluster queue.
+	// A description for the cluster queue.
 	Description *string `pulumi:"description"`
 	// The key of the cluster queue.
 	Key *string `pulumi:"key"`
-	// The UUID of the created cluster queue.
+	// The UUID of the cluster queue.
 	Uuid *string `pulumi:"uuid"`
 }
 
 type ClusterQueueState struct {
 	// The ID of the cluster that this cluster queue belongs to.
 	ClusterId pulumi.StringPtrInput
-	// The UUID of the cluster that this cluster queue belongs to.
+	// The UUID of the cluster this queue belongs to.
 	ClusterUuid pulumi.StringPtrInput
-	// The description of the cluster queue.
+	// A description for the cluster queue.
 	Description pulumi.StringPtrInput
 	// The key of the cluster queue.
 	Key pulumi.StringPtrInput
-	// The UUID of the created cluster queue.
+	// The UUID of the cluster queue.
 	Uuid pulumi.StringPtrInput
 }
 
@@ -184,7 +181,7 @@ func (ClusterQueueState) ElementType() reflect.Type {
 type clusterQueueArgs struct {
 	// The ID of the cluster that this cluster queue belongs to.
 	ClusterId string `pulumi:"clusterId"`
-	// The description of the cluster queue.
+	// A description for the cluster queue.
 	Description *string `pulumi:"description"`
 	// The key of the cluster queue.
 	Key string `pulumi:"key"`
@@ -194,7 +191,7 @@ type clusterQueueArgs struct {
 type ClusterQueueArgs struct {
 	// The ID of the cluster that this cluster queue belongs to.
 	ClusterId pulumi.StringInput
-	// The description of the cluster queue.
+	// A description for the cluster queue.
 	Description pulumi.StringPtrInput
 	// The key of the cluster queue.
 	Key pulumi.StringInput
@@ -292,12 +289,12 @@ func (o ClusterQueueOutput) ClusterId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterQueue) pulumi.StringOutput { return v.ClusterId }).(pulumi.StringOutput)
 }
 
-// The UUID of the cluster that this cluster queue belongs to.
+// The UUID of the cluster this queue belongs to.
 func (o ClusterQueueOutput) ClusterUuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterQueue) pulumi.StringOutput { return v.ClusterUuid }).(pulumi.StringOutput)
 }
 
-// The description of the cluster queue.
+// A description for the cluster queue.
 func (o ClusterQueueOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterQueue) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
@@ -307,7 +304,7 @@ func (o ClusterQueueOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterQueue) pulumi.StringOutput { return v.Key }).(pulumi.StringOutput)
 }
 
-// The UUID of the created cluster queue.
+// The UUID of the cluster queue.
 func (o ClusterQueueOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterQueue) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
 }

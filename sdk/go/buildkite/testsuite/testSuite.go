@@ -12,11 +12,7 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Resource: testSuite
-//
-// This resources allows you to create and manage a Test Suite.
-//
-// Buildkite documentation: https://buildkite.com/docs/test-analytics
+// A test suite is a collection of tests. A run is to a suite what a build is to a Pipeline.Use this resource to manage [Test Suites](https://buildkite.com/docs/test-analytics) on Buildkite.
 //
 // ## Example Usage
 //
@@ -26,24 +22,16 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Team"
 //	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/TestSuite"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			test, err := Team.NewTeam(ctx, "test", &Team.TeamArgs{
-//				Privacy:           pulumi.String("VISIBLE"),
-//				DefaultTeam:       pulumi.Bool(false),
-//				DefaultMemberRole: pulumi.String("MEMBER"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = TestSuite.NewTestSuite(ctx, "unitTests", &TestSuite.TestSuiteArgs{
+//			// create a test suite for the main repository
+//			_, err := TestSuite.NewTestSuite(ctx, "main", &TestSuite.TestSuiteArgs{
 //				DefaultBranch: pulumi.String("main"),
-//				TeamOwnerId:   test.ID(),
+//				TeamOwnerId:   pulumi.String("VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi"),
 //			})
 //			if err != nil {
 //				return err
@@ -56,17 +44,17 @@ import (
 type TestSuite struct {
 	pulumi.CustomResourceState
 
-	// This is the unique API token used when send test results.
+	// The API token to use to send test run data to the API.
 	ApiToken pulumi.StringOutput `pulumi:"apiToken"`
-	// This is the default branch used to compare tests against.
+	// The default branch for the repository this test suite is for.
 	DefaultBranch pulumi.StringOutput `pulumi:"defaultBranch"`
-	// This is the name of the test suite.
+	// The name to give the test suite.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// This is the unique slug generated from the name upon creation.
+	// The generated slug of the test suite.
 	Slug pulumi.StringOutput `pulumi:"slug"`
-	// This is a single team linked to the test suite upon creation.
+	// The GraphQL ID of the team to mark as the owner/admin of the test suite.
 	TeamOwnerId pulumi.StringOutput `pulumi:"teamOwnerId"`
-	// This is the UUID of the suite.
+	// The UUID of the test suite.
 	Uuid pulumi.StringOutput `pulumi:"uuid"`
 }
 
@@ -110,32 +98,32 @@ func GetTestSuite(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering TestSuite resources.
 type testSuiteState struct {
-	// This is the unique API token used when send test results.
+	// The API token to use to send test run data to the API.
 	ApiToken *string `pulumi:"apiToken"`
-	// This is the default branch used to compare tests against.
+	// The default branch for the repository this test suite is for.
 	DefaultBranch *string `pulumi:"defaultBranch"`
-	// This is the name of the test suite.
+	// The name to give the test suite.
 	Name *string `pulumi:"name"`
-	// This is the unique slug generated from the name upon creation.
+	// The generated slug of the test suite.
 	Slug *string `pulumi:"slug"`
-	// This is a single team linked to the test suite upon creation.
+	// The GraphQL ID of the team to mark as the owner/admin of the test suite.
 	TeamOwnerId *string `pulumi:"teamOwnerId"`
-	// This is the UUID of the suite.
+	// The UUID of the test suite.
 	Uuid *string `pulumi:"uuid"`
 }
 
 type TestSuiteState struct {
-	// This is the unique API token used when send test results.
+	// The API token to use to send test run data to the API.
 	ApiToken pulumi.StringPtrInput
-	// This is the default branch used to compare tests against.
+	// The default branch for the repository this test suite is for.
 	DefaultBranch pulumi.StringPtrInput
-	// This is the name of the test suite.
+	// The name to give the test suite.
 	Name pulumi.StringPtrInput
-	// This is the unique slug generated from the name upon creation.
+	// The generated slug of the test suite.
 	Slug pulumi.StringPtrInput
-	// This is a single team linked to the test suite upon creation.
+	// The GraphQL ID of the team to mark as the owner/admin of the test suite.
 	TeamOwnerId pulumi.StringPtrInput
-	// This is the UUID of the suite.
+	// The UUID of the test suite.
 	Uuid pulumi.StringPtrInput
 }
 
@@ -144,21 +132,21 @@ func (TestSuiteState) ElementType() reflect.Type {
 }
 
 type testSuiteArgs struct {
-	// This is the default branch used to compare tests against.
+	// The default branch for the repository this test suite is for.
 	DefaultBranch string `pulumi:"defaultBranch"`
-	// This is the name of the test suite.
+	// The name to give the test suite.
 	Name *string `pulumi:"name"`
-	// This is a single team linked to the test suite upon creation.
+	// The GraphQL ID of the team to mark as the owner/admin of the test suite.
 	TeamOwnerId string `pulumi:"teamOwnerId"`
 }
 
 // The set of arguments for constructing a TestSuite resource.
 type TestSuiteArgs struct {
-	// This is the default branch used to compare tests against.
+	// The default branch for the repository this test suite is for.
 	DefaultBranch pulumi.StringInput
-	// This is the name of the test suite.
+	// The name to give the test suite.
 	Name pulumi.StringPtrInput
-	// This is a single team linked to the test suite upon creation.
+	// The GraphQL ID of the team to mark as the owner/admin of the test suite.
 	TeamOwnerId pulumi.StringInput
 }
 
@@ -249,32 +237,32 @@ func (o TestSuiteOutput) ToTestSuiteOutputWithContext(ctx context.Context) TestS
 	return o
 }
 
-// This is the unique API token used when send test results.
+// The API token to use to send test run data to the API.
 func (o TestSuiteOutput) ApiToken() pulumi.StringOutput {
 	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.ApiToken }).(pulumi.StringOutput)
 }
 
-// This is the default branch used to compare tests against.
+// The default branch for the repository this test suite is for.
 func (o TestSuiteOutput) DefaultBranch() pulumi.StringOutput {
 	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.DefaultBranch }).(pulumi.StringOutput)
 }
 
-// This is the name of the test suite.
+// The name to give the test suite.
 func (o TestSuiteOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// This is the unique slug generated from the name upon creation.
+// The generated slug of the test suite.
 func (o TestSuiteOutput) Slug() pulumi.StringOutput {
 	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.Slug }).(pulumi.StringOutput)
 }
 
-// This is a single team linked to the test suite upon creation.
+// The GraphQL ID of the team to mark as the owner/admin of the test suite.
 func (o TestSuiteOutput) TeamOwnerId() pulumi.StringOutput {
 	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.TeamOwnerId }).(pulumi.StringOutput)
 }
 
-// This is the UUID of the suite.
+// The UUID of the test suite.
 func (o TestSuiteOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
 }

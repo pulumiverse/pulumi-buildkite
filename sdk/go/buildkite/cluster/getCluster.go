@@ -11,6 +11,42 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
+// Use this data source to retrieve a cluster by name. You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/clusters/overview).
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Cluster"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_default, err := Cluster.GetCluster(ctx, &cluster.GetClusterArgs{
+//				Name: "default",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			// Assign a pipeline to that cluster
+//			_, err = Pipeline.NewPipeline(ctx, "terraform-provider-buildkite", &Pipeline.PipelineArgs{
+//				Repository: pulumi.String("git@github.com:buildkite/terraform-provider-buildkite.git"),
+//				ClusterId:  *pulumi.String(_default.Id),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupCluster(ctx *pulumi.Context, args *LookupClusterArgs, opts ...pulumi.InvokeOption) (*LookupClusterResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupClusterResult
@@ -23,22 +59,23 @@ func LookupCluster(ctx *pulumi.Context, args *LookupClusterArgs, opts ...pulumi.
 
 // A collection of arguments for invoking getCluster.
 type LookupClusterArgs struct {
-	// The name of the cluster to lookup.
+	// The name of the cluster to retrieve.
 	Name string `pulumi:"name"`
 }
 
 // A collection of values returned by getCluster.
 type LookupClusterResult struct {
-	// The color given the cluster.
+	// The color of the cluster.
 	Color string `pulumi:"color"`
 	// The description of the cluster.
 	Description string `pulumi:"description"`
-	// The emoji given the cluster.
+	// The emoji of the cluster.
 	Emoji string `pulumi:"emoji"`
 	// The GraphQL ID of the cluster.
-	Id   string `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// The name of the cluster to retrieve.
 	Name string `pulumi:"name"`
-	// The UUID of the cluster.
+	// The UUID of the cluster
 	Uuid string `pulumi:"uuid"`
 }
 
@@ -57,7 +94,7 @@ func LookupClusterOutput(ctx *pulumi.Context, args LookupClusterOutputArgs, opts
 
 // A collection of arguments for invoking getCluster.
 type LookupClusterOutputArgs struct {
-	// The name of the cluster to lookup.
+	// The name of the cluster to retrieve.
 	Name pulumi.StringInput `pulumi:"name"`
 }
 
@@ -80,7 +117,7 @@ func (o LookupClusterResultOutput) ToLookupClusterResultOutputWithContext(ctx co
 	return o
 }
 
-// The color given the cluster.
+// The color of the cluster.
 func (o LookupClusterResultOutput) Color() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupClusterResult) string { return v.Color }).(pulumi.StringOutput)
 }
@@ -90,7 +127,7 @@ func (o LookupClusterResultOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupClusterResult) string { return v.Description }).(pulumi.StringOutput)
 }
 
-// The emoji given the cluster.
+// The emoji of the cluster.
 func (o LookupClusterResultOutput) Emoji() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupClusterResult) string { return v.Emoji }).(pulumi.StringOutput)
 }
@@ -100,11 +137,12 @@ func (o LookupClusterResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupClusterResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The name of the cluster to retrieve.
 func (o LookupClusterResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupClusterResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// The UUID of the cluster.
+// The UUID of the cluster
 func (o LookupClusterResultOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupClusterResult) string { return v.Uuid }).(pulumi.StringOutput)
 }

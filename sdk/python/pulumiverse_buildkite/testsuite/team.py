@@ -19,7 +19,7 @@ class TeamArgs:
                  test_suite_id: pulumi.Input[str]):
         """
         The set of arguments for constructing a Team resource.
-        :param pulumi.Input[str] access_level: The access level the team has on the test suite. Either READ_ONLY or MANAGE_AND_READ.
+        :param pulumi.Input[str] access_level: The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
         :param pulumi.Input[str] team_id: The GraphQL ID of the team.
         :param pulumi.Input[str] test_suite_id: The GraphQL ID of the test suite.
         """
@@ -31,7 +31,7 @@ class TeamArgs:
     @pulumi.getter(name="accessLevel")
     def access_level(self) -> pulumi.Input[str]:
         """
-        The access level the team has on the test suite. Either READ_ONLY or MANAGE_AND_READ.
+        The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
         """
         return pulumi.get(self, "access_level")
 
@@ -73,10 +73,10 @@ class _TeamState:
                  uuid: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Team resources.
-        :param pulumi.Input[str] access_level: The access level the team has on the test suite. Either READ_ONLY or MANAGE_AND_READ.
+        :param pulumi.Input[str] access_level: The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
         :param pulumi.Input[str] team_id: The GraphQL ID of the team.
         :param pulumi.Input[str] test_suite_id: The GraphQL ID of the test suite.
-        :param pulumi.Input[str] uuid: This is the UUID of the test suite team.
+        :param pulumi.Input[str] uuid: The UUID of the test suite-team relationship.
         """
         if access_level is not None:
             pulumi.set(__self__, "access_level", access_level)
@@ -91,7 +91,7 @@ class _TeamState:
     @pulumi.getter(name="accessLevel")
     def access_level(self) -> Optional[pulumi.Input[str]]:
         """
-        The access level the team has on the test suite. Either READ_ONLY or MANAGE_AND_READ.
+        The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
         """
         return pulumi.get(self, "access_level")
 
@@ -127,7 +127,7 @@ class _TeamState:
     @pulumi.getter
     def uuid(self) -> Optional[pulumi.Input[str]]:
         """
-        This is the UUID of the test suite team.
+        The UUID of the test suite-team relationship.
         """
         return pulumi.get(self, "uuid")
 
@@ -146,11 +146,7 @@ class Team(pulumi.CustomResource):
                  test_suite_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## # Resource: test_suite_team
-
-        This resources allows you to create, manage and import team access to Test Suites.
-
-        Buildkite documentation: https://buildkite.com/docs/test-analytics
+        Manage team access to a test suite.
 
         ## Example Usage
 
@@ -158,36 +154,30 @@ class Team(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        owners = buildkite.team.Team("owners",
-            default_team=False,
-            privacy="VISIBLE",
-            default_member_role="MAINTAINER")
-        viewers = buildkite.team.Team("viewers",
-            default_team=False,
-            privacy="VISIBLE",
-            default_member_role="MAINTAINER")
-        rspec_suite = buildkite.test_suite.TestSuite("rspecSuite",
+        # create a test suite
+        main = buildkite.test_suite.TestSuite("main",
             default_branch="main",
-            team_owner_id=owners.id)
-        viewers_rspec = buildkite.test_suite.Team("viewersRspec",
-            test_suite_id=rspec_suite.id,
-            team_id=viewers.id,
-            access_level="READ_ONLY")
+            team_owner_id="VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==")
+        # give the "everyone" team manage access to the "main" test suite
+        main_everyone = buildkite.test_suite.Team("mainEveryone",
+            test_suite_id=main.id,
+            team_id="VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==",
+            access_level="MANAGE_AND_READ")
         ```
 
         ## Import
 
-        Test suite teams can be imported using the `GraphQL ID` (not UUID), e.g.
+        import a test suite team resource using the GraphQL ID
 
-        ```sh
-         $ pulumi import buildkite:TestSuite/team:Team viewers VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi
-        ```
+        # 
 
-         To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/e8480014-37a8-4150-a011-6d35f33b4dfd), where you will need fo fill in the organization slug and suite search term (SUITE_SEARCH_TERM) for the particular test suite required. graphql query getTeamSuiteIds {
+         you can use this query to find the ID:
 
-         organization(slug"ORGANIZATION_SLUG") {
+         query getTeamSuiteIds {
 
-         suites(first1, search:"SUITE_SEARCH_TERM") {
+         organization(slug: "ORGANIZATION_SLUG") {
+
+         suites(first: 1, search:"SUITE_SEARCH_TERM") {
 
          edges {
 
@@ -197,7 +187,7 @@ class Team(pulumi.CustomResource):
 
          name
 
-         teams(first10){
+         teams(first: 10){
 
          edges {
 
@@ -225,11 +215,17 @@ class Team(pulumi.CustomResource):
 
          }
 
-         } }
+         }
+
+         }
+
+        ```sh
+        $ pulumi import buildkite:TestSuite/team:Team main_everyone VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi
+        ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] access_level: The access level the team has on the test suite. Either READ_ONLY or MANAGE_AND_READ.
+        :param pulumi.Input[str] access_level: The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
         :param pulumi.Input[str] team_id: The GraphQL ID of the team.
         :param pulumi.Input[str] test_suite_id: The GraphQL ID of the test suite.
         """
@@ -240,11 +236,7 @@ class Team(pulumi.CustomResource):
                  args: TeamArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # Resource: test_suite_team
-
-        This resources allows you to create, manage and import team access to Test Suites.
-
-        Buildkite documentation: https://buildkite.com/docs/test-analytics
+        Manage team access to a test suite.
 
         ## Example Usage
 
@@ -252,36 +244,30 @@ class Team(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        owners = buildkite.team.Team("owners",
-            default_team=False,
-            privacy="VISIBLE",
-            default_member_role="MAINTAINER")
-        viewers = buildkite.team.Team("viewers",
-            default_team=False,
-            privacy="VISIBLE",
-            default_member_role="MAINTAINER")
-        rspec_suite = buildkite.test_suite.TestSuite("rspecSuite",
+        # create a test suite
+        main = buildkite.test_suite.TestSuite("main",
             default_branch="main",
-            team_owner_id=owners.id)
-        viewers_rspec = buildkite.test_suite.Team("viewersRspec",
-            test_suite_id=rspec_suite.id,
-            team_id=viewers.id,
-            access_level="READ_ONLY")
+            team_owner_id="VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==")
+        # give the "everyone" team manage access to the "main" test suite
+        main_everyone = buildkite.test_suite.Team("mainEveryone",
+            test_suite_id=main.id,
+            team_id="VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==",
+            access_level="MANAGE_AND_READ")
         ```
 
         ## Import
 
-        Test suite teams can be imported using the `GraphQL ID` (not UUID), e.g.
+        import a test suite team resource using the GraphQL ID
 
-        ```sh
-         $ pulumi import buildkite:TestSuite/team:Team viewers VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi
-        ```
+        # 
 
-         To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/e8480014-37a8-4150-a011-6d35f33b4dfd), where you will need fo fill in the organization slug and suite search term (SUITE_SEARCH_TERM) for the particular test suite required. graphql query getTeamSuiteIds {
+         you can use this query to find the ID:
 
-         organization(slug"ORGANIZATION_SLUG") {
+         query getTeamSuiteIds {
 
-         suites(first1, search:"SUITE_SEARCH_TERM") {
+         organization(slug: "ORGANIZATION_SLUG") {
+
+         suites(first: 1, search:"SUITE_SEARCH_TERM") {
 
          edges {
 
@@ -291,7 +277,7 @@ class Team(pulumi.CustomResource):
 
          name
 
-         teams(first10){
+         teams(first: 10){
 
          edges {
 
@@ -319,7 +305,13 @@ class Team(pulumi.CustomResource):
 
          }
 
-         } }
+         }
+
+         }
+
+        ```sh
+        $ pulumi import buildkite:TestSuite/team:Team main_everyone VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi
+        ```
 
         :param str resource_name: The name of the resource.
         :param TeamArgs args: The arguments to use to populate this resource's properties.
@@ -379,10 +371,10 @@ class Team(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] access_level: The access level the team has on the test suite. Either READ_ONLY or MANAGE_AND_READ.
+        :param pulumi.Input[str] access_level: The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
         :param pulumi.Input[str] team_id: The GraphQL ID of the team.
         :param pulumi.Input[str] test_suite_id: The GraphQL ID of the test suite.
-        :param pulumi.Input[str] uuid: This is the UUID of the test suite team.
+        :param pulumi.Input[str] uuid: The UUID of the test suite-team relationship.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -398,7 +390,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter(name="accessLevel")
     def access_level(self) -> pulumi.Output[str]:
         """
-        The access level the team has on the test suite. Either READ_ONLY or MANAGE_AND_READ.
+        The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
         """
         return pulumi.get(self, "access_level")
 
@@ -422,7 +414,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter
     def uuid(self) -> pulumi.Output[str]:
         """
-        This is the UUID of the test suite team.
+        The UUID of the test suite-team relationship.
         """
         return pulumi.get(self, "uuid")
 

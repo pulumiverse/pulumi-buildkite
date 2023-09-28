@@ -11,12 +11,9 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Data Source: pipeline
+// Use this data source to look up properties on a specific pipeline. This is particularly useful for looking up the webhook URL for each pipeline.
 //
-// Use this data source to look up properties on a specific pipeline. This is
-// particularly useful for looking up the webhook URL for each pipeline.
-//
-// Buildkite Documentation: https://buildkite.com/docs/pipelines
+// More info in the Buildkite [documentation](https://buildkite.com/docs/pipelines).
 //
 // ## Example Usage
 //
@@ -33,7 +30,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			_, err := Pipeline.GetPipeline(ctx, &pipeline.GetPipelineArgs{
-//				Slug: "repo2",
+//				Slug: "buildkite",
 //			}, nil)
 //			if err != nil {
 //				return err
@@ -55,22 +52,26 @@ func LookupPipeline(ctx *pulumi.Context, args *LookupPipelineArgs, opts ...pulum
 
 // A collection of arguments for invoking getPipeline.
 type LookupPipelineArgs struct {
-	// The slug of the pipeline, available in the URL of the pipeline on buildkite.com
+	// The slug of the pipeline.
 	Slug string `pulumi:"slug"`
 }
 
 // A collection of values returned by getPipeline.
 type LookupPipelineResult struct {
-	// The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+	// The default branch to prefill when new builds are created or triggered.
 	DefaultBranch string `pulumi:"defaultBranch"`
-	// A description of the pipeline.
+	// The description of the pipeline.
 	Description string `pulumi:"description"`
-	Id          string `pulumi:"id"`
+	// The GraphQL ID of the pipeline.
+	Id string `pulumi:"id"`
 	// The name of the pipeline.
 	Name string `pulumi:"name"`
 	// The git URL of the repository.
 	Repository string `pulumi:"repository"`
-	Slug       string `pulumi:"slug"`
+	// The slug of the pipeline.
+	Slug string `pulumi:"slug"`
+	// The UUID of the pipeline.
+	Uuid string `pulumi:"uuid"`
 	// The Buildkite webhook URL that triggers builds on this pipeline.
 	WebhookUrl string `pulumi:"webhookUrl"`
 }
@@ -90,7 +91,7 @@ func LookupPipelineOutput(ctx *pulumi.Context, args LookupPipelineOutputArgs, op
 
 // A collection of arguments for invoking getPipeline.
 type LookupPipelineOutputArgs struct {
-	// The slug of the pipeline, available in the URL of the pipeline on buildkite.com
+	// The slug of the pipeline.
 	Slug pulumi.StringInput `pulumi:"slug"`
 }
 
@@ -113,16 +114,17 @@ func (o LookupPipelineResultOutput) ToLookupPipelineResultOutputWithContext(ctx 
 	return o
 }
 
-// The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+// The default branch to prefill when new builds are created or triggered.
 func (o LookupPipelineResultOutput) DefaultBranch() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPipelineResult) string { return v.DefaultBranch }).(pulumi.StringOutput)
 }
 
-// A description of the pipeline.
+// The description of the pipeline.
 func (o LookupPipelineResultOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPipelineResult) string { return v.Description }).(pulumi.StringOutput)
 }
 
+// The GraphQL ID of the pipeline.
 func (o LookupPipelineResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPipelineResult) string { return v.Id }).(pulumi.StringOutput)
 }
@@ -137,8 +139,14 @@ func (o LookupPipelineResultOutput) Repository() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPipelineResult) string { return v.Repository }).(pulumi.StringOutput)
 }
 
+// The slug of the pipeline.
 func (o LookupPipelineResultOutput) Slug() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPipelineResult) string { return v.Slug }).(pulumi.StringOutput)
+}
+
+// The UUID of the pipeline.
+func (o LookupPipelineResultOutput) Uuid() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupPipelineResult) string { return v.Uuid }).(pulumi.StringOutput)
 }
 
 // The Buildkite webhook URL that triggers builds on this pipeline.

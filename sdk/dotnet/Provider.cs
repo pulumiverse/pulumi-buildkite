@@ -20,25 +20,31 @@ namespace Pulumiverse.Buildkite
     public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
-        /// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
+        /// API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can
+        /// generate a token from [your settings
+        /// page](https://buildkite.com/user/api-access-tokens/new?description=terraform&amp;scopes[]=write_pipelines&amp;scopes[]=write_suites&amp;scopes[]=read_pipelines&amp;scopes[]=graphql).
+        /// If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
         /// </summary>
         [Output("apiToken")]
         public Output<string?> ApiToken { get; private set; } = null!;
 
         /// <summary>
-        /// Base URL for the GraphQL API to use
+        /// Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+        /// variable.
         /// </summary>
         [Output("graphqlUrl")]
         public Output<string?> GraphqlUrl { get; private set; } = null!;
 
         /// <summary>
-        /// The Buildkite organization slug
+        /// The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+        /// page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
         /// </summary>
         [Output("organization")]
         public Output<string?> Organization { get; private set; } = null!;
 
         /// <summary>
-        /// Base URL for the REST API to use
+        /// Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+        /// variable.
         /// </summary>
         [Output("restUrl")]
         public Output<string?> RestUrl { get; private set; } = null!;
@@ -80,7 +86,10 @@ namespace Pulumiverse.Buildkite
         private Input<string>? _apiToken;
 
         /// <summary>
-        /// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
+        /// API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can
+        /// generate a token from [your settings
+        /// page](https://buildkite.com/user/api-access-tokens/new?description=terraform&amp;scopes[]=write_pipelines&amp;scopes[]=write_suites&amp;scopes[]=read_pipelines&amp;scopes[]=graphql).
+        /// If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
         /// </summary>
         public Input<string>? ApiToken
         {
@@ -93,28 +102,34 @@ namespace Pulumiverse.Buildkite
         }
 
         /// <summary>
-        /// Archive pipelines when destroying instead of completely deleting.
+        /// Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
         /// </summary>
         [Input("archivePipelineOnDelete", json: true)]
         public Input<bool>? ArchivePipelineOnDelete { get; set; }
 
         /// <summary>
-        /// Base URL for the GraphQL API to use
+        /// Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+        /// variable.
         /// </summary>
         [Input("graphqlUrl")]
         public Input<string>? GraphqlUrl { get; set; }
 
         /// <summary>
-        /// The Buildkite organization slug
+        /// The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+        /// page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
         /// </summary>
         [Input("organization")]
         public Input<string>? Organization { get; set; }
 
         /// <summary>
-        /// Base URL for the REST API to use
+        /// Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+        /// variable.
         /// </summary>
         [Input("restUrl")]
         public Input<string>? RestUrl { get; set; }
+
+        [Input("timeouts", json: true)]
+        public Input<Inputs.ProviderTimeoutsArgs>? Timeouts { get; set; }
 
         public ProviderArgs()
         {

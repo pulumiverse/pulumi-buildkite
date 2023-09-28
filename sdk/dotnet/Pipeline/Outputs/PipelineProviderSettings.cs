@@ -26,33 +26,32 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         /// Whether to create builds for pull requests when labels are added or removed.
         /// </summary>
         public readonly bool? BuildPullRequestLabelsChanged;
+        /// <summary>
+        /// Whether to create a build when a pull request changes to "Ready for review".
+        /// </summary>
         public readonly bool? BuildPullRequestReadyForReview;
         /// <summary>
-        /// Whether to create builds for commits that are part of a Pull Request.
+        /// Whether to create builds for commits that are part of a pull request.
         /// </summary>
         public readonly bool? BuildPullRequests;
         /// <summary>
         /// Whether to create builds when tags are pushed.
-        /// 
-        /// Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
         /// </summary>
         public readonly bool? BuildTags;
         /// <summary>
-        /// A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
-        /// 
-        /// Additional properties available for GitHub:
+        /// Automatically cancel running builds for a branch if the branch is deleted.
         /// </summary>
         public readonly bool? CancelDeletedBranchBuilds;
         /// <summary>
-        /// The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines)
+        /// The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines).
         /// </summary>
         public readonly string? FilterCondition;
         /// <summary>
-        /// [true/false] Whether to filter builds to only run when the condition in `filter_condition` is true
+        /// Whether to filter builds to only run when the condition in `filter_condition` is true.
         /// </summary>
         public readonly bool? FilterEnabled;
         /// <summary>
-        /// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the `master` branch from `some-user` will become `some-user:master`.
+        /// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
         /// </summary>
         public readonly bool? PrefixPullRequestForkBranchNames;
         /// <summary>
@@ -68,11 +67,11 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         /// </summary>
         public readonly bool? PublishCommitStatusPerStep;
         /// <summary>
-        /// The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+        /// Filter pull requests builds by the branch filter.
         /// </summary>
         public readonly string? PullRequestBranchFilterConfiguration;
         /// <summary>
-        /// Whether to limit the creation of builds to specific branches or patterns.
+        /// Filter pull request builds.
         /// </summary>
         public readonly bool? PullRequestBranchFilterEnabled;
         /// <summary>
@@ -80,7 +79,7 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         /// </summary>
         public readonly bool? SeparatePullRequestStatuses;
         /// <summary>
-        /// Whether to skip creating a new build if an existing build for the commit and branch already exists.
+        /// Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
         /// </summary>
         public readonly bool? SkipBuildsForExistingCommits;
         /// <summary>
@@ -89,6 +88,12 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         public readonly bool? SkipPullRequestBuildsForExistingCommits;
         /// <summary>
         /// What type of event to trigger builds on. Must be one of:
+        /// 	- `code` will create builds when code is pushed to GitHub.
+        /// 	- `deployment` will create builds when a deployment is created in GitHub.
+        /// 	- `fork` will create builds when the GitHub repository is forked.
+        /// 	- `none` will not create any builds based on GitHub activity.
+        /// 
+        /// 	&gt; `trigger_mode` is only valid if the pipeline uses a GitHub repository.
         /// </summary>
         public readonly string? TriggerMode;
 

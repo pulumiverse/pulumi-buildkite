@@ -4,52 +4,14 @@
 package organization
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Data Source: organization
-//
-// Use this data source to look up the organization settings. It currently supports
-// allowed_api_ip_addresses.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws/ec2"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Organization"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := Organization.GetOrganization(ctx, nil, nil)
-//			if err != nil {
-//				return err
-//			}
-//			_, err = ec2.NewSecurityGroup(ctx, "fromBuildkite", &ec2.SecurityGroupArgs{
-//				Ingress: ec2.SecurityGroupIngressArray{
-//					&ec2.SecurityGroupIngressArgs{
-//						FromPort:   pulumi.Int("*"),
-//						ToPort:     pulumi.Int(443),
-//						Protocol:   pulumi.String("tcp"),
-//						CidrBlocks: pulumi.Any(data.Buildkite_organization.Allowed_api_ip_addresses),
-//					},
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
+// Use this data source to look up the organization settings.
 func LookupOrganization(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*LookupOrganizationResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupOrganizationResult
@@ -62,8 +24,55 @@ func LookupOrganization(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*Look
 
 // A collection of values returned by getOrganization.
 type LookupOrganizationResult struct {
-	// list of IP addresses in CIDR format that are allowed to access the Buildkite API.
+	// List of IP addresses in CIDR format that are allowed to access the Buildkite API for this organization.
 	AllowedApiIpAddresses []string `pulumi:"allowedApiIpAddresses"`
-	Id                    string   `pulumi:"id"`
-	Uuid                  string   `pulumi:"uuid"`
+	// The GraphQL ID of the organization.
+	Id string `pulumi:"id"`
+	// The UUID of the organization.
+	Uuid string `pulumi:"uuid"`
+}
+
+func LookupOrganizationOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) LookupOrganizationResultOutput {
+	return pulumi.ToOutput(0).ApplyT(func(int) (LookupOrganizationResult, error) {
+		r, err := LookupOrganization(ctx, opts...)
+		var s LookupOrganizationResult
+		if r != nil {
+			s = *r
+		}
+		return s, err
+	}).(LookupOrganizationResultOutput)
+}
+
+// A collection of values returned by getOrganization.
+type LookupOrganizationResultOutput struct{ *pulumi.OutputState }
+
+func (LookupOrganizationResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupOrganizationResult)(nil)).Elem()
+}
+
+func (o LookupOrganizationResultOutput) ToLookupOrganizationResultOutput() LookupOrganizationResultOutput {
+	return o
+}
+
+func (o LookupOrganizationResultOutput) ToLookupOrganizationResultOutputWithContext(ctx context.Context) LookupOrganizationResultOutput {
+	return o
+}
+
+// List of IP addresses in CIDR format that are allowed to access the Buildkite API for this organization.
+func (o LookupOrganizationResultOutput) AllowedApiIpAddresses() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v LookupOrganizationResult) []string { return v.AllowedApiIpAddresses }).(pulumi.StringArrayOutput)
+}
+
+// The GraphQL ID of the organization.
+func (o LookupOrganizationResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupOrganizationResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// The UUID of the organization.
+func (o LookupOrganizationResultOutput) Uuid() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupOrganizationResult) string { return v.Uuid }).(pulumi.StringOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(LookupOrganizationResultOutput{})
 }

@@ -6,8 +6,11 @@ from .. import _utilities
 import typing
 # Export this package's modules as members:
 from .get_pipeline import *
+from .get_signed_steps import *
+from .get_template import *
 from .pipeline import *
 from .schedule import *
 from .team import *
+from .template import *
 from ._inputs import *
 from . import outputs

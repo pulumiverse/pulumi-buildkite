@@ -24,14 +24,14 @@ class ScheduleArgs:
                  message: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Schedule resource.
-        :param pulumi.Input[str] branch: The branch to use for the build.
-        :param pulumi.Input[str] cronline: Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
-        :param pulumi.Input[str] label: Schedule label.
-        :param pulumi.Input[str] pipeline_id: The ID of the pipeline that this schedule belongs to.
-        :param pulumi.Input[str] commit: The commit ref to use for the build.
-        :param pulumi.Input[bool] enabled: Whether the schedule should run.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] env: A map of environment variables to use for the build.
-        :param pulumi.Input[str] message: The message to use for the build.
+        :param pulumi.Input[str] branch: The branch that the schedule should run on.
+        :param pulumi.Input[str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
+        :param pulumi.Input[str] label: A label to describe the schedule.
+        :param pulumi.Input[str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
+        :param pulumi.Input[str] commit: The commit that the schedule should run on.
+        :param pulumi.Input[bool] enabled: Whether the schedule is enabled or not.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[str] message: The message the builds show for builds created by this schedule.
         """
         pulumi.set(__self__, "branch", branch)
         pulumi.set(__self__, "cronline", cronline)
@@ -50,7 +50,7 @@ class ScheduleArgs:
     @pulumi.getter
     def branch(self) -> pulumi.Input[str]:
         """
-        The branch to use for the build.
+        The branch that the schedule should run on.
         """
         return pulumi.get(self, "branch")
 
@@ -62,7 +62,7 @@ class ScheduleArgs:
     @pulumi.getter
     def cronline(self) -> pulumi.Input[str]:
         """
-        Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+        The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         """
         return pulumi.get(self, "cronline")
 
@@ -74,7 +74,7 @@ class ScheduleArgs:
     @pulumi.getter
     def label(self) -> pulumi.Input[str]:
         """
-        Schedule label.
+        A label to describe the schedule.
         """
         return pulumi.get(self, "label")
 
@@ -86,7 +86,7 @@ class ScheduleArgs:
     @pulumi.getter(name="pipelineId")
     def pipeline_id(self) -> pulumi.Input[str]:
         """
-        The ID of the pipeline that this schedule belongs to.
+        The GraphQL ID of the pipeline that this schedule belongs to.
         """
         return pulumi.get(self, "pipeline_id")
 
@@ -98,7 +98,7 @@ class ScheduleArgs:
     @pulumi.getter
     def commit(self) -> Optional[pulumi.Input[str]]:
         """
-        The commit ref to use for the build.
+        The commit that the schedule should run on.
         """
         return pulumi.get(self, "commit")
 
@@ -110,7 +110,7 @@ class ScheduleArgs:
     @pulumi.getter
     def enabled(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether the schedule should run.
+        Whether the schedule is enabled or not.
         """
         return pulumi.get(self, "enabled")
 
@@ -122,7 +122,7 @@ class ScheduleArgs:
     @pulumi.getter
     def env(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
         """
-        A map of environment variables to use for the build.
+        The environment variables that scheduled builds should use.
         """
         return pulumi.get(self, "env")
 
@@ -134,7 +134,7 @@ class ScheduleArgs:
     @pulumi.getter
     def message(self) -> Optional[pulumi.Input[str]]:
         """
-        The message to use for the build.
+        The message the builds show for builds created by this schedule.
         """
         return pulumi.get(self, "message")
 
@@ -157,15 +157,15 @@ class _ScheduleState:
                  uuid: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Schedule resources.
-        :param pulumi.Input[str] branch: The branch to use for the build.
-        :param pulumi.Input[str] commit: The commit ref to use for the build.
-        :param pulumi.Input[str] cronline: Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
-        :param pulumi.Input[bool] enabled: Whether the schedule should run.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] env: A map of environment variables to use for the build.
-        :param pulumi.Input[str] label: Schedule label.
-        :param pulumi.Input[str] message: The message to use for the build.
-        :param pulumi.Input[str] pipeline_id: The ID of the pipeline that this schedule belongs to.
-        :param pulumi.Input[str] uuid: The UUID of the pipeline schedule
+        :param pulumi.Input[str] branch: The branch that the schedule should run on.
+        :param pulumi.Input[str] commit: The commit that the schedule should run on.
+        :param pulumi.Input[str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
+        :param pulumi.Input[bool] enabled: Whether the schedule is enabled or not.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[str] label: A label to describe the schedule.
+        :param pulumi.Input[str] message: The message the builds show for builds created by this schedule.
+        :param pulumi.Input[str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
+        :param pulumi.Input[str] uuid: The UUID of the schedule.
         """
         if branch is not None:
             pulumi.set(__self__, "branch", branch)
@@ -190,7 +190,7 @@ class _ScheduleState:
     @pulumi.getter
     def branch(self) -> Optional[pulumi.Input[str]]:
         """
-        The branch to use for the build.
+        The branch that the schedule should run on.
         """
         return pulumi.get(self, "branch")
 
@@ -202,7 +202,7 @@ class _ScheduleState:
     @pulumi.getter
     def commit(self) -> Optional[pulumi.Input[str]]:
         """
-        The commit ref to use for the build.
+        The commit that the schedule should run on.
         """
         return pulumi.get(self, "commit")
 
@@ -214,7 +214,7 @@ class _ScheduleState:
     @pulumi.getter
     def cronline(self) -> Optional[pulumi.Input[str]]:
         """
-        Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+        The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         """
         return pulumi.get(self, "cronline")
 
@@ -226,7 +226,7 @@ class _ScheduleState:
     @pulumi.getter
     def enabled(self) -> Optional[pulumi.Input[bool]]:
         """
-        Whether the schedule should run.
+        Whether the schedule is enabled or not.
         """
         return pulumi.get(self, "enabled")
 
@@ -238,7 +238,7 @@ class _ScheduleState:
     @pulumi.getter
     def env(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
         """
-        A map of environment variables to use for the build.
+        The environment variables that scheduled builds should use.
         """
         return pulumi.get(self, "env")
 
@@ -250,7 +250,7 @@ class _ScheduleState:
     @pulumi.getter
     def label(self) -> Optional[pulumi.Input[str]]:
         """
-        Schedule label.
+        A label to describe the schedule.
         """
         return pulumi.get(self, "label")
 
@@ -262,7 +262,7 @@ class _ScheduleState:
     @pulumi.getter
     def message(self) -> Optional[pulumi.Input[str]]:
         """
-        The message to use for the build.
+        The message the builds show for builds created by this schedule.
         """
         return pulumi.get(self, "message")
 
@@ -274,7 +274,7 @@ class _ScheduleState:
     @pulumi.getter(name="pipelineId")
     def pipeline_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the pipeline that this schedule belongs to.
+        The GraphQL ID of the pipeline that this schedule belongs to.
         """
         return pulumi.get(self, "pipeline_id")
 
@@ -286,7 +286,7 @@ class _ScheduleState:
     @pulumi.getter
     def uuid(self) -> Optional[pulumi.Input[str]]:
         """
-        The UUID of the pipeline schedule
+        The UUID of the schedule.
         """
         return pulumi.get(self, "uuid")
 
@@ -310,11 +310,9 @@ class Schedule(pulumi.CustomResource):
                  pipeline_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## # Resource: pipeline_schedule
+        A pipeline schedule is a schedule that triggers a pipeline to run at a specific time.
 
-        This resource allows you to create and manage pipeline schedules.
-
-        Buildkite Documentation: https://buildkite.com/docs/pipelines/scheduled-builds
+        You can find more information in the [documentation](https://buildkite.com/docs/pipelines/scheduled-builds).
 
         ## Example Usage
 
@@ -322,24 +320,29 @@ class Schedule(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        repo2_nightly = buildkite.pipeline.Schedule("repo2Nightly",
-            pipeline_id=buildkite_pipeline["repo2"]["id"],
+        # create a pipeline
+        pipeline = buildkite.pipeline.Pipeline("pipeline", repository="https://github.com/...")
+        # schedule a build at midnight every day
+        nightly = buildkite.pipeline.Schedule("nightly",
+            pipeline_id=buildkite_pipeline["repo"]["id"],
             label="Nightly build",
             cronline="@midnight",
-            branch=buildkite_pipeline["repo2"]["default_branch"])
+            branch=buildkite_pipeline["repo"]["default_branch"])
         ```
 
         ## Import
 
-        Pipeline schedules can be imported using their `GraphQL ID`, e.g.
+        import a pipeline schedule resource using the schedules GraphQL ID
 
-        ```sh
-         $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
-        ```
+        # 
 
-         Your pipeline schedules' GraphQL ID can be found with the below GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/45687b7c-2565-4acb-8a74-750a3647875f), specifying the organisation slug (when known) and the pipeline search term (PIPELINE_SEARCH_TERM). graphql query getPipelineScheduleId {
+         you can use this query to find the schedule:
 
-         organization(slug"ORGANIZATION_SLUG") { 		pipelines(first5, search"PIPELINE_SEARCH_TERM") {
+         query getPipelineScheduleId {
+
+         organization(slug: "ORGANIZATION_SLUG") {
+
+         pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
 
          edges{
 
@@ -351,7 +354,7 @@ class Schedule(pulumi.CustomResource):
 
          edges{
 
-        node{
+         node{
 
          id
 
@@ -367,18 +370,24 @@ class Schedule(pulumi.CustomResource):
 
          }
 
-         } }
+         }
+
+         }
+
+        ```sh
+        $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
+        ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] branch: The branch to use for the build.
-        :param pulumi.Input[str] commit: The commit ref to use for the build.
-        :param pulumi.Input[str] cronline: Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
-        :param pulumi.Input[bool] enabled: Whether the schedule should run.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] env: A map of environment variables to use for the build.
-        :param pulumi.Input[str] label: Schedule label.
-        :param pulumi.Input[str] message: The message to use for the build.
-        :param pulumi.Input[str] pipeline_id: The ID of the pipeline that this schedule belongs to.
+        :param pulumi.Input[str] branch: The branch that the schedule should run on.
+        :param pulumi.Input[str] commit: The commit that the schedule should run on.
+        :param pulumi.Input[str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
+        :param pulumi.Input[bool] enabled: Whether the schedule is enabled or not.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[str] label: A label to describe the schedule.
+        :param pulumi.Input[str] message: The message the builds show for builds created by this schedule.
+        :param pulumi.Input[str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
         """
         ...
     @overload
@@ -387,11 +396,9 @@ class Schedule(pulumi.CustomResource):
                  args: ScheduleArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # Resource: pipeline_schedule
+        A pipeline schedule is a schedule that triggers a pipeline to run at a specific time.
 
-        This resource allows you to create and manage pipeline schedules.
-
-        Buildkite Documentation: https://buildkite.com/docs/pipelines/scheduled-builds
+        You can find more information in the [documentation](https://buildkite.com/docs/pipelines/scheduled-builds).
 
         ## Example Usage
 
@@ -399,24 +406,29 @@ class Schedule(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        repo2_nightly = buildkite.pipeline.Schedule("repo2Nightly",
-            pipeline_id=buildkite_pipeline["repo2"]["id"],
+        # create a pipeline
+        pipeline = buildkite.pipeline.Pipeline("pipeline", repository="https://github.com/...")
+        # schedule a build at midnight every day
+        nightly = buildkite.pipeline.Schedule("nightly",
+            pipeline_id=buildkite_pipeline["repo"]["id"],
             label="Nightly build",
             cronline="@midnight",
-            branch=buildkite_pipeline["repo2"]["default_branch"])
+            branch=buildkite_pipeline["repo"]["default_branch"])
         ```
 
         ## Import
 
-        Pipeline schedules can be imported using their `GraphQL ID`, e.g.
+        import a pipeline schedule resource using the schedules GraphQL ID
 
-        ```sh
-         $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
-        ```
+        # 
 
-         Your pipeline schedules' GraphQL ID can be found with the below GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/45687b7c-2565-4acb-8a74-750a3647875f), specifying the organisation slug (when known) and the pipeline search term (PIPELINE_SEARCH_TERM). graphql query getPipelineScheduleId {
+         you can use this query to find the schedule:
 
-         organization(slug"ORGANIZATION_SLUG") { 		pipelines(first5, search"PIPELINE_SEARCH_TERM") {
+         query getPipelineScheduleId {
+
+         organization(slug: "ORGANIZATION_SLUG") {
+
+         pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
 
          edges{
 
@@ -428,7 +440,7 @@ class Schedule(pulumi.CustomResource):
 
          edges{
 
-        node{
+         node{
 
          id
 
@@ -444,7 +456,13 @@ class Schedule(pulumi.CustomResource):
 
          }
 
-         } }
+         }
+
+         }
+
+        ```sh
+        $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
+        ```
 
         :param str resource_name: The name of the resource.
         :param ScheduleArgs args: The arguments to use to populate this resource's properties.
@@ -521,15 +539,15 @@ class Schedule(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] branch: The branch to use for the build.
-        :param pulumi.Input[str] commit: The commit ref to use for the build.
-        :param pulumi.Input[str] cronline: Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
-        :param pulumi.Input[bool] enabled: Whether the schedule should run.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] env: A map of environment variables to use for the build.
-        :param pulumi.Input[str] label: Schedule label.
-        :param pulumi.Input[str] message: The message to use for the build.
-        :param pulumi.Input[str] pipeline_id: The ID of the pipeline that this schedule belongs to.
-        :param pulumi.Input[str] uuid: The UUID of the pipeline schedule
+        :param pulumi.Input[str] branch: The branch that the schedule should run on.
+        :param pulumi.Input[str] commit: The commit that the schedule should run on.
+        :param pulumi.Input[str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
+        :param pulumi.Input[bool] enabled: Whether the schedule is enabled or not.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[str] label: A label to describe the schedule.
+        :param pulumi.Input[str] message: The message the builds show for builds created by this schedule.
+        :param pulumi.Input[str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
+        :param pulumi.Input[str] uuid: The UUID of the schedule.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -550,7 +568,7 @@ class Schedule(pulumi.CustomResource):
     @pulumi.getter
     def branch(self) -> pulumi.Output[str]:
         """
-        The branch to use for the build.
+        The branch that the schedule should run on.
         """
         return pulumi.get(self, "branch")
 
@@ -558,7 +576,7 @@ class Schedule(pulumi.CustomResource):
     @pulumi.getter
     def commit(self) -> pulumi.Output[str]:
         """
-        The commit ref to use for the build.
+        The commit that the schedule should run on.
         """
         return pulumi.get(self, "commit")
 
@@ -566,7 +584,7 @@ class Schedule(pulumi.CustomResource):
     @pulumi.getter
     def cronline(self) -> pulumi.Output[str]:
         """
-        Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+        The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         """
         return pulumi.get(self, "cronline")
 
@@ -574,7 +592,7 @@ class Schedule(pulumi.CustomResource):
     @pulumi.getter
     def enabled(self) -> pulumi.Output[bool]:
         """
-        Whether the schedule should run.
+        Whether the schedule is enabled or not.
         """
         return pulumi.get(self, "enabled")
 
@@ -582,7 +600,7 @@ class Schedule(pulumi.CustomResource):
     @pulumi.getter
     def env(self) -> pulumi.Output[Optional[Mapping[str, str]]]:
         """
-        A map of environment variables to use for the build.
+        The environment variables that scheduled builds should use.
         """
         return pulumi.get(self, "env")
 
@@ -590,7 +608,7 @@ class Schedule(pulumi.CustomResource):
     @pulumi.getter
     def label(self) -> pulumi.Output[str]:
         """
-        Schedule label.
+        A label to describe the schedule.
         """
         return pulumi.get(self, "label")
 
@@ -598,7 +616,7 @@ class Schedule(pulumi.CustomResource):
     @pulumi.getter
     def message(self) -> pulumi.Output[Optional[str]]:
         """
-        The message to use for the build.
+        The message the builds show for builds created by this schedule.
         """
         return pulumi.get(self, "message")
 
@@ -606,7 +624,7 @@ class Schedule(pulumi.CustomResource):
     @pulumi.getter(name="pipelineId")
     def pipeline_id(self) -> pulumi.Output[str]:
         """
-        The ID of the pipeline that this schedule belongs to.
+        The GraphQL ID of the pipeline that this schedule belongs to.
         """
         return pulumi.get(self, "pipeline_id")
 
@@ -614,7 +632,7 @@ class Schedule(pulumi.CustomResource):
     @pulumi.getter
     def uuid(self) -> pulumi.Output[str]:
         """
-        The UUID of the pipeline schedule
+        The UUID of the schedule.
         """
         return pulumi.get(self, "uuid")
 

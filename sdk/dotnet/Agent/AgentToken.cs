@@ -11,11 +11,8 @@ using Pulumi;
 namespace Pulumiverse.Buildkite.Agent
 {
     /// <summary>
-    /// ## # Resource: agent_token
-    /// 
-    /// This resource allows you to create and manage agent tokens.
-    /// 
-    /// Buildkite Documentation: https://buildkite.com/docs/agent/v3/tokens
+    /// This resource allows you to create and manage non-clustered agent tokens.
+    /// You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/agent/v3/tokens).
     /// 
     /// ## Example Usage
     /// 
@@ -27,9 +24,10 @@ namespace Pulumiverse.Buildkite.Agent
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var fleet = new Buildkite.Agent.AgentToken("fleet", new()
+    ///     // create a default token
+    ///     var @default = new Buildkite.Agent.AgentToken("default", new()
     ///     {
-    ///         Description = "token used by build fleet",
+    ///         Description = "Default token",
     ///     });
     /// 
     /// });
@@ -39,21 +37,19 @@ namespace Pulumiverse.Buildkite.Agent
     public partial class AgentToken : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// This is the description of the agent token.
-        /// 
-        /// &gt; Changing `description` will cause the resource to be destroyed and re-created.
+        /// The description of the agent token. Used to help identify its use.
         /// </summary>
         [Output("description")]
         public Output<string?> Description { get; private set; } = null!;
 
         /// <summary>
-        /// The value of the created agent token.
+        /// The token value used by an agent to register with the API.
         /// </summary>
         [Output("token")]
         public Output<string> Token { get; private set; } = null!;
 
         /// <summary>
-        /// The UUID of the token.
+        /// The UUID of the agent token.
         /// </summary>
         [Output("uuid")]
         public Output<string> Uuid { get; private set; } = null!;
@@ -110,9 +106,7 @@ namespace Pulumiverse.Buildkite.Agent
     public sealed class AgentTokenArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// This is the description of the agent token.
-        /// 
-        /// &gt; Changing `description` will cause the resource to be destroyed and re-created.
+        /// The description of the agent token. Used to help identify its use.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
@@ -126,9 +120,7 @@ namespace Pulumiverse.Buildkite.Agent
     public sealed class AgentTokenState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// This is the description of the agent token.
-        /// 
-        /// &gt; Changing `description` will cause the resource to be destroyed and re-created.
+        /// The description of the agent token. Used to help identify its use.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
@@ -137,7 +129,7 @@ namespace Pulumiverse.Buildkite.Agent
         private Input<string>? _token;
 
         /// <summary>
-        /// The value of the created agent token.
+        /// The token value used by an agent to register with the API.
         /// </summary>
         public Input<string>? Token
         {
@@ -150,7 +142,7 @@ namespace Pulumiverse.Buildkite.Agent
         }
 
         /// <summary>
-        /// The UUID of the token.
+        /// The UUID of the agent token.
         /// </summary>
         [Input("uuid")]
         public Input<string>? Uuid { get; set; }

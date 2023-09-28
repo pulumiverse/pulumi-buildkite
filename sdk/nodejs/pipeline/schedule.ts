@@ -5,11 +5,9 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Resource: pipelineSchedule
+ * A pipeline schedule is a schedule that triggers a pipeline to run at a specific time.
  *
- * This resource allows you to create and manage pipeline schedules.
- *
- * Buildkite Documentation: https://buildkite.com/docs/pipelines/scheduled-builds
+ * You can find more information in the [documentation](https://buildkite.com/docs/pipelines/scheduled-builds).
  *
  * ## Example Usage
  *
@@ -17,25 +15,30 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const repo2Nightly = new buildkite.pipeline.Schedule("repo2Nightly", {
- *     pipelineId: buildkite_pipeline.repo2.id,
+ * // create a pipeline
+ * const pipeline = new buildkite.pipeline.Pipeline("pipeline", {repository: "https://github.com/..."});
+ * // schedule a build at midnight every day
+ * const nightly = new buildkite.pipeline.Schedule("nightly", {
+ *     pipelineId: buildkite_pipeline.repo.id,
  *     label: "Nightly build",
  *     cronline: "@midnight",
- *     branch: buildkite_pipeline.repo2.default_branch,
+ *     branch: buildkite_pipeline.repo.default_branch,
  * });
  * ```
  *
  * ## Import
  *
- * Pipeline schedules can be imported using their `GraphQL ID`, e.g.
+ * import a pipeline schedule resource using the schedules GraphQL ID
  *
- * ```sh
- *  $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
- * ```
+ * # 
  *
- *  Your pipeline schedules' GraphQL ID can be found with the below GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/45687b7c-2565-4acb-8a74-750a3647875f), specifying the organisation slug (when known) and the pipeline search term (PIPELINE_SEARCH_TERM). graphql query getPipelineScheduleId {
+ *  you can use this query to find the schedule:
  *
- *  organization(slug"ORGANIZATION_SLUG") { 		pipelines(first5, search"PIPELINE_SEARCH_TERM") {
+ *  query getPipelineScheduleId {
+ *
+ *  organization(slug: "ORGANIZATION_SLUG") {
+ *
+ *  pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
  *
  *  edges{
  *
@@ -47,7 +50,7 @@ import * as utilities from "../utilities";
  *
  *  edges{
  *
- * node{
+ *  node{
  *
  *  id
  *
@@ -63,7 +66,13 @@ import * as utilities from "../utilities";
  *
  *  }
  *
- *  } }
+ *  }
+ *
+ *  }
+ *
+ * ```sh
+ * $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
+ * ```
  */
 export class Schedule extends pulumi.CustomResource {
     /**
@@ -94,39 +103,39 @@ export class Schedule extends pulumi.CustomResource {
     }
 
     /**
-     * The branch to use for the build.
+     * The branch that the schedule should run on.
      */
     public readonly branch!: pulumi.Output<string>;
     /**
-     * The commit ref to use for the build.
+     * The commit that the schedule should run on.
      */
     public readonly commit!: pulumi.Output<string>;
     /**
-     * Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+     * The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
      */
     public readonly cronline!: pulumi.Output<string>;
     /**
-     * Whether the schedule should run.
+     * Whether the schedule is enabled or not.
      */
     public readonly enabled!: pulumi.Output<boolean>;
     /**
-     * A map of environment variables to use for the build.
+     * The environment variables that scheduled builds should use.
      */
     public readonly env!: pulumi.Output<{[key: string]: string} | undefined>;
     /**
-     * Schedule label.
+     * A label to describe the schedule.
      */
     public readonly label!: pulumi.Output<string>;
     /**
-     * The message to use for the build.
+     * The message the builds show for builds created by this schedule.
      */
     public readonly message!: pulumi.Output<string | undefined>;
     /**
-     * The ID of the pipeline that this schedule belongs to.
+     * The GraphQL ID of the pipeline that this schedule belongs to.
      */
     public readonly pipelineId!: pulumi.Output<string>;
     /**
-     * The UUID of the pipeline schedule
+     * The UUID of the schedule.
      */
     public /*out*/ readonly uuid!: pulumi.Output<string>;
 
@@ -186,39 +195,39 @@ export class Schedule extends pulumi.CustomResource {
  */
 export interface ScheduleState {
     /**
-     * The branch to use for the build.
+     * The branch that the schedule should run on.
      */
     branch?: pulumi.Input<string>;
     /**
-     * The commit ref to use for the build.
+     * The commit that the schedule should run on.
      */
     commit?: pulumi.Input<string>;
     /**
-     * Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+     * The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
      */
     cronline?: pulumi.Input<string>;
     /**
-     * Whether the schedule should run.
+     * Whether the schedule is enabled or not.
      */
     enabled?: pulumi.Input<boolean>;
     /**
-     * A map of environment variables to use for the build.
+     * The environment variables that scheduled builds should use.
      */
     env?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
-     * Schedule label.
+     * A label to describe the schedule.
      */
     label?: pulumi.Input<string>;
     /**
-     * The message to use for the build.
+     * The message the builds show for builds created by this schedule.
      */
     message?: pulumi.Input<string>;
     /**
-     * The ID of the pipeline that this schedule belongs to.
+     * The GraphQL ID of the pipeline that this schedule belongs to.
      */
     pipelineId?: pulumi.Input<string>;
     /**
-     * The UUID of the pipeline schedule
+     * The UUID of the schedule.
      */
     uuid?: pulumi.Input<string>;
 }
@@ -228,35 +237,35 @@ export interface ScheduleState {
  */
 export interface ScheduleArgs {
     /**
-     * The branch to use for the build.
+     * The branch that the schedule should run on.
      */
     branch: pulumi.Input<string>;
     /**
-     * The commit ref to use for the build.
+     * The commit that the schedule should run on.
      */
     commit?: pulumi.Input<string>;
     /**
-     * Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+     * The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
      */
     cronline: pulumi.Input<string>;
     /**
-     * Whether the schedule should run.
+     * Whether the schedule is enabled or not.
      */
     enabled?: pulumi.Input<boolean>;
     /**
-     * A map of environment variables to use for the build.
+     * The environment variables that scheduled builds should use.
      */
     env?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
-     * Schedule label.
+     * A label to describe the schedule.
      */
     label: pulumi.Input<string>;
     /**
-     * The message to use for the build.
+     * The message the builds show for builds created by this schedule.
      */
     message?: pulumi.Input<string>;
     /**
-     * The ID of the pipeline that this schedule belongs to.
+     * The GraphQL ID of the pipeline that this schedule belongs to.
      */
     pipelineId: pulumi.Input<string>;
 }

@@ -12,15 +12,7 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Resource: teamMember
-//
-// This resource allows manage team membership for existing organization users.
-//
-// The user must already be part of the organization to which you are managing team membership. This will not invite a new user to the organization.
-//
-// Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions
-//
-// Note: You must first enable Teams on your organization.
+// A team member resource allows for the management of team membership for existing organization users.
 //
 // ## Example Usage
 //
@@ -36,18 +28,18 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			team, err := Team.NewTeam(ctx, "team", &Team.TeamArgs{
+//			everyone, err := Team.NewTeam(ctx, "everyone", &Team.TeamArgs{
 //				Privacy:           pulumi.String("VISIBLE"),
-//				DefaultTeam:       pulumi.Bool(true),
+//				DefaultTeam:       pulumi.Bool(false),
 //				DefaultMemberRole: pulumi.String("MEMBER"),
 //			})
 //			if err != nil {
 //				return err
 //			}
 //			_, err = Team.NewMember(ctx, "aSmith", &Team.MemberArgs{
+//				TeamId: everyone.ID(),
+//				UserId: pulumi.String("VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg=="),
 //				Role:   pulumi.String("MEMBER"),
-//				TeamId: team.ID(),
-//				UserId: pulumi.String("VXNlci0tLWRlOTdmMjBiLWJkZmMtNGNjOC1hOTcwLTY1ODNiZTk2ZGEyYQ=="),
 //			})
 //			if err != nil {
 //				return err
@@ -60,25 +52,23 @@ import (
 //
 // ## Import
 //
-// Team members can be imported using the GraphQL ID of the membership. Note this is different to the ID of the user.
+// import a team member resource using the GraphQL ID
 //
-// ```sh
+// #
 //
-//	$ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==
+//	you can use this query to find the ID:
 //
-// ```
+//	query getTeamMemberId {
 //
-//	To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/ce4540dd-4f60-4e79-8e8f-9f4c3bc8784e), where you will need fo fill in the organization slug and search terms for teams and members. Both search terms (TEAM_SEARCH_TERM and TEAM_MEMBER_SEARCH_TERM) work on the name of the associated object. graphql query getTeamMemberId {
+//	organization(slug: "ORGANIZATION_SLUG") {
 //
-//	organization(slug"ORGANIZATION_SLUG") {
-//
-//	teams(first2, search"TEAM_SEARCH_TERM") {
+//	teams(first: 2, search: "TEAM_SEARCH_TERM") {
 //
 //	edges {
 //
 //	node {
 //
-//	members(first2, search"TEAM_MEMBER_SEARCH_TERM") {
+//	members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
 //
 //	edges {
 //
@@ -98,17 +88,23 @@ import (
 //
 //	}
 //
-//	} }
+//	}
+//
+//	}
+//
+// ```sh
+// $ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==
+// ```
 type Member struct {
 	pulumi.CustomResourceState
 
-	// Either MEMBER or MAINTAINER.
+	// The role for the user. Either `MEMBER` or `MAINTAINER`.
 	Role pulumi.StringOutput `pulumi:"role"`
-	// The GraphQL ID of the team to add to/remove from.
+	// The GraphQL ID of the team.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
-	// The GraphQL ID of the user to add/remove.
+	// The GraphQL ID of the user.
 	UserId pulumi.StringOutput `pulumi:"userId"`
-	// The UUID for the team membership.
+	// The UUID of the team membership.
 	Uuid pulumi.StringOutput `pulumi:"uuid"`
 }
 
@@ -151,24 +147,24 @@ func GetMember(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Member resources.
 type memberState struct {
-	// Either MEMBER or MAINTAINER.
+	// The role for the user. Either `MEMBER` or `MAINTAINER`.
 	Role *string `pulumi:"role"`
-	// The GraphQL ID of the team to add to/remove from.
+	// The GraphQL ID of the team.
 	TeamId *string `pulumi:"teamId"`
-	// The GraphQL ID of the user to add/remove.
+	// The GraphQL ID of the user.
 	UserId *string `pulumi:"userId"`
-	// The UUID for the team membership.
+	// The UUID of the team membership.
 	Uuid *string `pulumi:"uuid"`
 }
 
 type MemberState struct {
-	// Either MEMBER or MAINTAINER.
+	// The role for the user. Either `MEMBER` or `MAINTAINER`.
 	Role pulumi.StringPtrInput
-	// The GraphQL ID of the team to add to/remove from.
+	// The GraphQL ID of the team.
 	TeamId pulumi.StringPtrInput
-	// The GraphQL ID of the user to add/remove.
+	// The GraphQL ID of the user.
 	UserId pulumi.StringPtrInput
-	// The UUID for the team membership.
+	// The UUID of the team membership.
 	Uuid pulumi.StringPtrInput
 }
 
@@ -177,21 +173,21 @@ func (MemberState) ElementType() reflect.Type {
 }
 
 type memberArgs struct {
-	// Either MEMBER or MAINTAINER.
+	// The role for the user. Either `MEMBER` or `MAINTAINER`.
 	Role string `pulumi:"role"`
-	// The GraphQL ID of the team to add to/remove from.
+	// The GraphQL ID of the team.
 	TeamId string `pulumi:"teamId"`
-	// The GraphQL ID of the user to add/remove.
+	// The GraphQL ID of the user.
 	UserId string `pulumi:"userId"`
 }
 
 // The set of arguments for constructing a Member resource.
 type MemberArgs struct {
-	// Either MEMBER or MAINTAINER.
+	// The role for the user. Either `MEMBER` or `MAINTAINER`.
 	Role pulumi.StringInput
-	// The GraphQL ID of the team to add to/remove from.
+	// The GraphQL ID of the team.
 	TeamId pulumi.StringInput
-	// The GraphQL ID of the user to add/remove.
+	// The GraphQL ID of the user.
 	UserId pulumi.StringInput
 }
 
@@ -282,22 +278,22 @@ func (o MemberOutput) ToMemberOutputWithContext(ctx context.Context) MemberOutpu
 	return o
 }
 
-// Either MEMBER or MAINTAINER.
+// The role for the user. Either `MEMBER` or `MAINTAINER`.
 func (o MemberOutput) Role() pulumi.StringOutput {
 	return o.ApplyT(func(v *Member) pulumi.StringOutput { return v.Role }).(pulumi.StringOutput)
 }
 
-// The GraphQL ID of the team to add to/remove from.
+// The GraphQL ID of the team.
 func (o MemberOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Member) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }
 
-// The GraphQL ID of the user to add/remove.
+// The GraphQL ID of the user.
 func (o MemberOutput) UserId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Member) pulumi.StringOutput { return v.UserId }).(pulumi.StringOutput)
 }
 
-// The UUID for the team membership.
+// The UUID of the team membership.
 func (o MemberOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *Member) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
 }

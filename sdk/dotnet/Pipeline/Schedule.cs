@@ -11,11 +11,9 @@ using Pulumi;
 namespace Pulumiverse.Buildkite.Pipeline
 {
     /// <summary>
-    /// ## # Resource: pipeline_schedule
+    /// A pipeline schedule is a schedule that triggers a pipeline to run at a specific time.
     /// 
-    /// This resource allows you to create and manage pipeline schedules.
-    /// 
-    /// Buildkite Documentation: https://buildkite.com/docs/pipelines/scheduled-builds
+    /// You can find more information in the [documentation](https://buildkite.com/docs/pipelines/scheduled-builds).
     /// 
     /// ## Example Usage
     /// 
@@ -27,12 +25,19 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var repo2Nightly = new Buildkite.Pipeline.Schedule("repo2Nightly", new()
+    ///     // create a pipeline
+    ///     var pipeline = new Buildkite.Pipeline.Pipeline("pipeline", new()
     ///     {
-    ///         PipelineId = buildkite_pipeline.Repo2.Id,
+    ///         Repository = "https://github.com/...",
+    ///     });
+    /// 
+    ///     // schedule a build at midnight every day
+    ///     var nightly = new Buildkite.Pipeline.Schedule("nightly", new()
+    ///     {
+    ///         PipelineId = buildkite_pipeline.Repo.Id,
     ///         Label = "Nightly build",
     ///         Cronline = "@midnight",
-    ///         Branch = buildkite_pipeline.Repo2.Default_branch,
+    ///         Branch = buildkite_pipeline.Repo.Default_branch,
     ///     });
     /// 
     /// });
@@ -40,15 +45,17 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     /// ## Import
     /// 
-    /// Pipeline schedules can be imported using their `GraphQL ID`, e.g.
+    /// import a pipeline schedule resource using the schedules GraphQL ID
     /// 
-    /// ```sh
-    ///  $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
-    /// ```
+    /// # 
     /// 
-    ///  Your pipeline schedules' GraphQL ID can be found with the below GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/45687b7c-2565-4acb-8a74-750a3647875f), specifying the organisation slug (when known) and the pipeline search term (PIPELINE_SEARCH_TERM). graphql query getPipelineScheduleId {
+    ///  you can use this query to find the schedule:
     /// 
-    ///  organization(slug"ORGANIZATION_SLUG") { 		pipelines(first5, search"PIPELINE_SEARCH_TERM") {
+    ///  query getPipelineScheduleId {
+    /// 
+    ///  organization(slug: "ORGANIZATION_SLUG") {
+    /// 
+    ///  pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
     /// 
     ///  edges{
     /// 
@@ -60,7 +67,7 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     ///  edges{
     /// 
-    /// node{
+    ///  node{
     /// 
     ///  id
     /// 
@@ -76,61 +83,67 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     ///  }
     /// 
-    ///  } }
+    ///  }
+    /// 
+    ///  }
+    /// 
+    /// ```sh
+    /// $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
+    /// ```
     /// </summary>
     [BuildkiteResourceType("buildkite:Pipeline/schedule:Schedule")]
     public partial class Schedule : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The branch to use for the build.
+        /// The branch that the schedule should run on.
         /// </summary>
         [Output("branch")]
         public Output<string> Branch { get; private set; } = null!;
 
         /// <summary>
-        /// The commit ref to use for the build.
+        /// The commit that the schedule should run on.
         /// </summary>
         [Output("commit")]
         public Output<string> Commit { get; private set; } = null!;
 
         /// <summary>
-        /// Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+        /// The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         /// </summary>
         [Output("cronline")]
         public Output<string> Cronline { get; private set; } = null!;
 
         /// <summary>
-        /// Whether the schedule should run.
+        /// Whether the schedule is enabled or not.
         /// </summary>
         [Output("enabled")]
         public Output<bool> Enabled { get; private set; } = null!;
 
         /// <summary>
-        /// A map of environment variables to use for the build.
+        /// The environment variables that scheduled builds should use.
         /// </summary>
         [Output("env")]
         public Output<ImmutableDictionary<string, string>?> Env { get; private set; } = null!;
 
         /// <summary>
-        /// Schedule label.
+        /// A label to describe the schedule.
         /// </summary>
         [Output("label")]
         public Output<string> Label { get; private set; } = null!;
 
         /// <summary>
-        /// The message to use for the build.
+        /// The message the builds show for builds created by this schedule.
         /// </summary>
         [Output("message")]
         public Output<string?> Message { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the pipeline that this schedule belongs to.
+        /// The GraphQL ID of the pipeline that this schedule belongs to.
         /// </summary>
         [Output("pipelineId")]
         public Output<string> PipelineId { get; private set; } = null!;
 
         /// <summary>
-        /// The UUID of the pipeline schedule
+        /// The UUID of the schedule.
         /// </summary>
         [Output("uuid")]
         public Output<string> Uuid { get; private set; } = null!;
@@ -183,25 +196,25 @@ namespace Pulumiverse.Buildkite.Pipeline
     public sealed class ScheduleArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The branch to use for the build.
+        /// The branch that the schedule should run on.
         /// </summary>
         [Input("branch", required: true)]
         public Input<string> Branch { get; set; } = null!;
 
         /// <summary>
-        /// The commit ref to use for the build.
+        /// The commit that the schedule should run on.
         /// </summary>
         [Input("commit")]
         public Input<string>? Commit { get; set; }
 
         /// <summary>
-        /// Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+        /// The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         /// </summary>
         [Input("cronline", required: true)]
         public Input<string> Cronline { get; set; } = null!;
 
         /// <summary>
-        /// Whether the schedule should run.
+        /// Whether the schedule is enabled or not.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -210,7 +223,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         private InputMap<string>? _env;
 
         /// <summary>
-        /// A map of environment variables to use for the build.
+        /// The environment variables that scheduled builds should use.
         /// </summary>
         public InputMap<string> Env
         {
@@ -219,19 +232,19 @@ namespace Pulumiverse.Buildkite.Pipeline
         }
 
         /// <summary>
-        /// Schedule label.
+        /// A label to describe the schedule.
         /// </summary>
         [Input("label", required: true)]
         public Input<string> Label { get; set; } = null!;
 
         /// <summary>
-        /// The message to use for the build.
+        /// The message the builds show for builds created by this schedule.
         /// </summary>
         [Input("message")]
         public Input<string>? Message { get; set; }
 
         /// <summary>
-        /// The ID of the pipeline that this schedule belongs to.
+        /// The GraphQL ID of the pipeline that this schedule belongs to.
         /// </summary>
         [Input("pipelineId", required: true)]
         public Input<string> PipelineId { get; set; } = null!;
@@ -245,25 +258,25 @@ namespace Pulumiverse.Buildkite.Pipeline
     public sealed class ScheduleState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The branch to use for the build.
+        /// The branch that the schedule should run on.
         /// </summary>
         [Input("branch")]
         public Input<string>? Branch { get; set; }
 
         /// <summary>
-        /// The commit ref to use for the build.
+        /// The commit that the schedule should run on.
         /// </summary>
         [Input("commit")]
         public Input<string>? Commit { get; set; }
 
         /// <summary>
-        /// Schedule interval (see [docs](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals)).
+        /// The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         /// </summary>
         [Input("cronline")]
         public Input<string>? Cronline { get; set; }
 
         /// <summary>
-        /// Whether the schedule should run.
+        /// Whether the schedule is enabled or not.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -272,7 +285,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         private InputMap<string>? _env;
 
         /// <summary>
-        /// A map of environment variables to use for the build.
+        /// The environment variables that scheduled builds should use.
         /// </summary>
         public InputMap<string> Env
         {
@@ -281,25 +294,25 @@ namespace Pulumiverse.Buildkite.Pipeline
         }
 
         /// <summary>
-        /// Schedule label.
+        /// A label to describe the schedule.
         /// </summary>
         [Input("label")]
         public Input<string>? Label { get; set; }
 
         /// <summary>
-        /// The message to use for the build.
+        /// The message the builds show for builds created by this schedule.
         /// </summary>
         [Input("message")]
         public Input<string>? Message { get; set; }
 
         /// <summary>
-        /// The ID of the pipeline that this schedule belongs to.
+        /// The GraphQL ID of the pipeline that this schedule belongs to.
         /// </summary>
         [Input("pipelineId")]
         public Input<string>? PipelineId { get; set; }
 
         /// <summary>
-        /// The UUID of the pipeline schedule
+        /// The UUID of the schedule.
         /// </summary>
         [Input("uuid")]
         public Input<string>? Uuid { get; set; }

@@ -21,7 +21,7 @@ class GetPipelineResult:
     """
     A collection of values returned by getPipeline.
     """
-    def __init__(__self__, default_branch=None, description=None, id=None, name=None, repository=None, slug=None, webhook_url=None):
+    def __init__(__self__, default_branch=None, description=None, id=None, name=None, repository=None, slug=None, uuid=None, webhook_url=None):
         if default_branch and not isinstance(default_branch, str):
             raise TypeError("Expected argument 'default_branch' to be a str")
         pulumi.set(__self__, "default_branch", default_branch)
@@ -40,6 +40,9 @@ class GetPipelineResult:
         if slug and not isinstance(slug, str):
             raise TypeError("Expected argument 'slug' to be a str")
         pulumi.set(__self__, "slug", slug)
+        if uuid and not isinstance(uuid, str):
+            raise TypeError("Expected argument 'uuid' to be a str")
+        pulumi.set(__self__, "uuid", uuid)
         if webhook_url and not isinstance(webhook_url, str):
             raise TypeError("Expected argument 'webhook_url' to be a str")
         pulumi.set(__self__, "webhook_url", webhook_url)
@@ -48,7 +51,7 @@ class GetPipelineResult:
     @pulumi.getter(name="defaultBranch")
     def default_branch(self) -> str:
         """
-        The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+        The default branch to prefill when new builds are created or triggered.
         """
         return pulumi.get(self, "default_branch")
 
@@ -56,13 +59,16 @@ class GetPipelineResult:
     @pulumi.getter
     def description(self) -> str:
         """
-        A description of the pipeline.
+        The description of the pipeline.
         """
         return pulumi.get(self, "description")
 
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The GraphQL ID of the pipeline.
+        """
         return pulumi.get(self, "id")
 
     @property
@@ -84,7 +90,18 @@ class GetPipelineResult:
     @property
     @pulumi.getter
     def slug(self) -> str:
+        """
+        The slug of the pipeline.
+        """
         return pulumi.get(self, "slug")
+
+    @property
+    @pulumi.getter
+    def uuid(self) -> str:
+        """
+        The UUID of the pipeline.
+        """
+        return pulumi.get(self, "uuid")
 
     @property
     @pulumi.getter(name="webhookUrl")
@@ -107,18 +124,16 @@ class AwaitableGetPipelineResult(GetPipelineResult):
             name=self.name,
             repository=self.repository,
             slug=self.slug,
+            uuid=self.uuid,
             webhook_url=self.webhook_url)
 
 
 def get_pipeline(slug: Optional[str] = None,
                  opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetPipelineResult:
     """
-    ## # Data Source: pipeline
+    Use this data source to look up properties on a specific pipeline. This is particularly useful for looking up the webhook URL for each pipeline.
 
-    Use this data source to look up properties on a specific pipeline. This is
-    particularly useful for looking up the webhook URL for each pipeline.
-
-    Buildkite Documentation: https://buildkite.com/docs/pipelines
+    More info in the Buildkite [documentation](https://buildkite.com/docs/pipelines).
 
     ## Example Usage
 
@@ -126,11 +141,11 @@ def get_pipeline(slug: Optional[str] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    repo2 = buildkite.Pipeline.get_pipeline(slug="repo2")
+    pipeline = buildkite.Pipeline.get_pipeline(slug="buildkite")
     ```
 
 
-    :param str slug: The slug of the pipeline, available in the URL of the pipeline on buildkite.com
+    :param str slug: The slug of the pipeline.
     """
     __args__ = dict()
     __args__['slug'] = slug
@@ -144,6 +159,7 @@ def get_pipeline(slug: Optional[str] = None,
         name=pulumi.get(__ret__, 'name'),
         repository=pulumi.get(__ret__, 'repository'),
         slug=pulumi.get(__ret__, 'slug'),
+        uuid=pulumi.get(__ret__, 'uuid'),
         webhook_url=pulumi.get(__ret__, 'webhook_url'))
 
 
@@ -151,12 +167,9 @@ def get_pipeline(slug: Optional[str] = None,
 def get_pipeline_output(slug: Optional[pulumi.Input[str]] = None,
                         opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetPipelineResult]:
     """
-    ## # Data Source: pipeline
+    Use this data source to look up properties on a specific pipeline. This is particularly useful for looking up the webhook URL for each pipeline.
 
-    Use this data source to look up properties on a specific pipeline. This is
-    particularly useful for looking up the webhook URL for each pipeline.
-
-    Buildkite Documentation: https://buildkite.com/docs/pipelines
+    More info in the Buildkite [documentation](https://buildkite.com/docs/pipelines).
 
     ## Example Usage
 
@@ -164,10 +177,10 @@ def get_pipeline_output(slug: Optional[pulumi.Input[str]] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    repo2 = buildkite.Pipeline.get_pipeline(slug="repo2")
+    pipeline = buildkite.Pipeline.get_pipeline(slug="buildkite")
     ```
 
 
-    :param str slug: The slug of the pipeline, available in the URL of the pipeline on buildkite.com
+    :param str slug: The slug of the pipeline.
     """
     ...

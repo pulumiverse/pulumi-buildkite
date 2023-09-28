@@ -29,5 +29,6 @@ var pulumiSchema []byte
 
 func main() {
 	// Modify the path to point to the new provider
-	tfbridge.MainWithMuxer(context.Background(), "buildkite", buildkite.Provider(), pulumiSchema)
+	meta := tfbridge.ProviderMetadata{PackageSchema: pulumiSchema}
+	tfbridge.Main(context.Background(), "buildkite", buildkite.Provider(), meta)
 }

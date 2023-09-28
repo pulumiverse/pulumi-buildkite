@@ -5,11 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Resource: testSuiteTeam
- *
- * This resources allows you to create, manage and import team access to Test Suites.
- *
- * Buildkite documentation: https://buildkite.com/docs/test-analytics
+ * Manage team access to a test suite.
  *
  * ## Example Usage
  *
@@ -17,40 +13,32 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const owners = new buildkite.team.Team("owners", {
- *     defaultTeam: false,
- *     privacy: "VISIBLE",
- *     defaultMemberRole: "MAINTAINER",
- * });
- * const viewers = new buildkite.team.Team("viewers", {
- *     defaultTeam: false,
- *     privacy: "VISIBLE",
- *     defaultMemberRole: "MAINTAINER",
- * });
- * const rspecSuite = new buildkite.testsuite.TestSuite("rspecSuite", {
+ * // create a test suite
+ * const main = new buildkite.testsuite.TestSuite("main", {
  *     defaultBranch: "main",
- *     teamOwnerId: owners.id,
+ *     teamOwnerId: "VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==",
  * });
- * const viewersRspec = new buildkite.testsuite.Team("viewersRspec", {
- *     testSuiteId: rspecSuite.id,
- *     teamId: viewers.id,
- *     accessLevel: "READ_ONLY",
+ * // give the "everyone" team manage access to the "main" test suite
+ * const mainEveryone = new buildkite.testsuite.Team("mainEveryone", {
+ *     testSuiteId: main.id,
+ *     teamId: "VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==",
+ *     accessLevel: "MANAGE_AND_READ",
  * });
  * ```
  *
  * ## Import
  *
- * Test suite teams can be imported using the `GraphQL ID` (not UUID), e.g.
+ * import a test suite team resource using the GraphQL ID
  *
- * ```sh
- *  $ pulumi import buildkite:TestSuite/team:Team viewers VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi
- * ```
+ * # 
  *
- *  To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/e8480014-37a8-4150-a011-6d35f33b4dfd), where you will need fo fill in the organization slug and suite search term (SUITE_SEARCH_TERM) for the particular test suite required. graphql query getTeamSuiteIds {
+ *  you can use this query to find the ID:
  *
- *  organization(slug"ORGANIZATION_SLUG") {
+ *  query getTeamSuiteIds {
  *
- *  suites(first1, search:"SUITE_SEARCH_TERM") {
+ *  organization(slug: "ORGANIZATION_SLUG") {
+ *
+ *  suites(first: 1, search:"SUITE_SEARCH_TERM") {
  *
  *  edges {
  *
@@ -60,7 +48,7 @@ import * as utilities from "../utilities";
  *
  *  name
  *
- *  teams(first10){
+ *  teams(first: 10){
  *
  *  edges {
  *
@@ -88,7 +76,13 @@ import * as utilities from "../utilities";
  *
  *  }
  *
- *  } }
+ *  }
+ *
+ *  }
+ *
+ * ```sh
+ * $ pulumi import buildkite:TestSuite/team:Team main_everyone VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi
+ * ```
  */
 export class Team extends pulumi.CustomResource {
     /**
@@ -119,7 +113,7 @@ export class Team extends pulumi.CustomResource {
     }
 
     /**
-     * The access level the team has on the test suite. Either READ_ONLY or MANAGE_AND_READ.
+     * The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
      */
     public readonly accessLevel!: pulumi.Output<string>;
     /**
@@ -131,7 +125,7 @@ export class Team extends pulumi.CustomResource {
      */
     public readonly testSuiteId!: pulumi.Output<string>;
     /**
-     * This is the UUID of the test suite team.
+     * The UUID of the test suite-team relationship.
      */
     public /*out*/ readonly uuid!: pulumi.Output<string>;
 
@@ -178,7 +172,7 @@ export class Team extends pulumi.CustomResource {
  */
 export interface TeamState {
     /**
-     * The access level the team has on the test suite. Either READ_ONLY or MANAGE_AND_READ.
+     * The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
      */
     accessLevel?: pulumi.Input<string>;
     /**
@@ -190,7 +184,7 @@ export interface TeamState {
      */
     testSuiteId?: pulumi.Input<string>;
     /**
-     * This is the UUID of the test suite team.
+     * The UUID of the test suite-team relationship.
      */
     uuid?: pulumi.Input<string>;
 }
@@ -200,7 +194,7 @@ export interface TeamState {
  */
 export interface TeamArgs {
     /**
-     * The access level the team has on the test suite. Either READ_ONLY or MANAGE_AND_READ.
+     * The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
      */
     accessLevel: pulumi.Input<string>;
     /**

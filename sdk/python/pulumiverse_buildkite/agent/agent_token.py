@@ -17,9 +17,7 @@ class AgentTokenArgs:
                  description: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a AgentToken resource.
-        :param pulumi.Input[str] description: This is the description of the agent token.
-               
-               > Changing `description` will cause the resource to be destroyed and re-created.
+        :param pulumi.Input[str] description: The description of the agent token. Used to help identify its use.
         """
         if description is not None:
             pulumi.set(__self__, "description", description)
@@ -28,9 +26,7 @@ class AgentTokenArgs:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[str]]:
         """
-        This is the description of the agent token.
-
-        > Changing `description` will cause the resource to be destroyed and re-created.
+        The description of the agent token. Used to help identify its use.
         """
         return pulumi.get(self, "description")
 
@@ -47,11 +43,9 @@ class _AgentTokenState:
                  uuid: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering AgentToken resources.
-        :param pulumi.Input[str] description: This is the description of the agent token.
-               
-               > Changing `description` will cause the resource to be destroyed and re-created.
-        :param pulumi.Input[str] token: The value of the created agent token.
-        :param pulumi.Input[str] uuid: The UUID of the token.
+        :param pulumi.Input[str] description: The description of the agent token. Used to help identify its use.
+        :param pulumi.Input[str] token: The token value used by an agent to register with the API.
+        :param pulumi.Input[str] uuid: The UUID of the agent token.
         """
         if description is not None:
             pulumi.set(__self__, "description", description)
@@ -64,9 +58,7 @@ class _AgentTokenState:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[str]]:
         """
-        This is the description of the agent token.
-
-        > Changing `description` will cause the resource to be destroyed and re-created.
+        The description of the agent token. Used to help identify its use.
         """
         return pulumi.get(self, "description")
 
@@ -78,7 +70,7 @@ class _AgentTokenState:
     @pulumi.getter
     def token(self) -> Optional[pulumi.Input[str]]:
         """
-        The value of the created agent token.
+        The token value used by an agent to register with the API.
         """
         return pulumi.get(self, "token")
 
@@ -90,7 +82,7 @@ class _AgentTokenState:
     @pulumi.getter
     def uuid(self) -> Optional[pulumi.Input[str]]:
         """
-        The UUID of the token.
+        The UUID of the agent token.
         """
         return pulumi.get(self, "uuid")
 
@@ -107,11 +99,8 @@ class AgentToken(pulumi.CustomResource):
                  description: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## # Resource: agent_token
-
-        This resource allows you to create and manage agent tokens.
-
-        Buildkite Documentation: https://buildkite.com/docs/agent/v3/tokens
+        This resource allows you to create and manage non-clustered agent tokens.
+        You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/agent/v3/tokens).
 
         ## Example Usage
 
@@ -119,14 +108,13 @@ class AgentToken(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        fleet = buildkite.agent.AgentToken("fleet", description="token used by build fleet")
+        # create a default token
+        default = buildkite.agent.AgentToken("default", description="Default token")
         ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] description: This is the description of the agent token.
-               
-               > Changing `description` will cause the resource to be destroyed and re-created.
+        :param pulumi.Input[str] description: The description of the agent token. Used to help identify its use.
         """
         ...
     @overload
@@ -135,11 +123,8 @@ class AgentToken(pulumi.CustomResource):
                  args: Optional[AgentTokenArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # Resource: agent_token
-
-        This resource allows you to create and manage agent tokens.
-
-        Buildkite Documentation: https://buildkite.com/docs/agent/v3/tokens
+        This resource allows you to create and manage non-clustered agent tokens.
+        You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/agent/v3/tokens).
 
         ## Example Usage
 
@@ -147,7 +132,8 @@ class AgentToken(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        fleet = buildkite.agent.AgentToken("fleet", description="token used by build fleet")
+        # create a default token
+        default = buildkite.agent.AgentToken("default", description="Default token")
         ```
 
         :param str resource_name: The name of the resource.
@@ -200,11 +186,9 @@ class AgentToken(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] description: This is the description of the agent token.
-               
-               > Changing `description` will cause the resource to be destroyed and re-created.
-        :param pulumi.Input[str] token: The value of the created agent token.
-        :param pulumi.Input[str] uuid: The UUID of the token.
+        :param pulumi.Input[str] description: The description of the agent token. Used to help identify its use.
+        :param pulumi.Input[str] token: The token value used by an agent to register with the API.
+        :param pulumi.Input[str] uuid: The UUID of the agent token.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -219,9 +203,7 @@ class AgentToken(pulumi.CustomResource):
     @pulumi.getter
     def description(self) -> pulumi.Output[Optional[str]]:
         """
-        This is the description of the agent token.
-
-        > Changing `description` will cause the resource to be destroyed and re-created.
+        The description of the agent token. Used to help identify its use.
         """
         return pulumi.get(self, "description")
 
@@ -229,7 +211,7 @@ class AgentToken(pulumi.CustomResource):
     @pulumi.getter
     def token(self) -> pulumi.Output[str]:
         """
-        The value of the created agent token.
+        The token value used by an agent to register with the API.
         """
         return pulumi.get(self, "token")
 
@@ -237,7 +219,7 @@ class AgentToken(pulumi.CustomResource):
     @pulumi.getter
     def uuid(self) -> pulumi.Output[str]:
         """
-        The UUID of the token.
+        The UUID of the agent token.
         """
         return pulumi.get(self, "uuid")
 

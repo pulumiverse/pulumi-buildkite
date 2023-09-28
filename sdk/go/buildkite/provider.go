@@ -18,13 +18,19 @@ import (
 type Provider struct {
 	pulumi.ProviderResourceState
 
-	// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
+	// API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can
+	// generate a token from [your settings
+	// page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql).
+	// If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
 	ApiToken pulumi.StringPtrOutput `pulumi:"apiToken"`
-	// Base URL for the GraphQL API to use
+	// Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+	// variable.
 	GraphqlUrl pulumi.StringPtrOutput `pulumi:"graphqlUrl"`
-	// The Buildkite organization slug
+	// The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+	// page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
 	Organization pulumi.StringPtrOutput `pulumi:"organization"`
-	// Base URL for the REST API to use
+	// Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+	// variable.
 	RestUrl pulumi.StringPtrOutput `pulumi:"restUrl"`
 }
 
@@ -52,30 +58,44 @@ func NewProvider(ctx *pulumi.Context,
 }
 
 type providerArgs struct {
-	// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
+	// API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can
+	// generate a token from [your settings
+	// page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql).
+	// If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
 	ApiToken *string `pulumi:"apiToken"`
-	// Archive pipelines when destroying instead of completely deleting.
+	// Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
 	ArchivePipelineOnDelete *bool `pulumi:"archivePipelineOnDelete"`
-	// Base URL for the GraphQL API to use
+	// Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+	// variable.
 	GraphqlUrl *string `pulumi:"graphqlUrl"`
-	// The Buildkite organization slug
+	// The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+	// page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
 	Organization *string `pulumi:"organization"`
-	// Base URL for the REST API to use
-	RestUrl *string `pulumi:"restUrl"`
+	// Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+	// variable.
+	RestUrl  *string           `pulumi:"restUrl"`
+	Timeouts *ProviderTimeouts `pulumi:"timeouts"`
 }
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
-	// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
+	// API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can
+	// generate a token from [your settings
+	// page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql).
+	// If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
 	ApiToken pulumi.StringPtrInput
-	// Archive pipelines when destroying instead of completely deleting.
+	// Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
 	ArchivePipelineOnDelete pulumi.BoolPtrInput
-	// Base URL for the GraphQL API to use
+	// Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+	// variable.
 	GraphqlUrl pulumi.StringPtrInput
-	// The Buildkite organization slug
+	// The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+	// page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
 	Organization pulumi.StringPtrInput
-	// Base URL for the REST API to use
-	RestUrl pulumi.StringPtrInput
+	// Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+	// variable.
+	RestUrl  pulumi.StringPtrInput
+	Timeouts ProviderTimeoutsPtrInput
 }
 
 func (ProviderArgs) ElementType() reflect.Type {
@@ -115,22 +135,28 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 	return o
 }
 
-// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
+// API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can
+// generate a token from [your settings
+// page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql).
+// If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
 func (o ProviderOutput) ApiToken() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiToken }).(pulumi.StringPtrOutput)
 }
 
-// Base URL for the GraphQL API to use
+// Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+// variable.
 func (o ProviderOutput) GraphqlUrl() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.GraphqlUrl }).(pulumi.StringPtrOutput)
 }
 
-// The Buildkite organization slug
+// The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+// page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
 func (o ProviderOutput) Organization() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Organization }).(pulumi.StringPtrOutput)
 }
 
-// Base URL for the REST API to use
+// Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+// variable.
 func (o ProviderOutput) RestUrl() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.RestUrl }).(pulumi.StringPtrOutput)
 }

@@ -13,47 +13,16 @@ namespace Pulumiverse.Buildkite.Organization
     public static class GetOrganization
     {
         /// <summary>
-        /// ## # Data Source: organization
-        /// 
-        /// Use this data source to look up the organization settings. It currently supports
-        /// allowed_api_ip_addresses.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Aws = Pulumi.Aws;
-        /// using Buildkite = Pulumi.Buildkite;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var testkite = Buildkite.Organization.GetOrganization.Invoke();
-        /// 
-        ///     var fromBuildkite = new Aws.Ec2.SecurityGroup("fromBuildkite", new()
-        ///     {
-        ///         Ingress = new[]
-        ///         {
-        ///             new Aws.Ec2.Inputs.SecurityGroupIngressArgs
-        ///             {
-        ///                 FromPort = "*",
-        ///                 ToPort = 443,
-        ///                 Protocol = "tcp",
-        ///                 CidrBlocks = data.Buildkite_organization.Allowed_api_ip_addresses,
-        ///             },
-        ///         },
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// Use this data source to look up the organization settings.
         /// </summary>
         public static Task<GetOrganizationResult> InvokeAsync(InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetOrganizationResult>("buildkite:Organization/getOrganization:getOrganization", InvokeArgs.Empty, options.WithDefaults());
+
+        /// <summary>
+        /// Use this data source to look up the organization settings.
+        /// </summary>
+        public static Output<GetOrganizationResult> Invoke(InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.Invoke<GetOrganizationResult>("buildkite:Organization/getOrganization:getOrganization", InvokeArgs.Empty, options.WithDefaults());
     }
 
 
@@ -61,10 +30,16 @@ namespace Pulumiverse.Buildkite.Organization
     public sealed class GetOrganizationResult
     {
         /// <summary>
-        /// list of IP addresses in CIDR format that are allowed to access the Buildkite API.
+        /// List of IP addresses in CIDR format that are allowed to access the Buildkite API for this organization.
         /// </summary>
         public readonly ImmutableArray<string> AllowedApiIpAddresses;
+        /// <summary>
+        /// The GraphQL ID of the organization.
+        /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The UUID of the organization.
+        /// </summary>
         public readonly string Uuid;
 
         [OutputConstructor]

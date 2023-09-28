@@ -11,11 +11,9 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Resource: cluster
-//
-// This resource allows you to create, manage and import Clusters.
-//
-// Buildkite documentation: https://buildkite.com/docs/clusters/overview
+// This resource allows you to create and manage a Buildkite Cluster to run your builds in.
+// Clusters are useful for grouping agents by there capabilities or permissions.
+// Find out more information in our [documentation](https://buildkite.com/docs/clusters/overview).
 //
 // ## Example Usage
 //
@@ -26,12 +24,33 @@ import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Cluster"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := Cluster.NewCluster(ctx, "linux", nil)
+//			// create a cluster
+//			primary, err := Cluster.NewCluster(ctx, "primary", &Cluster.ClusterArgs{
+//				Description: pulumi.String("Runs the monolith build and deploy"),
+//				Emoji:       pulumi.String("🚀"),
+//				Color:       pulumi.String("#bada55"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// add a pipeline to the cluster
+//			_, err = Pipeline.NewPipeline(ctx, "monolith", &Pipeline.PipelineArgs{
+//				Repository: pulumi.String("https://github.com/..."),
+//				ClusterId:  primary.ID(),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = Cluster.NewClusterQueue(ctx, "default", &Cluster.ClusterQueueArgs{
+//				ClusterId: primary.ID(),
+//				Key:       pulumi.String("default"),
+//			})
 //			if err != nil {
 //				return err
 //			}
@@ -40,18 +59,56 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// import a cluster resource using the GraphQL ID
+//
+// #
+//
+//	you can use this query to find the ID:
+//
+//	query getClusters {
+//
+//	organization(slug: "ORGANIZATION"){
+//
+//	clusters(first: 5, order:NAME) {
+//
+//	edges{
+//
+//	node {
+//
+//	id
+//
+//	name
+//
+//	}
+//
+//	}
+//
+//	}
+//
+//	}
+//
+//	}
+//
+// ```sh
+// $ pulumi import buildkite:Cluster/cluster:Cluster primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
+// ```
 type Cluster struct {
 	pulumi.CustomResourceState
 
-	// A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+	// A color representation of the Cluster. Accepts hex codes, eg #BADA55.
 	Color pulumi.StringPtrOutput `pulumi:"color"`
-	// This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+	// This is a description for the cluster, this may describe the usage for it, the region, or something else
+	// which would help identify the Cluster's purpose.
 	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+	// An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+	// emoji itself, such as 🚀.
 	Emoji pulumi.StringPtrOutput `pulumi:"emoji"`
-	// This is the name of the cluster.
+	// The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The UUID created with the Cluster.
+	// The UUID of the cluster.
 	Uuid pulumi.StringOutput `pulumi:"uuid"`
 }
 
@@ -85,28 +142,32 @@ func GetCluster(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Cluster resources.
 type clusterState struct {
-	// A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+	// A color representation of the Cluster. Accepts hex codes, eg #BADA55.
 	Color *string `pulumi:"color"`
-	// This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+	// This is a description for the cluster, this may describe the usage for it, the region, or something else
+	// which would help identify the Cluster's purpose.
 	Description *string `pulumi:"description"`
-	// An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+	// An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+	// emoji itself, such as 🚀.
 	Emoji *string `pulumi:"emoji"`
-	// This is the name of the cluster.
+	// The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
 	Name *string `pulumi:"name"`
-	// The UUID created with the Cluster.
+	// The UUID of the cluster.
 	Uuid *string `pulumi:"uuid"`
 }
 
 type ClusterState struct {
-	// A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+	// A color representation of the Cluster. Accepts hex codes, eg #BADA55.
 	Color pulumi.StringPtrInput
-	// This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+	// This is a description for the cluster, this may describe the usage for it, the region, or something else
+	// which would help identify the Cluster's purpose.
 	Description pulumi.StringPtrInput
-	// An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+	// An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+	// emoji itself, such as 🚀.
 	Emoji pulumi.StringPtrInput
-	// This is the name of the cluster.
+	// The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
 	Name pulumi.StringPtrInput
-	// The UUID created with the Cluster.
+	// The UUID of the cluster.
 	Uuid pulumi.StringPtrInput
 }
 
@@ -115,25 +176,29 @@ func (ClusterState) ElementType() reflect.Type {
 }
 
 type clusterArgs struct {
-	// A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+	// A color representation of the Cluster. Accepts hex codes, eg #BADA55.
 	Color *string `pulumi:"color"`
-	// This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+	// This is a description for the cluster, this may describe the usage for it, the region, or something else
+	// which would help identify the Cluster's purpose.
 	Description *string `pulumi:"description"`
-	// An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+	// An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+	// emoji itself, such as 🚀.
 	Emoji *string `pulumi:"emoji"`
-	// This is the name of the cluster.
+	// The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
 	Name *string `pulumi:"name"`
 }
 
 // The set of arguments for constructing a Cluster resource.
 type ClusterArgs struct {
-	// A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+	// A color representation of the Cluster. Accepts hex codes, eg #BADA55.
 	Color pulumi.StringPtrInput
-	// This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+	// This is a description for the cluster, this may describe the usage for it, the region, or something else
+	// which would help identify the Cluster's purpose.
 	Description pulumi.StringPtrInput
-	// An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+	// An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+	// emoji itself, such as 🚀.
 	Emoji pulumi.StringPtrInput
-	// This is the name of the cluster.
+	// The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
 	Name pulumi.StringPtrInput
 }
 
@@ -224,27 +289,29 @@ func (o ClusterOutput) ToClusterOutputWithContext(ctx context.Context) ClusterOu
 	return o
 }
 
-// A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+// A color representation of the Cluster. Accepts hex codes, eg #BADA55.
 func (o ClusterOutput) Color() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringPtrOutput { return v.Color }).(pulumi.StringPtrOutput)
 }
 
-// This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+// This is a description for the cluster, this may describe the usage for it, the region, or something else
+// which would help identify the Cluster's purpose.
 func (o ClusterOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
-// An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+// An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+// emoji itself, such as 🚀.
 func (o ClusterOutput) Emoji() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringPtrOutput { return v.Emoji }).(pulumi.StringPtrOutput)
 }
 
-// This is the name of the cluster.
+// The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
 func (o ClusterOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The UUID created with the Cluster.
+// The UUID of the cluster.
 func (o ClusterOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
 }

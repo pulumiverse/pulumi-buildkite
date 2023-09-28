@@ -11,13 +11,9 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Resource: organization
-//
 // This resource allows you to manage the settings for an organization.
 //
-// You must be an organization administrator to manage organization settings.
-//
-// Note: The "Allowed API IP Addresses" feature must be enabled on your organization in order to manage the `allowedApiIpAddresses` attribute.
+// The user of your API token must be an organization administrator to manage organization settings.
 //
 // ## Example Usage
 //
@@ -33,10 +29,12 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := Organization.NewOrganization(ctx, "testSettings", &Organization.OrganizationArgs{
+//			// allow api access only from 1.1.1.1 and enforce 2fa for all members
+//			_, err := Organization.NewOrganization(ctx, "settings", &Organization.OrganizationArgs{
 //				AllowedApiIpAddresses: pulumi.StringArray{
 //					pulumi.String("1.1.1.1/32"),
 //				},
+//				Enforce2fa: pulumi.Bool(true),
 //			})
 //			if err != nil {
 //				return err
@@ -49,21 +47,20 @@ import (
 //
 // ## Import
 //
-// Organization settings can be imported by passing the organization slug to the import command, along with the identifier of the resource.
+// import the organization settings via the organization slug
 //
 // ```sh
-//
-//	$ pulumi import buildkite:Organization/organization:Organization test_settings test_org
-//
+// $ pulumi import buildkite:Organization/organization:Organization settings <organization slug>
 // ```
-//
-//	Your organization's slug can be found in your organisation's [settings](https://buildkite.com/organizations/~/settings) page.
 type Organization struct {
 	pulumi.CustomResourceState
 
-	// A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+	// A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
 	AllowedApiIpAddresses pulumi.StringArrayOutput `pulumi:"allowedApiIpAddresses"`
-	Uuid                  pulumi.StringOutput      `pulumi:"uuid"`
+	// Sets whether the organization requires two-factor authentication for all members.
+	Enforce2fa pulumi.BoolOutput `pulumi:"enforce2fa"`
+	// The UUID of the organization.
+	Uuid pulumi.StringOutput `pulumi:"uuid"`
 }
 
 // NewOrganization registers a new resource with the given unique name, arguments, and options.
@@ -96,15 +93,21 @@ func GetOrganization(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Organization resources.
 type organizationState struct {
-	// A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+	// A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
 	AllowedApiIpAddresses []string `pulumi:"allowedApiIpAddresses"`
-	Uuid                  *string  `pulumi:"uuid"`
+	// Sets whether the organization requires two-factor authentication for all members.
+	Enforce2fa *bool `pulumi:"enforce2fa"`
+	// The UUID of the organization.
+	Uuid *string `pulumi:"uuid"`
 }
 
 type OrganizationState struct {
-	// A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+	// A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
 	AllowedApiIpAddresses pulumi.StringArrayInput
-	Uuid                  pulumi.StringPtrInput
+	// Sets whether the organization requires two-factor authentication for all members.
+	Enforce2fa pulumi.BoolPtrInput
+	// The UUID of the organization.
+	Uuid pulumi.StringPtrInput
 }
 
 func (OrganizationState) ElementType() reflect.Type {
@@ -112,14 +115,18 @@ func (OrganizationState) ElementType() reflect.Type {
 }
 
 type organizationArgs struct {
-	// A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+	// A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
 	AllowedApiIpAddresses []string `pulumi:"allowedApiIpAddresses"`
+	// Sets whether the organization requires two-factor authentication for all members.
+	Enforce2fa *bool `pulumi:"enforce2fa"`
 }
 
 // The set of arguments for constructing a Organization resource.
 type OrganizationArgs struct {
-	// A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+	// A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
 	AllowedApiIpAddresses pulumi.StringArrayInput
+	// Sets whether the organization requires two-factor authentication for all members.
+	Enforce2fa pulumi.BoolPtrInput
 }
 
 func (OrganizationArgs) ElementType() reflect.Type {
@@ -209,11 +216,17 @@ func (o OrganizationOutput) ToOrganizationOutputWithContext(ctx context.Context)
 	return o
 }
 
-// A list of IP addresses in CIDR format that are allowed to access the Buildkite API. If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+// A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
 func (o OrganizationOutput) AllowedApiIpAddresses() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Organization) pulumi.StringArrayOutput { return v.AllowedApiIpAddresses }).(pulumi.StringArrayOutput)
 }
 
+// Sets whether the organization requires two-factor authentication for all members.
+func (o OrganizationOutput) Enforce2fa() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Organization) pulumi.BoolOutput { return v.Enforce2fa }).(pulumi.BoolOutput)
+}
+
+// The UUID of the organization.
 func (o OrganizationOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *Organization) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
 }

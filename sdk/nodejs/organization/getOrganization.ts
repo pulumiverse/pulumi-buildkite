@@ -5,26 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Data Source: organization
- *
- * Use this data source to look up the organization settings. It currently supports
- * allowed_api_ip_addresses.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as aws from "@pulumi/aws";
- * import * as buildkite from "@pulumi/buildkite";
- *
- * const testkite = buildkite.Organization.getOrganization({});
- * const fromBuildkite = new aws.ec2.SecurityGroup("fromBuildkite", {ingress: [{
- *     fromPort: "*",
- *     toPort: 443,
- *     protocol: "tcp",
- *     cidrBlocks: data.buildkite_organization.allowed_api_ip_addresses,
- * }]});
- * ```
+ * Use this data source to look up the organization settings.
  */
 export function getOrganization(opts?: pulumi.InvokeOptions): Promise<GetOrganizationResult> {
 
@@ -38,9 +19,21 @@ export function getOrganization(opts?: pulumi.InvokeOptions): Promise<GetOrganiz
  */
 export interface GetOrganizationResult {
     /**
-     * list of IP addresses in CIDR format that are allowed to access the Buildkite API.
+     * List of IP addresses in CIDR format that are allowed to access the Buildkite API for this organization.
      */
     readonly allowedApiIpAddresses: string[];
+    /**
+     * The GraphQL ID of the organization.
+     */
     readonly id: string;
+    /**
+     * The UUID of the organization.
+     */
     readonly uuid: string;
+}
+/**
+ * Use this data source to look up the organization settings.
+ */
+export function getOrganizationOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetOrganizationResult> {
+    return pulumi.output(getOrganization(opts))
 }

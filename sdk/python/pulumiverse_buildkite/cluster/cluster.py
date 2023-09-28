@@ -20,10 +20,12 @@ class ClusterArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Cluster resource.
-        :param pulumi.Input[str] color: A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
-        :param pulumi.Input[str] description: This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
-        :param pulumi.Input[str] emoji: An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
-        :param pulumi.Input[str] name: This is the name of the cluster.
+        :param pulumi.Input[str] color: A color representation of the Cluster. Accepts hex codes, eg #BADA55.
+        :param pulumi.Input[str] description: This is a description for the cluster, this may describe the usage for it, the region, or something else
+               which would help identify the Cluster's purpose.
+        :param pulumi.Input[str] emoji: An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+               emoji itself, such as 🚀.
+        :param pulumi.Input[str] name: The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
         """
         if color is not None:
             pulumi.set(__self__, "color", color)
@@ -38,7 +40,7 @@ class ClusterArgs:
     @pulumi.getter
     def color(self) -> Optional[pulumi.Input[str]]:
         """
-        A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+        A color representation of the Cluster. Accepts hex codes, eg #BADA55.
         """
         return pulumi.get(self, "color")
 
@@ -50,7 +52,8 @@ class ClusterArgs:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[str]]:
         """
-        This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+        This is a description for the cluster, this may describe the usage for it, the region, or something else
+        which would help identify the Cluster's purpose.
         """
         return pulumi.get(self, "description")
 
@@ -62,7 +65,8 @@ class ClusterArgs:
     @pulumi.getter
     def emoji(self) -> Optional[pulumi.Input[str]]:
         """
-        An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+        An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+        emoji itself, such as 🚀.
         """
         return pulumi.get(self, "emoji")
 
@@ -74,7 +78,7 @@ class ClusterArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        This is the name of the cluster.
+        The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
         """
         return pulumi.get(self, "name")
 
@@ -93,11 +97,13 @@ class _ClusterState:
                  uuid: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Cluster resources.
-        :param pulumi.Input[str] color: A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
-        :param pulumi.Input[str] description: This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
-        :param pulumi.Input[str] emoji: An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
-        :param pulumi.Input[str] name: This is the name of the cluster.
-        :param pulumi.Input[str] uuid: The UUID created with the Cluster.
+        :param pulumi.Input[str] color: A color representation of the Cluster. Accepts hex codes, eg #BADA55.
+        :param pulumi.Input[str] description: This is a description for the cluster, this may describe the usage for it, the region, or something else
+               which would help identify the Cluster's purpose.
+        :param pulumi.Input[str] emoji: An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+               emoji itself, such as 🚀.
+        :param pulumi.Input[str] name: The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
+        :param pulumi.Input[str] uuid: The UUID of the cluster.
         """
         if color is not None:
             pulumi.set(__self__, "color", color)
@@ -114,7 +120,7 @@ class _ClusterState:
     @pulumi.getter
     def color(self) -> Optional[pulumi.Input[str]]:
         """
-        A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+        A color representation of the Cluster. Accepts hex codes, eg #BADA55.
         """
         return pulumi.get(self, "color")
 
@@ -126,7 +132,8 @@ class _ClusterState:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[str]]:
         """
-        This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+        This is a description for the cluster, this may describe the usage for it, the region, or something else
+        which would help identify the Cluster's purpose.
         """
         return pulumi.get(self, "description")
 
@@ -138,7 +145,8 @@ class _ClusterState:
     @pulumi.getter
     def emoji(self) -> Optional[pulumi.Input[str]]:
         """
-        An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+        An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+        emoji itself, such as 🚀.
         """
         return pulumi.get(self, "emoji")
 
@@ -150,7 +158,7 @@ class _ClusterState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        This is the name of the cluster.
+        The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
         """
         return pulumi.get(self, "name")
 
@@ -162,7 +170,7 @@ class _ClusterState:
     @pulumi.getter
     def uuid(self) -> Optional[pulumi.Input[str]]:
         """
-        The UUID created with the Cluster.
+        The UUID of the cluster.
         """
         return pulumi.get(self, "uuid")
 
@@ -182,11 +190,9 @@ class Cluster(pulumi.CustomResource):
                  name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## # Resource: cluster
-
-        This resource allows you to create, manage and import Clusters.
-
-        Buildkite documentation: https://buildkite.com/docs/clusters/overview
+        This resource allows you to create and manage a Buildkite Cluster to run your builds in.
+        Clusters are useful for grouping agents by there capabilities or permissions.
+        Find out more information in our [documentation](https://buildkite.com/docs/clusters/overview).
 
         ## Example Usage
 
@@ -194,15 +200,64 @@ class Cluster(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        linux = buildkite.cluster.Cluster("linux")
+        # create a cluster
+        primary = buildkite.cluster.Cluster("primary",
+            description="Runs the monolith build and deploy",
+            emoji="🚀",
+            color="#bada55")
+        # add a pipeline to the cluster
+        monolith = buildkite.pipeline.Pipeline("monolith",
+            repository="https://github.com/...",
+            cluster_id=primary.id)
+        default = buildkite.cluster.ClusterQueue("default",
+            cluster_id=primary.id,
+            key="default")
+        ```
+
+        ## Import
+
+        import a cluster resource using the GraphQL ID
+
+        # 
+
+         you can use this query to find the ID:
+
+         query getClusters {
+
+         organization(slug: "ORGANIZATION"){
+
+         clusters(first: 5, order:NAME) {
+
+         edges{
+
+         node {
+
+         id
+
+         name
+
+         }
+
+         }
+
+         }
+
+         }
+
+         }
+
+        ```sh
+        $ pulumi import buildkite:Cluster/cluster:Cluster primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
         ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] color: A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
-        :param pulumi.Input[str] description: This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
-        :param pulumi.Input[str] emoji: An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
-        :param pulumi.Input[str] name: This is the name of the cluster.
+        :param pulumi.Input[str] color: A color representation of the Cluster. Accepts hex codes, eg #BADA55.
+        :param pulumi.Input[str] description: This is a description for the cluster, this may describe the usage for it, the region, or something else
+               which would help identify the Cluster's purpose.
+        :param pulumi.Input[str] emoji: An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+               emoji itself, such as 🚀.
+        :param pulumi.Input[str] name: The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
         """
         ...
     @overload
@@ -211,11 +266,9 @@ class Cluster(pulumi.CustomResource):
                  args: Optional[ClusterArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # Resource: cluster
-
-        This resource allows you to create, manage and import Clusters.
-
-        Buildkite documentation: https://buildkite.com/docs/clusters/overview
+        This resource allows you to create and manage a Buildkite Cluster to run your builds in.
+        Clusters are useful for grouping agents by there capabilities or permissions.
+        Find out more information in our [documentation](https://buildkite.com/docs/clusters/overview).
 
         ## Example Usage
 
@@ -223,7 +276,54 @@ class Cluster(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        linux = buildkite.cluster.Cluster("linux")
+        # create a cluster
+        primary = buildkite.cluster.Cluster("primary",
+            description="Runs the monolith build and deploy",
+            emoji="🚀",
+            color="#bada55")
+        # add a pipeline to the cluster
+        monolith = buildkite.pipeline.Pipeline("monolith",
+            repository="https://github.com/...",
+            cluster_id=primary.id)
+        default = buildkite.cluster.ClusterQueue("default",
+            cluster_id=primary.id,
+            key="default")
+        ```
+
+        ## Import
+
+        import a cluster resource using the GraphQL ID
+
+        # 
+
+         you can use this query to find the ID:
+
+         query getClusters {
+
+         organization(slug: "ORGANIZATION"){
+
+         clusters(first: 5, order:NAME) {
+
+         edges{
+
+         node {
+
+         id
+
+         name
+
+         }
+
+         }
+
+         }
+
+         }
+
+         }
+
+        ```sh
+        $ pulumi import buildkite:Cluster/cluster:Cluster primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
         ```
 
         :param str resource_name: The name of the resource.
@@ -281,11 +381,13 @@ class Cluster(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] color: A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
-        :param pulumi.Input[str] description: This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
-        :param pulumi.Input[str] emoji: An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
-        :param pulumi.Input[str] name: This is the name of the cluster.
-        :param pulumi.Input[str] uuid: The UUID created with the Cluster.
+        :param pulumi.Input[str] color: A color representation of the Cluster. Accepts hex codes, eg #BADA55.
+        :param pulumi.Input[str] description: This is a description for the cluster, this may describe the usage for it, the region, or something else
+               which would help identify the Cluster's purpose.
+        :param pulumi.Input[str] emoji: An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+               emoji itself, such as 🚀.
+        :param pulumi.Input[str] name: The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
+        :param pulumi.Input[str] uuid: The UUID of the cluster.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -302,7 +404,7 @@ class Cluster(pulumi.CustomResource):
     @pulumi.getter
     def color(self) -> pulumi.Output[Optional[str]]:
         """
-        A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+        A color representation of the Cluster. Accepts hex codes, eg #BADA55.
         """
         return pulumi.get(self, "color")
 
@@ -310,7 +412,8 @@ class Cluster(pulumi.CustomResource):
     @pulumi.getter
     def description(self) -> pulumi.Output[Optional[str]]:
         """
-        This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+        This is a description for the cluster, this may describe the usage for it, the region, or something else
+        which would help identify the Cluster's purpose.
         """
         return pulumi.get(self, "description")
 
@@ -318,7 +421,8 @@ class Cluster(pulumi.CustomResource):
     @pulumi.getter
     def emoji(self) -> pulumi.Output[Optional[str]]:
         """
-        An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+        An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+        emoji itself, such as 🚀.
         """
         return pulumi.get(self, "emoji")
 
@@ -326,7 +430,7 @@ class Cluster(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
         """
-        This is the name of the cluster.
+        The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
         """
         return pulumi.get(self, "name")
 
@@ -334,7 +438,7 @@ class Cluster(pulumi.CustomResource):
     @pulumi.getter
     def uuid(self) -> pulumi.Output[str]:
         """
-        The UUID created with the Cluster.
+        The UUID of the cluster.
         """
         return pulumi.get(self, "uuid")
 

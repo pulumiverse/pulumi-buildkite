@@ -11,11 +11,7 @@ using Pulumi;
 namespace Pulumiverse.Buildkite.Cluster
 {
     /// <summary>
-    /// ## # Resource: cluster_agent_token
-    /// 
-    /// This resource allows you to create and manage cluster agent tokens.
-    /// 
-    /// Buildkite Documentation: https://buildkite.com/docs/clusters/manage-clusters#set-up-clusters-connect-agents-to-a-cluster
+    /// A Cluster Agent Token is a token used to connect an agent to a cluster in Buildkite.
     /// 
     /// ## Example Usage
     /// 
@@ -27,10 +23,41 @@ namespace Pulumiverse.Buildkite.Cluster
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var cluster_token_1 = new Buildkite.Cluster.ClusterAgentToken("cluster-token-1", new()
+    ///     // create a cluster
+    ///     var primary = new Buildkite.Cluster.Cluster("primary", new()
     ///     {
-    ///         ClusterId = "Q2x1c3Rlci0tLTkyMmVjOTA4LWRmNWItNDhhYS1hMThjLTczMzE0YjQ1ZGYyMA==",
-    ///         Description = "agent token for cluster-1",
+    ///         Description = "Runs the monolith build and deploy",
+    ///         Emoji = "🚀",
+    ///         Color = "#bada55",
+    ///     });
+    /// 
+    ///     // create an agent token for the cluster
+    ///     var defaultClusterAgentToken = new Buildkite.Cluster.ClusterAgentToken("defaultClusterAgentToken", new()
+    ///     {
+    ///         Description = "Default cluster token",
+    ///         ClusterId = primary.Id,
+    ///     });
+    /// 
+    ///     var ipLimitedToken = new Buildkite.Cluster.ClusterAgentToken("ipLimitedToken", new()
+    ///     {
+    ///         Description = "Token with allowed IP range",
+    ///         ClusterId = primary.Id,
+    ///         AllowedIpAddresses = new[]
+    ///         {
+    ///             "10.100.1.0/28",
+    ///         },
+    ///     });
+    /// 
+    ///     var monolith = new Buildkite.Pipeline.Pipeline("monolith", new()
+    ///     {
+    ///         Repository = "https://github.com/...",
+    ///         ClusterId = primary.Id,
+    ///     });
+    /// 
+    ///     var defaultClusterQueue = new Buildkite.Cluster.ClusterQueue("defaultClusterQueue", new()
+    ///     {
+    ///         ClusterId = primary.Id,
+    ///         Key = "default",
     ///     });
     /// 
     /// });
@@ -40,13 +67,19 @@ namespace Pulumiverse.Buildkite.Cluster
     public partial class ClusterAgentToken : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The ID of the cluster that this cluster queue belongs to.
+        /// A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        /// </summary>
+        [Output("allowedIpAddresses")]
+        public Output<ImmutableArray<string>> AllowedIpAddresses { get; private set; } = null!;
+
+        /// <summary>
+        /// The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
         /// </summary>
         [Output("clusterId")]
         public Output<string> ClusterId { get; private set; } = null!;
 
         /// <summary>
-        /// The UUID of the cluster that this cluster queue belongs to.
+        /// The UUID of the Cluster that this token belongs to.
         /// </summary>
         [Output("clusterUuid")]
         public Output<string> ClusterUuid { get; private set; } = null!;
@@ -57,11 +90,14 @@ namespace Pulumiverse.Buildkite.Cluster
         [Output("description")]
         public Output<string> Description { get; private set; } = null!;
 
+        /// <summary>
+        /// The token value used by an agent to register with the API.
+        /// </summary>
         [Output("token")]
         public Output<string> Token { get; private set; } = null!;
 
         /// <summary>
-        /// The UUID of the created cluster queue.
+        /// The UUID of the token.
         /// </summary>
         [Output("uuid")]
         public Output<string> Uuid { get; private set; } = null!;
@@ -117,8 +153,20 @@ namespace Pulumiverse.Buildkite.Cluster
 
     public sealed class ClusterAgentTokenArgs : global::Pulumi.ResourceArgs
     {
+        [Input("allowedIpAddresses")]
+        private InputList<string>? _allowedIpAddresses;
+
         /// <summary>
-        /// The ID of the cluster that this cluster queue belongs to.
+        /// A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        /// </summary>
+        public InputList<string> AllowedIpAddresses
+        {
+            get => _allowedIpAddresses ?? (_allowedIpAddresses = new InputList<string>());
+            set => _allowedIpAddresses = value;
+        }
+
+        /// <summary>
+        /// The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
         /// </summary>
         [Input("clusterId", required: true)]
         public Input<string> ClusterId { get; set; } = null!;
@@ -137,14 +185,26 @@ namespace Pulumiverse.Buildkite.Cluster
 
     public sealed class ClusterAgentTokenState : global::Pulumi.ResourceArgs
     {
+        [Input("allowedIpAddresses")]
+        private InputList<string>? _allowedIpAddresses;
+
         /// <summary>
-        /// The ID of the cluster that this cluster queue belongs to.
+        /// A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        /// </summary>
+        public InputList<string> AllowedIpAddresses
+        {
+            get => _allowedIpAddresses ?? (_allowedIpAddresses = new InputList<string>());
+            set => _allowedIpAddresses = value;
+        }
+
+        /// <summary>
+        /// The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
         /// </summary>
         [Input("clusterId")]
         public Input<string>? ClusterId { get; set; }
 
         /// <summary>
-        /// The UUID of the cluster that this cluster queue belongs to.
+        /// The UUID of the Cluster that this token belongs to.
         /// </summary>
         [Input("clusterUuid")]
         public Input<string>? ClusterUuid { get; set; }
@@ -157,6 +217,10 @@ namespace Pulumiverse.Buildkite.Cluster
 
         [Input("token")]
         private Input<string>? _token;
+
+        /// <summary>
+        /// The token value used by an agent to register with the API.
+        /// </summary>
         public Input<string>? Token
         {
             get => _token;
@@ -168,7 +232,7 @@ namespace Pulumiverse.Buildkite.Cluster
         }
 
         /// <summary>
-        /// The UUID of the created cluster queue.
+        /// The UUID of the token.
         /// </summary>
         [Input("uuid")]
         public Input<string>? Uuid { get; set; }

@@ -8,7 +8,7 @@ namespace Pulumiverse.Buildkite
 {
     public static class Config
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "IDE1006", Justification = 
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "IDE1006", Justification = 
         "Double underscore prefix used to avoid conflicts with variable names.")]
         private sealed class __Value<T>
         {
@@ -33,9 +33,6 @@ namespace Pulumiverse.Buildkite
         private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("buildkite");
 
         private static readonly __Value<string?> _apiToken = new __Value<string?>(() => __config.Get("apiToken"));
-        /// <summary>
-        /// API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
-        /// </summary>
         public static string? ApiToken
         {
             get => _apiToken.Get();
@@ -44,7 +41,7 @@ namespace Pulumiverse.Buildkite
 
         private static readonly __Value<bool?> _archivePipelineOnDelete = new __Value<bool?>(() => __config.GetBoolean("archivePipelineOnDelete"));
         /// <summary>
-        /// Archive pipelines when destroying instead of completely deleting.
+        /// Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
         /// </summary>
         public static bool? ArchivePipelineOnDelete
         {
@@ -54,7 +51,8 @@ namespace Pulumiverse.Buildkite
 
         private static readonly __Value<string?> _graphqlUrl = new __Value<string?>(() => __config.Get("graphqlUrl"));
         /// <summary>
-        /// Base URL for the GraphQL API to use
+        /// Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+        /// variable.
         /// </summary>
         public static string? GraphqlUrl
         {
@@ -64,7 +62,8 @@ namespace Pulumiverse.Buildkite
 
         private static readonly __Value<string?> _organization = new __Value<string?>(() => __config.Get("organization"));
         /// <summary>
-        /// The Buildkite organization slug
+        /// The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+        /// page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
         /// </summary>
         public static string? Organization
         {
@@ -74,7 +73,8 @@ namespace Pulumiverse.Buildkite
 
         private static readonly __Value<string?> _restUrl = new __Value<string?>(() => __config.Get("restUrl"));
         /// <summary>
-        /// Base URL for the REST API to use
+        /// Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+        /// variable.
         /// </summary>
         public static string? RestUrl
         {
@@ -82,5 +82,35 @@ namespace Pulumiverse.Buildkite
             set => _restUrl.Set(value);
         }
 
+        private static readonly __Value<Pulumiverse.Buildkite.Config.Types.Timeouts?> _timeouts = new __Value<Pulumiverse.Buildkite.Config.Types.Timeouts?>(() => __config.GetObject<Pulumiverse.Buildkite.Config.Types.Timeouts>("timeouts"));
+        public static Pulumiverse.Buildkite.Config.Types.Timeouts? Timeouts
+        {
+            get => _timeouts.Get();
+            set => _timeouts.Set(value);
+        }
+
+        public static class Types
+        {
+
+             public class Timeouts
+             {
+            /// <summary>
+            /// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+            /// </summary>
+                public string? Create { get; set; } = null!;
+            /// <summary>
+            /// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs.
+            /// </summary>
+                public string? Delete { get; set; } = null!;
+            /// <summary>
+            /// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
+            /// </summary>
+                public string? Read { get; set; } = null!;
+            /// <summary>
+            /// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+            /// </summary>
+                public string? Update { get; set; } = null!;
+            }
+        }
     }
 }

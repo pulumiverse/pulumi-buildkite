@@ -5,11 +5,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Resource: agentToken
- *
- * This resource allows you to create and manage agent tokens.
- *
- * Buildkite Documentation: https://buildkite.com/docs/agent/v3/tokens
+ * This resource allows you to create and manage non-clustered agent tokens.
+ * You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/agent/v3/tokens).
  *
  * ## Example Usage
  *
@@ -17,7 +14,8 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const fleet = new buildkite.agent.AgentToken("fleet", {description: "token used by build fleet"});
+ * // create a default token
+ * const _default = new buildkite.agent.AgentToken("default", {description: "Default token"});
  * ```
  */
 export class AgentToken extends pulumi.CustomResource {
@@ -49,17 +47,15 @@ export class AgentToken extends pulumi.CustomResource {
     }
 
     /**
-     * This is the description of the agent token.
-     *
-     * > Changing `description` will cause the resource to be destroyed and re-created.
+     * The description of the agent token. Used to help identify its use.
      */
     public readonly description!: pulumi.Output<string | undefined>;
     /**
-     * The value of the created agent token.
+     * The token value used by an agent to register with the API.
      */
     public /*out*/ readonly token!: pulumi.Output<string>;
     /**
-     * The UUID of the token.
+     * The UUID of the agent token.
      */
     public /*out*/ readonly uuid!: pulumi.Output<string>;
 
@@ -97,17 +93,15 @@ export class AgentToken extends pulumi.CustomResource {
  */
 export interface AgentTokenState {
     /**
-     * This is the description of the agent token.
-     *
-     * > Changing `description` will cause the resource to be destroyed and re-created.
+     * The description of the agent token. Used to help identify its use.
      */
     description?: pulumi.Input<string>;
     /**
-     * The value of the created agent token.
+     * The token value used by an agent to register with the API.
      */
     token?: pulumi.Input<string>;
     /**
-     * The UUID of the token.
+     * The UUID of the agent token.
      */
     uuid?: pulumi.Input<string>;
 }
@@ -117,9 +111,7 @@ export interface AgentTokenState {
  */
 export interface AgentTokenArgs {
     /**
-     * This is the description of the agent token.
-     *
-     * > Changing `description` will cause the resource to be destroyed and re-created.
+     * The description of the agent token. Used to help identify its use.
      */
     description?: pulumi.Input<string>;
 }

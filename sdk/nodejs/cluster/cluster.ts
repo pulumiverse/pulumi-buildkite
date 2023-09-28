@@ -5,11 +5,9 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Resource: cluster
- *
- * This resource allows you to create, manage and import Clusters.
- *
- * Buildkite documentation: https://buildkite.com/docs/clusters/overview
+ * This resource allows you to create and manage a Buildkite Cluster to run your builds in.
+ * Clusters are useful for grouping agents by there capabilities or permissions.
+ * Find out more information in our [documentation](https://buildkite.com/docs/clusters/overview).
  *
  * ## Example Usage
  *
@@ -17,7 +15,57 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const linux = new buildkite.cluster.Cluster("linux", {});
+ * // create a cluster
+ * const primary = new buildkite.cluster.Cluster("primary", {
+ *     description: "Runs the monolith build and deploy",
+ *     emoji: "🚀",
+ *     color: "#bada55",
+ * });
+ * // add a pipeline to the cluster
+ * const monolith = new buildkite.pipeline.Pipeline("monolith", {
+ *     repository: "https://github.com/...",
+ *     clusterId: primary.id,
+ * });
+ * const _default = new buildkite.cluster.ClusterQueue("default", {
+ *     clusterId: primary.id,
+ *     key: "default",
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * import a cluster resource using the GraphQL ID
+ *
+ * # 
+ *
+ *  you can use this query to find the ID:
+ *
+ *  query getClusters {
+ *
+ *  organization(slug: "ORGANIZATION"){
+ *
+ *  clusters(first: 5, order:NAME) {
+ *
+ *  edges{
+ *
+ *  node {
+ *
+ *  id
+ *
+ *  name
+ *
+ *  }
+ *
+ *  }
+ *
+ *  }
+ *
+ *  }
+ *
+ *  }
+ *
+ * ```sh
+ * $ pulumi import buildkite:Cluster/cluster:Cluster primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
  * ```
  */
 export class Cluster extends pulumi.CustomResource {
@@ -49,23 +97,25 @@ export class Cluster extends pulumi.CustomResource {
     }
 
     /**
-     * A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+     * A color representation of the Cluster. Accepts hex codes, eg #BADA55.
      */
     public readonly color!: pulumi.Output<string | undefined>;
     /**
-     * This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+     * This is a description for the cluster, this may describe the usage for it, the region, or something else
+     * which would help identify the Cluster's purpose.
      */
     public readonly description!: pulumi.Output<string | undefined>;
     /**
-     * An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+     * An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+     * emoji itself, such as 🚀.
      */
     public readonly emoji!: pulumi.Output<string | undefined>;
     /**
-     * This is the name of the cluster.
+     * The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * The UUID created with the Cluster.
+     * The UUID of the cluster.
      */
     public /*out*/ readonly uuid!: pulumi.Output<string>;
 
@@ -105,23 +155,25 @@ export class Cluster extends pulumi.CustomResource {
  */
 export interface ClusterState {
     /**
-     * A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+     * A color representation of the Cluster. Accepts hex codes, eg #BADA55.
      */
     color?: pulumi.Input<string>;
     /**
-     * This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+     * This is a description for the cluster, this may describe the usage for it, the region, or something else
+     * which would help identify the Cluster's purpose.
      */
     description?: pulumi.Input<string>;
     /**
-     * An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+     * An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+     * emoji itself, such as 🚀.
      */
     emoji?: pulumi.Input<string>;
     /**
-     * This is the name of the cluster.
+     * The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
      */
     name?: pulumi.Input<string>;
     /**
-     * The UUID created with the Cluster.
+     * The UUID of the cluster.
      */
     uuid?: pulumi.Input<string>;
 }
@@ -131,19 +183,21 @@ export interface ClusterState {
  */
 export interface ClusterArgs {
     /**
-     * A color to associate with the Cluster. Perhaps a team related color, or one related to an environment. This is set using hex value, such as `#BADA55`.
+     * A color representation of the Cluster. Accepts hex codes, eg #BADA55.
      */
     color?: pulumi.Input<string>;
     /**
-     * This is a description for the cluster, this may describe the usage for it, the region, or something else which would help identify the Cluster's purpose.
+     * This is a description for the cluster, this may describe the usage for it, the region, or something else
+     * which would help identify the Cluster's purpose.
      */
     description?: pulumi.Input<string>;
     /**
-     * An emoji to use with the Cluster, this can either be set using `:buildkite:` notation, or with the emoji itself, such as 😎.
+     * An emoji to use with the Cluster, this can either be set using :buildkite: notation, or with the
+     * emoji itself, such as 🚀.
      */
     emoji?: pulumi.Input<string>;
     /**
-     * This is the name of the cluster.
+     * The name of the Cluster. Can only contain numbers and letters, no spaces or special characters.
      */
     name?: pulumi.Input<string>;
 }

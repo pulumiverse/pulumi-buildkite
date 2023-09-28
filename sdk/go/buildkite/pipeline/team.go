@@ -12,11 +12,7 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Resource: pipelineTeam
-//
-// This resource allows you to create and manage team configuration in a pipeline.
-//
-// Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions#permissions-with-teams-pipeline-level-permissions
+// Manage team access to a pipeline.
 //
 // ## Example Usage
 //
@@ -27,15 +23,31 @@ import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Team"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := Pipeline.NewTeam(ctx, "developers", &Pipeline.TeamArgs{
-//				PipelineId:  pulumi.Any(buildkite_pipeline.Repo2),
-//				TeamId:      pulumi.Any(buildkite_team.Test.Id),
-//				AccessLevel: pulumi.String("MANAGE_BUILD_AND_READ"),
+//			pipeline, err := Pipeline.NewPipeline(ctx, "pipeline", &Pipeline.PipelineArgs{
+//				Repository: pulumi.String("https://github.com/..."),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			team, err := Team.NewTeam(ctx, "team", &Team.TeamArgs{
+//				Privacy:           pulumi.String("VISIBLE"),
+//				DefaultTeam:       pulumi.Bool(false),
+//				DefaultMemberRole: pulumi.String("MEMBER"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// allow everyone in the "Everyone" team read-only access to pipeline
+//			_, err = Pipeline.NewTeam(ctx, "pipelineTeam", &Pipeline.TeamArgs{
+//				PipelineId:  pipeline.ID(),
+//				TeamId:      team.ID(),
+//				AccessLevel: pulumi.String("READ_ONLY"),
 //			})
 //			if err != nil {
 //				return err
@@ -48,19 +60,17 @@ import (
 //
 // ## Import
 //
-// Pipeline teams can be imported using their `GraphQL ID`, e.g.
+// import a pipeline team resource using the GraphQL ID
 //
-// ```sh
+// #
 //
-//	$ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
+//	you can use this query to find the ID:
 //
-// ```
+//	query getPipelineTeamId {
 //
-//	Your pipeline team's GraphQL ID can be found with the below GraphQL query below.
+//	pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
 //
-//	graphql query getPipelineTeamId {
-//
-//	pipeline(slug"ORGANIZATION_SLUG/PIPELINE_SLUG") { 		teams(first5, search"PIPELINE_SEARCH_TERM") {
+//	teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
 //
 //	edges{
 //
@@ -68,23 +78,29 @@ import (
 //
 //	id
 //
-// }
+//	}
+//
+//	}
 //
 //	}
 //
 //	}
 //
-//	} }
+//	}
+//
+// ```sh
+// $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
+// ```
 type Team struct {
 	pulumi.CustomResourceState
 
-	// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+	// The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
 	AccessLevel pulumi.StringOutput `pulumi:"accessLevel"`
 	// The GraphQL ID of the pipeline.
 	PipelineId pulumi.StringOutput `pulumi:"pipelineId"`
-	// The GraphQL ID of the team to add to/remove from.
+	// The GraphQL ID of the team.
 	TeamId pulumi.StringOutput `pulumi:"teamId"`
-	// The UUID of the pipeline schedule
+	// The UUID of the pipeline-team relationship.
 	Uuid pulumi.StringOutput `pulumi:"uuid"`
 }
 
@@ -127,24 +143,24 @@ func GetTeam(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Team resources.
 type teamState struct {
-	// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+	// The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
 	AccessLevel *string `pulumi:"accessLevel"`
 	// The GraphQL ID of the pipeline.
 	PipelineId *string `pulumi:"pipelineId"`
-	// The GraphQL ID of the team to add to/remove from.
+	// The GraphQL ID of the team.
 	TeamId *string `pulumi:"teamId"`
-	// The UUID of the pipeline schedule
+	// The UUID of the pipeline-team relationship.
 	Uuid *string `pulumi:"uuid"`
 }
 
 type TeamState struct {
-	// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+	// The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
 	AccessLevel pulumi.StringPtrInput
 	// The GraphQL ID of the pipeline.
 	PipelineId pulumi.StringPtrInput
-	// The GraphQL ID of the team to add to/remove from.
+	// The GraphQL ID of the team.
 	TeamId pulumi.StringPtrInput
-	// The UUID of the pipeline schedule
+	// The UUID of the pipeline-team relationship.
 	Uuid pulumi.StringPtrInput
 }
 
@@ -153,21 +169,21 @@ func (TeamState) ElementType() reflect.Type {
 }
 
 type teamArgs struct {
-	// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+	// The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
 	AccessLevel string `pulumi:"accessLevel"`
 	// The GraphQL ID of the pipeline.
 	PipelineId string `pulumi:"pipelineId"`
-	// The GraphQL ID of the team to add to/remove from.
+	// The GraphQL ID of the team.
 	TeamId string `pulumi:"teamId"`
 }
 
 // The set of arguments for constructing a Team resource.
 type TeamArgs struct {
-	// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+	// The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
 	AccessLevel pulumi.StringInput
 	// The GraphQL ID of the pipeline.
 	PipelineId pulumi.StringInput
-	// The GraphQL ID of the team to add to/remove from.
+	// The GraphQL ID of the team.
 	TeamId pulumi.StringInput
 }
 
@@ -258,7 +274,7 @@ func (o TeamOutput) ToTeamOutputWithContext(ctx context.Context) TeamOutput {
 	return o
 }
 
-// The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+// The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
 func (o TeamOutput) AccessLevel() pulumi.StringOutput {
 	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.AccessLevel }).(pulumi.StringOutput)
 }
@@ -268,12 +284,12 @@ func (o TeamOutput) PipelineId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.PipelineId }).(pulumi.StringOutput)
 }
 
-// The GraphQL ID of the team to add to/remove from.
+// The GraphQL ID of the team.
 func (o TeamOutput) TeamId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.TeamId }).(pulumi.StringOutput)
 }
 
-// The UUID of the pipeline schedule
+// The UUID of the pipeline-team relationship.
 func (o TeamOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *Team) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
 }

@@ -8,29 +8,32 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
+from . import outputs
 
 apiToken: Optional[str]
-"""
-API token with GraphQL access and `write_pipelines, read_pipelines` and `write_suites` REST API scopes
-"""
 
 archivePipelineOnDelete: Optional[bool]
 """
-Archive pipelines when destroying instead of completely deleting.
+Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
 """
 
 graphqlUrl: Optional[str]
 """
-Base URL for the GraphQL API to use
+Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment
+variable.
 """
 
 organization: Optional[str]
 """
-The Buildkite organization slug
+The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings)
+page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
 """
 
 restUrl: Optional[str]
 """
-Base URL for the REST API to use
+Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment
+variable.
 """
+
+timeouts: Optional[str]
 

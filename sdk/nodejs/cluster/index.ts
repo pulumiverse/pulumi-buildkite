@@ -15,6 +15,11 @@ export type ClusterAgentToken = import("./clusterAgentToken").ClusterAgentToken;
 export const ClusterAgentToken: typeof import("./clusterAgentToken").ClusterAgentToken = null as any;
 utilities.lazyLoad(exports, ["ClusterAgentToken"], () => require("./clusterAgentToken"));
 
+export { ClusterDefaultQueueArgs, ClusterDefaultQueueState } from "./clusterDefaultQueue";
+export type ClusterDefaultQueue = import("./clusterDefaultQueue").ClusterDefaultQueue;
+export const ClusterDefaultQueue: typeof import("./clusterDefaultQueue").ClusterDefaultQueue = null as any;
+utilities.lazyLoad(exports, ["ClusterDefaultQueue"], () => require("./clusterDefaultQueue"));
+
 export { ClusterQueueArgs, ClusterQueueState } from "./clusterQueue";
 export type ClusterQueue = import("./clusterQueue").ClusterQueue;
 export const ClusterQueue: typeof import("./clusterQueue").ClusterQueue = null as any;
@@ -34,6 +39,8 @@ const _module = {
                 return new Cluster(name, <any>undefined, { urn })
             case "buildkite:Cluster/clusterAgentToken:ClusterAgentToken":
                 return new ClusterAgentToken(name, <any>undefined, { urn })
+            case "buildkite:Cluster/clusterDefaultQueue:ClusterDefaultQueue":
+                return new ClusterDefaultQueue(name, <any>undefined, { urn })
             case "buildkite:Cluster/clusterQueue:ClusterQueue":
                 return new ClusterQueue(name, <any>undefined, { urn })
             default:
@@ -43,4 +50,5 @@ const _module = {
 };
 pulumi.runtime.registerResourceModule("buildkite", "Cluster/cluster", _module)
 pulumi.runtime.registerResourceModule("buildkite", "Cluster/clusterAgentToken", _module)
+pulumi.runtime.registerResourceModule("buildkite", "Cluster/clusterDefaultQueue", _module)
 pulumi.runtime.registerResourceModule("buildkite", "Cluster/clusterQueue", _module)

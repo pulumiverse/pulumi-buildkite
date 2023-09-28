@@ -19,9 +19,9 @@ class TeamArgs:
                  team_id: pulumi.Input[str]):
         """
         The set of arguments for constructing a Team resource.
-        :param pulumi.Input[str] access_level: The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+        :param pulumi.Input[str] access_level: The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         :param pulumi.Input[str] pipeline_id: The GraphQL ID of the pipeline.
-        :param pulumi.Input[str] team_id: The GraphQL ID of the team to add to/remove from.
+        :param pulumi.Input[str] team_id: The GraphQL ID of the team.
         """
         pulumi.set(__self__, "access_level", access_level)
         pulumi.set(__self__, "pipeline_id", pipeline_id)
@@ -31,7 +31,7 @@ class TeamArgs:
     @pulumi.getter(name="accessLevel")
     def access_level(self) -> pulumi.Input[str]:
         """
-        The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+        The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         """
         return pulumi.get(self, "access_level")
 
@@ -55,7 +55,7 @@ class TeamArgs:
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Input[str]:
         """
-        The GraphQL ID of the team to add to/remove from.
+        The GraphQL ID of the team.
         """
         return pulumi.get(self, "team_id")
 
@@ -73,10 +73,10 @@ class _TeamState:
                  uuid: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Team resources.
-        :param pulumi.Input[str] access_level: The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+        :param pulumi.Input[str] access_level: The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         :param pulumi.Input[str] pipeline_id: The GraphQL ID of the pipeline.
-        :param pulumi.Input[str] team_id: The GraphQL ID of the team to add to/remove from.
-        :param pulumi.Input[str] uuid: The UUID of the pipeline schedule
+        :param pulumi.Input[str] team_id: The GraphQL ID of the team.
+        :param pulumi.Input[str] uuid: The UUID of the pipeline-team relationship.
         """
         if access_level is not None:
             pulumi.set(__self__, "access_level", access_level)
@@ -91,7 +91,7 @@ class _TeamState:
     @pulumi.getter(name="accessLevel")
     def access_level(self) -> Optional[pulumi.Input[str]]:
         """
-        The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+        The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         """
         return pulumi.get(self, "access_level")
 
@@ -115,7 +115,7 @@ class _TeamState:
     @pulumi.getter(name="teamId")
     def team_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The GraphQL ID of the team to add to/remove from.
+        The GraphQL ID of the team.
         """
         return pulumi.get(self, "team_id")
 
@@ -127,7 +127,7 @@ class _TeamState:
     @pulumi.getter
     def uuid(self) -> Optional[pulumi.Input[str]]:
         """
-        The UUID of the pipeline schedule
+        The UUID of the pipeline-team relationship.
         """
         return pulumi.get(self, "uuid")
 
@@ -146,11 +146,7 @@ class Team(pulumi.CustomResource):
                  team_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## # Resource: pipeline_team
-
-        This resource allows you to create and manage team configuration in a pipeline.
-
-        Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions#permissions-with-teams-pipeline-level-permissions
+        Manage team access to a pipeline.
 
         ## Example Usage
 
@@ -158,25 +154,31 @@ class Team(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        developers = buildkite.pipeline.Team("developers",
-            pipeline_id=buildkite_pipeline["repo2"],
-            team_id=buildkite_team["test"]["id"],
-            access_level="MANAGE_BUILD_AND_READ")
+        pipeline = buildkite.pipeline.Pipeline("pipeline", repository="https://github.com/...")
+        team = buildkite.team.Team("team",
+            privacy="VISIBLE",
+            default_team=False,
+            default_member_role="MEMBER")
+        # allow everyone in the "Everyone" team read-only access to pipeline
+        pipeline_team = buildkite.pipeline.Team("pipelineTeam",
+            pipeline_id=pipeline.id,
+            team_id=team.id,
+            access_level="READ_ONLY")
         ```
 
         ## Import
 
-        Pipeline teams can be imported using their `GraphQL ID`, e.g.
+        import a pipeline team resource using the GraphQL ID
 
-        ```sh
-         $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
-        ```
+        # 
 
-         Your pipeline team's GraphQL ID can be found with the below GraphQL query below.
+         you can use this query to find the ID:
 
-         graphql query getPipelineTeamId {
+         query getPipelineTeamId {
 
-         pipeline(slug"ORGANIZATION_SLUG/PIPELINE_SLUG") { 		teams(first5, search"PIPELINE_SEARCH_TERM") {
+         pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
+
+         teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
 
          edges{
 
@@ -184,19 +186,25 @@ class Team(pulumi.CustomResource):
 
          id
 
-        }
+         }
+
+         }
 
          }
 
          }
 
-         } }
+         }
+
+        ```sh
+        $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
+        ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] access_level: The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+        :param pulumi.Input[str] access_level: The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         :param pulumi.Input[str] pipeline_id: The GraphQL ID of the pipeline.
-        :param pulumi.Input[str] team_id: The GraphQL ID of the team to add to/remove from.
+        :param pulumi.Input[str] team_id: The GraphQL ID of the team.
         """
         ...
     @overload
@@ -205,11 +213,7 @@ class Team(pulumi.CustomResource):
                  args: TeamArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # Resource: pipeline_team
-
-        This resource allows you to create and manage team configuration in a pipeline.
-
-        Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions#permissions-with-teams-pipeline-level-permissions
+        Manage team access to a pipeline.
 
         ## Example Usage
 
@@ -217,25 +221,31 @@ class Team(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        developers = buildkite.pipeline.Team("developers",
-            pipeline_id=buildkite_pipeline["repo2"],
-            team_id=buildkite_team["test"]["id"],
-            access_level="MANAGE_BUILD_AND_READ")
+        pipeline = buildkite.pipeline.Pipeline("pipeline", repository="https://github.com/...")
+        team = buildkite.team.Team("team",
+            privacy="VISIBLE",
+            default_team=False,
+            default_member_role="MEMBER")
+        # allow everyone in the "Everyone" team read-only access to pipeline
+        pipeline_team = buildkite.pipeline.Team("pipelineTeam",
+            pipeline_id=pipeline.id,
+            team_id=team.id,
+            access_level="READ_ONLY")
         ```
 
         ## Import
 
-        Pipeline teams can be imported using their `GraphQL ID`, e.g.
+        import a pipeline team resource using the GraphQL ID
 
-        ```sh
-         $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
-        ```
+        # 
 
-         Your pipeline team's GraphQL ID can be found with the below GraphQL query below.
+         you can use this query to find the ID:
 
-         graphql query getPipelineTeamId {
+         query getPipelineTeamId {
 
-         pipeline(slug"ORGANIZATION_SLUG/PIPELINE_SLUG") { 		teams(first5, search"PIPELINE_SEARCH_TERM") {
+         pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
+
+         teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
 
          edges{
 
@@ -243,13 +253,19 @@ class Team(pulumi.CustomResource):
 
          id
 
-        }
+         }
+
+         }
 
          }
 
          }
 
-         } }
+         }
+
+        ```sh
+        $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
+        ```
 
         :param str resource_name: The name of the resource.
         :param TeamArgs args: The arguments to use to populate this resource's properties.
@@ -309,10 +325,10 @@ class Team(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] access_level: The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+        :param pulumi.Input[str] access_level: The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         :param pulumi.Input[str] pipeline_id: The GraphQL ID of the pipeline.
-        :param pulumi.Input[str] team_id: The GraphQL ID of the team to add to/remove from.
-        :param pulumi.Input[str] uuid: The UUID of the pipeline schedule
+        :param pulumi.Input[str] team_id: The GraphQL ID of the team.
+        :param pulumi.Input[str] uuid: The UUID of the pipeline-team relationship.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -328,7 +344,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter(name="accessLevel")
     def access_level(self) -> pulumi.Output[str]:
         """
-        The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+        The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         """
         return pulumi.get(self, "access_level")
 
@@ -344,7 +360,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter(name="teamId")
     def team_id(self) -> pulumi.Output[str]:
         """
-        The GraphQL ID of the team to add to/remove from.
+        The GraphQL ID of the team.
         """
         return pulumi.get(self, "team_id")
 
@@ -352,7 +368,7 @@ class Team(pulumi.CustomResource):
     @pulumi.getter
     def uuid(self) -> pulumi.Output[str]:
         """
-        The UUID of the pipeline schedule
+        The UUID of the pipeline-team relationship.
         """
         return pulumi.get(self, "uuid")
 

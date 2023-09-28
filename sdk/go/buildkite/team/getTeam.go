@@ -11,12 +11,8 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Data Source: team
-//
-// Use this data source to look up properties of a team. This can be used to
-// validate that a team exists before setting the team slug on a pipeline.
-//
-// Buildkite documentation: https://buildkite.com/docs/pipelines/permissions
+// Use this data source to retrieve a team by slug or id. You can find out more about teams in the Buildkite
+// [documentation](https://buildkite.com/docs/pipelines/permissions).
 //
 // ## Example Usage
 //
@@ -33,7 +29,13 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			_, err := Team.GetTeam(ctx, &team.GetTeamArgs{
-//				Id: pulumi.StringRef("<team id>"),
+//				Id: pulumi.StringRef(buildkite_team.Team_dev.Id),
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = Team.GetTeam(ctx, &team.GetTeamArgs{
+//				Slug: pulumi.StringRef("Everyone"),
 //			}, nil)
 //			if err != nil {
 //				return err
@@ -55,33 +57,31 @@ func LookupTeam(ctx *pulumi.Context, args *LookupTeamArgs, opts ...pulumi.Invoke
 
 // A collection of arguments for invoking getTeam.
 type LookupTeamArgs struct {
-	// The GraphQL ID of the team, available in the Settings page for the team.
+	// The GraphQL ID of the team to find.
 	Id *string `pulumi:"id"`
-	// The slug of the team. Available in the URL of the team on buildkite.com; in the format
-	// "<organizaton/team-name>"
-	//
-	// The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+	// The slug of the team to find.
 	Slug *string `pulumi:"slug"`
 }
 
 // A collection of values returned by getTeam.
 type LookupTeamResult struct {
-	// Default role to assign to a team member
+	// The default member role of the team.
 	DefaultMemberRole string `pulumi:"defaultMemberRole"`
-	// Whether new org members will be automatically added to this team
+	// Whether the team is the default team.
 	DefaultTeam bool `pulumi:"defaultTeam"`
-	// A description of the team
+	// The description of the team.
 	Description string `pulumi:"description"`
-	// The GraphQL ID of the team
+	// The GraphQL ID of the team to find.
 	Id string `pulumi:"id"`
-	// Whether team members can create new pipelines and add them to the team
+	// Whether members can create pipelines.
 	MembersCanCreatePipelines bool `pulumi:"membersCanCreatePipelines"`
-	// The name of the team
+	// The name of the team.
 	Name string `pulumi:"name"`
-	// Whether the team is visible to org members outside this team
+	// The privacy setting of the team.
 	Privacy string `pulumi:"privacy"`
-	Slug    string `pulumi:"slug"`
-	// The UUID of the team
+	// The slug of the team to find.
+	Slug string `pulumi:"slug"`
+	// The UUID of the team.
 	Uuid string `pulumi:"uuid"`
 }
 
@@ -100,12 +100,9 @@ func LookupTeamOutput(ctx *pulumi.Context, args LookupTeamOutputArgs, opts ...pu
 
 // A collection of arguments for invoking getTeam.
 type LookupTeamOutputArgs struct {
-	// The GraphQL ID of the team, available in the Settings page for the team.
+	// The GraphQL ID of the team to find.
 	Id pulumi.StringPtrInput `pulumi:"id"`
-	// The slug of the team. Available in the URL of the team on buildkite.com; in the format
-	// "<organizaton/team-name>"
-	//
-	// The `team` data-source supports **either** the use of `id` or `slug` for lookup of a team.
+	// The slug of the team to find.
 	Slug pulumi.StringPtrInput `pulumi:"slug"`
 }
 
@@ -128,46 +125,47 @@ func (o LookupTeamResultOutput) ToLookupTeamResultOutputWithContext(ctx context.
 	return o
 }
 
-// Default role to assign to a team member
+// The default member role of the team.
 func (o LookupTeamResultOutput) DefaultMemberRole() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamResult) string { return v.DefaultMemberRole }).(pulumi.StringOutput)
 }
 
-// Whether new org members will be automatically added to this team
+// Whether the team is the default team.
 func (o LookupTeamResultOutput) DefaultTeam() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupTeamResult) bool { return v.DefaultTeam }).(pulumi.BoolOutput)
 }
 
-// A description of the team
+// The description of the team.
 func (o LookupTeamResultOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamResult) string { return v.Description }).(pulumi.StringOutput)
 }
 
-// The GraphQL ID of the team
+// The GraphQL ID of the team to find.
 func (o LookupTeamResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// Whether team members can create new pipelines and add them to the team
+// Whether members can create pipelines.
 func (o LookupTeamResultOutput) MembersCanCreatePipelines() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupTeamResult) bool { return v.MembersCanCreatePipelines }).(pulumi.BoolOutput)
 }
 
-// The name of the team
+// The name of the team.
 func (o LookupTeamResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Whether the team is visible to org members outside this team
+// The privacy setting of the team.
 func (o LookupTeamResultOutput) Privacy() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamResult) string { return v.Privacy }).(pulumi.StringOutput)
 }
 
+// The slug of the team to find.
 func (o LookupTeamResultOutput) Slug() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamResult) string { return v.Slug }).(pulumi.StringOutput)
 }
 
-// The UUID of the team
+// The UUID of the team.
 func (o LookupTeamResultOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTeamResult) string { return v.Uuid }).(pulumi.StringOutput)
 }

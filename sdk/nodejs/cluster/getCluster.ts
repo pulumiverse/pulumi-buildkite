@@ -4,6 +4,26 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * Use this data source to retrieve a cluster by name. You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/clusters/overview).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as buildkite from "@pulumi/buildkite";
+ * import * as buildkite from "@pulumiverse/buildkite";
+ *
+ * const default = buildkite.Cluster.getCluster({
+ *     name: "default",
+ * });
+ * // Assign a pipeline to that cluster
+ * const terraform_provider_buildkite = new buildkite.pipeline.Pipeline("terraform-provider-buildkite", {
+ *     repository: "git@github.com:buildkite/terraform-provider-buildkite.git",
+ *     clusterId: _default.then(_default => _default.id),
+ * });
+ * ```
+ */
 export function getCluster(args: GetClusterArgs, opts?: pulumi.InvokeOptions): Promise<GetClusterResult> {
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -17,7 +37,7 @@ export function getCluster(args: GetClusterArgs, opts?: pulumi.InvokeOptions): P
  */
 export interface GetClusterArgs {
     /**
-     * The name of the cluster to lookup.
+     * The name of the cluster to retrieve.
      */
     name: string;
 }
@@ -27,7 +47,7 @@ export interface GetClusterArgs {
  */
 export interface GetClusterResult {
     /**
-     * The color given the cluster.
+     * The color of the cluster.
      */
     readonly color: string;
     /**
@@ -35,19 +55,42 @@ export interface GetClusterResult {
      */
     readonly description: string;
     /**
-     * The emoji given the cluster.
+     * The emoji of the cluster.
      */
     readonly emoji: string;
     /**
      * The GraphQL ID of the cluster.
      */
     readonly id: string;
+    /**
+     * The name of the cluster to retrieve.
+     */
     readonly name: string;
     /**
-     * The UUID of the cluster.
+     * The UUID of the cluster
      */
     readonly uuid: string;
 }
+/**
+ * Use this data source to retrieve a cluster by name. You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/clusters/overview).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as buildkite from "@pulumi/buildkite";
+ * import * as buildkite from "@pulumiverse/buildkite";
+ *
+ * const default = buildkite.Cluster.getCluster({
+ *     name: "default",
+ * });
+ * // Assign a pipeline to that cluster
+ * const terraform_provider_buildkite = new buildkite.pipeline.Pipeline("terraform-provider-buildkite", {
+ *     repository: "git@github.com:buildkite/terraform-provider-buildkite.git",
+ *     clusterId: _default.then(_default => _default.id),
+ * });
+ * ```
+ */
 export function getClusterOutput(args: GetClusterOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetClusterResult> {
     return pulumi.output(args).apply((a: any) => getCluster(a, opts))
 }
@@ -57,7 +100,7 @@ export function getClusterOutput(args: GetClusterOutputArgs, opts?: pulumi.Invok
  */
 export interface GetClusterOutputArgs {
     /**
-     * The name of the cluster to lookup.
+     * The name of the cluster to retrieve.
      */
     name: pulumi.Input<string>;
 }

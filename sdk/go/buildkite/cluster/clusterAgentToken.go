@@ -12,11 +12,7 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Resource: clusterAgentToken
-//
-// This resource allows you to create and manage cluster agent tokens.
-//
-// Buildkite Documentation: https://buildkite.com/docs/clusters/manage-clusters#set-up-clusters-connect-agents-to-a-cluster
+// A Cluster Agent Token is a token used to connect an agent to a cluster in Buildkite.
 //
 // ## Example Usage
 //
@@ -27,14 +23,49 @@ import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Cluster"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := Cluster.NewClusterAgentToken(ctx, "cluster-token-1", &Cluster.ClusterAgentTokenArgs{
-//				ClusterId:   pulumi.String("Q2x1c3Rlci0tLTkyMmVjOTA4LWRmNWItNDhhYS1hMThjLTczMzE0YjQ1ZGYyMA=="),
-//				Description: pulumi.String("agent token for cluster-1"),
+//			// create a cluster
+//			primary, err := Cluster.NewCluster(ctx, "primary", &Cluster.ClusterArgs{
+//				Description: pulumi.String("Runs the monolith build and deploy"),
+//				Emoji:       pulumi.String("🚀"),
+//				Color:       pulumi.String("#bada55"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// create an agent token for the cluster
+//			_, err = Cluster.NewClusterAgentToken(ctx, "defaultClusterAgentToken", &Cluster.ClusterAgentTokenArgs{
+//				Description: pulumi.String("Default cluster token"),
+//				ClusterId:   primary.ID(),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = Cluster.NewClusterAgentToken(ctx, "ipLimitedToken", &Cluster.ClusterAgentTokenArgs{
+//				Description: pulumi.String("Token with allowed IP range"),
+//				ClusterId:   primary.ID(),
+//				AllowedIpAddresses: pulumi.StringArray{
+//					pulumi.String("10.100.1.0/28"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = Pipeline.NewPipeline(ctx, "monolith", &Pipeline.PipelineArgs{
+//				Repository: pulumi.String("https://github.com/..."),
+//				ClusterId:  primary.ID(),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = Cluster.NewClusterQueue(ctx, "defaultClusterQueue", &Cluster.ClusterQueueArgs{
+//				ClusterId: primary.ID(),
+//				Key:       pulumi.String("default"),
 //			})
 //			if err != nil {
 //				return err
@@ -47,14 +78,17 @@ import (
 type ClusterAgentToken struct {
 	pulumi.CustomResourceState
 
-	// The ID of the cluster that this cluster queue belongs to.
+	// A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+	AllowedIpAddresses pulumi.StringArrayOutput `pulumi:"allowedIpAddresses"`
+	// The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
 	ClusterId pulumi.StringOutput `pulumi:"clusterId"`
-	// The UUID of the cluster that this cluster queue belongs to.
+	// The UUID of the Cluster that this token belongs to.
 	ClusterUuid pulumi.StringOutput `pulumi:"clusterUuid"`
 	// A description about what this cluster agent token is used for.
 	Description pulumi.StringOutput `pulumi:"description"`
-	Token       pulumi.StringOutput `pulumi:"token"`
-	// The UUID of the created cluster queue.
+	// The token value used by an agent to register with the API.
+	Token pulumi.StringOutput `pulumi:"token"`
+	// The UUID of the token.
 	Uuid pulumi.StringOutput `pulumi:"uuid"`
 }
 
@@ -98,26 +132,32 @@ func GetClusterAgentToken(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering ClusterAgentToken resources.
 type clusterAgentTokenState struct {
-	// The ID of the cluster that this cluster queue belongs to.
+	// A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+	AllowedIpAddresses []string `pulumi:"allowedIpAddresses"`
+	// The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
 	ClusterId *string `pulumi:"clusterId"`
-	// The UUID of the cluster that this cluster queue belongs to.
+	// The UUID of the Cluster that this token belongs to.
 	ClusterUuid *string `pulumi:"clusterUuid"`
 	// A description about what this cluster agent token is used for.
 	Description *string `pulumi:"description"`
-	Token       *string `pulumi:"token"`
-	// The UUID of the created cluster queue.
+	// The token value used by an agent to register with the API.
+	Token *string `pulumi:"token"`
+	// The UUID of the token.
 	Uuid *string `pulumi:"uuid"`
 }
 
 type ClusterAgentTokenState struct {
-	// The ID of the cluster that this cluster queue belongs to.
+	// A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+	AllowedIpAddresses pulumi.StringArrayInput
+	// The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
 	ClusterId pulumi.StringPtrInput
-	// The UUID of the cluster that this cluster queue belongs to.
+	// The UUID of the Cluster that this token belongs to.
 	ClusterUuid pulumi.StringPtrInput
 	// A description about what this cluster agent token is used for.
 	Description pulumi.StringPtrInput
-	Token       pulumi.StringPtrInput
-	// The UUID of the created cluster queue.
+	// The token value used by an agent to register with the API.
+	Token pulumi.StringPtrInput
+	// The UUID of the token.
 	Uuid pulumi.StringPtrInput
 }
 
@@ -126,7 +166,9 @@ func (ClusterAgentTokenState) ElementType() reflect.Type {
 }
 
 type clusterAgentTokenArgs struct {
-	// The ID of the cluster that this cluster queue belongs to.
+	// A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+	AllowedIpAddresses []string `pulumi:"allowedIpAddresses"`
+	// The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
 	ClusterId string `pulumi:"clusterId"`
 	// A description about what this cluster agent token is used for.
 	Description string `pulumi:"description"`
@@ -134,7 +176,9 @@ type clusterAgentTokenArgs struct {
 
 // The set of arguments for constructing a ClusterAgentToken resource.
 type ClusterAgentTokenArgs struct {
-	// The ID of the cluster that this cluster queue belongs to.
+	// A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+	AllowedIpAddresses pulumi.StringArrayInput
+	// The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
 	ClusterId pulumi.StringInput
 	// A description about what this cluster agent token is used for.
 	Description pulumi.StringInput
@@ -227,12 +271,17 @@ func (o ClusterAgentTokenOutput) ToClusterAgentTokenOutputWithContext(ctx contex
 	return o
 }
 
-// The ID of the cluster that this cluster queue belongs to.
+// A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+func (o ClusterAgentTokenOutput) AllowedIpAddresses() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ClusterAgentToken) pulumi.StringArrayOutput { return v.AllowedIpAddresses }).(pulumi.StringArrayOutput)
+}
+
+// The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
 func (o ClusterAgentTokenOutput) ClusterId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterAgentToken) pulumi.StringOutput { return v.ClusterId }).(pulumi.StringOutput)
 }
 
-// The UUID of the cluster that this cluster queue belongs to.
+// The UUID of the Cluster that this token belongs to.
 func (o ClusterAgentTokenOutput) ClusterUuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterAgentToken) pulumi.StringOutput { return v.ClusterUuid }).(pulumi.StringOutput)
 }
@@ -242,11 +291,12 @@ func (o ClusterAgentTokenOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterAgentToken) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
+// The token value used by an agent to register with the API.
 func (o ClusterAgentTokenOutput) Token() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterAgentToken) pulumi.StringOutput { return v.Token }).(pulumi.StringOutput)
 }
 
-// The UUID of the created cluster queue.
+// The UUID of the token.
 func (o ClusterAgentTokenOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterAgentToken) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
 }

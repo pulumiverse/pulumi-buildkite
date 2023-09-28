@@ -19,23 +19,20 @@ type PipelineProviderSettings struct {
 	// Whether to create builds for pull requests from third-party forks.
 	BuildPullRequestForks *bool `pulumi:"buildPullRequestForks"`
 	// Whether to create builds for pull requests when labels are added or removed.
-	BuildPullRequestLabelsChanged  *bool `pulumi:"buildPullRequestLabelsChanged"`
+	BuildPullRequestLabelsChanged *bool `pulumi:"buildPullRequestLabelsChanged"`
+	// Whether to create a build when a pull request changes to "Ready for review".
 	BuildPullRequestReadyForReview *bool `pulumi:"buildPullRequestReadyForReview"`
-	// Whether to create builds for commits that are part of a Pull Request.
+	// Whether to create builds for commits that are part of a pull request.
 	BuildPullRequests *bool `pulumi:"buildPullRequests"`
 	// Whether to create builds when tags are pushed.
-	//
-	// Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
 	BuildTags *bool `pulumi:"buildTags"`
-	// A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
-	//
-	// Additional properties available for GitHub:
+	// Automatically cancel running builds for a branch if the branch is deleted.
 	CancelDeletedBranchBuilds *bool `pulumi:"cancelDeletedBranchBuilds"`
-	// The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines)
+	// The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines).
 	FilterCondition *string `pulumi:"filterCondition"`
-	// [true/false] Whether to filter builds to only run when the condition in `filterCondition` is true
+	// Whether to filter builds to only run when the condition in `filterCondition` is true.
 	FilterEnabled *bool `pulumi:"filterEnabled"`
-	// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the `master` branch from `some-user` will become `some-user:master`.
+	// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
 	PrefixPullRequestForkBranchNames *bool `pulumi:"prefixPullRequestForkBranchNames"`
 	// The status to use for blocked builds. Pending can be used with [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) to prevent merging pull requests with blocked builds.
 	PublishBlockedAsPending *bool `pulumi:"publishBlockedAsPending"`
@@ -43,17 +40,23 @@ type PipelineProviderSettings struct {
 	PublishCommitStatus *bool `pulumi:"publishCommitStatus"`
 	// Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
 	PublishCommitStatusPerStep *bool `pulumi:"publishCommitStatusPerStep"`
-	// The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+	// Filter pull requests builds by the branch filter.
 	PullRequestBranchFilterConfiguration *string `pulumi:"pullRequestBranchFilterConfiguration"`
-	// Whether to limit the creation of builds to specific branches or patterns.
+	// Filter pull request builds.
 	PullRequestBranchFilterEnabled *bool `pulumi:"pullRequestBranchFilterEnabled"`
 	// Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.
 	SeparatePullRequestStatuses *bool `pulumi:"separatePullRequestStatuses"`
-	// Whether to skip creating a new build if an existing build for the commit and branch already exists.
+	// Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
 	SkipBuildsForExistingCommits *bool `pulumi:"skipBuildsForExistingCommits"`
 	// Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
 	SkipPullRequestBuildsForExistingCommits *bool `pulumi:"skipPullRequestBuildsForExistingCommits"`
 	// What type of event to trigger builds on. Must be one of:
+	// 	- `code` will create builds when code is pushed to GitHub.
+	// 	- `deployment` will create builds when a deployment is created in GitHub.
+	// 	- `fork` will create builds when the GitHub repository is forked.
+	// 	- `none` will not create any builds based on GitHub activity.
+	//
+	//     > `triggerMode` is only valid if the pipeline uses a GitHub repository.
 	TriggerMode *string `pulumi:"triggerMode"`
 }
 
@@ -74,23 +77,20 @@ type PipelineProviderSettingsArgs struct {
 	// Whether to create builds for pull requests from third-party forks.
 	BuildPullRequestForks pulumi.BoolPtrInput `pulumi:"buildPullRequestForks"`
 	// Whether to create builds for pull requests when labels are added or removed.
-	BuildPullRequestLabelsChanged  pulumi.BoolPtrInput `pulumi:"buildPullRequestLabelsChanged"`
+	BuildPullRequestLabelsChanged pulumi.BoolPtrInput `pulumi:"buildPullRequestLabelsChanged"`
+	// Whether to create a build when a pull request changes to "Ready for review".
 	BuildPullRequestReadyForReview pulumi.BoolPtrInput `pulumi:"buildPullRequestReadyForReview"`
-	// Whether to create builds for commits that are part of a Pull Request.
+	// Whether to create builds for commits that are part of a pull request.
 	BuildPullRequests pulumi.BoolPtrInput `pulumi:"buildPullRequests"`
 	// Whether to create builds when tags are pushed.
-	//
-	// Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
 	BuildTags pulumi.BoolPtrInput `pulumi:"buildTags"`
-	// A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
-	//
-	// Additional properties available for GitHub:
+	// Automatically cancel running builds for a branch if the branch is deleted.
 	CancelDeletedBranchBuilds pulumi.BoolPtrInput `pulumi:"cancelDeletedBranchBuilds"`
-	// The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines)
+	// The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines).
 	FilterCondition pulumi.StringPtrInput `pulumi:"filterCondition"`
-	// [true/false] Whether to filter builds to only run when the condition in `filterCondition` is true
+	// Whether to filter builds to only run when the condition in `filterCondition` is true.
 	FilterEnabled pulumi.BoolPtrInput `pulumi:"filterEnabled"`
-	// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the `master` branch from `some-user` will become `some-user:master`.
+	// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
 	PrefixPullRequestForkBranchNames pulumi.BoolPtrInput `pulumi:"prefixPullRequestForkBranchNames"`
 	// The status to use for blocked builds. Pending can be used with [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) to prevent merging pull requests with blocked builds.
 	PublishBlockedAsPending pulumi.BoolPtrInput `pulumi:"publishBlockedAsPending"`
@@ -98,17 +98,23 @@ type PipelineProviderSettingsArgs struct {
 	PublishCommitStatus pulumi.BoolPtrInput `pulumi:"publishCommitStatus"`
 	// Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
 	PublishCommitStatusPerStep pulumi.BoolPtrInput `pulumi:"publishCommitStatusPerStep"`
-	// The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+	// Filter pull requests builds by the branch filter.
 	PullRequestBranchFilterConfiguration pulumi.StringPtrInput `pulumi:"pullRequestBranchFilterConfiguration"`
-	// Whether to limit the creation of builds to specific branches or patterns.
+	// Filter pull request builds.
 	PullRequestBranchFilterEnabled pulumi.BoolPtrInput `pulumi:"pullRequestBranchFilterEnabled"`
 	// Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.
 	SeparatePullRequestStatuses pulumi.BoolPtrInput `pulumi:"separatePullRequestStatuses"`
-	// Whether to skip creating a new build if an existing build for the commit and branch already exists.
+	// Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
 	SkipBuildsForExistingCommits pulumi.BoolPtrInput `pulumi:"skipBuildsForExistingCommits"`
 	// Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
 	SkipPullRequestBuildsForExistingCommits pulumi.BoolPtrInput `pulumi:"skipPullRequestBuildsForExistingCommits"`
 	// What type of event to trigger builds on. Must be one of:
+	// 	- `code` will create builds when code is pushed to GitHub.
+	// 	- `deployment` will create builds when a deployment is created in GitHub.
+	// 	- `fork` will create builds when the GitHub repository is forked.
+	// 	- `none` will not create any builds based on GitHub activity.
+	//
+	//     > `triggerMode` is only valid if the pipeline uses a GitHub repository.
 	TriggerMode pulumi.StringPtrInput `pulumi:"triggerMode"`
 }
 
@@ -204,40 +210,37 @@ func (o PipelineProviderSettingsOutput) BuildPullRequestLabelsChanged() pulumi.B
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequestLabelsChanged }).(pulumi.BoolPtrOutput)
 }
 
+// Whether to create a build when a pull request changes to "Ready for review".
 func (o PipelineProviderSettingsOutput) BuildPullRequestReadyForReview() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequestReadyForReview }).(pulumi.BoolPtrOutput)
 }
 
-// Whether to create builds for commits that are part of a Pull Request.
+// Whether to create builds for commits that are part of a pull request.
 func (o PipelineProviderSettingsOutput) BuildPullRequests() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequests }).(pulumi.BoolPtrOutput)
 }
 
 // Whether to create builds when tags are pushed.
-//
-// Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
 func (o PipelineProviderSettingsOutput) BuildTags() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildTags }).(pulumi.BoolPtrOutput)
 }
 
-// A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
-//
-// Additional properties available for GitHub:
+// Automatically cancel running builds for a branch if the branch is deleted.
 func (o PipelineProviderSettingsOutput) CancelDeletedBranchBuilds() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.CancelDeletedBranchBuilds }).(pulumi.BoolPtrOutput)
 }
 
-// The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines)
+// The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines).
 func (o PipelineProviderSettingsOutput) FilterCondition() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *string { return v.FilterCondition }).(pulumi.StringPtrOutput)
 }
 
-// [true/false] Whether to filter builds to only run when the condition in `filterCondition` is true
+// Whether to filter builds to only run when the condition in `filterCondition` is true.
 func (o PipelineProviderSettingsOutput) FilterEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.FilterEnabled }).(pulumi.BoolPtrOutput)
 }
 
-// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the `master` branch from `some-user` will become `some-user:master`.
+// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
 func (o PipelineProviderSettingsOutput) PrefixPullRequestForkBranchNames() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.PrefixPullRequestForkBranchNames }).(pulumi.BoolPtrOutput)
 }
@@ -257,12 +260,12 @@ func (o PipelineProviderSettingsOutput) PublishCommitStatusPerStep() pulumi.Bool
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.PublishCommitStatusPerStep }).(pulumi.BoolPtrOutput)
 }
 
-// The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+// Filter pull requests builds by the branch filter.
 func (o PipelineProviderSettingsOutput) PullRequestBranchFilterConfiguration() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *string { return v.PullRequestBranchFilterConfiguration }).(pulumi.StringPtrOutput)
 }
 
-// Whether to limit the creation of builds to specific branches or patterns.
+// Filter pull request builds.
 func (o PipelineProviderSettingsOutput) PullRequestBranchFilterEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.PullRequestBranchFilterEnabled }).(pulumi.BoolPtrOutput)
 }
@@ -272,7 +275,7 @@ func (o PipelineProviderSettingsOutput) SeparatePullRequestStatuses() pulumi.Boo
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.SeparatePullRequestStatuses }).(pulumi.BoolPtrOutput)
 }
 
-// Whether to skip creating a new build if an existing build for the commit and branch already exists.
+// Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
 func (o PipelineProviderSettingsOutput) SkipBuildsForExistingCommits() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.SkipBuildsForExistingCommits }).(pulumi.BoolPtrOutput)
 }
@@ -283,6 +286,16 @@ func (o PipelineProviderSettingsOutput) SkipPullRequestBuildsForExistingCommits(
 }
 
 // What type of event to trigger builds on. Must be one of:
+//
+//   - `code` will create builds when code is pushed to GitHub.
+//
+//   - `deployment` will create builds when a deployment is created in GitHub.
+//
+//   - `fork` will create builds when the GitHub repository is forked.
+//
+//   - `none` will not create any builds based on GitHub activity.
+//
+//     > `triggerMode` is only valid if the pipeline uses a GitHub repository.
 func (o PipelineProviderSettingsOutput) TriggerMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *string { return v.TriggerMode }).(pulumi.StringPtrOutput)
 }
@@ -341,6 +354,7 @@ func (o PipelineProviderSettingsPtrOutput) BuildPullRequestLabelsChanged() pulum
 	}).(pulumi.BoolPtrOutput)
 }
 
+// Whether to create a build when a pull request changes to "Ready for review".
 func (o PipelineProviderSettingsPtrOutput) BuildPullRequestReadyForReview() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
 		if v == nil {
@@ -350,7 +364,7 @@ func (o PipelineProviderSettingsPtrOutput) BuildPullRequestReadyForReview() pulu
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Whether to create builds for commits that are part of a Pull Request.
+// Whether to create builds for commits that are part of a pull request.
 func (o PipelineProviderSettingsPtrOutput) BuildPullRequests() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
 		if v == nil {
@@ -361,8 +375,6 @@ func (o PipelineProviderSettingsPtrOutput) BuildPullRequests() pulumi.BoolPtrOut
 }
 
 // Whether to create builds when tags are pushed.
-//
-// Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
 func (o PipelineProviderSettingsPtrOutput) BuildTags() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
 		if v == nil {
@@ -372,9 +384,7 @@ func (o PipelineProviderSettingsPtrOutput) BuildTags() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
-//
-// Additional properties available for GitHub:
+// Automatically cancel running builds for a branch if the branch is deleted.
 func (o PipelineProviderSettingsPtrOutput) CancelDeletedBranchBuilds() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
 		if v == nil {
@@ -384,7 +394,7 @@ func (o PipelineProviderSettingsPtrOutput) CancelDeletedBranchBuilds() pulumi.Bo
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines)
+// The condition to evaluate when deciding if a build should run. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals#conditionals-in-pipelines).
 func (o PipelineProviderSettingsPtrOutput) FilterCondition() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *string {
 		if v == nil {
@@ -394,7 +404,7 @@ func (o PipelineProviderSettingsPtrOutput) FilterCondition() pulumi.StringPtrOut
 	}).(pulumi.StringPtrOutput)
 }
 
-// [true/false] Whether to filter builds to only run when the condition in `filterCondition` is true
+// Whether to filter builds to only run when the condition in `filterCondition` is true.
 func (o PipelineProviderSettingsPtrOutput) FilterEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
 		if v == nil {
@@ -404,7 +414,7 @@ func (o PipelineProviderSettingsPtrOutput) FilterEnabled() pulumi.BoolPtrOutput 
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the `master` branch from `some-user` will become `some-user:master`.
+// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
 func (o PipelineProviderSettingsPtrOutput) PrefixPullRequestForkBranchNames() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
 		if v == nil {
@@ -444,7 +454,7 @@ func (o PipelineProviderSettingsPtrOutput) PublishCommitStatusPerStep() pulumi.B
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+// Filter pull requests builds by the branch filter.
 func (o PipelineProviderSettingsPtrOutput) PullRequestBranchFilterConfiguration() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *string {
 		if v == nil {
@@ -454,7 +464,7 @@ func (o PipelineProviderSettingsPtrOutput) PullRequestBranchFilterConfiguration(
 	}).(pulumi.StringPtrOutput)
 }
 
-// Whether to limit the creation of builds to specific branches or patterns.
+// Filter pull request builds.
 func (o PipelineProviderSettingsPtrOutput) PullRequestBranchFilterEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
 		if v == nil {
@@ -474,7 +484,7 @@ func (o PipelineProviderSettingsPtrOutput) SeparatePullRequestStatuses() pulumi.
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Whether to skip creating a new build if an existing build for the commit and branch already exists.
+// Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
 func (o PipelineProviderSettingsPtrOutput) SkipBuildsForExistingCommits() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
 		if v == nil {
@@ -495,6 +505,16 @@ func (o PipelineProviderSettingsPtrOutput) SkipPullRequestBuildsForExistingCommi
 }
 
 // What type of event to trigger builds on. Must be one of:
+//
+//   - `code` will create builds when code is pushed to GitHub.
+//
+//   - `deployment` will create builds when a deployment is created in GitHub.
+//
+//   - `fork` will create builds when the GitHub repository is forked.
+//
+//   - `none` will not create any builds based on GitHub activity.
+//
+//     > `triggerMode` is only valid if the pipeline uses a GitHub repository.
 func (o PipelineProviderSettingsPtrOutput) TriggerMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *string {
 		if v == nil {
@@ -504,128 +524,9 @@ func (o PipelineProviderSettingsPtrOutput) TriggerMode() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-type PipelineTeam struct {
-	AccessLevel    string  `pulumi:"accessLevel"`
-	PipelineTeamId *string `pulumi:"pipelineTeamId"`
-	// The slug of the created pipeline.
-	Slug   string  `pulumi:"slug"`
-	TeamId *string `pulumi:"teamId"`
-}
-
-// PipelineTeamInput is an input type that accepts PipelineTeamArgs and PipelineTeamOutput values.
-// You can construct a concrete instance of `PipelineTeamInput` via:
-//
-//	PipelineTeamArgs{...}
-type PipelineTeamInput interface {
-	pulumi.Input
-
-	ToPipelineTeamOutput() PipelineTeamOutput
-	ToPipelineTeamOutputWithContext(context.Context) PipelineTeamOutput
-}
-
-type PipelineTeamArgs struct {
-	AccessLevel    pulumi.StringInput    `pulumi:"accessLevel"`
-	PipelineTeamId pulumi.StringPtrInput `pulumi:"pipelineTeamId"`
-	// The slug of the created pipeline.
-	Slug   pulumi.StringInput    `pulumi:"slug"`
-	TeamId pulumi.StringPtrInput `pulumi:"teamId"`
-}
-
-func (PipelineTeamArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*PipelineTeam)(nil)).Elem()
-}
-
-func (i PipelineTeamArgs) ToPipelineTeamOutput() PipelineTeamOutput {
-	return i.ToPipelineTeamOutputWithContext(context.Background())
-}
-
-func (i PipelineTeamArgs) ToPipelineTeamOutputWithContext(ctx context.Context) PipelineTeamOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PipelineTeamOutput)
-}
-
-// PipelineTeamArrayInput is an input type that accepts PipelineTeamArray and PipelineTeamArrayOutput values.
-// You can construct a concrete instance of `PipelineTeamArrayInput` via:
-//
-//	PipelineTeamArray{ PipelineTeamArgs{...} }
-type PipelineTeamArrayInput interface {
-	pulumi.Input
-
-	ToPipelineTeamArrayOutput() PipelineTeamArrayOutput
-	ToPipelineTeamArrayOutputWithContext(context.Context) PipelineTeamArrayOutput
-}
-
-type PipelineTeamArray []PipelineTeamInput
-
-func (PipelineTeamArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]PipelineTeam)(nil)).Elem()
-}
-
-func (i PipelineTeamArray) ToPipelineTeamArrayOutput() PipelineTeamArrayOutput {
-	return i.ToPipelineTeamArrayOutputWithContext(context.Background())
-}
-
-func (i PipelineTeamArray) ToPipelineTeamArrayOutputWithContext(ctx context.Context) PipelineTeamArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PipelineTeamArrayOutput)
-}
-
-type PipelineTeamOutput struct{ *pulumi.OutputState }
-
-func (PipelineTeamOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PipelineTeam)(nil)).Elem()
-}
-
-func (o PipelineTeamOutput) ToPipelineTeamOutput() PipelineTeamOutput {
-	return o
-}
-
-func (o PipelineTeamOutput) ToPipelineTeamOutputWithContext(ctx context.Context) PipelineTeamOutput {
-	return o
-}
-
-func (o PipelineTeamOutput) AccessLevel() pulumi.StringOutput {
-	return o.ApplyT(func(v PipelineTeam) string { return v.AccessLevel }).(pulumi.StringOutput)
-}
-
-func (o PipelineTeamOutput) PipelineTeamId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PipelineTeam) *string { return v.PipelineTeamId }).(pulumi.StringPtrOutput)
-}
-
-// The slug of the created pipeline.
-func (o PipelineTeamOutput) Slug() pulumi.StringOutput {
-	return o.ApplyT(func(v PipelineTeam) string { return v.Slug }).(pulumi.StringOutput)
-}
-
-func (o PipelineTeamOutput) TeamId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PipelineTeam) *string { return v.TeamId }).(pulumi.StringPtrOutput)
-}
-
-type PipelineTeamArrayOutput struct{ *pulumi.OutputState }
-
-func (PipelineTeamArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]PipelineTeam)(nil)).Elem()
-}
-
-func (o PipelineTeamArrayOutput) ToPipelineTeamArrayOutput() PipelineTeamArrayOutput {
-	return o
-}
-
-func (o PipelineTeamArrayOutput) ToPipelineTeamArrayOutputWithContext(ctx context.Context) PipelineTeamArrayOutput {
-	return o
-}
-
-func (o PipelineTeamArrayOutput) Index(i pulumi.IntInput) PipelineTeamOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PipelineTeam {
-		return vs[0].([]PipelineTeam)[vs[1].(int)]
-	}).(PipelineTeamOutput)
-}
-
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PipelineProviderSettingsInput)(nil)).Elem(), PipelineProviderSettingsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PipelineProviderSettingsPtrInput)(nil)).Elem(), PipelineProviderSettingsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PipelineTeamInput)(nil)).Elem(), PipelineTeamArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PipelineTeamArrayInput)(nil)).Elem(), PipelineTeamArray{})
 	pulumi.RegisterOutputType(PipelineProviderSettingsOutput{})
 	pulumi.RegisterOutputType(PipelineProviderSettingsPtrOutput{})
-	pulumi.RegisterOutputType(PipelineTeamOutput{})
-	pulumi.RegisterOutputType(PipelineTeamArrayOutput{})
 }

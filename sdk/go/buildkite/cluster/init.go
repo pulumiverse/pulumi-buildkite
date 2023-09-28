@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Cluster{}
 	case "buildkite:Cluster/clusterAgentToken:ClusterAgentToken":
 		r = &ClusterAgentToken{}
+	case "buildkite:Cluster/clusterDefaultQueue:ClusterDefaultQueue":
+		r = &ClusterDefaultQueue{}
 	case "buildkite:Cluster/clusterQueue:ClusterQueue":
 		r = &ClusterQueue{}
 	default:
@@ -48,6 +50,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"buildkite",
 		"Cluster/clusterAgentToken",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"buildkite",
+		"Cluster/clusterDefaultQueue",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

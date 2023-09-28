@@ -13,6 +13,7 @@ __all__ = [
     'GetOrganizationResult',
     'AwaitableGetOrganizationResult',
     'get_organization',
+    'get_organization_output',
 ]
 
 @pulumi.output_type
@@ -35,18 +36,24 @@ class GetOrganizationResult:
     @pulumi.getter(name="allowedApiIpAddresses")
     def allowed_api_ip_addresses(self) -> Sequence[str]:
         """
-        list of IP addresses in CIDR format that are allowed to access the Buildkite API.
+        List of IP addresses in CIDR format that are allowed to access the Buildkite API for this organization.
         """
         return pulumi.get(self, "allowed_api_ip_addresses")
 
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The GraphQL ID of the organization.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def uuid(self) -> str:
+        """
+        The UUID of the organization.
+        """
         return pulumi.get(self, "uuid")
 
 
@@ -63,26 +70,7 @@ class AwaitableGetOrganizationResult(GetOrganizationResult):
 
 def get_organization(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetOrganizationResult:
     """
-    ## # Data Source: organization
-
-    Use this data source to look up the organization settings. It currently supports
-    allowed_api_ip_addresses.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_aws as aws
-    import pulumi_buildkite as buildkite
-
-    testkite = buildkite.Organization.get_organization()
-    from_buildkite = aws.ec2.SecurityGroup("fromBuildkite", ingress=[aws.ec2.SecurityGroupIngressArgs(
-        from_port="*",
-        to_port=443,
-        protocol="tcp",
-        cidr_blocks=data["buildkite_organization"]["allowed_api_ip_addresses"],
-    )])
-    ```
+    Use this data source to look up the organization settings.
     """
     __args__ = dict()
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
@@ -92,3 +80,11 @@ def get_organization(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGe
         allowed_api_ip_addresses=pulumi.get(__ret__, 'allowed_api_ip_addresses'),
         id=pulumi.get(__ret__, 'id'),
         uuid=pulumi.get(__ret__, 'uuid'))
+
+
+@_utilities.lift_output_func(get_organization)
+def get_organization_output(opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetOrganizationResult]:
+    """
+    Use this data source to look up the organization settings.
+    """
+    ...

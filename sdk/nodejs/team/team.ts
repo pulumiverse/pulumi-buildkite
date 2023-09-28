@@ -5,13 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Resource: team
- *
- * This resource allows you to create and manage teams.
- *
- * Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions
- *
- * Note: You must first enable Teams on your organization.
+ * A Team is a group of users that can be given permissions for using Pipelines.This feature is only available to Business and Enterprise customers.  You can find out more about Teams in the Buildkite [documentation](https://buildkite.com/docs/team-management/permissions).
  *
  * ## Example Usage
  *
@@ -19,26 +13,26 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const team = new buildkite.team.Team("team", {
+ * const everyone = new buildkite.team.Team("everyone", {
  *     defaultMemberRole: "MEMBER",
- *     defaultTeam: true,
+ *     defaultTeam: false,
  *     privacy: "VISIBLE",
  * });
  * ```
  *
  * ## Import
  *
- * Teams can be imported using the `GraphQL ID` (not UUID), e.g.
+ * import a team resource using the GraphQL ID
  *
- * ```sh
- *  $ pulumi import buildkite:Team/team:Team fleet UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
- * ```
+ * # 
  *
- *  To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/6e74c89c-4e91-4d1d-92ca-4fb19d0ea453), where you will need fo fill in the organization slug and search term (TEAM_SEARCH_TERM) for the team. graphql query getTeamId {
+ *  you can use this query to find the ID:
  *
- *  organization(slug"ORGANIZATION_SLUG") {
+ *  query getTeamId {
  *
- *  teams(first1, search"TEAM_SEARCH_TERM") {
+ *  organization(slug: "ORGANIZATION_SLUG") {
+ *
+ *  teams(first: 1, search: "TEAM_SEARCH_TERM") {
  *
  *  edges {
  *
@@ -54,7 +48,13 @@ import * as utilities from "../utilities";
  *
  *  }
  *
- *  } }
+ *  }
+ *
+ *  }
+ *
+ * ```sh
+ * $ pulumi import buildkite:Team/team:Team everyone UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
+ * ```
  */
 export class Team extends pulumi.CustomResource {
     /**
@@ -85,19 +85,19 @@ export class Team extends pulumi.CustomResource {
     }
 
     /**
-     * Default role to assign to a team member.
+     * The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
      */
     public readonly defaultMemberRole!: pulumi.Output<string>;
     /**
-     * Whether to assign this team to a user by default.
+     * Whether this is the default team for the organization.
      */
     public readonly defaultTeam!: pulumi.Output<boolean>;
     /**
-     * The description to assign to the team.
+     * A description for the team. This is displayed in the Buildkite UI.
      */
     public readonly description!: pulumi.Output<string | undefined>;
     /**
-     * Whether team members can create.
+     * Whether members of the team can create Pipelines.
      */
     public readonly membersCanCreatePipelines!: pulumi.Output<boolean>;
     /**
@@ -105,15 +105,15 @@ export class Team extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * The privacy level to set the team too.
+     * The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
      */
     public readonly privacy!: pulumi.Output<string>;
     /**
-     * The name of the team.
+     * The generated slug for the team.
      */
     public /*out*/ readonly slug!: pulumi.Output<string>;
     /**
-     * The UUID for the team.
+     * The UUID of the team.
      */
     public /*out*/ readonly uuid!: pulumi.Output<string>;
 
@@ -168,19 +168,19 @@ export class Team extends pulumi.CustomResource {
  */
 export interface TeamState {
     /**
-     * Default role to assign to a team member.
+     * The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
      */
     defaultMemberRole?: pulumi.Input<string>;
     /**
-     * Whether to assign this team to a user by default.
+     * Whether this is the default team for the organization.
      */
     defaultTeam?: pulumi.Input<boolean>;
     /**
-     * The description to assign to the team.
+     * A description for the team. This is displayed in the Buildkite UI.
      */
     description?: pulumi.Input<string>;
     /**
-     * Whether team members can create.
+     * Whether members of the team can create Pipelines.
      */
     membersCanCreatePipelines?: pulumi.Input<boolean>;
     /**
@@ -188,15 +188,15 @@ export interface TeamState {
      */
     name?: pulumi.Input<string>;
     /**
-     * The privacy level to set the team too.
+     * The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
      */
     privacy?: pulumi.Input<string>;
     /**
-     * The name of the team.
+     * The generated slug for the team.
      */
     slug?: pulumi.Input<string>;
     /**
-     * The UUID for the team.
+     * The UUID of the team.
      */
     uuid?: pulumi.Input<string>;
 }
@@ -206,19 +206,19 @@ export interface TeamState {
  */
 export interface TeamArgs {
     /**
-     * Default role to assign to a team member.
+     * The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
      */
     defaultMemberRole: pulumi.Input<string>;
     /**
-     * Whether to assign this team to a user by default.
+     * Whether this is the default team for the organization.
      */
     defaultTeam: pulumi.Input<boolean>;
     /**
-     * The description to assign to the team.
+     * A description for the team. This is displayed in the Buildkite UI.
      */
     description?: pulumi.Input<string>;
     /**
-     * Whether team members can create.
+     * Whether members of the team can create Pipelines.
      */
     membersCanCreatePipelines?: pulumi.Input<boolean>;
     /**
@@ -226,7 +226,7 @@ export interface TeamArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * The privacy level to set the team too.
+     * The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
      */
     privacy: pulumi.Input<string>;
 }

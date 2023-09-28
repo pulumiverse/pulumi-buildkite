@@ -5,11 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * ## # Resource: pipelineTeam
- *
- * This resource allows you to create and manage team configuration in a pipeline.
- *
- * Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions#permissions-with-teams-pipeline-level-permissions
+ * Manage team access to a pipeline.
  *
  * ## Example Usage
  *
@@ -17,26 +13,33 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const developers = new buildkite.pipeline.Team("developers", {
- *     pipelineId: buildkite_pipeline.repo2,
- *     teamId: buildkite_team.test.id,
- *     accessLevel: "MANAGE_BUILD_AND_READ",
+ * const pipeline = new buildkite.pipeline.Pipeline("pipeline", {repository: "https://github.com/..."});
+ * const team = new buildkite.team.Team("team", {
+ *     privacy: "VISIBLE",
+ *     defaultTeam: false,
+ *     defaultMemberRole: "MEMBER",
+ * });
+ * // allow everyone in the "Everyone" team read-only access to pipeline
+ * const pipelineTeam = new buildkite.pipeline.Team("pipelineTeam", {
+ *     pipelineId: pipeline.id,
+ *     teamId: team.id,
+ *     accessLevel: "READ_ONLY",
  * });
  * ```
  *
  * ## Import
  *
- * Pipeline teams can be imported using their `GraphQL ID`, e.g.
+ * import a pipeline team resource using the GraphQL ID
  *
- * ```sh
- *  $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
- * ```
+ * # 
  *
- *  Your pipeline team's GraphQL ID can be found with the below GraphQL query below.
+ *  you can use this query to find the ID:
  *
- *  graphql query getPipelineTeamId {
+ *  query getPipelineTeamId {
  *
- *  pipeline(slug"ORGANIZATION_SLUG/PIPELINE_SLUG") { 		teams(first5, search"PIPELINE_SEARCH_TERM") {
+ *  pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
+ *
+ *  teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
  *
  *  edges{
  *
@@ -44,13 +47,19 @@ import * as utilities from "../utilities";
  *
  *  id
  *
- * }
+ *  }
+ *
+ *  }
  *
  *  }
  *
  *  }
  *
- *  } }
+ *  }
+ *
+ * ```sh
+ * $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
+ * ```
  */
 export class Team extends pulumi.CustomResource {
     /**
@@ -81,7 +90,7 @@ export class Team extends pulumi.CustomResource {
     }
 
     /**
-     * The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+     * The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
      */
     public readonly accessLevel!: pulumi.Output<string>;
     /**
@@ -89,11 +98,11 @@ export class Team extends pulumi.CustomResource {
      */
     public readonly pipelineId!: pulumi.Output<string>;
     /**
-     * The GraphQL ID of the team to add to/remove from.
+     * The GraphQL ID of the team.
      */
     public readonly teamId!: pulumi.Output<string>;
     /**
-     * The UUID of the pipeline schedule
+     * The UUID of the pipeline-team relationship.
      */
     public /*out*/ readonly uuid!: pulumi.Output<string>;
 
@@ -140,7 +149,7 @@ export class Team extends pulumi.CustomResource {
  */
 export interface TeamState {
     /**
-     * The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+     * The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
      */
     accessLevel?: pulumi.Input<string>;
     /**
@@ -148,11 +157,11 @@ export interface TeamState {
      */
     pipelineId?: pulumi.Input<string>;
     /**
-     * The GraphQL ID of the team to add to/remove from.
+     * The GraphQL ID of the team.
      */
     teamId?: pulumi.Input<string>;
     /**
-     * The UUID of the pipeline schedule
+     * The UUID of the pipeline-team relationship.
      */
     uuid?: pulumi.Input<string>;
 }
@@ -162,7 +171,7 @@ export interface TeamState {
  */
 export interface TeamArgs {
     /**
-     * The level of access to grant. Must be one of `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
+     * The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
      */
     accessLevel: pulumi.Input<string>;
     /**
@@ -170,7 +179,7 @@ export interface TeamArgs {
      */
     pipelineId: pulumi.Input<string>;
     /**
-     * The GraphQL ID of the team to add to/remove from.
+     * The GraphQL ID of the team.
      */
     teamId: pulumi.Input<string>;
 }

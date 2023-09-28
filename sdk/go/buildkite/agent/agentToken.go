@@ -11,11 +11,8 @@ import (
 	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
 )
 
-// ## # Resource: agentToken
-//
-// This resource allows you to create and manage agent tokens.
-//
-// Buildkite Documentation: https://buildkite.com/docs/agent/v3/tokens
+// This resource allows you to create and manage non-clustered agent tokens.
+// You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/agent/v3/tokens).
 //
 // ## Example Usage
 //
@@ -31,8 +28,9 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := Agent.NewAgentToken(ctx, "fleet", &Agent.AgentTokenArgs{
-//				Description: pulumi.String("token used by build fleet"),
+//			// create a default token
+//			_, err := Agent.NewAgentToken(ctx, "default", &Agent.AgentTokenArgs{
+//				Description: pulumi.String("Default token"),
 //			})
 //			if err != nil {
 //				return err
@@ -45,13 +43,11 @@ import (
 type AgentToken struct {
 	pulumi.CustomResourceState
 
-	// This is the description of the agent token.
-	//
-	// > Changing `description` will cause the resource to be destroyed and re-created.
+	// The description of the agent token. Used to help identify its use.
 	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// The value of the created agent token.
+	// The token value used by an agent to register with the API.
 	Token pulumi.StringOutput `pulumi:"token"`
-	// The UUID of the token.
+	// The UUID of the agent token.
 	Uuid pulumi.StringOutput `pulumi:"uuid"`
 }
 
@@ -89,24 +85,20 @@ func GetAgentToken(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering AgentToken resources.
 type agentTokenState struct {
-	// This is the description of the agent token.
-	//
-	// > Changing `description` will cause the resource to be destroyed and re-created.
+	// The description of the agent token. Used to help identify its use.
 	Description *string `pulumi:"description"`
-	// The value of the created agent token.
+	// The token value used by an agent to register with the API.
 	Token *string `pulumi:"token"`
-	// The UUID of the token.
+	// The UUID of the agent token.
 	Uuid *string `pulumi:"uuid"`
 }
 
 type AgentTokenState struct {
-	// This is the description of the agent token.
-	//
-	// > Changing `description` will cause the resource to be destroyed and re-created.
+	// The description of the agent token. Used to help identify its use.
 	Description pulumi.StringPtrInput
-	// The value of the created agent token.
+	// The token value used by an agent to register with the API.
 	Token pulumi.StringPtrInput
-	// The UUID of the token.
+	// The UUID of the agent token.
 	Uuid pulumi.StringPtrInput
 }
 
@@ -115,17 +107,13 @@ func (AgentTokenState) ElementType() reflect.Type {
 }
 
 type agentTokenArgs struct {
-	// This is the description of the agent token.
-	//
-	// > Changing `description` will cause the resource to be destroyed and re-created.
+	// The description of the agent token. Used to help identify its use.
 	Description *string `pulumi:"description"`
 }
 
 // The set of arguments for constructing a AgentToken resource.
 type AgentTokenArgs struct {
-	// This is the description of the agent token.
-	//
-	// > Changing `description` will cause the resource to be destroyed and re-created.
+	// The description of the agent token. Used to help identify its use.
 	Description pulumi.StringPtrInput
 }
 
@@ -216,19 +204,17 @@ func (o AgentTokenOutput) ToAgentTokenOutputWithContext(ctx context.Context) Age
 	return o
 }
 
-// This is the description of the agent token.
-//
-// > Changing `description` will cause the resource to be destroyed and re-created.
+// The description of the agent token. Used to help identify its use.
 func (o AgentTokenOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AgentToken) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
-// The value of the created agent token.
+// The token value used by an agent to register with the API.
 func (o AgentTokenOutput) Token() pulumi.StringOutput {
 	return o.ApplyT(func(v *AgentToken) pulumi.StringOutput { return v.Token }).(pulumi.StringOutput)
 }
 
-// The UUID of the token.
+// The UUID of the agent token.
 func (o AgentTokenOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *AgentToken) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
 }

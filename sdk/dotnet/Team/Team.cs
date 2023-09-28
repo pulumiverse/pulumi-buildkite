@@ -11,13 +11,7 @@ using Pulumi;
 namespace Pulumiverse.Buildkite.Team
 {
     /// <summary>
-    /// ## # Resource: team
-    /// 
-    /// This resource allows you to create and manage teams.
-    /// 
-    /// Buildkite Documentation: https://buildkite.com/docs/pipelines/permissions
-    /// 
-    /// Note: You must first enable Teams on your organization.
+    /// A Team is a group of users that can be given permissions for using Pipelines.This feature is only available to Business and Enterprise customers.  You can find out more about Teams in the Buildkite [documentation](https://buildkite.com/docs/team-management/permissions).
     /// 
     /// ## Example Usage
     /// 
@@ -29,10 +23,10 @@ namespace Pulumiverse.Buildkite.Team
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var team = new Buildkite.Team.Team("team", new()
+    ///     var everyone = new Buildkite.Team.Team("everyone", new()
     ///     {
     ///         DefaultMemberRole = "MEMBER",
-    ///         DefaultTeam = true,
+    ///         DefaultTeam = false,
     ///         Privacy = "VISIBLE",
     ///     });
     /// 
@@ -41,17 +35,17 @@ namespace Pulumiverse.Buildkite.Team
     /// 
     /// ## Import
     /// 
-    /// Teams can be imported using the `GraphQL ID` (not UUID), e.g.
+    /// import a team resource using the GraphQL ID
     /// 
-    /// ```sh
-    ///  $ pulumi import buildkite:Team/team:Team fleet UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
-    /// ```
+    /// # 
     /// 
-    ///  To find the ID to use, you can use the GraphQL query below. Alternatively, you could use this [pre-saved query](https://buildkite.com/user/graphql/console/6e74c89c-4e91-4d1d-92ca-4fb19d0ea453), where you will need fo fill in the organization slug and search term (TEAM_SEARCH_TERM) for the team. graphql query getTeamId {
+    ///  you can use this query to find the ID:
     /// 
-    ///  organization(slug"ORGANIZATION_SLUG") {
+    ///  query getTeamId {
     /// 
-    ///  teams(first1, search"TEAM_SEARCH_TERM") {
+    ///  organization(slug: "ORGANIZATION_SLUG") {
+    /// 
+    ///  teams(first: 1, search: "TEAM_SEARCH_TERM") {
     /// 
     ///  edges {
     /// 
@@ -67,31 +61,37 @@ namespace Pulumiverse.Buildkite.Team
     /// 
     ///  }
     /// 
-    ///  } }
+    ///  }
+    /// 
+    ///  }
+    /// 
+    /// ```sh
+    /// $ pulumi import buildkite:Team/team:Team everyone UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
+    /// ```
     /// </summary>
     [BuildkiteResourceType("buildkite:Team/team:Team")]
     public partial class Team : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Default role to assign to a team member.
+        /// The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
         /// </summary>
         [Output("defaultMemberRole")]
         public Output<string> DefaultMemberRole { get; private set; } = null!;
 
         /// <summary>
-        /// Whether to assign this team to a user by default.
+        /// Whether this is the default team for the organization.
         /// </summary>
         [Output("defaultTeam")]
         public Output<bool> DefaultTeam { get; private set; } = null!;
 
         /// <summary>
-        /// The description to assign to the team.
+        /// A description for the team. This is displayed in the Buildkite UI.
         /// </summary>
         [Output("description")]
         public Output<string?> Description { get; private set; } = null!;
 
         /// <summary>
-        /// Whether team members can create.
+        /// Whether members of the team can create Pipelines.
         /// </summary>
         [Output("membersCanCreatePipelines")]
         public Output<bool> MembersCanCreatePipelines { get; private set; } = null!;
@@ -103,19 +103,19 @@ namespace Pulumiverse.Buildkite.Team
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The privacy level to set the team too.
+        /// The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
         /// </summary>
         [Output("privacy")]
         public Output<string> Privacy { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the team.
+        /// The generated slug for the team.
         /// </summary>
         [Output("slug")]
         public Output<string> Slug { get; private set; } = null!;
 
         /// <summary>
-        /// The UUID for the team.
+        /// The UUID of the team.
         /// </summary>
         [Output("uuid")]
         public Output<string> Uuid { get; private set; } = null!;
@@ -168,25 +168,25 @@ namespace Pulumiverse.Buildkite.Team
     public sealed class TeamArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Default role to assign to a team member.
+        /// The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
         /// </summary>
         [Input("defaultMemberRole", required: true)]
         public Input<string> DefaultMemberRole { get; set; } = null!;
 
         /// <summary>
-        /// Whether to assign this team to a user by default.
+        /// Whether this is the default team for the organization.
         /// </summary>
         [Input("defaultTeam", required: true)]
         public Input<bool> DefaultTeam { get; set; } = null!;
 
         /// <summary>
-        /// The description to assign to the team.
+        /// A description for the team. This is displayed in the Buildkite UI.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Whether team members can create.
+        /// Whether members of the team can create Pipelines.
         /// </summary>
         [Input("membersCanCreatePipelines")]
         public Input<bool>? MembersCanCreatePipelines { get; set; }
@@ -198,7 +198,7 @@ namespace Pulumiverse.Buildkite.Team
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The privacy level to set the team too.
+        /// The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
         /// </summary>
         [Input("privacy", required: true)]
         public Input<string> Privacy { get; set; } = null!;
@@ -212,25 +212,25 @@ namespace Pulumiverse.Buildkite.Team
     public sealed class TeamState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Default role to assign to a team member.
+        /// The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
         /// </summary>
         [Input("defaultMemberRole")]
         public Input<string>? DefaultMemberRole { get; set; }
 
         /// <summary>
-        /// Whether to assign this team to a user by default.
+        /// Whether this is the default team for the organization.
         /// </summary>
         [Input("defaultTeam")]
         public Input<bool>? DefaultTeam { get; set; }
 
         /// <summary>
-        /// The description to assign to the team.
+        /// A description for the team. This is displayed in the Buildkite UI.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Whether team members can create.
+        /// Whether members of the team can create Pipelines.
         /// </summary>
         [Input("membersCanCreatePipelines")]
         public Input<bool>? MembersCanCreatePipelines { get; set; }
@@ -242,19 +242,19 @@ namespace Pulumiverse.Buildkite.Team
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The privacy level to set the team too.
+        /// The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
         /// </summary>
         [Input("privacy")]
         public Input<string>? Privacy { get; set; }
 
         /// <summary>
-        /// The name of the team.
+        /// The generated slug for the team.
         /// </summary>
         [Input("slug")]
         public Input<string>? Slug { get; set; }
 
         /// <summary>
-        /// The UUID for the team.
+        /// The UUID of the team.
         /// </summary>
         [Input("uuid")]
         public Input<string>? Uuid { get; set; }

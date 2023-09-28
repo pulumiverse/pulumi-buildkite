@@ -24,7 +24,6 @@ import (
 	pfbridge "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
-	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumiverse/pulumi-buildkite/provider/pkg/version"
 )
@@ -58,7 +57,7 @@ var metadata []byte
 func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
 	p := pfbridge.MuxShimWithPF(context.Background(),
-		shimv2.NewProvider(buildkite.Provider(version.Version)),
+		pfbridge.ShimProvider(buildkite.New(version.Version)),
 		buildkite.New(version.Version),
 	)
 
@@ -85,6 +84,7 @@ func Provider() tfbridge.ProviderInfo {
 			"buildkite_pipeline":          {Tok: tfbridge.MakeResource(mainPkg, pipelineMod, "Pipeline")},
 			"buildkite_pipeline_schedule": {Tok: tfbridge.MakeResource(mainPkg, pipelineMod, "Schedule")},
 			"buildkite_pipeline_team":     {Tok: tfbridge.MakeResource(mainPkg, pipelineMod, "Team")},
+			"buildkite_pipeline_template": {Tok: tfbridge.MakeResource(mainPkg, pipelineMod, "Template")},
 			// Team
 			"buildkite_team":        {Tok: tfbridge.MakeResource(mainPkg, teamMod, "Team")},
 			"buildkite_team_member": {Tok: tfbridge.MakeResource(mainPkg, teamMod, "Member")},
@@ -92,18 +92,21 @@ func Provider() tfbridge.ProviderInfo {
 			"buildkite_test_suite":      {Tok: tfbridge.MakeResource(mainPkg, testMod, "TestSuite")},
 			"buildkite_test_suite_team": {Tok: tfbridge.MakeResource(mainPkg, testMod, "Team")},
 			// Organization
-			"buildkite_organization":          {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Organization")},
-			"buildkite_organization_settings": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Settings")},
+			"buildkite_organization":        {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Organization")},
+			"buildkite_organization_banner": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Banner")},
 			// Agent
 			"buildkite_agent_token": {Tok: tfbridge.MakeResource(mainPkg, agentMod, "AgentToken")},
 			// Cluster
-			"buildkite_cluster":             {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "Cluster")},
-			"buildkite_cluster_agent_token": {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterAgentToken")},
-			"buildkite_cluster_queue":       {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterQueue")},
+			"buildkite_cluster":               {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "Cluster")},
+			"buildkite_cluster_agent_token":   {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterAgentToken")},
+			"buildkite_cluster_queue":         {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterQueue")},
+			"buildkite_cluster_default_queue": {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterDefaultQueue")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// Pipeline
-			"buildkite_pipeline": {Tok: tfbridge.MakeDataSource(mainPkg, pipelineMod, "getPipeline")},
+			"buildkite_pipeline":              {Tok: tfbridge.MakeDataSource(mainPkg, pipelineMod, "getPipeline")},
+			"buildkite_pipeline_template":     {Tok: tfbridge.MakeDataSource(mainPkg, pipelineMod, "getTemplate")},
+			"buildkite_signed_pipeline_steps": {Tok: tfbridge.MakeDataSource(mainPkg, pipelineMod, "getSignedSteps")},
 			// Team
 			"buildkite_team": {Tok: tfbridge.MakeDataSource(mainPkg, teamMod, "getTeam")},
 			// Organization

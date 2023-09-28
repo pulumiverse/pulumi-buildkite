@@ -13,12 +13,9 @@ namespace Pulumiverse.Buildkite.Pipeline
     public static class GetPipeline
     {
         /// <summary>
-        /// ## # Data Source: pipeline
+        /// Use this data source to look up properties on a specific pipeline. This is particularly useful for looking up the webhook URL for each pipeline.
         /// 
-        /// Use this data source to look up properties on a specific pipeline. This is
-        /// particularly useful for looking up the webhook URL for each pipeline.
-        /// 
-        /// Buildkite Documentation: https://buildkite.com/docs/pipelines
+        /// More info in the Buildkite [documentation](https://buildkite.com/docs/pipelines).
         /// 
         /// {{% examples %}}
         /// ## Example Usage
@@ -32,9 +29,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var repo2 = Buildkite.Pipeline.GetPipeline.Invoke(new()
+        ///     var pipeline = Buildkite.Pipeline.GetPipeline.Invoke(new()
         ///     {
-        ///         Slug = "repo2",
+        ///         Slug = "buildkite",
         ///     });
         /// 
         /// });
@@ -46,12 +43,9 @@ namespace Pulumiverse.Buildkite.Pipeline
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetPipelineResult>("buildkite:Pipeline/getPipeline:getPipeline", args ?? new GetPipelineArgs(), options.WithDefaults());
 
         /// <summary>
-        /// ## # Data Source: pipeline
+        /// Use this data source to look up properties on a specific pipeline. This is particularly useful for looking up the webhook URL for each pipeline.
         /// 
-        /// Use this data source to look up properties on a specific pipeline. This is
-        /// particularly useful for looking up the webhook URL for each pipeline.
-        /// 
-        /// Buildkite Documentation: https://buildkite.com/docs/pipelines
+        /// More info in the Buildkite [documentation](https://buildkite.com/docs/pipelines).
         /// 
         /// {{% examples %}}
         /// ## Example Usage
@@ -65,9 +59,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var repo2 = Buildkite.Pipeline.GetPipeline.Invoke(new()
+        ///     var pipeline = Buildkite.Pipeline.GetPipeline.Invoke(new()
         ///     {
-        ///         Slug = "repo2",
+        ///         Slug = "buildkite",
         ///     });
         /// 
         /// });
@@ -83,7 +77,7 @@ namespace Pulumiverse.Buildkite.Pipeline
     public sealed class GetPipelineArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// The slug of the pipeline, available in the URL of the pipeline on buildkite.com
+        /// The slug of the pipeline.
         /// </summary>
         [Input("slug", required: true)]
         public string Slug { get; set; } = null!;
@@ -97,7 +91,7 @@ namespace Pulumiverse.Buildkite.Pipeline
     public sealed class GetPipelineInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// The slug of the pipeline, available in the URL of the pipeline on buildkite.com
+        /// The slug of the pipeline.
         /// </summary>
         [Input("slug", required: true)]
         public Input<string> Slug { get; set; } = null!;
@@ -113,13 +107,16 @@ namespace Pulumiverse.Buildkite.Pipeline
     public sealed class GetPipelineResult
     {
         /// <summary>
-        /// The default branch to prefill when new builds are created or triggered, usually main or master but can be anything.
+        /// The default branch to prefill when new builds are created or triggered.
         /// </summary>
         public readonly string DefaultBranch;
         /// <summary>
-        /// A description of the pipeline.
+        /// The description of the pipeline.
         /// </summary>
         public readonly string Description;
+        /// <summary>
+        /// The GraphQL ID of the pipeline.
+        /// </summary>
         public readonly string Id;
         /// <summary>
         /// The name of the pipeline.
@@ -129,7 +126,14 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// The git URL of the repository.
         /// </summary>
         public readonly string Repository;
+        /// <summary>
+        /// The slug of the pipeline.
+        /// </summary>
         public readonly string Slug;
+        /// <summary>
+        /// The UUID of the pipeline.
+        /// </summary>
+        public readonly string Uuid;
         /// <summary>
         /// The Buildkite webhook URL that triggers builds on this pipeline.
         /// </summary>
@@ -149,6 +153,8 @@ namespace Pulumiverse.Buildkite.Pipeline
 
             string slug,
 
+            string uuid,
+
             string webhookUrl)
         {
             DefaultBranch = defaultBranch;
@@ -157,6 +163,7 @@ namespace Pulumiverse.Buildkite.Pipeline
             Name = name;
             Repository = repository;
             Slug = slug;
+            Uuid = uuid;
             WebhookUrl = webhookUrl;
         }
     }

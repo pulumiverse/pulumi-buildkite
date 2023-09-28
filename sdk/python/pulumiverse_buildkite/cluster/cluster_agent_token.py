@@ -15,20 +15,24 @@ __all__ = ['ClusterAgentTokenArgs', 'ClusterAgentToken']
 class ClusterAgentTokenArgs:
     def __init__(__self__, *,
                  cluster_id: pulumi.Input[str],
-                 description: pulumi.Input[str]):
+                 description: pulumi.Input[str],
+                 allowed_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         The set of arguments for constructing a ClusterAgentToken resource.
-        :param pulumi.Input[str] cluster_id: The ID of the cluster that this cluster queue belongs to.
+        :param pulumi.Input[str] cluster_id: The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
         :param pulumi.Input[str] description: A description about what this cluster agent token is used for.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_ip_addresses: A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
         """
         pulumi.set(__self__, "cluster_id", cluster_id)
         pulumi.set(__self__, "description", description)
+        if allowed_ip_addresses is not None:
+            pulumi.set(__self__, "allowed_ip_addresses", allowed_ip_addresses)
 
     @property
     @pulumi.getter(name="clusterId")
     def cluster_id(self) -> pulumi.Input[str]:
         """
-        The ID of the cluster that this cluster queue belongs to.
+        The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
         """
         return pulumi.get(self, "cluster_id")
 
@@ -48,10 +52,23 @@ class ClusterAgentTokenArgs:
     def description(self, value: pulumi.Input[str]):
         pulumi.set(self, "description", value)
 
+    @property
+    @pulumi.getter(name="allowedIpAddresses")
+    def allowed_ip_addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        """
+        return pulumi.get(self, "allowed_ip_addresses")
+
+    @allowed_ip_addresses.setter
+    def allowed_ip_addresses(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "allowed_ip_addresses", value)
+
 
 @pulumi.input_type
 class _ClusterAgentTokenState:
     def __init__(__self__, *,
+                 allowed_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  cluster_id: Optional[pulumi.Input[str]] = None,
                  cluster_uuid: Optional[pulumi.Input[str]] = None,
                  description: Optional[pulumi.Input[str]] = None,
@@ -59,11 +76,15 @@ class _ClusterAgentTokenState:
                  uuid: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering ClusterAgentToken resources.
-        :param pulumi.Input[str] cluster_id: The ID of the cluster that this cluster queue belongs to.
-        :param pulumi.Input[str] cluster_uuid: The UUID of the cluster that this cluster queue belongs to.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_ip_addresses: A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        :param pulumi.Input[str] cluster_id: The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
+        :param pulumi.Input[str] cluster_uuid: The UUID of the Cluster that this token belongs to.
         :param pulumi.Input[str] description: A description about what this cluster agent token is used for.
-        :param pulumi.Input[str] uuid: The UUID of the created cluster queue.
+        :param pulumi.Input[str] token: The token value used by an agent to register with the API.
+        :param pulumi.Input[str] uuid: The UUID of the token.
         """
+        if allowed_ip_addresses is not None:
+            pulumi.set(__self__, "allowed_ip_addresses", allowed_ip_addresses)
         if cluster_id is not None:
             pulumi.set(__self__, "cluster_id", cluster_id)
         if cluster_uuid is not None:
@@ -76,10 +97,22 @@ class _ClusterAgentTokenState:
             pulumi.set(__self__, "uuid", uuid)
 
     @property
+    @pulumi.getter(name="allowedIpAddresses")
+    def allowed_ip_addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        """
+        return pulumi.get(self, "allowed_ip_addresses")
+
+    @allowed_ip_addresses.setter
+    def allowed_ip_addresses(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "allowed_ip_addresses", value)
+
+    @property
     @pulumi.getter(name="clusterId")
     def cluster_id(self) -> Optional[pulumi.Input[str]]:
         """
-        The ID of the cluster that this cluster queue belongs to.
+        The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
         """
         return pulumi.get(self, "cluster_id")
 
@@ -91,7 +124,7 @@ class _ClusterAgentTokenState:
     @pulumi.getter(name="clusterUuid")
     def cluster_uuid(self) -> Optional[pulumi.Input[str]]:
         """
-        The UUID of the cluster that this cluster queue belongs to.
+        The UUID of the Cluster that this token belongs to.
         """
         return pulumi.get(self, "cluster_uuid")
 
@@ -114,6 +147,9 @@ class _ClusterAgentTokenState:
     @property
     @pulumi.getter
     def token(self) -> Optional[pulumi.Input[str]]:
+        """
+        The token value used by an agent to register with the API.
+        """
         return pulumi.get(self, "token")
 
     @token.setter
@@ -124,7 +160,7 @@ class _ClusterAgentTokenState:
     @pulumi.getter
     def uuid(self) -> Optional[pulumi.Input[str]]:
         """
-        The UUID of the created cluster queue.
+        The UUID of the token.
         """
         return pulumi.get(self, "uuid")
 
@@ -138,15 +174,12 @@ class ClusterAgentToken(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 allowed_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  cluster_id: Optional[pulumi.Input[str]] = None,
                  description: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## # Resource: cluster_agent_token
-
-        This resource allows you to create and manage cluster agent tokens.
-
-        Buildkite Documentation: https://buildkite.com/docs/clusters/manage-clusters#set-up-clusters-connect-agents-to-a-cluster
+        A Cluster Agent Token is a token used to connect an agent to a cluster in Buildkite.
 
         ## Example Usage
 
@@ -154,14 +187,31 @@ class ClusterAgentToken(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        cluster_token_1 = buildkite.cluster.ClusterAgentToken("cluster-token-1",
-            cluster_id="Q2x1c3Rlci0tLTkyMmVjOTA4LWRmNWItNDhhYS1hMThjLTczMzE0YjQ1ZGYyMA==",
-            description="agent token for cluster-1")
+        # create a cluster
+        primary = buildkite.cluster.Cluster("primary",
+            description="Runs the monolith build and deploy",
+            emoji="🚀",
+            color="#bada55")
+        # create an agent token for the cluster
+        default_cluster_agent_token = buildkite.cluster.ClusterAgentToken("defaultClusterAgentToken",
+            description="Default cluster token",
+            cluster_id=primary.id)
+        ip_limited_token = buildkite.cluster.ClusterAgentToken("ipLimitedToken",
+            description="Token with allowed IP range",
+            cluster_id=primary.id,
+            allowed_ip_addresses=["10.100.1.0/28"])
+        monolith = buildkite.pipeline.Pipeline("monolith",
+            repository="https://github.com/...",
+            cluster_id=primary.id)
+        default_cluster_queue = buildkite.cluster.ClusterQueue("defaultClusterQueue",
+            cluster_id=primary.id,
+            key="default")
         ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] cluster_id: The ID of the cluster that this cluster queue belongs to.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_ip_addresses: A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        :param pulumi.Input[str] cluster_id: The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
         :param pulumi.Input[str] description: A description about what this cluster agent token is used for.
         """
         ...
@@ -171,11 +221,7 @@ class ClusterAgentToken(pulumi.CustomResource):
                  args: ClusterAgentTokenArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # Resource: cluster_agent_token
-
-        This resource allows you to create and manage cluster agent tokens.
-
-        Buildkite Documentation: https://buildkite.com/docs/clusters/manage-clusters#set-up-clusters-connect-agents-to-a-cluster
+        A Cluster Agent Token is a token used to connect an agent to a cluster in Buildkite.
 
         ## Example Usage
 
@@ -183,9 +229,25 @@ class ClusterAgentToken(pulumi.CustomResource):
         import pulumi
         import pulumiverse_buildkite as buildkite
 
-        cluster_token_1 = buildkite.cluster.ClusterAgentToken("cluster-token-1",
-            cluster_id="Q2x1c3Rlci0tLTkyMmVjOTA4LWRmNWItNDhhYS1hMThjLTczMzE0YjQ1ZGYyMA==",
-            description="agent token for cluster-1")
+        # create a cluster
+        primary = buildkite.cluster.Cluster("primary",
+            description="Runs the monolith build and deploy",
+            emoji="🚀",
+            color="#bada55")
+        # create an agent token for the cluster
+        default_cluster_agent_token = buildkite.cluster.ClusterAgentToken("defaultClusterAgentToken",
+            description="Default cluster token",
+            cluster_id=primary.id)
+        ip_limited_token = buildkite.cluster.ClusterAgentToken("ipLimitedToken",
+            description="Token with allowed IP range",
+            cluster_id=primary.id,
+            allowed_ip_addresses=["10.100.1.0/28"])
+        monolith = buildkite.pipeline.Pipeline("monolith",
+            repository="https://github.com/...",
+            cluster_id=primary.id)
+        default_cluster_queue = buildkite.cluster.ClusterQueue("defaultClusterQueue",
+            cluster_id=primary.id,
+            key="default")
         ```
 
         :param str resource_name: The name of the resource.
@@ -203,6 +265,7 @@ class ClusterAgentToken(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 allowed_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  cluster_id: Optional[pulumi.Input[str]] = None,
                  description: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -214,6 +277,7 @@ class ClusterAgentToken(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ClusterAgentTokenArgs.__new__(ClusterAgentTokenArgs)
 
+            __props__.__dict__["allowed_ip_addresses"] = allowed_ip_addresses
             if cluster_id is None and not opts.urn:
                 raise TypeError("Missing required property 'cluster_id'")
             __props__.__dict__["cluster_id"] = cluster_id
@@ -235,6 +299,7 @@ class ClusterAgentToken(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            allowed_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             cluster_id: Optional[pulumi.Input[str]] = None,
             cluster_uuid: Optional[pulumi.Input[str]] = None,
             description: Optional[pulumi.Input[str]] = None,
@@ -247,15 +312,18 @@ class ClusterAgentToken(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] cluster_id: The ID of the cluster that this cluster queue belongs to.
-        :param pulumi.Input[str] cluster_uuid: The UUID of the cluster that this cluster queue belongs to.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_ip_addresses: A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        :param pulumi.Input[str] cluster_id: The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
+        :param pulumi.Input[str] cluster_uuid: The UUID of the Cluster that this token belongs to.
         :param pulumi.Input[str] description: A description about what this cluster agent token is used for.
-        :param pulumi.Input[str] uuid: The UUID of the created cluster queue.
+        :param pulumi.Input[str] token: The token value used by an agent to register with the API.
+        :param pulumi.Input[str] uuid: The UUID of the token.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _ClusterAgentTokenState.__new__(_ClusterAgentTokenState)
 
+        __props__.__dict__["allowed_ip_addresses"] = allowed_ip_addresses
         __props__.__dict__["cluster_id"] = cluster_id
         __props__.__dict__["cluster_uuid"] = cluster_uuid
         __props__.__dict__["description"] = description
@@ -264,10 +332,18 @@ class ClusterAgentToken(pulumi.CustomResource):
         return ClusterAgentToken(resource_name, opts=opts, __props__=__props__)
 
     @property
+    @pulumi.getter(name="allowedIpAddresses")
+    def allowed_ip_addresses(self) -> pulumi.Output[Optional[Sequence[str]]]:
+        """
+        A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
+        """
+        return pulumi.get(self, "allowed_ip_addresses")
+
+    @property
     @pulumi.getter(name="clusterId")
     def cluster_id(self) -> pulumi.Output[str]:
         """
-        The ID of the cluster that this cluster queue belongs to.
+        The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
         """
         return pulumi.get(self, "cluster_id")
 
@@ -275,7 +351,7 @@ class ClusterAgentToken(pulumi.CustomResource):
     @pulumi.getter(name="clusterUuid")
     def cluster_uuid(self) -> pulumi.Output[str]:
         """
-        The UUID of the cluster that this cluster queue belongs to.
+        The UUID of the Cluster that this token belongs to.
         """
         return pulumi.get(self, "cluster_uuid")
 
@@ -290,13 +366,16 @@ class ClusterAgentToken(pulumi.CustomResource):
     @property
     @pulumi.getter
     def token(self) -> pulumi.Output[str]:
+        """
+        The token value used by an agent to register with the API.
+        """
         return pulumi.get(self, "token")
 
     @property
     @pulumi.getter
     def uuid(self) -> pulumi.Output[str]:
         """
-        The UUID of the created cluster queue.
+        The UUID of the token.
         """
         return pulumi.get(self, "uuid")
 
