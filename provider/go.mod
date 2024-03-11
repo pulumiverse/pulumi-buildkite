@@ -13,7 +13,7 @@ require (
 	github.com/buildkite/terraform-provider-buildkite v1.5.1
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.29.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.76.0
-	github.com/pulumi/pulumi/sdk/v3 v3.108.1
+	github.com/pulumi/pulumi/sdk/v3 v3.109.0
 )
 
 require (
