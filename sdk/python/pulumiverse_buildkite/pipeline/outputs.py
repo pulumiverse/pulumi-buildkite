@@ -112,7 +112,7 @@ class PipelineProviderSettings(dict):
                	- `deployment` will create builds when a deployment is created in GitHub.
                	- `fork` will create builds when the GitHub repository is forked.
                	- `none` will not create any builds based on GitHub activity.
-               
+
                	> `trigger_mode` is only valid if the pipeline uses a GitHub repository.
         """
         if build_branches is not None:

@@ -9,21 +9,22 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/internal"
 )
 
 // Manage team access to a pipeline.
 //
 // ## Example Usage
 //
+// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Team"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/Pipeline"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/Team"
 //
 // )
 //
@@ -57,6 +58,7 @@ import (
 //	}
 //
 // ```
+// <!--End PulumiCodeChooser -->
 //
 // ## Import
 //
@@ -64,29 +66,29 @@ import (
 //
 // #
 //
-//	you can use this query to find the ID:
+// you can use this query to find the ID:
 //
-//	query getPipelineTeamId {
+// query getPipelineTeamId {
 //
 //	pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
 //
-//	teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
+//	  teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
 //
-//	edges{
+//	    edges{
 //
-//	node{
+//	      node{
 //
-//	id
+//	        id
 //
-//	}
+//	      }
 //
-//	}
+//	    }
 //
-//	}
-//
-//	}
+//	  }
 //
 //	}
+//
+// }
 //
 // ```sh
 // $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==

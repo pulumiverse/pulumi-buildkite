@@ -10,6 +10,7 @@ import * as utilities from "../utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
@@ -17,6 +18,7 @@ import * as utilities from "../utilities";
  * // create a default token
  * const _default = new buildkite.agent.AgentToken("default", {description: "Default token"});
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export class AgentToken extends pulumi.CustomResource {
     /**

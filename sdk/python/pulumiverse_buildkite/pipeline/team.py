@@ -150,6 +150,7 @@ class Team(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -165,36 +166,37 @@ class Team(pulumi.CustomResource):
             team_id=team.id,
             access_level="READ_ONLY")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import a pipeline team resource using the GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the ID:
+        you can use this query to find the ID:
 
-         query getPipelineTeamId {
+        query getPipelineTeamId {
 
-         pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
+          pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
 
-         teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
+            teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
 
-         edges{
+              edges{
 
-         node{
+                node{
 
-         id
+                  id
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
@@ -217,6 +219,7 @@ class Team(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -232,36 +235,37 @@ class Team(pulumi.CustomResource):
             team_id=team.id,
             access_level="READ_ONLY")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import a pipeline team resource using the GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the ID:
+        you can use this query to find the ID:
 
-         query getPipelineTeamId {
+        query getPipelineTeamId {
 
-         pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
+          pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
 
-         teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
+            teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
 
-         edges{
+              edges{
 
-         node{
+                node{
 
-         id
+                  id
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==

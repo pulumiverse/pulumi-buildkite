@@ -15,33 +15,31 @@ namespace Pulumiverse.Buildkite.Team
         /// <summary>
         /// Use this data source to retrieve a team by slug or id. You can find out more about teams in the Buildkite
         /// [documentation](https://buildkite.com/docs/pipelines/permissions).
-        /// 
-        /// {{% examples %}}
+        ///
         /// ## Example Usage
-        /// {{% example %}}
-        /// 
+        ///
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
         /// using Buildkite = Pulumi.Buildkite;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        ///
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var teamDev = Buildkite.Team.GetTeam.Invoke(new()
         ///     {
         ///         Id = buildkite_team.Team_dev.Id,
         ///     });
-        /// 
+        ///
         ///     var team = Buildkite.Team.GetTeam.Invoke(new()
         ///     {
         ///         Slug = "Everyone",
         ///     });
-        /// 
+        ///
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Task<GetTeamResult> InvokeAsync(GetTeamArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetTeamResult>("buildkite:Team/getTeam:getTeam", args ?? new GetTeamArgs(), options.WithDefaults());
@@ -49,33 +47,31 @@ namespace Pulumiverse.Buildkite.Team
         /// <summary>
         /// Use this data source to retrieve a team by slug or id. You can find out more about teams in the Buildkite
         /// [documentation](https://buildkite.com/docs/pipelines/permissions).
-        /// 
-        /// {{% examples %}}
+        ///
         /// ## Example Usage
-        /// {{% example %}}
-        /// 
+        ///
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
         /// using Buildkite = Pulumi.Buildkite;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        ///
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var teamDev = Buildkite.Team.GetTeam.Invoke(new()
         ///     {
         ///         Id = buildkite_team.Team_dev.Id,
         ///     });
-        /// 
+        ///
         ///     var team = Buildkite.Team.GetTeam.Invoke(new()
         ///     {
         ///         Slug = "Everyone",
         ///     });
-        /// 
+        ///
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Output<GetTeamResult> Invoke(GetTeamInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetTeamResult>("buildkite:Team/getTeam:getTeam", args ?? new GetTeamInvokeArgs(), options.WithDefaults());

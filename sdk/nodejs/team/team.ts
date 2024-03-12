@@ -9,6 +9,7 @@ import * as utilities from "../utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
@@ -19,38 +20,39 @@ import * as utilities from "../utilities";
  *     privacy: "VISIBLE",
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  *
  * ## Import
  *
  * import a team resource using the GraphQL ID
  *
- * # 
+ * #
  *
- *  you can use this query to find the ID:
+ * you can use this query to find the ID:
  *
- *  query getTeamId {
+ * query getTeamId {
  *
- *  organization(slug: "ORGANIZATION_SLUG") {
+ *   organization(slug: "ORGANIZATION_SLUG") {
  *
- *  teams(first: 1, search: "TEAM_SEARCH_TERM") {
+ *     teams(first: 1, search: "TEAM_SEARCH_TERM") {
  *
- *  edges {
+ *       edges {
  *
- *  node {
+ *         node {
  *
- *  id
+ *           id
  *
- *  name
+ *           name
  *
- *  }
+ *         }
  *
- *  }
+ *       }
  *
- *  }
+ *     }
  *
- *  }
+ *   }
  *
- *  }
+ * }
  *
  * ```sh
  * $ pulumi import buildkite:Team/team:Team everyone UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=

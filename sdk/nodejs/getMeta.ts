@@ -12,6 +12,7 @@ import * as utilities from "./utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as aws from "@pulumi/aws";
@@ -26,6 +27,7 @@ import * as utilities from "./utilities";
  *     cidrBlocks: ips.then(ips => ips.webhookIps),
  * }]});
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getMeta(opts?: pulumi.InvokeOptions): Promise<GetMetaResult> {
 
@@ -55,6 +57,7 @@ export interface GetMetaResult {
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as aws from "@pulumi/aws";
@@ -69,6 +72,7 @@ export interface GetMetaResult {
  *     cidrBlocks: ips.then(ips => ips.webhookIps),
  * }]});
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getMetaOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetMetaResult> {
     return pulumi.output(getMeta(opts))

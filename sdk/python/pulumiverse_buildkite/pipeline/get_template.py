@@ -114,6 +114,7 @@ def get_template(id: Optional[str] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_buildkite as buildkite
@@ -129,6 +130,7 @@ def get_template(id: Optional[str] = None,
         repository=repository,
         pipeline_template_id=frontend_template.id)
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str id: The GraphQL ID of the pipeline template.
@@ -160,6 +162,7 @@ def get_template_output(id: Optional[pulumi.Input[Optional[str]]] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_buildkite as buildkite
@@ -175,6 +178,7 @@ def get_template_output(id: Optional[pulumi.Input[Optional[str]]] = None,
         repository=repository,
         pipeline_template_id=frontend_template.id)
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str id: The GraphQL ID of the pipeline template.

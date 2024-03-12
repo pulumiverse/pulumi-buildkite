@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/internal"
 )
 
 // A pipeline schedule is a schedule that triggers a pipeline to run at a specific time.
@@ -18,13 +18,14 @@ import (
 //
 // ## Example Usage
 //
+// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/Pipeline"
 //
 // )
 //
@@ -52,6 +53,7 @@ import (
 //	}
 //
 // ```
+// <!--End PulumiCodeChooser -->
 //
 // ## Import
 //
@@ -59,43 +61,43 @@ import (
 //
 // #
 //
-//	you can use this query to find the schedule:
+// you can use this query to find the schedule:
 //
-//	query getPipelineScheduleId {
+// query getPipelineScheduleId {
 //
 //	organization(slug: "ORGANIZATION_SLUG") {
 //
-//	pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
+//	      pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
 //
-//	edges{
+//	    edges{
 //
-//	node{
+//	      node{
 //
-//	name
+//	        name
 //
-//	schedules{
+//	        schedules{
 //
-//	edges{
+//	          edges{
 //
-//	node{
+//	            node{
 //
-//	id
+//	              id
 //
-//	}
+//	            }
 //
-//	}
+//	          }
 //
-//	}
+//	        }
 //
-//	}
+//	      }
 //
-//	}
+//	    }
 //
-//	}
-//
-//	}
+//	  }
 //
 //	}
+//
+// }
 //
 // ```sh
 // $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==

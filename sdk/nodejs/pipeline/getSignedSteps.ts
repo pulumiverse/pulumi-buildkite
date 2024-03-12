@@ -17,6 +17,7 @@ import * as utilities from "../utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
@@ -37,6 +38,7 @@ import * as utilities from "../utilities";
  *     steps: my_steps.then(my_steps => my_steps.steps),
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getSignedSteps(args: GetSignedStepsArgs, opts?: pulumi.InvokeOptions): Promise<GetSignedStepsResult> {
 
@@ -111,6 +113,7 @@ export interface GetSignedStepsResult {
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
@@ -131,6 +134,7 @@ export interface GetSignedStepsResult {
  *     steps: my_steps.then(my_steps => my_steps.steps),
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getSignedStepsOutput(args: GetSignedStepsOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSignedStepsResult> {
     return pulumi.output(args).apply((a: any) => getSignedSteps(a, opts))

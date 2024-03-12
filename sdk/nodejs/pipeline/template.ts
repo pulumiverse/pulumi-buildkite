@@ -11,6 +11,7 @@ import * as utilities from "../utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
@@ -30,38 +31,39 @@ import * as utilities from "../utilities";
  *     description: "Production upload template",
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  *
  * ## Import
  *
  * import a pipeline template resource using the templates GraphQL ID
  *
- * # 
+ * #
  *
- *  You can use this query to find the first 50 templates (adjust for less or more):
+ * You can use this query to find the first 50 templates (adjust for less or more):
  *
- *  query getPipelineTemplateIds {
+ * query getPipelineTemplateIds {
  *
- *  organization(slug: "ORGANIZATION_SLUG") {
+ *   organization(slug: "ORGANIZATION_SLUG") {
  *
- *  pipelineTemplates(first: 50) {
+ *     pipelineTemplates(first: 50) {
  *
- *  edges{
+ *       edges{
  *
- *  node{
+ *         node{
  *
- *  id
+ *           id
  *
- *  name
+ *           name
  *
- *  }
+ *         }
  *
- *  }
+ *       }
  *
- *  }
+ *     }
  *
- *  }
+ *   }
  *
- *  }
+ * }
  *
  * ```sh
  * $ pulumi import buildkite:Pipeline/template:Template template UGlwZWxpbmVUZW1wbGF0ZS0tLWU0YWQ3YjdjLTljZDYtNGM0MS1hYWE0LTY2ZmI3ODY0MTMwNw==

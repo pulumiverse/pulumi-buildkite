@@ -150,6 +150,7 @@ class Member(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -163,48 +164,49 @@ class Member(pulumi.CustomResource):
             user_id="VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==",
             role="MEMBER")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import a team member resource using the GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the ID:
+        you can use this query to find the ID:
 
-         query getTeamMemberId {
+        query getTeamMemberId {
 
-         organization(slug: "ORGANIZATION_SLUG") {
+          organization(slug: "ORGANIZATION_SLUG") {
 
-         teams(first: 2, search: "TEAM_SEARCH_TERM") {
+            teams(first: 2, search: "TEAM_SEARCH_TERM") {
 
-         edges {
+              edges {
 
-         node {
+                node {
 
-         members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
+                  members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
 
-         edges {
+                    edges {
 
-         node {
+                      node {
 
-         id
+                        id
 
-         }
+                      }
 
-         }
+                    }
 
-         }
+                  }
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==
@@ -227,6 +229,7 @@ class Member(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -240,48 +243,49 @@ class Member(pulumi.CustomResource):
             user_id="VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==",
             role="MEMBER")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import a team member resource using the GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the ID:
+        you can use this query to find the ID:
 
-         query getTeamMemberId {
+        query getTeamMemberId {
 
-         organization(slug: "ORGANIZATION_SLUG") {
+          organization(slug: "ORGANIZATION_SLUG") {
 
-         teams(first: 2, search: "TEAM_SEARCH_TERM") {
+            teams(first: 2, search: "TEAM_SEARCH_TERM") {
 
-         edges {
+              edges {
 
-         node {
+                node {
 
-         members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
+                  members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
 
-         edges {
+                    edges {
 
-         node {
+                      node {
 
-         id
+                        id
 
-         }
+                      }
 
-         }
+                    }
 
-         }
+                  }
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==

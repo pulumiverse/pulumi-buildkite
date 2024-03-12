@@ -10,6 +10,7 @@ import * as utilities from "../utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
@@ -29,38 +30,39 @@ import * as utilities from "../utilities";
  *     queueId: _default.id,
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  *
  * ## Import
  *
  * import a clusters default queue resource using the GraphQL ID of the cluster itself
  *
- * # 
+ * #
  *
- *  you can use this query to find the ID:
+ * you can use this query to find the ID:
  *
- *  query getClusters {
+ * query getClusters {
  *
- *  organization(slug: "ORGANIZATION"){
+ *   organization(slug: "ORGANIZATION"){
  *
- *  clusters(first: 5, order:NAME) {
+ *     clusters(first: 5, order:NAME) {
  *
- *  edges{
+ *       edges{
  *
- *  node {
+ *         node {
  *
- *  id
+ *           id
  *
- *  name
+ *           name
  *
- *  }
+ *         }
  *
- *  }
+ *       }
  *
- *  }
+ *     }
  *
- *  }
+ *   }
  *
- *  }
+ * }
  *
  * ```sh
  * $ pulumi import buildkite:Cluster/clusterDefaultQueue:ClusterDefaultQueue primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==

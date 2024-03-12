@@ -13,25 +13,27 @@ namespace Pulumiverse.Buildkite.Agent
     /// <summary>
     /// This resource allows you to create and manage non-clustered agent tokens.
     /// You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/agent/v3/tokens).
-    /// 
+    ///
     /// ## Example Usage
-    /// 
+    ///
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    ///
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     // create a default token
     ///     var @default = new Buildkite.Agent.AgentToken("default", new()
     ///     {
     ///         Description = "Default token",
     ///     });
-    /// 
+    ///
     /// });
     /// ```
+    /// <!--End PulumiCodeChooser -->
     /// </summary>
     [BuildkiteResourceType("buildkite:Agent/agentToken:AgentToken")]
     public partial class AgentToken : global::Pulumi.CustomResource

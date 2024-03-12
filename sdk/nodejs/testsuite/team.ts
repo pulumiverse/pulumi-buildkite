@@ -9,6 +9,7 @@ import * as utilities from "../utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
@@ -25,60 +26,61 @@ import * as utilities from "../utilities";
  *     accessLevel: "MANAGE_AND_READ",
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  *
  * ## Import
  *
  * import a test suite team resource using the GraphQL ID
  *
- * # 
+ * #
  *
- *  you can use this query to find the ID:
+ * you can use this query to find the ID:
  *
- *  query getTeamSuiteIds {
+ * query getTeamSuiteIds {
  *
- *  organization(slug: "ORGANIZATION_SLUG") {
+ *   organization(slug: "ORGANIZATION_SLUG") {
  *
- *  suites(first: 1, search:"SUITE_SEARCH_TERM") {
+ *     suites(first: 1, search:"SUITE_SEARCH_TERM") {
  *
- *  edges {
+ *       edges {
  *
- *  node {
+ *         node {
  *
- *  id
+ *           id
  *
- *  name
+ *           name
  *
- *  teams(first: 10){
+ *           teams(first: 10){
  *
- *  edges {
+ *             edges {
  *
- *  node {
+ *               node {
  *
- *  id
+ *                 id
  *
- *  accessLevel
+ *                 accessLevel
  *
- *  team{
+ *                 team{
  *
- *  name
+ *                   name
  *
- *  }
+ *                 }
  *
- *  }
+ *               }
  *
- *  }
+ *             }
  *
- *  }
+ *           }
  *
- *  }
+ *         }
  *
- *  }
+ *       }
  *
- *  }
+ *     }
  *
- *  }
+ *   }
  *
- *  }
+ * }
  *
  * ```sh
  * $ pulumi import buildkite:TestSuite/team:Team main_everyone VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi

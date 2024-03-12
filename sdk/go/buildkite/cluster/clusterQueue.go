@@ -9,21 +9,22 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/internal"
 )
 
 // A Cluster Queue is a queue belonging to a specific Cluster for its Agents to target builds on.
 //
 // ## Example Usage
 //
+// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Cluster"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/Cluster"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/Pipeline"
 //
 // )
 //
@@ -58,6 +59,7 @@ import (
 //	}
 //
 // ```
+// <!--End PulumiCodeChooser -->
 //
 // ## Import
 //
@@ -65,35 +67,35 @@ import (
 //
 // #
 //
-//	you can use this query to find the ID:
+// you can use this query to find the ID:
 //
-//	query getClusterQueues {
+// query getClusterQueues {
 //
 //	organization(slug: "ORGANIZATION_SLUG") {
 //
-//	cluster(id: "CLUSTER_UUID") {
+//	  cluster(id: "CLUSTER_UUID") {
 //
-//	queues(first: 50) {
+//	    queues(first: 50) {
 //
-//	edges {
+//	      edges {
 //
-//	node {
+//	        node {
 //
-//	id
+//	          id
 //
-//	key
+//	          key
 //
-//	}
+//	        }
 //
-//	}
+//	      }
 //
-//	}
+//	    }
 //
-//	}
-//
-//	}
+//	  }
 //
 //	}
+//
+// }
 //
 // ```sh
 // $ pulumi import buildkite:Cluster/clusterQueue:ClusterQueue test Q2x1c3RlclF1ZXVlLS0tYjJiOGRhNTEtOWY5My00Y2MyLTkyMjktMGRiNzg3ZDQzOTAz,35498aaf-ad05-4fa5-9a07-91bf6cacd2bd

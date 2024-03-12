@@ -9,6 +9,7 @@ import * as utilities from "../utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
@@ -24,48 +25,49 @@ import * as utilities from "../utilities";
  *     role: "MEMBER",
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  *
  * ## Import
  *
  * import a team member resource using the GraphQL ID
  *
- * # 
+ * #
  *
- *  you can use this query to find the ID:
+ * you can use this query to find the ID:
  *
- *  query getTeamMemberId {
+ * query getTeamMemberId {
  *
- *  organization(slug: "ORGANIZATION_SLUG") {
+ *   organization(slug: "ORGANIZATION_SLUG") {
  *
- *  teams(first: 2, search: "TEAM_SEARCH_TERM") {
+ *     teams(first: 2, search: "TEAM_SEARCH_TERM") {
  *
- *  edges {
+ *       edges {
  *
- *  node {
+ *         node {
  *
- *  members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
+ *           members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
  *
- *  edges {
+ *             edges {
  *
- *  node {
+ *               node {
  *
- *  id
+ *                 id
  *
- *  }
+ *               }
  *
- *  }
+ *             }
  *
- *  }
+ *           }
  *
- *  }
+ *         }
  *
- *  }
+ *       }
  *
- *  }
+ *     }
  *
- *  }
+ *   }
  *
- *  }
+ * }
  *
  * ```sh
  * $ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==

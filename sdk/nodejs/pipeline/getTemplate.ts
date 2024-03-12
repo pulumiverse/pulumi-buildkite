@@ -11,6 +11,7 @@ import * as utilities from "../utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
@@ -32,6 +33,7 @@ import * as utilities from "../utilities";
  *     pipelineTemplateId: frontendTemplate.then(frontendTemplate => frontendTemplate.id),
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getTemplate(args?: GetTemplateArgs, opts?: pulumi.InvokeOptions): Promise<GetTemplateResult> {
     args = args || {};
@@ -93,6 +95,7 @@ export interface GetTemplateResult {
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
@@ -114,6 +117,7 @@ export interface GetTemplateResult {
  *     pipelineTemplateId: frontendTemplate.then(frontendTemplate => frontendTemplate.id),
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getTemplateOutput(args?: GetTemplateOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetTemplateResult> {
     return pulumi.output(args).apply((a: any) => getTemplate(a, opts))

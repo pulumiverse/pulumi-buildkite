@@ -183,6 +183,7 @@ class ClusterAgentToken(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -207,6 +208,7 @@ class ClusterAgentToken(pulumi.CustomResource):
             cluster_id=primary.id,
             key="default")
         ```
+        <!--End PulumiCodeChooser -->
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -225,6 +227,7 @@ class ClusterAgentToken(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -249,6 +252,7 @@ class ClusterAgentToken(pulumi.CustomResource):
             cluster_id=primary.id,
             key="default")
         ```
+        <!--End PulumiCodeChooser -->
 
         :param str resource_name: The name of the resource.
         :param ClusterAgentTokenArgs args: The arguments to use to populate this resource's properties.

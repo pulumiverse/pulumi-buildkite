@@ -88,42 +88,44 @@ class Banner(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
 
         banner = buildkite.organization.Banner("banner", message=":warning: Please be aware of the maintenance window this weekend!")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import an organization banner resource using the banner's GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the banner's ID:
+        you can use this query to find the banner's ID:
 
-         query getOrganizationBannerId {
+        query getOrganizationBannerId {
 
-         organization(slug: "ORGANIZATION_SLUG") {
+          organization(slug: "ORGANIZATION_SLUG") {
 
-         banners(first: 1) {
+            banners(first: 1) {
 
-         edges {
+              edges {
 
-         node {
+                node {
 
-         id
+                  id
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Organization/banner:Banner banner T3JnYW5pemF0aW9uQmFubmVyLS0tNjZlMmE5YzktM2IzMy00OGE5LTk1NjItMzY2YzMwNzYzN2Uz
@@ -146,42 +148,44 @@ class Banner(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
 
         banner = buildkite.organization.Banner("banner", message=":warning: Please be aware of the maintenance window this weekend!")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import an organization banner resource using the banner's GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the banner's ID:
+        you can use this query to find the banner's ID:
 
-         query getOrganizationBannerId {
+        query getOrganizationBannerId {
 
-         organization(slug: "ORGANIZATION_SLUG") {
+          organization(slug: "ORGANIZATION_SLUG") {
 
-         banners(first: 1) {
+            banners(first: 1) {
 
-         edges {
+              edges {
 
-         node {
+                node {
 
-         id
+                  id
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Organization/banner:Banner banner T3JnYW5pemF0aW9uQmFubmVyLS0tNjZlMmE5YzktM2IzMy00OGE5LTk1NjItMzY2YzMwNzYzN2Uz

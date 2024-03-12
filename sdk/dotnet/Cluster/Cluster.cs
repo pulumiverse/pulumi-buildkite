@@ -14,16 +14,17 @@ namespace Pulumiverse.Buildkite.Cluster
     /// This resource allows you to create and manage a Buildkite Cluster to run your builds in.
     /// Clusters are useful for grouping agents by there capabilities or permissions.
     /// Find out more information in our [documentation](https://buildkite.com/docs/clusters/overview).
-    /// 
+    ///
     /// ## Example Usage
-    /// 
+    ///
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    ///
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     // create a cluster
     ///     var primary = new Buildkite.Cluster.Cluster("primary", new()
@@ -32,55 +33,56 @@ namespace Pulumiverse.Buildkite.Cluster
     ///         Emoji = "🚀",
     ///         Color = "#bada55",
     ///     });
-    /// 
+    ///
     ///     // add a pipeline to the cluster
     ///     var monolith = new Buildkite.Pipeline.Pipeline("monolith", new()
     ///     {
     ///         Repository = "https://github.com/...",
     ///         ClusterId = primary.Id,
     ///     });
-    /// 
+    ///
     ///     var @default = new Buildkite.Cluster.ClusterQueue("default", new()
     ///     {
     ///         ClusterId = primary.Id,
     ///         Key = "default",
     ///     });
-    /// 
+    ///
     /// });
     /// ```
-    /// 
+    /// <!--End PulumiCodeChooser -->
+    ///
     /// ## Import
-    /// 
+    ///
     /// import a cluster resource using the GraphQL ID
-    /// 
-    /// # 
-    /// 
-    ///  you can use this query to find the ID:
-    /// 
-    ///  query getClusters {
-    /// 
-    ///  organization(slug: "ORGANIZATION"){
-    /// 
-    ///  clusters(first: 5, order:NAME) {
-    /// 
-    ///  edges{
-    /// 
-    ///  node {
-    /// 
-    ///  id
-    /// 
-    ///  name
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
+    ///
+    /// #
+    ///
+    /// you can use this query to find the ID:
+    ///
+    /// query getClusters {
+    ///
+    ///   organization(slug: "ORGANIZATION"){
+    ///
+    ///     clusters(first: 5, order:NAME) {
+    ///
+    ///       edges{
+    ///
+    ///         node {
+    ///
+    ///           id
+    ///
+    ///           name
+    ///
+    ///         }
+    ///
+    ///       }
+    ///
+    ///     }
+    ///
+    ///   }
+    ///
+    /// }
+    ///
     /// ```sh
     /// $ pulumi import buildkite:Cluster/cluster:Cluster primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
     /// ```

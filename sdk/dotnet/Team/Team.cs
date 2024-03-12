@@ -12,16 +12,17 @@ namespace Pulumiverse.Buildkite.Team
 {
     /// <summary>
     /// A Team is a group of users that can be given permissions for using Pipelines.This feature is only available to Business and Enterprise customers.  You can find out more about Teams in the Buildkite [documentation](https://buildkite.com/docs/team-management/permissions).
-    /// 
+    ///
     /// ## Example Usage
-    /// 
+    ///
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    ///
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     var everyone = new Buildkite.Team.Team("everyone", new()
     ///     {
@@ -29,42 +30,43 @@ namespace Pulumiverse.Buildkite.Team
     ///         DefaultTeam = false,
     ///         Privacy = "VISIBLE",
     ///     });
-    /// 
+    ///
     /// });
     /// ```
-    /// 
+    /// <!--End PulumiCodeChooser -->
+    ///
     /// ## Import
-    /// 
+    ///
     /// import a team resource using the GraphQL ID
-    /// 
-    /// # 
-    /// 
-    ///  you can use this query to find the ID:
-    /// 
-    ///  query getTeamId {
-    /// 
-    ///  organization(slug: "ORGANIZATION_SLUG") {
-    /// 
-    ///  teams(first: 1, search: "TEAM_SEARCH_TERM") {
-    /// 
-    ///  edges {
-    /// 
-    ///  node {
-    /// 
-    ///  id
-    /// 
-    ///  name
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
+    ///
+    /// #
+    ///
+    /// you can use this query to find the ID:
+    ///
+    /// query getTeamId {
+    ///
+    ///   organization(slug: "ORGANIZATION_SLUG") {
+    ///
+    ///     teams(first: 1, search: "TEAM_SEARCH_TERM") {
+    ///
+    ///       edges {
+    ///
+    ///         node {
+    ///
+    ///           id
+    ///
+    ///           name
+    ///
+    ///         }
+    ///
+    ///       }
+    ///
+    ///     }
+    ///
+    ///   }
+    ///
+    /// }
+    ///
     /// ```sh
     /// $ pulumi import buildkite:Team/team:Team everyone UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
     /// ```

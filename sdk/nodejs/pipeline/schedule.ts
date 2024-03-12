@@ -11,6 +11,7 @@ import * as utilities from "../utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
@@ -25,50 +26,51 @@ import * as utilities from "../utilities";
  *     branch: buildkite_pipeline.repo.default_branch,
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  *
  * ## Import
  *
  * import a pipeline schedule resource using the schedules GraphQL ID
  *
- * # 
+ * #
  *
- *  you can use this query to find the schedule:
+ * you can use this query to find the schedule:
  *
- *  query getPipelineScheduleId {
+ * query getPipelineScheduleId {
  *
- *  organization(slug: "ORGANIZATION_SLUG") {
+ *   organization(slug: "ORGANIZATION_SLUG") {
  *
- *  pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
+ *         pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
  *
- *  edges{
+ *       edges{
  *
- *  node{
+ *         node{
  *
- *  name
+ *           name
  *
- *  schedules{
+ *           schedules{
  *
- *  edges{
+ *             edges{
  *
- *  node{
+ *               node{
  *
- *  id
+ *                 id
  *
- *  }
+ *               }
  *
- *  }
+ *             }
  *
- *  }
+ *           }
  *
- *  }
+ *         }
  *
- *  }
+ *       }
  *
- *  }
+ *     }
  *
- *  }
+ *   }
  *
- *  }
+ * }
  *
  * ```sh
  * $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==

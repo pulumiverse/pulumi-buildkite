@@ -12,25 +12,26 @@ namespace Pulumiverse.Buildkite.Pipeline
 {
     /// <summary>
     /// A pipeline schedule is a schedule that triggers a pipeline to run at a specific time.
-    /// 
+    ///
     /// You can find more information in the [documentation](https://buildkite.com/docs/pipelines/scheduled-builds).
-    /// 
+    ///
     /// ## Example Usage
-    /// 
+    ///
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    ///
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     // create a pipeline
     ///     var pipeline = new Buildkite.Pipeline.Pipeline("pipeline", new()
     ///     {
     ///         Repository = "https://github.com/...",
     ///     });
-    /// 
+    ///
     ///     // schedule a build at midnight every day
     ///     var nightly = new Buildkite.Pipeline.Schedule("nightly", new()
     ///     {
@@ -39,54 +40,55 @@ namespace Pulumiverse.Buildkite.Pipeline
     ///         Cronline = "@midnight",
     ///         Branch = buildkite_pipeline.Repo.Default_branch,
     ///     });
-    /// 
+    ///
     /// });
     /// ```
-    /// 
+    /// <!--End PulumiCodeChooser -->
+    ///
     /// ## Import
-    /// 
+    ///
     /// import a pipeline schedule resource using the schedules GraphQL ID
-    /// 
-    /// # 
-    /// 
-    ///  you can use this query to find the schedule:
-    /// 
-    ///  query getPipelineScheduleId {
-    /// 
-    ///  organization(slug: "ORGANIZATION_SLUG") {
-    /// 
-    ///  pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
-    /// 
-    ///  edges{
-    /// 
-    ///  node{
-    /// 
-    ///  name
-    /// 
-    ///  schedules{
-    /// 
-    ///  edges{
-    /// 
-    ///  node{
-    /// 
-    ///  id
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
+    ///
+    /// #
+    ///
+    /// you can use this query to find the schedule:
+    ///
+    /// query getPipelineScheduleId {
+    ///
+    ///   organization(slug: "ORGANIZATION_SLUG") {
+    ///
+    ///         pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
+    ///
+    ///       edges{
+    ///
+    ///         node{
+    ///
+    ///           name
+    ///
+    ///           schedules{
+    ///
+    ///             edges{
+    ///
+    ///               node{
+    ///
+    ///                 id
+    ///
+    ///               }
+    ///
+    ///             }
+    ///
+    ///           }
+    ///
+    ///         }
+    ///
+    ///       }
+    ///
+    ///     }
+    ///
+    ///   }
+    ///
+    /// }
+    ///
     /// ```sh
     /// $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
     /// ```

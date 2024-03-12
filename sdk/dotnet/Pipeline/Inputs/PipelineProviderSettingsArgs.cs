@@ -128,7 +128,7 @@ namespace Pulumiverse.Buildkite.Pipeline.Inputs
         /// 	- `fork` will create builds when the GitHub repository is forked.
         /// 	- `none` will not create any builds based on GitHub activity.
         /// 
-        /// 	&gt; `trigger_mode` is only valid if the pipeline uses a GitHub repository.
+        /// 	> `trigger_mode` is only valid if the pipeline uses a GitHub repository.
         /// </summary>
         [Input("triggerMode")]
         public Input<string>? TriggerMode { get; set; }

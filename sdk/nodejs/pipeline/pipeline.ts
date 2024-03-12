@@ -15,7 +15,7 @@ import * as utilities from "../utilities";
  *
  * import a pipeline resource using the pipelines GraphQL ID
  *
- *  GraphQL ID for a pipeline can be found on its settings page
+ * GraphQL ID for a pipeline can be found on its settings page
  *
  * ```sh
  * $ pulumi import buildkite:Pipeline/pipeline:Pipeline pipeline UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=

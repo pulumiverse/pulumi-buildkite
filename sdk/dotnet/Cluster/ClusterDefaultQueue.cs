@@ -13,16 +13,17 @@ namespace Pulumiverse.Buildkite.Cluster
     /// <summary>
     /// This resource allows you to manage a default queue for a Buildkite Cluster.
     /// Find out more information in our [documentation](https://buildkite.com/docs/clusters/overview).
-    /// 
+    ///
     /// ## Example Usage
-    /// 
+    ///
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    ///
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     // create a cluster
     ///     var primaryCluster = new Buildkite.Cluster.Cluster("primaryCluster", new()
@@ -31,54 +32,55 @@ namespace Pulumiverse.Buildkite.Cluster
     ///         Emoji = "🚀",
     ///         Color = "#bada55",
     ///     });
-    /// 
+    ///
     ///     var @default = new Buildkite.Cluster.ClusterQueue("default", new()
     ///     {
     ///         ClusterId = primaryCluster.Id,
     ///         Key = "default",
     ///     });
-    /// 
+    ///
     ///     var primaryClusterDefaultQueue = new Buildkite.Cluster.ClusterDefaultQueue("primaryClusterDefaultQueue", new()
     ///     {
     ///         ClusterId = primaryCluster.Id,
     ///         QueueId = @default.Id,
     ///     });
-    /// 
+    ///
     /// });
     /// ```
-    /// 
+    /// <!--End PulumiCodeChooser -->
+    ///
     /// ## Import
-    /// 
+    ///
     /// import a clusters default queue resource using the GraphQL ID of the cluster itself
-    /// 
-    /// # 
-    /// 
-    ///  you can use this query to find the ID:
-    /// 
-    ///  query getClusters {
-    /// 
-    ///  organization(slug: "ORGANIZATION"){
-    /// 
-    ///  clusters(first: 5, order:NAME) {
-    /// 
-    ///  edges{
-    /// 
-    ///  node {
-    /// 
-    ///  id
-    /// 
-    ///  name
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
+    ///
+    /// #
+    ///
+    /// you can use this query to find the ID:
+    ///
+    /// query getClusters {
+    ///
+    ///   organization(slug: "ORGANIZATION"){
+    ///
+    ///     clusters(first: 5, order:NAME) {
+    ///
+    ///       edges{
+    ///
+    ///         node {
+    ///
+    ///           id
+    ///
+    ///           name
+    ///
+    ///         }
+    ///
+    ///       }
+    ///
+    ///     }
+    ///
+    ///   }
+    ///
+    /// }
+    ///
     /// ```sh
     /// $ pulumi import buildkite:Cluster/clusterDefaultQueue:ClusterDefaultQueue primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
     /// ```

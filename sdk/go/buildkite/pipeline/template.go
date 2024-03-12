@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/internal"
 )
 
 // This resource allows for standardized step configurations that can be used within various pipelines of an organization.
@@ -18,13 +18,14 @@ import (
 //
 // ## Example Usage
 //
+// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Pipeline"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/Pipeline"
 //
 // )
 //
@@ -49,6 +50,7 @@ import (
 //	}
 //
 // ```
+// <!--End PulumiCodeChooser -->
 //
 // ## Import
 //
@@ -56,31 +58,31 @@ import (
 //
 // #
 //
-//	You can use this query to find the first 50 templates (adjust for less or more):
+// You can use this query to find the first 50 templates (adjust for less or more):
 //
-//	query getPipelineTemplateIds {
+// query getPipelineTemplateIds {
 //
 //	organization(slug: "ORGANIZATION_SLUG") {
 //
-//	pipelineTemplates(first: 50) {
+//	  pipelineTemplates(first: 50) {
 //
-//	edges{
+//	    edges{
 //
-//	node{
+//	      node{
 //
-//	id
+//	        id
 //
-//	name
+//	        name
 //
-//	}
+//	      }
 //
-//	}
+//	    }
 //
-//	}
-//
-//	}
+//	  }
 //
 //	}
+//
+// }
 //
 // ```sh
 // $ pulumi import buildkite:Pipeline/template:Template template UGlwZWxpbmVUZW1wbGF0ZS0tLWU0YWQ3YjdjLTljZDYtNGM0MS1hYWE0LTY2ZmI3ODY0MTMwNw==

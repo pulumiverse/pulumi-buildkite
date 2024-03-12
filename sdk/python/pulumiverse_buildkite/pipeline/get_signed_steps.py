@@ -128,6 +128,7 @@ def get_signed_steps(jwks: Optional[str] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_buildkite as buildkite
@@ -145,6 +146,7 @@ def get_signed_steps(jwks: Optional[str] = None,
         repository=repository,
         steps=my_steps.steps)
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str jwks: The JSON Web Key Set (JWKS) to use for signing.
@@ -192,6 +194,7 @@ def get_signed_steps_output(jwks: Optional[pulumi.Input[Optional[str]]] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_buildkite as buildkite
@@ -209,6 +212,7 @@ def get_signed_steps_output(jwks: Optional[pulumi.Input[Optional[str]]] = None,
         repository=repository,
         steps=my_steps.steps)
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str jwks: The JSON Web Key Set (JWKS) to use for signing.

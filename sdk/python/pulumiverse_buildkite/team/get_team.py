@@ -149,6 +149,7 @@ def get_team(id: Optional[str] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_buildkite as buildkite
@@ -156,6 +157,7 @@ def get_team(id: Optional[str] = None,
     team_dev = buildkite.Team.get_team(id=buildkite_team["team_dev"]["id"])
     team = buildkite.Team.get_team(slug="Everyone")
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str id: The GraphQL ID of the team to find.
@@ -189,6 +191,7 @@ def get_team_output(id: Optional[pulumi.Input[Optional[str]]] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_buildkite as buildkite
@@ -196,6 +199,7 @@ def get_team_output(id: Optional[pulumi.Input[Optional[str]]] = None,
     team_dev = buildkite.Team.get_team(id=buildkite_team["team_dev"]["id"])
     team = buildkite.Team.get_team(slug="Everyone")
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str id: The GraphQL ID of the team to find.

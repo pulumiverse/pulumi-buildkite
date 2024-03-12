@@ -15,24 +15,23 @@ namespace Pulumiverse.Buildkite
         /// <summary>
         /// Use this data source to look up the source IP addresses that Buildkite may use to send external requests,
         /// including webhooks and API calls to source control systems (like GitHub Enterprise Server and BitBucket Server).
-        /// 
+        ///
         /// More info in the Buildkite [documentation](https://buildkite.com/docs/apis/rest-api/meta).
-        /// 
-        /// {{% examples %}}
+        ///
         /// ## Example Usage
-        /// {{% example %}}
-        /// 
+        ///
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
         /// using Aws = Pulumi.Aws;
         /// using Buildkite = Pulumi.Buildkite;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        ///
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var ips = Buildkite.GetMeta.Invoke();
-        /// 
+        ///
         ///     // Create an AWS security group allowing ingress from Buildkite
         ///     var fromBuildkite = new Aws.Ec2.SecurityGroup("fromBuildkite", new()
         ///     {
@@ -43,15 +42,14 @@ namespace Pulumiverse.Buildkite
         ///                 FromPort = "*",
         ///                 ToPort = 443,
         ///                 Protocol = "tcp",
-        ///                 CidrBlocks = ips.Apply(getMetaResult =&gt; getMetaResult.WebhookIps),
+        ///                 CidrBlocks = ips.Apply(getMetaResult => getMetaResult.WebhookIps),
         ///             },
         ///         },
         ///     });
-        /// 
+        ///
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Task<GetMetaResult> InvokeAsync(InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetMetaResult>("buildkite:index/getMeta:getMeta", InvokeArgs.Empty, options.WithDefaults());
@@ -59,24 +57,23 @@ namespace Pulumiverse.Buildkite
         /// <summary>
         /// Use this data source to look up the source IP addresses that Buildkite may use to send external requests,
         /// including webhooks and API calls to source control systems (like GitHub Enterprise Server and BitBucket Server).
-        /// 
+        ///
         /// More info in the Buildkite [documentation](https://buildkite.com/docs/apis/rest-api/meta).
-        /// 
-        /// {{% examples %}}
+        ///
         /// ## Example Usage
-        /// {{% example %}}
-        /// 
+        ///
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
         /// using Aws = Pulumi.Aws;
         /// using Buildkite = Pulumi.Buildkite;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        ///
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var ips = Buildkite.GetMeta.Invoke();
-        /// 
+        ///
         ///     // Create an AWS security group allowing ingress from Buildkite
         ///     var fromBuildkite = new Aws.Ec2.SecurityGroup("fromBuildkite", new()
         ///     {
@@ -87,15 +84,14 @@ namespace Pulumiverse.Buildkite
         ///                 FromPort = "*",
         ///                 ToPort = 443,
         ///                 Protocol = "tcp",
-        ///                 CidrBlocks = ips.Apply(getMetaResult =&gt; getMetaResult.WebhookIps),
+        ///                 CidrBlocks = ips.Apply(getMetaResult => getMetaResult.WebhookIps),
         ///             },
         ///         },
         ///     });
-        /// 
+        ///
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Output<GetMetaResult> Invoke(InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetMetaResult>("buildkite:index/getMeta:getMeta", InvokeArgs.Empty, options.WithDefaults());

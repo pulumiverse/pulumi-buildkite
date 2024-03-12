@@ -196,6 +196,7 @@ class Cluster(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -213,38 +214,39 @@ class Cluster(pulumi.CustomResource):
             cluster_id=primary.id,
             key="default")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import a cluster resource using the GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the ID:
+        you can use this query to find the ID:
 
-         query getClusters {
+        query getClusters {
 
-         organization(slug: "ORGANIZATION"){
+          organization(slug: "ORGANIZATION"){
 
-         clusters(first: 5, order:NAME) {
+            clusters(first: 5, order:NAME) {
 
-         edges{
+              edges{
 
-         node {
+                node {
 
-         id
+                  id
 
-         name
+                  name
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Cluster/cluster:Cluster primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
@@ -272,6 +274,7 @@ class Cluster(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -289,38 +292,39 @@ class Cluster(pulumi.CustomResource):
             cluster_id=primary.id,
             key="default")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import a cluster resource using the GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the ID:
+        you can use this query to find the ID:
 
-         query getClusters {
+        query getClusters {
 
-         organization(slug: "ORGANIZATION"){
+          organization(slug: "ORGANIZATION"){
 
-         clusters(first: 5, order:NAME) {
+            clusters(first: 5, order:NAME) {
 
-         edges{
+              edges{
 
-         node {
+                node {
 
-         id
+                  id
 
-         name
+                  name
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Cluster/cluster:Cluster primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==

@@ -137,12 +137,14 @@ def get_pipeline(slug: Optional[str] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_buildkite as buildkite
 
     pipeline = buildkite.Pipeline.get_pipeline(slug="buildkite")
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str slug: The slug of the pipeline.
@@ -173,12 +175,14 @@ def get_pipeline_output(slug: Optional[pulumi.Input[str]] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_buildkite as buildkite
 
     pipeline = buildkite.Pipeline.get_pipeline(slug="buildkite")
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str slug: The slug of the pipeline.
