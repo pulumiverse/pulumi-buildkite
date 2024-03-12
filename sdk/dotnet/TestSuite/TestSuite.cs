@@ -15,13 +15,14 @@ namespace Pulumiverse.Buildkite.TestSuite
     /// 
     /// ## Example Usage
     /// 
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
     /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     // create a test suite for the main repository
     ///     var main = new Buildkite.TestSuite.TestSuite("main", new()
@@ -32,6 +33,7 @@ namespace Pulumiverse.Buildkite.TestSuite
     /// 
     /// });
     /// ```
+    /// <!--End PulumiCodeChooser -->
     /// </summary>
     [BuildkiteResourceType("buildkite:TestSuite/testSuite:TestSuite")]
     public partial class TestSuite : global::Pulumi.CustomResource

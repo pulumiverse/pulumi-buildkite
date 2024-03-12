@@ -12,57 +12,59 @@ namespace Pulumiverse.Buildkite.Organization
 {
     /// <summary>
     /// This resource allows you to create and manage banners for specific organizations, displayed to all members at the top of each page in Buildkite's UI.
-    /// 
+    ///
     /// More information on organization/system banners can be found in the [documentation](https://buildkite.com/docs/team-management/system-banners).
-    /// 
+    ///
     /// ## Example Usage
-    /// 
+    ///
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    ///
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     var banner = new Buildkite.Organization.Banner("banner", new()
     ///     {
     ///         Message = ":warning: Please be aware of the maintenance window this weekend!",
     ///     });
-    /// 
+    ///
     /// });
     /// ```
-    /// 
+    /// <!--End PulumiCodeChooser -->
+    ///
     /// ## Import
-    /// 
+    ///
     /// import an organization banner resource using the banner's GraphQL ID
-    /// 
-    /// # 
-    /// 
-    ///  you can use this query to find the banner's ID:
-    /// 
-    ///  query getOrganizationBannerId {
-    /// 
-    ///  organization(slug: "ORGANIZATION_SLUG") {
-    /// 
-    ///  banners(first: 1) {
-    /// 
-    ///  edges {
-    /// 
-    ///  node {
-    /// 
-    ///  id
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
+    ///
+    /// #
+    ///
+    /// you can use this query to find the banner's ID:
+    ///
+    /// query getOrganizationBannerId {
+    ///
+    ///   organization(slug: "ORGANIZATION_SLUG") {
+    ///
+    ///     banners(first: 1) {
+    ///
+    ///       edges {
+    ///
+    ///         node {
+    ///
+    ///           id
+    ///
+    ///         }
+    ///
+    ///       }
+    ///
+    ///     }
+    ///
+    ///   }
+    ///
+    /// }
+    ///
     /// ```sh
     /// $ pulumi import buildkite:Organization/banner:Banner banner T3JnYW5pemF0aW9uQmFubmVyLS0tNjZlMmE5YzktM2IzMy00OGE5LTk1NjItMzY2YzMwNzYzN2Uz
     /// ```

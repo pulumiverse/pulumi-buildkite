@@ -12,74 +12,76 @@ namespace Pulumiverse.Buildkite.Pipeline
 {
     /// <summary>
     /// This resource allows for standardized step configurations that can be used within various pipelines of an organization.
-    /// 
+    ///
     /// More information on pipeline templates can be found in the [documentation](https://buildkite.com/docs/pipelines/templates).
-    /// 
+    ///
     /// ## Example Usage
-    /// 
+    ///
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    ///
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     var templateRequired = new Buildkite.Pipeline.Template("templateRequired", new()
     ///     {
     ///         Configuration = @"steps:
     ///   - label: "":pipeline:""
     ///     command: ""buildkite-agent pipeline upload .buildkite/pipeline-qa.yml""
-    /// 
+    ///
     /// ",
     ///     });
-    /// 
+    ///
     ///     var templateFull = new Buildkite.Pipeline.Template("templateFull", new()
     ///     {
     ///         Available = true,
     ///         Configuration = @"steps:
     ///   - label: "":pipeline:""
     ///     command: ""buildkite-agent pipeline upload .buildkite/pipeline-production.yml""
-    /// 
+    ///
     /// ",
     ///         Description = "Production upload template",
     ///     });
-    /// 
+    ///
     /// });
     /// ```
-    /// 
+    /// <!--End PulumiCodeChooser -->
+    ///
     /// ## Import
-    /// 
+    ///
     /// import a pipeline template resource using the templates GraphQL ID
-    /// 
-    /// # 
-    /// 
-    ///  You can use this query to find the first 50 templates (adjust for less or more):
-    /// 
-    ///  query getPipelineTemplateIds {
-    /// 
-    ///  organization(slug: "ORGANIZATION_SLUG") {
-    /// 
-    ///  pipelineTemplates(first: 50) {
-    /// 
-    ///  edges{
-    /// 
-    ///  node{
-    /// 
-    ///  id
-    /// 
-    ///  name
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
+    ///
+    /// #
+    ///
+    /// You can use this query to find the first 50 templates (adjust for less or more):
+    ///
+    /// query getPipelineTemplateIds {
+    ///
+    ///   organization(slug: "ORGANIZATION_SLUG") {
+    ///
+    ///     pipelineTemplates(first: 50) {
+    ///
+    ///       edges{
+    ///
+    ///         node{
+    ///
+    ///           id
+    ///
+    ///           name
+    ///
+    ///         }
+    ///
+    ///       }
+    ///
+    ///     }
+    ///
+    ///   }
+    ///
+    /// }
+    ///
     /// ```sh
     /// $ pulumi import buildkite:Pipeline/template:Template template UGlwZWxpbmVUZW1wbGF0ZS0tLWU0YWQ3YjdjLTljZDYtNGM0MS1hYWE0LTY2ZmI3ODY0MTMwNw==
     /// ```

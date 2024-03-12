@@ -12,16 +12,17 @@ namespace Pulumiverse.Buildkite.TestSuite
 {
     /// <summary>
     /// Manage team access to a test suite.
-    /// 
+    ///
     /// ## Example Usage
-    /// 
+    ///
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    ///
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     // create a test suite
     ///     var main = new Buildkite.TestSuite.TestSuite("main", new()
@@ -29,7 +30,7 @@ namespace Pulumiverse.Buildkite.TestSuite
     ///         DefaultBranch = "main",
     ///         TeamOwnerId = "VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==",
     ///     });
-    /// 
+    ///
     ///     // give the "everyone" team manage access to the "main" test suite
     ///     var mainEveryone = new Buildkite.TestSuite.Team("mainEveryone", new()
     ///     {
@@ -37,64 +38,65 @@ namespace Pulumiverse.Buildkite.TestSuite
     ///         TeamId = "VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==",
     ///         AccessLevel = "MANAGE_AND_READ",
     ///     });
-    /// 
+    ///
     /// });
     /// ```
-    /// 
+    /// <!--End PulumiCodeChooser -->
+    ///
     /// ## Import
-    /// 
+    ///
     /// import a test suite team resource using the GraphQL ID
-    /// 
-    /// # 
-    /// 
-    ///  you can use this query to find the ID:
-    /// 
-    ///  query getTeamSuiteIds {
-    /// 
-    ///  organization(slug: "ORGANIZATION_SLUG") {
-    /// 
-    ///  suites(first: 1, search:"SUITE_SEARCH_TERM") {
-    /// 
-    ///  edges {
-    /// 
-    ///  node {
-    /// 
-    ///  id
-    /// 
-    ///  name
-    /// 
-    ///  teams(first: 10){
-    /// 
-    ///  edges {
-    /// 
-    ///  node {
-    /// 
-    ///  id
-    /// 
-    ///  accessLevel
-    /// 
-    ///  team{
-    /// 
-    ///  name
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
+    ///
+    /// #
+    ///
+    /// you can use this query to find the ID:
+    ///
+    /// query getTeamSuiteIds {
+    ///
+    ///   organization(slug: "ORGANIZATION_SLUG") {
+    ///
+    ///     suites(first: 1, search:"SUITE_SEARCH_TERM") {
+    ///
+    ///       edges {
+    ///
+    ///         node {
+    ///
+    ///           id
+    ///
+    ///           name
+    ///
+    ///           teams(first: 10){
+    ///
+    ///             edges {
+    ///
+    ///               node {
+    ///
+    ///                 id
+    ///
+    ///                 accessLevel
+    ///
+    ///                 team{
+    ///
+    ///                   name
+    ///
+    ///                 }
+    ///
+    ///               }
+    ///
+    ///             }
+    ///
+    ///           }
+    ///
+    ///         }
+    ///
+    ///       }
+    ///
+    ///     }
+    ///
+    ///   }
+    ///
+    /// }
+    ///
     /// ```sh
     /// $ pulumi import buildkite:TestSuite/team:Team main_everyone VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi
     /// ```

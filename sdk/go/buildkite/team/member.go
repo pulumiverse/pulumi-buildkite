@@ -9,20 +9,21 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/internal"
 )
 
 // A team member resource allows for the management of team membership for existing organization users.
 //
 // ## Example Usage
 //
+// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Team"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/Team"
 //
 // )
 //
@@ -49,6 +50,7 @@ import (
 //	}
 //
 // ```
+// <!--End PulumiCodeChooser -->
 //
 // ## Import
 //
@@ -56,41 +58,41 @@ import (
 //
 // #
 //
-//	you can use this query to find the ID:
+// you can use this query to find the ID:
 //
-//	query getTeamMemberId {
+// query getTeamMemberId {
 //
 //	organization(slug: "ORGANIZATION_SLUG") {
 //
-//	teams(first: 2, search: "TEAM_SEARCH_TERM") {
+//	  teams(first: 2, search: "TEAM_SEARCH_TERM") {
 //
-//	edges {
+//	    edges {
 //
-//	node {
+//	      node {
 //
-//	members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
+//	        members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
 //
-//	edges {
+//	          edges {
 //
-//	node {
+//	            node {
 //
-//	id
+//	              id
 //
-//	}
+//	            }
 //
-//	}
+//	          }
 //
-//	}
+//	        }
 //
-//	}
+//	      }
 //
-//	}
+//	    }
 //
-//	}
-//
-//	}
+//	  }
 //
 //	}
+//
+// }
 //
 // ```sh
 // $ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==

@@ -316,6 +316,7 @@ class Schedule(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -329,50 +330,51 @@ class Schedule(pulumi.CustomResource):
             cronline="@midnight",
             branch=buildkite_pipeline["repo"]["default_branch"])
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import a pipeline schedule resource using the schedules GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the schedule:
+        you can use this query to find the schedule:
 
-         query getPipelineScheduleId {
+        query getPipelineScheduleId {
 
-         organization(slug: "ORGANIZATION_SLUG") {
+          organization(slug: "ORGANIZATION_SLUG") {
 
-         pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
+                pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
 
-         edges{
+              edges{
 
-         node{
+                node{
 
-         name
+                  name
 
-         schedules{
+                  schedules{
 
-         edges{
+                    edges{
 
-         node{
+                      node{
 
-         id
+                        id
 
-         }
+                      }
 
-         }
+                    }
 
-         }
+                  }
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
@@ -402,6 +404,7 @@ class Schedule(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -415,50 +418,51 @@ class Schedule(pulumi.CustomResource):
             cronline="@midnight",
             branch=buildkite_pipeline["repo"]["default_branch"])
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import a pipeline schedule resource using the schedules GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the schedule:
+        you can use this query to find the schedule:
 
-         query getPipelineScheduleId {
+        query getPipelineScheduleId {
 
-         organization(slug: "ORGANIZATION_SLUG") {
+          organization(slug: "ORGANIZATION_SLUG") {
 
-         pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
+                pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
 
-         edges{
+              edges{
 
-         node{
+                node{
 
-         name
+                  name
 
-         schedules{
+                  schedules{
 
-         edges{
+                    edges{
 
-         node{
+                      node{
 
-         id
+                        id
 
-         }
+                      }
 
-         }
+                    }
 
-         }
+                  }
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==

@@ -12,29 +12,30 @@ namespace Pulumiverse.Buildkite.Pipeline
 {
     /// <summary>
     /// Manage team access to a pipeline.
-    /// 
+    ///
     /// ## Example Usage
-    /// 
+    ///
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    ///
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     var pipeline = new Buildkite.Pipeline.Pipeline("pipeline", new()
     ///     {
     ///         Repository = "https://github.com/...",
     ///     });
-    /// 
+    ///
     ///     var team = new Buildkite.Team.Team("team", new()
     ///     {
     ///         Privacy = "VISIBLE",
     ///         DefaultTeam = false,
     ///         DefaultMemberRole = "MEMBER",
     ///     });
-    /// 
+    ///
     ///     // allow everyone in the "Everyone" team read-only access to pipeline
     ///     var pipelineTeam = new Buildkite.Pipeline.Team("pipelineTeam", new()
     ///     {
@@ -42,40 +43,41 @@ namespace Pulumiverse.Buildkite.Pipeline
     ///         TeamId = team.Id,
     ///         AccessLevel = "READ_ONLY",
     ///     });
-    /// 
+    ///
     /// });
     /// ```
-    /// 
+    /// <!--End PulumiCodeChooser -->
+    ///
     /// ## Import
-    /// 
+    ///
     /// import a pipeline team resource using the GraphQL ID
-    /// 
-    /// # 
-    /// 
-    ///  you can use this query to find the ID:
-    /// 
-    ///  query getPipelineTeamId {
-    /// 
-    ///  pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
-    /// 
-    ///  teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
-    /// 
-    ///  edges{
-    /// 
-    ///  node{
-    /// 
-    ///  id
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
-    ///  }
-    /// 
+    ///
+    /// #
+    ///
+    /// you can use this query to find the ID:
+    ///
+    /// query getPipelineTeamId {
+    ///
+    ///   pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
+    ///
+    ///     teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
+    ///
+    ///       edges{
+    ///
+    ///         node{
+    ///
+    ///           id
+    ///
+    ///         }
+    ///
+    ///       }
+    ///
+    ///     }
+    ///
+    ///   }
+    ///
+    /// }
+    ///
     /// ```sh
     /// $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
     /// ```

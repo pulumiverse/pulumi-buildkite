@@ -9,6 +9,7 @@ import * as utilities from "../utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
@@ -19,6 +20,7 @@ import * as utilities from "../utilities";
  *     teamOwnerId: "VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi",
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export class TestSuite extends pulumi.CustomResource {
     /**

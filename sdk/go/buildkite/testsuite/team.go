@@ -9,20 +9,21 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/internal"
 )
 
 // Manage team access to a test suite.
 //
 // ## Example Usage
 //
+// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/TestSuite"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/TestSuite"
 //
 // )
 //
@@ -50,6 +51,7 @@ import (
 //	}
 //
 // ```
+// <!--End PulumiCodeChooser -->
 //
 // ## Import
 //
@@ -57,53 +59,53 @@ import (
 //
 // #
 //
-//	you can use this query to find the ID:
+// you can use this query to find the ID:
 //
-//	query getTeamSuiteIds {
+// query getTeamSuiteIds {
 //
 //	organization(slug: "ORGANIZATION_SLUG") {
 //
-//	suites(first: 1, search:"SUITE_SEARCH_TERM") {
+//	  suites(first: 1, search:"SUITE_SEARCH_TERM") {
 //
-//	edges {
+//	    edges {
 //
-//	node {
+//	      node {
 //
-//	id
+//	        id
 //
-//	name
+//	        name
 //
-//	teams(first: 10){
+//	        teams(first: 10){
 //
-//	edges {
+//	          edges {
 //
-//	node {
+//	            node {
 //
-//	id
+//	              id
 //
-//	accessLevel
+//	              accessLevel
 //
-//	team{
+//	              team{
 //
-//	name
+//	                name
 //
-//	}
+//	              }
 //
-//	}
+//	            }
 //
-//	}
+//	          }
 //
-//	}
+//	        }
 //
-//	}
+//	      }
 //
-//	}
+//	    }
 //
-//	}
-//
-//	}
+//	  }
 //
 //	}
+//
+// }
 //
 // ```sh
 // $ pulumi import buildkite:TestSuite/team:Team main_everyone VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi

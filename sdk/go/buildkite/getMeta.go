@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/internal"
 )
 
 // Use this data source to look up the source IP addresses that Buildkite may use to send external requests,
@@ -18,6 +18,7 @@ import (
 //
 // ## Example Usage
 //
+// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
@@ -25,7 +26,7 @@ import (
 //
 //	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws/ec2"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite"
 //
 // )
 //
@@ -54,6 +55,7 @@ import (
 //	}
 //
 // ```
+// <!--End PulumiCodeChooser -->
 func GetMeta(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetMetaResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetMetaResult

@@ -265,6 +265,7 @@ class Team(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -274,38 +275,39 @@ class Team(pulumi.CustomResource):
             default_team=False,
             privacy="VISIBLE")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import a team resource using the GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the ID:
+        you can use this query to find the ID:
 
-         query getTeamId {
+        query getTeamId {
 
-         organization(slug: "ORGANIZATION_SLUG") {
+          organization(slug: "ORGANIZATION_SLUG") {
 
-         teams(first: 1, search: "TEAM_SEARCH_TERM") {
+            teams(first: 1, search: "TEAM_SEARCH_TERM") {
 
-         edges {
+              edges {
 
-         node {
+                node {
 
-         id
+                  id
 
-         name
+                  name
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Team/team:Team everyone UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
@@ -331,6 +333,7 @@ class Team(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -340,38 +343,39 @@ class Team(pulumi.CustomResource):
             default_team=False,
             privacy="VISIBLE")
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
         import a team resource using the GraphQL ID
 
-        # 
+        #
 
-         you can use this query to find the ID:
+        you can use this query to find the ID:
 
-         query getTeamId {
+        query getTeamId {
 
-         organization(slug: "ORGANIZATION_SLUG") {
+          organization(slug: "ORGANIZATION_SLUG") {
 
-         teams(first: 1, search: "TEAM_SEARCH_TERM") {
+            teams(first: 1, search: "TEAM_SEARCH_TERM") {
 
-         edges {
+              edges {
 
-         node {
+                node {
 
-         id
+                  id
 
-         name
+                  name
 
-         }
+                }
 
-         }
+              }
 
-         }
+            }
 
-         }
+          }
 
-         }
+        }
 
         ```sh
         $ pulumi import buildkite:Team/team:Team everyone UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=

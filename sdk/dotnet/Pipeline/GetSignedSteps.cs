@@ -23,10 +23,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// See the Buildkite [documentation](https://buildkite.com/docs/agent/v3/signed_pipelines)
         /// for more info about signed pipelines.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -34,7 +33,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// using Buildkite = Pulumi.Buildkite;
         /// using Buildkite = Pulumiverse.Buildkite;
         /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var repository = "git@github.com:my-org/my-repo.git";
         /// 
@@ -52,13 +51,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         ///     var my_pipeline = new Buildkite.Pipeline.Pipeline("my-pipeline", new()
         ///     {
         ///         Repository = repository,
-        ///         Steps = my_steps.Apply(my_steps =&gt; my_steps.Apply(getSignedStepsResult =&gt; getSignedStepsResult.Steps)),
+        ///         Steps = my_steps.Apply(my_steps => my_steps.Apply(getSignedStepsResult => getSignedStepsResult.Steps)),
         ///     });
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Task<GetSignedStepsResult> InvokeAsync(GetSignedStepsArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetSignedStepsResult>("buildkite:Pipeline/getSignedSteps:getSignedSteps", args ?? new GetSignedStepsArgs(), options.WithDefaults());
@@ -74,10 +72,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// See the Buildkite [documentation](https://buildkite.com/docs/agent/v3/signed_pipelines)
         /// for more info about signed pipelines.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -85,7 +82,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// using Buildkite = Pulumi.Buildkite;
         /// using Buildkite = Pulumiverse.Buildkite;
         /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var repository = "git@github.com:my-org/my-repo.git";
         /// 
@@ -103,13 +100,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         ///     var my_pipeline = new Buildkite.Pipeline.Pipeline("my-pipeline", new()
         ///     {
         ///         Repository = repository,
-        ///         Steps = my_steps.Apply(my_steps =&gt; my_steps.Apply(getSignedStepsResult =&gt; getSignedStepsResult.Steps)),
+        ///         Steps = my_steps.Apply(my_steps => my_steps.Apply(getSignedStepsResult => getSignedStepsResult.Steps)),
         ///     });
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Output<GetSignedStepsResult> Invoke(GetSignedStepsInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetSignedStepsResult>("buildkite:Pipeline/getSignedSteps:getSignedSteps", args ?? new GetSignedStepsInvokeArgs(), options.WithDefaults());

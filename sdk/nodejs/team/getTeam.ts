@@ -10,6 +10,7 @@ import * as utilities from "../utilities";
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
@@ -21,6 +22,7 @@ import * as utilities from "../utilities";
  *     slug: "Everyone",
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getTeam(args?: GetTeamArgs, opts?: pulumi.InvokeOptions): Promise<GetTeamResult> {
     args = args || {};
@@ -93,6 +95,7 @@ export interface GetTeamResult {
  *
  * ## Example Usage
  *
+ * <!--Start PulumiCodeChooser -->
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumi/buildkite";
@@ -104,6 +107,7 @@ export interface GetTeamResult {
  *     slug: "Everyone",
  * });
  * ```
+ * <!--End PulumiCodeChooser -->
  */
 export function getTeamOutput(args?: GetTeamOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetTeamResult> {
     return pulumi.output(args).apply((a: any) => getTeam(a, opts))

@@ -15,13 +15,14 @@ namespace Pulumiverse.Buildkite.Cluster
     /// 
     /// ## Example Usage
     /// 
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
     /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     // create a cluster
     ///     var primary = new Buildkite.Cluster.Cluster("primary", new()
@@ -62,6 +63,7 @@ namespace Pulumiverse.Buildkite.Cluster
     /// 
     /// });
     /// ```
+    /// <!--End PulumiCodeChooser -->
     /// </summary>
     [BuildkiteResourceType("buildkite:Cluster/clusterAgentToken:ClusterAgentToken")]
     public partial class ClusterAgentToken : global::Pulumi.CustomResource

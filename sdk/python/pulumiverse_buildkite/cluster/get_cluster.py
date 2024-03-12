@@ -111,6 +111,7 @@ def get_cluster(name: Optional[str] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_buildkite as buildkite
@@ -122,6 +123,7 @@ def get_cluster(name: Optional[str] = None,
         repository="git@github.com:buildkite/terraform-provider-buildkite.git",
         cluster_id=default.id)
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str name: The name of the cluster to retrieve.
@@ -148,6 +150,7 @@ def get_cluster_output(name: Optional[pulumi.Input[str]] = None,
 
     ## Example Usage
 
+    <!--Start PulumiCodeChooser -->
     ```python
     import pulumi
     import pulumi_buildkite as buildkite
@@ -159,6 +162,7 @@ def get_cluster_output(name: Optional[pulumi.Input[str]] = None,
         repository="git@github.com:buildkite/terraform-provider-buildkite.git",
         cluster_id=default.id)
     ```
+    <!--End PulumiCodeChooser -->
 
 
     :param str name: The name of the cluster to retrieve.

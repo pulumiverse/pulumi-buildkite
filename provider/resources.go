@@ -73,6 +73,7 @@ func Provider() tfbridge.ProviderInfo {
 		Homepage:             "https://github.com/pulumiverse/pulumi-buildkite",
 		Repository:           "https://github.com/pulumiverse/pulumi-buildkite",
 		LogoURL:              "https://raw.githubusercontent.com/pulumiverse/pulumi-buildkite/main/assets/buildkite-logo.png",
+		GitHubHost:           "github.com",
 		GitHubOrg:            "buildkite",
 		PluginDownloadURL:    "github://api.github.com/pulumiverse/pulumi-buildkite",
 		MetadataInfo:         tfbridge.NewProviderMetadata(metadata),

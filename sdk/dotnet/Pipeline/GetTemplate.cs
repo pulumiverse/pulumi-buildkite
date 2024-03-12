@@ -17,10 +17,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// 
         /// More information on pipeline templates can be found in the [documentation](https://buildkite.com/docs/pipelines/templates).
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -28,7 +27,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// using Buildkite = Pulumi.Buildkite;
         /// using Buildkite = Pulumiverse.Buildkite;
         /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var repository = "git@github.com:my-org/my-repo.git";
         /// 
@@ -45,19 +44,18 @@ namespace Pulumiverse.Buildkite.Pipeline
         ///     var apiv2Dev = new Buildkite.Pipeline.Pipeline("apiv2Dev", new()
         ///     {
         ///         Repository = repository,
-        ///         PipelineTemplateId = devTemplate.Apply(getTemplateResult =&gt; getTemplateResult.Id),
+        ///         PipelineTemplateId = devTemplate.Apply(getTemplateResult => getTemplateResult.Id),
         ///     });
         /// 
         ///     var frontend = new Buildkite.Pipeline.Pipeline("frontend", new()
         ///     {
         ///         Repository = repository,
-        ///         PipelineTemplateId = frontendTemplate.Apply(getTemplateResult =&gt; getTemplateResult.Id),
+        ///         PipelineTemplateId = frontendTemplate.Apply(getTemplateResult => getTemplateResult.Id),
         ///     });
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Task<GetTemplateResult> InvokeAsync(GetTemplateArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetTemplateResult>("buildkite:Pipeline/getTemplate:getTemplate", args ?? new GetTemplateArgs(), options.WithDefaults());
@@ -67,10 +65,9 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// 
         /// More information on pipeline templates can be found in the [documentation](https://buildkite.com/docs/pipelines/templates).
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -78,7 +75,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// using Buildkite = Pulumi.Buildkite;
         /// using Buildkite = Pulumiverse.Buildkite;
         /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var repository = "git@github.com:my-org/my-repo.git";
         /// 
@@ -95,19 +92,18 @@ namespace Pulumiverse.Buildkite.Pipeline
         ///     var apiv2Dev = new Buildkite.Pipeline.Pipeline("apiv2Dev", new()
         ///     {
         ///         Repository = repository,
-        ///         PipelineTemplateId = devTemplate.Apply(getTemplateResult =&gt; getTemplateResult.Id),
+        ///         PipelineTemplateId = devTemplate.Apply(getTemplateResult => getTemplateResult.Id),
         ///     });
         /// 
         ///     var frontend = new Buildkite.Pipeline.Pipeline("frontend", new()
         ///     {
         ///         Repository = repository,
-        ///         PipelineTemplateId = frontendTemplate.Apply(getTemplateResult =&gt; getTemplateResult.Id),
+        ///         PipelineTemplateId = frontendTemplate.Apply(getTemplateResult => getTemplateResult.Id),
         ///     });
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Output<GetTemplateResult> Invoke(GetTemplateInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetTemplateResult>("buildkite:Pipeline/getTemplate:getTemplate", args ?? new GetTemplateInvokeArgs(), options.WithDefaults());

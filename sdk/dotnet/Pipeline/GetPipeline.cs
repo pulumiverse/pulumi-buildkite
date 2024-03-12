@@ -17,17 +17,16 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// 
         /// More info in the Buildkite [documentation](https://buildkite.com/docs/pipelines).
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
         /// using Buildkite = Pulumi.Buildkite;
         /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var pipeline = Buildkite.Pipeline.GetPipeline.Invoke(new()
         ///     {
@@ -36,8 +35,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Task<GetPipelineResult> InvokeAsync(GetPipelineArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetPipelineResult>("buildkite:Pipeline/getPipeline:getPipeline", args ?? new GetPipelineArgs(), options.WithDefaults());
@@ -47,17 +45,16 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// 
         /// More info in the Buildkite [documentation](https://buildkite.com/docs/pipelines).
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
         /// using Buildkite = Pulumi.Buildkite;
         /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var pipeline = Buildkite.Pipeline.GetPipeline.Invoke(new()
         ///     {
@@ -66,8 +63,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Output<GetPipelineResult> Invoke(GetPipelineInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetPipelineResult>("buildkite:Pipeline/getPipeline:getPipeline", args ?? new GetPipelineInvokeArgs(), options.WithDefaults());

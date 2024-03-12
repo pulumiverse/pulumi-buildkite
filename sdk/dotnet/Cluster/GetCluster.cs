@@ -15,10 +15,9 @@ namespace Pulumiverse.Buildkite.Cluster
         /// <summary>
         /// Use this data source to retrieve a cluster by name. You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/clusters/overview).
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -26,7 +25,7 @@ namespace Pulumiverse.Buildkite.Cluster
         /// using Buildkite = Pulumi.Buildkite;
         /// using Buildkite = Pulumiverse.Buildkite;
         /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var @default = Buildkite.Cluster.GetCluster.Invoke(new()
         ///     {
@@ -37,13 +36,12 @@ namespace Pulumiverse.Buildkite.Cluster
         ///     var terraform_provider_buildkite = new Buildkite.Pipeline.Pipeline("terraform-provider-buildkite", new()
         ///     {
         ///         Repository = "git@github.com:buildkite/terraform-provider-buildkite.git",
-        ///         ClusterId = @default.Apply(@default =&gt; @default.Apply(getClusterResult =&gt; getClusterResult.Id)),
+        ///         ClusterId = @default.Apply(@default => @default.Apply(getClusterResult => getClusterResult.Id)),
         ///     });
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Task<GetClusterResult> InvokeAsync(GetClusterArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetClusterResult>("buildkite:Cluster/getCluster:getCluster", args ?? new GetClusterArgs(), options.WithDefaults());
@@ -51,10 +49,9 @@ namespace Pulumiverse.Buildkite.Cluster
         /// <summary>
         /// Use this data source to retrieve a cluster by name. You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/clusters/overview).
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
+        /// <!--Start PulumiCodeChooser -->
         /// ```csharp
         /// using System.Collections.Generic;
         /// using System.Linq;
@@ -62,7 +59,7 @@ namespace Pulumiverse.Buildkite.Cluster
         /// using Buildkite = Pulumi.Buildkite;
         /// using Buildkite = Pulumiverse.Buildkite;
         /// 
-        /// return await Deployment.RunAsync(() =&gt; 
+        /// return await Deployment.RunAsync(() =>
         /// {
         ///     var @default = Buildkite.Cluster.GetCluster.Invoke(new()
         ///     {
@@ -73,13 +70,12 @@ namespace Pulumiverse.Buildkite.Cluster
         ///     var terraform_provider_buildkite = new Buildkite.Pipeline.Pipeline("terraform-provider-buildkite", new()
         ///     {
         ///         Repository = "git@github.com:buildkite/terraform-provider-buildkite.git",
-        ///         ClusterId = @default.Apply(@default =&gt; @default.Apply(getClusterResult =&gt; getClusterResult.Id)),
+        ///         ClusterId = @default.Apply(@default => @default.Apply(getClusterResult => getClusterResult.Id)),
         ///     });
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
+        /// <!--End PulumiCodeChooser -->
         /// </summary>
         public static Output<GetClusterResult> Invoke(GetClusterInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetClusterResult>("buildkite:Cluster/getCluster:getCluster", args ?? new GetClusterInvokeArgs(), options.WithDefaults());

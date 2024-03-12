@@ -122,6 +122,7 @@ class Organization(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -131,6 +132,7 @@ class Organization(pulumi.CustomResource):
             allowed_api_ip_addresses=["1.1.1.1/32"],
             enforce2fa=True)
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 
@@ -158,6 +160,7 @@ class Organization(pulumi.CustomResource):
 
         ## Example Usage
 
+        <!--Start PulumiCodeChooser -->
         ```python
         import pulumi
         import pulumiverse_buildkite as buildkite
@@ -167,6 +170,7 @@ class Organization(pulumi.CustomResource):
             allowed_api_ip_addresses=["1.1.1.1/32"],
             enforce2fa=True)
         ```
+        <!--End PulumiCodeChooser -->
 
         ## Import
 

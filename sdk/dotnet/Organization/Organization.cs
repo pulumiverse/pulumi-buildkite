@@ -17,13 +17,14 @@ namespace Pulumiverse.Buildkite.Organization
     /// 
     /// ## Example Usage
     /// 
+    /// <!--Start PulumiCodeChooser -->
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
     /// using Buildkite = Pulumiverse.Buildkite;
     /// 
-    /// return await Deployment.RunAsync(() =&gt; 
+    /// return await Deployment.RunAsync(() =>
     /// {
     ///     // allow api access only from 1.1.1.1 and enforce 2fa for all members
     ///     var settings = new Buildkite.Organization.Organization("settings", new()
@@ -37,13 +38,14 @@ namespace Pulumiverse.Buildkite.Organization
     /// 
     /// });
     /// ```
+    /// <!--End PulumiCodeChooser -->
     /// 
     /// ## Import
     /// 
     /// import the organization settings via the organization slug
     /// 
     /// ```sh
-    /// $ pulumi import buildkite:Organization/organization:Organization settings &lt;organization slug&gt;
+    /// $ pulumi import buildkite:Organization/organization:Organization settings <organization slug>
     /// ```
     /// </summary>
     [BuildkiteResourceType("buildkite:Organization/organization:Organization")]

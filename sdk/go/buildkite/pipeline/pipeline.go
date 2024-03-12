@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/internal"
 )
 
 // This resource allows you to create and manage pipelines for repositories.
@@ -20,7 +20,7 @@ import (
 //
 // import a pipeline resource using the pipelines GraphQL ID
 //
-//	GraphQL ID for a pipeline can be found on its settings page
+// # GraphQL ID for a pipeline can be found on its settings page
 //
 // ```sh
 // $ pulumi import buildkite:Pipeline/pipeline:Pipeline pipeline UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=

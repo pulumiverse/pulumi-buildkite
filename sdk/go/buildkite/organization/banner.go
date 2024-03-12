@@ -9,7 +9,7 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/internal"
+	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/internal"
 )
 
 // This resource allows you to create and manage banners for specific organizations, displayed to all members at the top of each page in Buildkite's UI.
@@ -18,13 +18,14 @@ import (
 //
 // ## Example Usage
 //
+// <!--Start PulumiCodeChooser -->
 // ```go
 // package main
 //
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v2/go/buildkite/Organization"
+//	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/Organization"
 //
 // )
 //
@@ -41,6 +42,7 @@ import (
 //	}
 //
 // ```
+// <!--End PulumiCodeChooser -->
 //
 // ## Import
 //
@@ -48,29 +50,29 @@ import (
 //
 // #
 //
-//	you can use this query to find the banner's ID:
+// you can use this query to find the banner's ID:
 //
-//	query getOrganizationBannerId {
+// query getOrganizationBannerId {
 //
 //	organization(slug: "ORGANIZATION_SLUG") {
 //
-//	banners(first: 1) {
+//	  banners(first: 1) {
 //
-//	edges {
+//	    edges {
 //
-//	node {
+//	      node {
 //
-//	id
+//	        id
 //
-//	}
+//	      }
 //
-//	}
+//	    }
 //
-//	}
-//
-//	}
+//	  }
 //
 //	}
+//
+// }
 //
 // ```sh
 // $ pulumi import buildkite:Organization/banner:Banner banner T3JnYW5pemF0aW9uQmFubmVyLS0tNjZlMmE5YzktM2IzMy00OGE5LTk1NjItMzY2YzMwNzYzN2Uz
