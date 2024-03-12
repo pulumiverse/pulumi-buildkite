@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.0.0...v3.0.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* **ci:** fix nodejs release ([8d33fca](https://github.com/pulumiverse/pulumi-buildkite/commit/8d33fca5bc3edc88515326072af951fa772a70e5))
+
 ## [3.0.0](https://github.com/pulumiverse/pulumi-buildkite/compare/v2.3.1...v3.0.0) (2024-03-12)
 
 
