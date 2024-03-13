@@ -15,17 +15,16 @@
 package buildkite
 
 import (
-	"context"
 	_ "embed"
 	"fmt"
 	"path/filepath"
 
-	"github.com/buildkite/terraform-provider-buildkite/buildkite"
 	pfbridge "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumiverse/pulumi-buildkite/provider/pkg/version"
+	pShim "github.com/pulumiverse/pulumi-buildkite/provider/shim"
 )
 
 const (
@@ -55,15 +54,9 @@ var metadata []byte
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
-	// Instantiate the Terraform provider
-	p := pfbridge.MuxShimWithPF(context.Background(),
-		pfbridge.ShimProvider(buildkite.New(version.Version)),
-		buildkite.New(version.Version),
-	)
-
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
-		P:                    p,
+		P:                    pfbridge.ShimProvider(pShim.NewProvider()),
 		Name:                 "buildkite",
 		DisplayName:          "Buildkite",
 		Description:          "A Pulumi package for creating and managing Buildkite resources.",
