@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.2](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.0.1...v3.0.2) (2024-03-13)
+
+
+### Bug Fixes
+
+* **deps:** update to latest dependencies ([e31741e](https://github.com/pulumiverse/pulumi-buildkite/commit/e31741e57d582d308d20b9c12a03d22f51b620d7))
+
 ## [3.0.1](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.0.0...v3.0.1) (2024-03-12)
 
 
