@@ -14,7 +14,7 @@ require (
 	github.com/hashicorp/terraform-plugin-framework v1.6.1
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.30.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.77.0
-	github.com/pulumi/pulumi/sdk/v3 v3.109.0
+	github.com/pulumi/pulumi/sdk/v3 v3.110.0
 )
 
 require (
