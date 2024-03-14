@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.0.2...v3.1.0) (2024-03-14)
+
+
+### Features
+
+* add shim.NewProvider() ([3ddcef4](https://github.com/pulumiverse/pulumi-buildkite/commit/3ddcef49f3cce1feba4db5c4ec20ed473a93dde8))
+
 ## [3.0.2](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.0.1...v3.0.2) (2024-03-13)
 
 
