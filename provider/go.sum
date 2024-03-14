@@ -950,6 +950,8 @@ github.com/buildkite/interpolate v0.0.0-20200526001904-07f35b4ae251 h1:k6UDF1uPY
 github.com/buildkite/interpolate v0.0.0-20200526001904-07f35b4ae251/go.mod h1:gbPR1gPu9dB96mucYIR7T3B7p/78hRVSOuzIWLHK2Y4=
 github.com/buildkite/terraform-provider-buildkite v1.5.1 h1:tbGvZNkugLS5lJLlsDhhPHGWZHkdFhuXfjqFq7f/VUs=
 github.com/buildkite/terraform-provider-buildkite v1.5.1/go.mod h1:RNqZp/WaIPj4aXjF+xGGRgqkDS49LxmzOzqVbTRogts=
+github.com/buildkite/terraform-provider-buildkite v1.5.2 h1:w0CJHs9gHP726AYkHwg5iEyPWwYl4xQd747oRe4Pjkk=
+github.com/buildkite/terraform-provider-buildkite v1.5.2/go.mod h1:eAPFnYyYaAYD/clyyEexCUShI5e0OGVuzGMFj+E5Tw8=
 github.com/casbin/casbin/v2 v2.37.0/go.mod h1:vByNa/Fchek0KZUgG5wEsl7iFsiviAYKRtgrQfcJqHg=
 github.com/cenkalti/backoff/v3 v3.0.0/go.mod h1:cIeZDE3IrqwwJl6VUwCN6trj1oXrTS4rc0ij+ULvLYs=
 github.com/cenkalti/backoff/v3 v3.2.2 h1:cfUAAO3yvKMYKPrvhDuHSwQnhZNk/RMHKdZqKTxfm6M=
