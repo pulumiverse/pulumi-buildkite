@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.1](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.1.0...v3.1.1) (2024-03-14)
+
+
+### Miscellaneous Chores
+
+* **deps:** update module github.com/buildkite/terraform-provider-buildkite to v1.5.2 ([882b392](https://github.com/pulumiverse/pulumi-buildkite/commit/882b39285ac6f95c2a902e9cae3237a1aa7fd8f1))
+
 ## [3.1.0](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.0.2...v3.1.0) (2024-03-14)
 
 
