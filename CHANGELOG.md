@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.3](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.1.2...v3.1.3) (2024-03-17)
+
+
+### Miscellaneous Chores
+
+* **deps:** update module github.com/pulumi/pulumi/sdk/v3 to v3.111.1 ([135cd1b](https://github.com/pulumiverse/pulumi-buildkite/commit/135cd1b1419d916f3ccaa0d5ed5775c61201c0c0))
+
 ## [3.1.2](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.1.1...v3.1.2) (2024-03-14)
 
 
