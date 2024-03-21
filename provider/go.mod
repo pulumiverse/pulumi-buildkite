@@ -11,7 +11,7 @@ replace (
 
 require (
 	github.com/buildkite/terraform-provider-buildkite v1.5.2
-	github.com/hashicorp/terraform-plugin-framework v1.6.1
+	github.com/hashicorp/terraform-plugin-framework v1.7.0
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.31.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.78.0
 	github.com/pulumi/pulumi/sdk/v3 v3.111.1
