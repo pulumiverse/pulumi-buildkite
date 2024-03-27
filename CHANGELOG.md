@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.5](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.1.4...v3.1.5) (2024-03-27)
+
+
+### Miscellaneous Chores
+
+* **deps:** update anchore/sbom-action action to v0.15.10 ([a3509bc](https://github.com/pulumiverse/pulumi-buildkite/commit/a3509bc71d78cd7ef79d7c92f1f3df2b0b2e29f2))
+
 ## [3.1.4](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.1.3...v3.1.4) (2024-03-21)
 
 
