@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.6](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.1.5...v3.1.6) (2024-04-01)
+
+
+### Miscellaneous Chores
+
+* **deps:** update module github.com/pulumi/pulumi-terraform-bridge/pf to v0.32.0 ([ca5d32f](https://github.com/pulumiverse/pulumi-buildkite/commit/ca5d32fb3ddfb1adcb8768b4a6ff133ee2cc37fd))
+
 ## [3.1.5](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.1.4...v3.1.5) (2024-03-27)
 
 
