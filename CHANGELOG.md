@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.1.7](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.1.6...v3.1.7) (2024-04-29)
+
+
+### Miscellaneous Chores
+
+* **deps:** update anchore/sbom-action action to v0.15.11 ([830e3a5](https://github.com/pulumiverse/pulumi-buildkite/commit/830e3a5ff81d46431121aa6d34c49eb7a6325308))
+* **deps:** update golangci/golangci-lint-action action to v5 ([5f3889e](https://github.com/pulumiverse/pulumi-buildkite/commit/5f3889ed4713c359390ddb3f1ec7acea0c4aacd1))
+* **deps:** update module github.com/pulumi/pulumi-terraform-bridge/v3 to v3.80.0 ([bc48c2a](https://github.com/pulumiverse/pulumi-buildkite/commit/bc48c2aa70febfa929636bf0d7c1d4f0e596c1d3))
+* **deps:** update module github.com/pulumi/pulumi/sdk/v3 to v3.113.0 ([d6fec4d](https://github.com/pulumiverse/pulumi-buildkite/commit/d6fec4d7085c7fcefe41d94fd802190ddc0ef3a4))
+* **deps:** update sigstore/cosign-installer action to v3.5.0 ([80e5dff](https://github.com/pulumiverse/pulumi-buildkite/commit/80e5dffd19ab9d0850995a95e2a9b7540f69a5e7))
+
 ## [3.1.6](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.1.5...v3.1.6) (2024-04-01)
 
 
