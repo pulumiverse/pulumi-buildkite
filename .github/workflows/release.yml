@@ -27,7 +27,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: google-github-actions/release-please-action@v4
+      - uses: googleapis/release-please-action@c2a5a2bd6a758a0937f1ddb1e8950609867ed15c # v4.3.0
         id: release
 
   publish_provider:
@@ -46,29 +46,29 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Install Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
         with:
           go-version: "${{ matrix.go-version }}"
 
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.11.0
+        uses: jaxxstorm/action-install-gh-release@6096f2a2bbfee498ced520b6922ac2c06e990ed2 # v2.1.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/actions@v5
+        uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
 
       - name: Install cosign
-        uses: sigstore/cosign-installer@v3.5.0
+        uses: sigstore/cosign-installer@d7543c93d881b35a8faa02e8e3605f69b7a1ce62 # v3.10.0
       - name: Download Syft
         uses: anchore/sbom-action/download-syft@v0.15.11
 
       - name: Release via GoReleaser
-        uses: goreleaser/goreleaser-action@v5
+        uses: goreleaser/goreleaser-action@5742e2a039330cbb23ebf35f046f814d4c6ff811 # v5.1.0
         with:
           args: -p 3 release --clean --timeout 60m0s
           version: latest
@@ -90,7 +90,7 @@ jobs:
       fail-fast: true
       matrix:
         go-version: [1.21.x]
-        node-version: [18.x]
+        node-version: [22.x]
         dotnet-version: [3.1.301]
         python-version: [3.9]
         language:
@@ -101,34 +101,34 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Install Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
         with:
           go-version: "${{ matrix.go-version }}"
 
       - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.11.0
+        uses: jaxxstorm/action-install-gh-release@6096f2a2bbfee498ced520b6922ac2c06e990ed2 # v2.1.0
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/actions@v5
+        uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
 
       - name: Setup DotNet
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: "${{ matrix.dotnet-version }}"
         if: matrix.language == 'dotnet'
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "${{ matrix.python-version }}"
         if: matrix.language == 'python'
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "${{ matrix.node-version }}"
         if: matrix.language == 'nodejs'
@@ -155,7 +155,7 @@ jobs:
         if: matrix.language == 'python'
 
       - name: Publish NodeJS SDK
-        uses: JS-DevTools/npm-publish@v3
+        uses: JS-DevTools/npm-publish@7f8fe47b3bea1be0c3aec2b717c5ec1f3e03410b # v4.1.1
         with:
           package: ./sdk/nodejs/bin/package.json
           access: public
@@ -176,7 +176,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Setup Git
