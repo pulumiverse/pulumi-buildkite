@@ -2,7 +2,7 @@ module github.com/pulumiverse/pulumi-buildkite/provider
 
 go 1.24.7
 
-toolchain go1.25.2
+toolchain go1.26.0
 
 replace (
 	github.com/hashicorp/go-getter v1.5.0 => github.com/hashicorp/go-getter v1.4.0
