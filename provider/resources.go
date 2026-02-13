@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	pfbridge "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
+	pfbridge "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -95,6 +95,16 @@ func Provider() tfbridge.ProviderInfo {
 			"buildkite_cluster_agent_token":   {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterAgentToken")},
 			"buildkite_cluster_queue":         {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterQueue")},
 			"buildkite_cluster_default_queue": {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterDefaultQueue")},
+			"buildkite_cluster_maintainer":    {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterMaintainer")},
+			"buildkite_cluster_secret":        {Tok: tfbridge.MakeResource(mainPkg, clusterMod, "ClusterSecret")},
+			// Organization Rule
+			"buildkite_organization_rule": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Rule")},
+			// Pipeline Webhook
+			"buildkite_pipeline_webhook": {Tok: tfbridge.MakeResource(mainPkg, pipelineMod, "Webhook")},
+			// Portal
+			"buildkite_portal": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Portal")},
+			// Registry
+			"buildkite_registry": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Registry")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// Pipeline
@@ -106,7 +116,22 @@ func Provider() tfbridge.ProviderInfo {
 			// Organization
 			"buildkite_organization": {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getOrganization")},
 			// Cluster
-			"buildkite_cluster": {Tok: tfbridge.MakeDataSource(mainPkg, clusterMod, "getCluster")},
+			"buildkite_cluster":  {Tok: tfbridge.MakeDataSource(mainPkg, clusterMod, "getCluster")},
+			"buildkite_clusters": {Tok: tfbridge.MakeDataSource(mainPkg, clusterMod, "getClusters")},
+			// Organization Member
+			"buildkite_organization_member":  {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getMember")},
+			"buildkite_organization_members": {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getMembers")},
+			// Organization Rule
+			"buildkite_organization_rule": {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getRule")},
+			// Portal
+			"buildkite_portal":  {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getPortal")},
+			"buildkite_portals": {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getPortals")},
+			// Registry
+			"buildkite_registry": {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getRegistry")},
+			// Team
+			"buildkite_teams": {Tok: tfbridge.MakeDataSource(mainPkg, teamMod, "getTeams")},
+			// Test Suite
+			"buildkite_test_suite": {Tok: tfbridge.MakeDataSource(mainPkg, testMod, "getTestSuite")},
 			// Anything Else
 			"buildkite_meta": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getMeta")},
 		},
