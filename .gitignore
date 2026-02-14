@@ -22,3 +22,6 @@ provider/**/schema.go
 **/nuget
 **/dist
 .vscode/
+
+# Ignore local build tracking directory
+.make

@@ -1,0 +1,24 @@
+template: external-bridged-provider
+provider: buildkite
+organization: pulumiverse
+major-version: 0
+providerDefaultBranch: main
+upstreamProviderOrg: buildkite
+publishRegistry: false
+languages:
+  - dotnet
+  - go
+  - nodejs
+  - python
+publish:
+  sdk: "all,!java"
+  cdn: false
+license:
+  ignore: []
+    # Don't check for the license of the local shim package
+#    - github.com/buildkite/terraform-provider-buildkite/shim
+pulumiConvert: 1
+github-app:
+  enabled: false
+esc:
+  enabled: false
