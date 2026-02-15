@@ -19,115 +19,110 @@ __all__ = [
     'PipelineProviderSettingsArgsDict',
 ]
 
-MYPY = False
+class PipelineProviderSettingsArgsDict(TypedDict):
+    build_branches: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create builds when branches are pushed.
+    """
+    build_merge_group_checks_requested: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
+    """
+    build_pull_request_base_branch_changed: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create builds for pull requests when its base branch changes.
+    """
+    build_pull_request_forks: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create builds for pull requests from third-party forks.
+    """
+    build_pull_request_labels_changed: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create builds for pull requests when labels are added or removed.
+    """
+    build_pull_request_ready_for_review: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create a build when a pull request changes to "Ready for review".
+    """
+    build_pull_requests: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create builds for commits that are part of a pull request.
+    """
+    build_tags: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create builds when tags are pushed.
+    """
+    cancel_deleted_branch_builds: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Automatically cancel running builds for a branch if the branch is deleted.
+    """
+    cancel_when_merge_group_destroyed: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to cancel any running builds belonging to a removed merge group.
+    """
+    filter_condition: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The condition to evaluate when deciding if a build should run. This is only valid when `trigger_mode` is `code`. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals).
+    """
+    filter_enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to filter builds to only run when the condition in `filter_condition` is true.
+    """
+    ignore_default_branch_pull_requests: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to prevent caching pull requests with the source branch matching the default branch.
+    """
+    prefix_pull_request_fork_branch_names: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
+    """
+    publish_blocked_as_pending: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    The status to use for blocked builds. Pending can be used with [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) to prevent merging pull requests with blocked builds.
+    """
+    publish_commit_status: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to update the status of commits in Bitbucket, GitHub, or GitLab.
+    """
+    publish_commit_status_per_step: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
+    """
+    pull_request_branch_filter_configuration: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Filter pull requests builds by the branch filter.
+    """
+    pull_request_branch_filter_enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Filter pull request builds.
+    """
+    separate_pull_request_statuses: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.
+    """
+    skip_builds_for_existing_commits: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
+    """
+    skip_pull_request_builds_for_existing_commits: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
+    """
+    trigger_mode: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    What type of event to trigger builds on. Must be one of:
+    	- `code` will create builds when code is pushed to GitHub.
+    	- `deployment` will create builds when a deployment is created in GitHub.
+    	- `fork` will create builds when the GitHub repository is forked.
+    	- `none` will not create any builds based on GitHub activity.
 
-if not MYPY:
-    class PipelineProviderSettingsArgsDict(TypedDict):
-        build_branches: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to create builds when branches are pushed.
-        """
-        build_merge_group_checks_requested: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
-        """
-        build_pull_request_base_branch_changed: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to create builds for pull requests when its base branch changes.
-        """
-        build_pull_request_forks: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to create builds for pull requests from third-party forks.
-        """
-        build_pull_request_labels_changed: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to create builds for pull requests when labels are added or removed.
-        """
-        build_pull_request_ready_for_review: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to create a build when a pull request changes to "Ready for review".
-        """
-        build_pull_requests: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to create builds for commits that are part of a pull request.
-        """
-        build_tags: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to create builds when tags are pushed.
-        """
-        cancel_deleted_branch_builds: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Automatically cancel running builds for a branch if the branch is deleted.
-        """
-        cancel_when_merge_group_destroyed: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to cancel any running builds belonging to a removed merge group.
-        """
-        filter_condition: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The condition to evaluate when deciding if a build should run. This is only valid when `trigger_mode` is `code`. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals).
-        """
-        filter_enabled: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to filter builds to only run when the condition in `filter_condition` is true.
-        """
-        ignore_default_branch_pull_requests: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to prevent caching pull requests with the source branch matching the default branch.
-        """
-        prefix_pull_request_fork_branch_names: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
-        """
-        publish_blocked_as_pending: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        The status to use for blocked builds. Pending can be used with [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) to prevent merging pull requests with blocked builds.
-        """
-        publish_commit_status: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to update the status of commits in Bitbucket, GitHub, or GitLab.
-        """
-        publish_commit_status_per_step: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
-        """
-        pull_request_branch_filter_configuration: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Filter pull requests builds by the branch filter.
-        """
-        pull_request_branch_filter_enabled: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Filter pull request builds.
-        """
-        separate_pull_request_statuses: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.
-        """
-        skip_builds_for_existing_commits: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
-        """
-        skip_pull_request_builds_for_existing_commits: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
-        """
-        trigger_mode: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        What type of event to trigger builds on. Must be one of:
-        	- `code` will create builds when code is pushed to GitHub.
-        	- `deployment` will create builds when a deployment is created in GitHub.
-        	- `fork` will create builds when the GitHub repository is forked.
-        	- `none` will not create any builds based on GitHub activity.
-
-        	> `trigger_mode` is only valid if the pipeline uses a GitHub repository.
-        	> If not set, the default value is `code` and other provider settings defaults are applied.
-        """
-        use_merge_group_base_commit_for_git_diff_base: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        When enabled, agents performing a git diff to determine steps to upload based on [`if_changed`](https://buildkite.com/docs/pipelines/configure/step-types/command-step#agent-applied-attributes)comparisons will use the base commit that points to the previous merge group rather than the base branch
-        """
-elif False:
-    PipelineProviderSettingsArgsDict: TypeAlias = Mapping[str, Any]
+    	> `trigger_mode` is only valid if the pipeline uses a GitHub repository.
+    	> If not set, the default value is `code` and other provider settings defaults are applied.
+    """
+    use_merge_group_base_commit_for_git_diff_base: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    When enabled, agents performing a git diff to determine steps to upload based on [`if_changed`](https://buildkite.com/docs/pipelines/configure/step-types/command-step#agent-applied-attributes)comparisons will use the base commit that points to the previous merge group rather than the base branch
+    """
 
 @pulumi.input_type
 class PipelineProviderSettingsArgs:

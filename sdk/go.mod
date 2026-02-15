@@ -1,4 +1,3 @@
-// x-release-please-major
 module github.com/pulumiverse/pulumi-buildkite/sdk/v3
 
 go 1.25.7

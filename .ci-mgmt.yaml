@@ -1,7 +1,7 @@
 template: external-bridged-provider
 provider: buildkite
 organization: pulumiverse
-major-version: 0
+major-version: 3
 providerDefaultBranch: main
 upstreamProviderOrg: buildkite
 publishRegistry: false

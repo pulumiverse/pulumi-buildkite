@@ -26,8 +26,8 @@ import (
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 
-	"github.com/pulumiverse/pulumi-buildkite/provider/pkg/version"
-	pShim "github.com/pulumiverse/pulumi-buildkite/provider/shim"
+	"github.com/pulumiverse/pulumi-buildkite/provider/v3/pkg/version"
+	pShim "github.com/pulumiverse/pulumi-buildkite/provider/v3/shim"
 )
 
 const (
