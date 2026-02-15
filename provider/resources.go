@@ -52,7 +52,7 @@ func preConfigureCallback(_ resource.PropertyMap, _ shim.ResourceConfig) error {
 	return nil
 }
 
-// goembed cmd/pulumi-resource-buildkite/bridge-metadata.json
+//go:embed cmd/pulumi-resource-buildkite/bridge-metadata.json
 var metadata []byte
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
