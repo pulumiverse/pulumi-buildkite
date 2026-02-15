@@ -35,7 +35,7 @@ const (
 	// registries for nodejs and python:
 	mainPkg = "buildkite"
 	// modules:
-	mainMod         = "index" //nolint:deadcode,unused,varcheck
+	mainMod         = "index"
 	pipelineMod     = "Pipeline"
 	testMod         = "TestSuite"
 	teamMod         = "Team"
