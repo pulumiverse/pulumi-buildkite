@@ -1,6 +1,6 @@
 module github.com/pulumiverse/pulumi-buildkite/provider
 
-go 1.25.4
+go 1.25.7
 
 replace (
 	github.com/hashicorp/go-getter v1.5.0 => github.com/hashicorp/go-getter v1.4.0

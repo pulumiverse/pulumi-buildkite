@@ -15,14 +15,17 @@
 package buildkite
 
 import (
-	_ "embed"
 	"fmt"
 	"path/filepath"
+
+	// The linter requires unnamed imports to have a doc comment
+	_ "embed"
 
 	pfbridge "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+
 	"github.com/pulumiverse/pulumi-buildkite/provider/pkg/version"
 	pShim "github.com/pulumiverse/pulumi-buildkite/provider/shim"
 )
@@ -49,7 +52,7 @@ func preConfigureCallback(_ resource.PropertyMap, _ shim.ResourceConfig) error {
 	return nil
 }
 
-//go:embed cmd/pulumi-resource-buildkite/bridge-metadata.json
+// goembed cmd/pulumi-resource-buildkite/bridge-metadata.json
 var metadata []byte
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
