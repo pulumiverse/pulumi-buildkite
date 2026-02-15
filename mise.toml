@@ -1,6 +1,9 @@
 # Overwrites mise configuration at .config/mise.toml
 [tools]
-go = "1.25.7"
 golangci-lint = "2.5.0"
 "vfox-pulumi:pulumi/pulumi-converter-terraform" = "1.2.4"
 "vfox-pulumi:pulumi/pulumi-aws" = "6.83.0"
+
+# Lock Go and Pulumi CLI versions while https://github.com/pulumi-labs/ci-mgmt/issues/5 is not fixed
+go = "1.25.7"
+"github:pulumi/pulumi" = "3.220.0"
