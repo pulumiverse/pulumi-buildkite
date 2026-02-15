@@ -8,9 +8,6 @@ linters:
     - nakedret
     - revive
     - unconvert
-  settings:
-    lll:
-      line-length: 150
   exclusions:
     generated: lax
     presets:
@@ -19,13 +16,31 @@ linters:
       - legacy
       - std-error-handling
     paths:
+      - schema.go
+      - pulumiManifest.go
+      - pkg/vendored
       - third_party$
       - builtin$
       - examples$
 formatters:
+  enable:
+    - gci
+    - gofmt
+  settings:
+    gci:
+      sections:
+        - standard
+        - blank
+        - default
+        - prefix(github.com/pulumi/)
+        - prefix(github.com/pulumiverse/pulumi-buildkite)
+      custom-order: true
   exclusions:
     generated: lax
     paths:
+      - schema.go
+      - pulumiManifest.go
+      - pkg/vendored
       - third_party$
       - builtin$
       - examples$

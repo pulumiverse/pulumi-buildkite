@@ -23,29 +23,24 @@ __all__ = [
     'ClusterQueueHostedAgentsMacArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class ClusterQueueHostedAgentsArgsDict(TypedDict):
-        instance_shape: pulumi.Input[_builtins.str]
-        """
-        The instance shape to use for the Hosted Agent cluster queue. This can be a MacOS instance shape or a Linux instance shape.
-        Valid values are:
-        - MACOS_ARM64_M4_6X28
-        - MACOS_ARM64_M4_12X56
-        - LINUX_AMD64_2X4
-        - LINUX_AMD64_4X16
-        - LINUX_AMD64_8X32
-        - LINUX_AMD64_16X64
-        - LINUX_ARM64_2X4
-        - LINUX_ARM64_4X16
-        - LINUX_ARM64_8X32
-        - LINUX_ARM64_16X64
-        """
-        linux: NotRequired[pulumi.Input['ClusterQueueHostedAgentsLinuxArgsDict']]
-        mac: NotRequired[pulumi.Input['ClusterQueueHostedAgentsMacArgsDict']]
-elif False:
-    ClusterQueueHostedAgentsArgsDict: TypeAlias = Mapping[str, Any]
+class ClusterQueueHostedAgentsArgsDict(TypedDict):
+    instance_shape: pulumi.Input[_builtins.str]
+    """
+    The instance shape to use for the Hosted Agent cluster queue. This can be a MacOS instance shape or a Linux instance shape.
+    Valid values are:
+    - MACOS_ARM64_M4_6X28
+    - MACOS_ARM64_M4_12X56
+    - LINUX_AMD64_2X4
+    - LINUX_AMD64_4X16
+    - LINUX_AMD64_8X32
+    - LINUX_AMD64_16X64
+    - LINUX_ARM64_2X4
+    - LINUX_ARM64_4X16
+    - LINUX_ARM64_8X32
+    - LINUX_ARM64_16X64
+    """
+    linux: NotRequired[pulumi.Input['ClusterQueueHostedAgentsLinuxArgsDict']]
+    mac: NotRequired[pulumi.Input['ClusterQueueHostedAgentsMacArgsDict']]
 
 @pulumi.input_type
 class ClusterQueueHostedAgentsArgs:
@@ -115,14 +110,11 @@ class ClusterQueueHostedAgentsArgs:
         pulumi.set(self, "mac", value)
 
 
-if not MYPY:
-    class ClusterQueueHostedAgentsLinuxArgsDict(TypedDict):
-        agent_image_ref: pulumi.Input[_builtins.str]
-        """
-        A URL reference to a container image that will be used for jobs running within the queue. This URL is required to be publicly available, or pushed to the internal registry available within the cluster. Please note that this value is currently experimental and in preview. Please contact support@buildkite.com to enable this functionality for your organization.
-        """
-elif False:
-    ClusterQueueHostedAgentsLinuxArgsDict: TypeAlias = Mapping[str, Any]
+class ClusterQueueHostedAgentsLinuxArgsDict(TypedDict):
+    agent_image_ref: pulumi.Input[_builtins.str]
+    """
+    A URL reference to a container image that will be used for jobs running within the queue. This URL is required to be publicly available, or pushed to the internal registry available within the cluster. Please note that this value is currently experimental and in preview. Please contact support@buildkite.com to enable this functionality for your organization.
+    """
 
 @pulumi.input_type
 class ClusterQueueHostedAgentsLinuxArgs:
@@ -146,18 +138,15 @@ class ClusterQueueHostedAgentsLinuxArgs:
         pulumi.set(self, "agent_image_ref", value)
 
 
-if not MYPY:
-    class ClusterQueueHostedAgentsMacArgsDict(TypedDict):
-        xcode_version: pulumi.Input[_builtins.str]
-        """
-        Required selection of a specific XCode version to be selected for jobs in the queue to have available. Please note that this value is currently experimental and may not function as expected.
-        """
-        macos_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Optional selection of a specific macOS version to be selected for jobs in the queue to have available. Please note that this value is currently experimental and may not function as expected.
-        """
-elif False:
-    ClusterQueueHostedAgentsMacArgsDict: TypeAlias = Mapping[str, Any]
+class ClusterQueueHostedAgentsMacArgsDict(TypedDict):
+    xcode_version: pulumi.Input[_builtins.str]
+    """
+    Required selection of a specific XCode version to be selected for jobs in the queue to have available. Please note that this value is currently experimental and may not function as expected.
+    """
+    macos_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Optional selection of a specific macOS version to be selected for jobs in the queue to have available. Please note that this value is currently experimental and may not function as expected.
+    """
 
 @pulumi.input_type
 class ClusterQueueHostedAgentsMacArgs:

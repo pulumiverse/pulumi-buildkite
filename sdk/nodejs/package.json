@@ -1,6 +1,6 @@
 {
     "name": "@pulumiverse/buildkite",
-    "version": "${VERSION}",
+    "version": "3.0.0-alpha.0+dev",
     "description": "A Pulumi package for creating and managing Buildkite resources.",
     "keywords": [
         "pulumi",
@@ -23,6 +23,7 @@
     "pulumi": {
         "resource": true,
         "name": "buildkite",
+        "version": "3.0.0-alpha.0+dev",
         "server": "github://api.github.com/pulumiverse/pulumi-buildkite"
     }
 }
