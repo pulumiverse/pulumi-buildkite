@@ -36,7 +36,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.21.x]
+        go-version: [1.24.x]
         golangci-lint-version: [v2.5.0]
 
     steps:
@@ -72,7 +72,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        go-version: [1.21.x]
+        go-version: [1.24.x]
         node-version: [22.x]
         dotnet-version: [3.1.301]
         python-version: [3.9]
