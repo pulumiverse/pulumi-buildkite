@@ -1,5 +1,36 @@
 # Changelog
 
+## [3.2.0](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.1.6...v3.2.0) (2026-02-18)
+
+
+### Features
+
+* **ci:** bump all plugins in workflows to latest ([9cf5bdd](https://github.com/pulumiverse/pulumi-buildkite/commit/9cf5bddd246f84f2027033fc2458484ddfcc6260))
+
+
+### Miscellaneous Chores
+
+* **deps:** update actions/setup-node action to v6 ([f1f4697](https://github.com/pulumiverse/pulumi-buildkite/commit/f1f4697dd8eeffd6a67b24a8d55e2dd01b9dc546))
+* **deps:** update actions/setup-node action to v6 ([8c7ac94](https://github.com/pulumiverse/pulumi-buildkite/commit/8c7ac94a59619a809553884a4190c8eca2e181cc))
+* **deps:** update anchore/sbom-action action to v0.15.11 ([4e478ca](https://github.com/pulumiverse/pulumi-buildkite/commit/4e478ca578d866e89b6b964cb5b84c67f011bb97))
+* **deps:** update anchore/sbom-action action to v0.15.11 ([830e3a5](https://github.com/pulumiverse/pulumi-buildkite/commit/830e3a5ff81d46431121aa6d34c49eb7a6325308))
+* **deps:** update dependency go to v1.25.2 ([e7cd3e8](https://github.com/pulumiverse/pulumi-buildkite/commit/e7cd3e872d6efedd77a1b7be4f533a56e6b52dbf))
+* **deps:** update dependency go to v1.25.2 ([39909c7](https://github.com/pulumiverse/pulumi-buildkite/commit/39909c7f719340fba4ae73070bc8e5e2fc82df37))
+* **deps:** update golangci/golangci-lint-action action to v5 ([769b839](https://github.com/pulumiverse/pulumi-buildkite/commit/769b83916044f902e00206532255b9d15a23d204))
+* **deps:** update golangci/golangci-lint-action action to v5 ([5f3889e](https://github.com/pulumiverse/pulumi-buildkite/commit/5f3889ed4713c359390ddb3f1ec7acea0c4aacd1))
+* **deps:** update module github.com/pulumi/pulumi-terraform-bridge/v3 to v3.80.0 ([005d2e2](https://github.com/pulumiverse/pulumi-buildkite/commit/005d2e225b051529e36e136cd564cdb3e94df007))
+* **deps:** update module github.com/pulumi/pulumi-terraform-bridge/v3 to v3.80.0 ([bc48c2a](https://github.com/pulumiverse/pulumi-buildkite/commit/bc48c2aa70febfa929636bf0d7c1d4f0e596c1d3))
+* **deps:** update module github.com/pulumi/pulumi/sdk/v3 to v3.113.0 ([53486ae](https://github.com/pulumiverse/pulumi-buildkite/commit/53486ae73f6c4dd5f8fb01c0b455aa133d1ae3d1))
+* **deps:** update module github.com/pulumi/pulumi/sdk/v3 to v3.113.0 ([d6fec4d](https://github.com/pulumiverse/pulumi-buildkite/commit/d6fec4d7085c7fcefe41d94fd802190ddc0ef3a4))
+* **deps:** update module github.com/pulumi/pulumi/sdk/v3 to v3.201.0 ([1c5b48b](https://github.com/pulumiverse/pulumi-buildkite/commit/1c5b48b1657dce130e3075206a80208947f84c25))
+* **deps:** update module github.com/pulumi/pulumi/sdk/v3 to v3.201.0 ([a05a8ef](https://github.com/pulumiverse/pulumi-buildkite/commit/a05a8ef57eb185788fdc52ea353b942805b31ca3))
+* **deps:** update sigstore/cosign-installer action to v3.5.0 ([a1aebe0](https://github.com/pulumiverse/pulumi-buildkite/commit/a1aebe0be1450d1ea33e8b4b206ad6e2008be9a9))
+* **deps:** update sigstore/cosign-installer action to v3.5.0 ([80e5dff](https://github.com/pulumiverse/pulumi-buildkite/commit/80e5dffd19ab9d0850995a95e2a9b7540f69a5e7))
+* **deps:** update sigstore/cosign-installer action to v4 ([b635220](https://github.com/pulumiverse/pulumi-buildkite/commit/b635220563f21abb1e125b180d5a2153c3eaa709))
+* **deps:** update sigstore/cosign-installer action to v4 ([921a51f](https://github.com/pulumiverse/pulumi-buildkite/commit/921a51f93ec94285b61094a53fd37583ee9a951c))
+* update go version to 1.24.x ([4226e52](https://github.com/pulumiverse/pulumi-buildkite/commit/4226e526ae7b2bfbc56bd9ab727a915141780c51))
+* update go version to 1.24.x ([9a1772f](https://github.com/pulumiverse/pulumi-buildkite/commit/9a1772f39f3d7c9df1270cdf9330354ee8a478aa))
+
 ## [3.1.6](https://github.com/pulumiverse/pulumi-buildkite/compare/v3.1.5...v3.1.6) (2024-04-01)
 
 
