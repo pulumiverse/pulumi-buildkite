@@ -68,7 +68,7 @@ jobs:
         uses: anchore/sbom-action/download-syft@v0.15.11
 
       - name: Release via GoReleaser
-        uses: goreleaser/goreleaser-action@5742e2a039330cbb23ebf35f046f814d4c6ff811 # v5.1.0
+        uses: goreleaser/goreleaser-action@ec59f474b9834571250b370d4735c50f8e2d1e29 # v7.0.0
         with:
           args: -p 3 release --clean --timeout 60m0s
           version: latest
