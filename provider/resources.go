@@ -21,12 +21,13 @@ import (
 	// The linter requires unnamed imports to have a doc comment
 	_ "embed"
 
+	"github.com/buildkite/terraform-provider-buildkite/buildkite"
+
 	pfbridge "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 
-	"github.com/buildkite/terraform-provider-buildkite/buildkite"
 	"github.com/pulumiverse/pulumi-buildkite/provider/v3/pkg/version"
 )
 
