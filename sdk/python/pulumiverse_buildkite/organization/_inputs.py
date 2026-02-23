@@ -19,24 +19,19 @@ __all__ = [
     'PortalCreatedByArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class PortalCreatedByArgsDict(TypedDict):
-        email: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The email of the user.
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The name of the user.
-        """
-        uuid: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The UUID of the user.
-        """
-elif False:
-    PortalCreatedByArgsDict: TypeAlias = Mapping[str, Any]
+class PortalCreatedByArgsDict(TypedDict):
+    email: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The email of the user.
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The name of the user.
+    """
+    uuid: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The UUID of the user.
+    """
 
 @pulumi.input_type
 class PortalCreatedByArgs:

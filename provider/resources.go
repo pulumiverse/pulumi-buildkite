@@ -15,16 +15,20 @@
 package buildkite
 
 import (
-	_ "embed"
 	"fmt"
 	"path/filepath"
+
+	// The linter requires unnamed imports to have a doc comment
+	_ "embed"
+
+	"github.com/buildkite/terraform-provider-buildkite/buildkite"
 
 	pfbridge "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumiverse/pulumi-buildkite/provider/pkg/version"
-	pShim "github.com/pulumiverse/pulumi-buildkite/provider/shim"
+
+	"github.com/pulumiverse/pulumi-buildkite/provider/v3/pkg/version"
 )
 
 const (
@@ -32,7 +36,7 @@ const (
 	// registries for nodejs and python:
 	mainPkg = "buildkite"
 	// modules:
-	mainMod         = "index" //nolint:deadcode,unused,varcheck
+	mainMod         = "index"
 	pipelineMod     = "Pipeline"
 	testMod         = "TestSuite"
 	teamMod         = "Team"
@@ -56,7 +60,7 @@ var metadata []byte
 func Provider() tfbridge.ProviderInfo {
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
-		P:                    pfbridge.ShimProvider(pShim.NewProvider()),
+		P:                    pfbridge.ShimProvider(buildkite.New(version.Version)),
 		Name:                 "buildkite",
 		DisplayName:          "Buildkite",
 		Description:          "A Pulumi package for creating and managing Buildkite resources.",
@@ -144,12 +148,15 @@ func Provider() tfbridge.ProviderInfo {
 				"@types/node": "^10.0.0", // so we can access strongly typed node definitions.
 				"@types/mime": "^2.0.0",
 			},
+			RespectSchemaVersion: true,
 		},
 		Python: &tfbridge.PythonInfo{
 			PackageName: "pulumiverse_buildkite",
 			Requires: map[string]string{
 				"pulumi": ">=3.0.0,<4.0.0",
 			},
+			PyProject:            struct{ Enabled bool }{true},
+			RespectSchemaVersion: true,
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
@@ -159,6 +166,7 @@ func Provider() tfbridge.ProviderInfo {
 				mainPkg,
 			),
 			GenerateResourceContainerTypes: true,
+			RespectSchemaVersion:           true,
 		},
 		CSharp: &tfbridge.CSharpInfo{
 			PackageReferences: map[string]string{
@@ -168,6 +176,7 @@ func Provider() tfbridge.ProviderInfo {
 			Namespaces: map[string]string{
 				mainPkg: "Buildkite",
 			},
+			RespectSchemaVersion: true,
 		},
 	}
 

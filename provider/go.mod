@@ -1,8 +1,6 @@
-module github.com/pulumiverse/pulumi-buildkite/provider
+module github.com/pulumiverse/pulumi-buildkite/provider/v3
 
-go 1.24.7
-
-toolchain go1.25.2
+go 1.25.7
 
 replace (
 	github.com/hashicorp/go-getter v1.5.0 => github.com/hashicorp/go-getter v1.4.0
@@ -11,7 +9,6 @@ replace (
 
 require (
 	github.com/buildkite/terraform-provider-buildkite v1.30.0
-	github.com/hashicorp/terraform-plugin-framework v1.17.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.120.0
 	github.com/pulumi/pulumi/sdk/v3 v3.218.0
 )
@@ -94,6 +91,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.24.0 // indirect
 	github.com/hashicorp/hil v0.0.0-20230614213501-4d65b419f8b0 // indirect
 	github.com/hashicorp/logutils v1.0.0 // indirect
+	github.com/hashicorp/terraform-plugin-framework v1.17.0 // indirect
 	github.com/hashicorp/terraform-plugin-framework-timeouts v0.7.0 // indirect
 	github.com/hashicorp/terraform-plugin-framework-validators v0.19.0 // indirect
 	github.com/hashicorp/terraform-plugin-go v0.29.0 // indirect

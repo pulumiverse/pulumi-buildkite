@@ -1,9 +1,6 @@
-// x-release-please-major
 module github.com/pulumiverse/pulumi-buildkite/sdk/v3
 
-go 1.23.11
-
-toolchain go1.25.2
+go 1.25.7
 
 require (
 	github.com/blang/semver v3.5.1+incompatible
