@@ -8,7 +8,7 @@ replace (
 )
 
 require (
-	github.com/buildkite/terraform-provider-buildkite v1.30.0
+	github.com/buildkite/terraform-provider-buildkite v1.31.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.121.0
 	github.com/pulumi/pulumi/sdk/v3 v3.220.0
 )
@@ -172,7 +172,7 @@ require (
 	github.com/segmentio/encoding v0.4.0 // indirect
 	github.com/sergi/go-diff v1.4.0 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
-	github.com/shurcooL/graphql v0.0.0-20230722043721-ed46e5a46466 // indirect
+	github.com/shurcooL/graphql v0.0.0-20240915155400-7ee5256398cf // indirect
 	github.com/skeema/knownhosts v1.3.1 // indirect
 	github.com/spf13/afero v1.10.0 // indirect
 	github.com/spf13/cast v1.5.1 // indirect
