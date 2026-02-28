@@ -5,6 +5,4 @@ upstream-provider-name: terraform-provider-buildkite
 upstream-provider-org: buildkite
 remove-plugins: true
 pulumi-infer-version: true
-pr-reviewers:
-  - cnunciato
-  - mcncl
+pr-reviewers: cnunciato
