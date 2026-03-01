@@ -19,13 +19,13 @@ import * as utilities from "./utilities";
  *
  * const ips = buildkite.getMeta({});
  * // Create an AWS security group allowing ingress from Buildkite
- * const fromBuildkite = new aws.ec2.SecurityGroup("from_buildkite", {
+ * const fromBuildkite = new aws.index.SecurityGroup("from_buildkite", {
  *     name: "from_buildkite",
  *     ingress: [{
  *         fromPort: "*",
- *         toPort: 443,
+ *         toPort: "443",
  *         protocol: "tcp",
- *         cidrBlocks: ips.then(ips => ips.webhookIps),
+ *         cidrBlocks: ips.webhookIps,
  *     }],
  * });
  * ```
@@ -64,13 +64,13 @@ export interface GetMetaResult {
  *
  * const ips = buildkite.getMeta({});
  * // Create an AWS security group allowing ingress from Buildkite
- * const fromBuildkite = new aws.ec2.SecurityGroup("from_buildkite", {
+ * const fromBuildkite = new aws.index.SecurityGroup("from_buildkite", {
  *     name: "from_buildkite",
  *     ingress: [{
  *         fromPort: "*",
- *         toPort: 443,
+ *         toPort: "443",
  *         protocol: "tcp",
- *         cidrBlocks: ips.then(ips => ips.webhookIps),
+ *         cidrBlocks: ips.webhookIps,
  *     }],
  * });
  * ```

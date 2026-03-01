@@ -34,33 +34,20 @@ import * as utilities from "../utilities";
  * ## Import
  *
  * Using `pulumi import`, import resources using the `id`. For example:
- *
  * import a clusters default queue resource using the GraphQL ID of the cluster itself
  *
  * you can use this query to find the ID:
- *
  * query getClusters {
- *
- *   organization(slug: "ORGANIZATION"){
- *
- *     clusters(first: 5, order:NAME) {
- *     
- *       edges{
- *     
- *         node {
- *     
- *           id
- *     
- *           name
- *     
- *         }
- *     
- *       }
- *     
- *     }
- *
- *   }
- *
+ * organization(slug: "ORGANIZATION"){
+ * clusters(first: 5, order:NAME) {
+ * edges{
+ * node {
+ * id
+ * name
+ * }
+ * }
+ * }
+ * }
  * }
  *
  * ```sh

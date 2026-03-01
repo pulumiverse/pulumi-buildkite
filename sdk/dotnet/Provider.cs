@@ -19,6 +19,9 @@ namespace Pulumiverse.Buildkite
     [BuildkiteResourceType("pulumi:providers:buildkite")]
     public partial class Provider : global::Pulumi.ProviderResource
     {
+        /// <summary>
+        /// API token with GraphQL access and `WritePipelines`, `ReadPipelines` and `WriteSuites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&amp;scopes[]=write_pipelines&amp;scopes[]=write_suites&amp;scopes[]=read_pipelines&amp;scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
+        /// </summary>
         [Output("apiToken")]
         public Output<string?> ApiToken { get; private set; } = null!;
 
@@ -81,6 +84,10 @@ namespace Pulumiverse.Buildkite
     {
         [Input("apiToken")]
         private Input<string>? _apiToken;
+
+        /// <summary>
+        /// API token with GraphQL access and `WritePipelines`, `ReadPipelines` and `WriteSuites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&amp;scopes[]=write_pipelines&amp;scopes[]=write_suites&amp;scopes[]=read_pipelines&amp;scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
+        /// </summary>
         public Input<string>? ApiToken
         {
             get => _apiToken;

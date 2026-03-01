@@ -5,6 +5,13 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
+ * A Cluster Secret is an encrypted key-value pair that can be accessed by agents within a cluster.
+ * Secrets are encrypted and can only be accessed by agents that match the access policy.
+ *
+ * **Note:** Secret values are write-only and cannot be retrieved from the API. When importing an existing
+ * cluster secret, you must manually set the 'value' attribute in your configuration to match the secret's
+ * actual value, as Terraform cannot read it from the Buildkite API.
+ *
  * ## Example Usage
  *
  * ```typescript
@@ -25,15 +32,11 @@ import * as utilities from "../utilities";
  * ## Import
  *
  * Using `pulumi import`, import resources using the `id`. For example:
- *
  * Import a cluster secret using {cluster_id}/{secret_id}
  *
- * You can find the cluster_id under cluster settings in the UI
- *
- * and find the secret_id from the secrets list using the
- *
+ * You can find the clusterId under cluster settings in the UI
+ * and find the secretId from the secrets list using the
  * REST API response from:
- *
  * GET /v2/organizations/{org_slug}/clusters/{cluster_id}/secrets
  *
  * ```sh

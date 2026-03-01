@@ -161,6 +161,10 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// </summary>
         public readonly string Uuid;
         /// <summary>
+        /// The visibility of the pipeline (PUBLIC or PRIVATE).
+        /// </summary>
+        public readonly string Visibility;
+        /// <summary>
         /// The Buildkite webhook URL that triggers builds on this pipeline.
         /// </summary>
         public readonly string WebhookUrl;
@@ -185,6 +189,8 @@ namespace Pulumiverse.Buildkite.Pipeline
 
             string uuid,
 
+            string visibility,
+
             string webhookUrl)
         {
             ClusterId = clusterId;
@@ -196,6 +202,7 @@ namespace Pulumiverse.Buildkite.Pipeline
             Repository = repository;
             Slug = slug;
             Uuid = uuid;
+            Visibility = visibility;
             WebhookUrl = webhookUrl;
         }
     }

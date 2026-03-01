@@ -55,15 +55,11 @@ import (
 // ## Import
 //
 // Using `pulumi import`, import resources using the `id`. For example:
-//
 // Import a cluster maintainer using {cluster_uuid}/{permission_uuid}
 //
-// You can find the cluster_uuid and the permission_uuid
-//
+// You can find the clusterUuid and the permissionUuid
 // from the maintainers list using the cluster data source or REST
-//
 // API response from:
-//
 // GET /v2/organizations/{org_slug}/clusters/{cluster_uuid}/maintainers
 //
 // ```sh

@@ -45,31 +45,19 @@ import (
 // ## Import
 //
 // Using `pulumi import`, import resources using the `id`. For example:
-//
 // import an organization banner resource using the banner's GraphQL ID
 //
 // you can use this query to find the banner's ID:
-//
 // query getOrganizationBannerId {
-//
-//	organization(slug: "ORGANIZATION_SLUG") {
-//
-//	  banners(first: 1) {
-//
-//	    edges {
-//
-//	      node {
-//
-//	        id
-//
-//	      }
-//
-//	    }
-//
-//	  }
-//
-//	}
-//
+// organization(slug: "ORGANIZATION_SLUG") {
+// banners(first: 1) {
+// edges {
+// node {
+// id
+// }
+// }
+// }
+// }
 // }
 //
 // ```sh

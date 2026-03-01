@@ -51,20 +51,14 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     /// ## Import
     /// 
-    /// Using `pulumi import`, import resources using the `id`. For example:
-    /// 
+    /// Using `pulumi import`, import resources using the `Id`. For example:
     /// import a pipeline webhook using the pipeline's GraphQL ID
     /// 
     /// you can use this query to find the pipeline ID:
-    /// 
     /// query getPipelineId {
-    /// 
-    ///   pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
-    /// 
-    ///     id
-    /// 
-    ///   }
-    /// 
+    /// pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
+    /// id
+    /// }
     /// }
     /// 
     /// ```sh

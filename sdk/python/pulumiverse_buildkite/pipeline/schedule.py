@@ -341,45 +341,26 @@ class Schedule(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline schedule resource using the schedules GraphQL ID
 
         you can use this query to find the schedule:
-
         query getPipelineScheduleId {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-                pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
-            
-              edges{
-            
-                node{
-            
-                  name
-            
-                  schedules{
-            
-                    edges{
-            
-                      node{
-            
-                        id
-            
-                      }
-            
-                    }
-            
-                  }
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
+        edges{
+        node{
+        name
+        schedules{
+        edges{
+        node{
+        id
+        }
+        }
+        }
+        }
+        }
+        }
+        }
         }
 
         ```sh
@@ -429,45 +410,26 @@ class Schedule(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline schedule resource using the schedules GraphQL ID
 
         you can use this query to find the schedule:
-
         query getPipelineScheduleId {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-                pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
-            
-              edges{
-            
-                node{
-            
-                  name
-            
-                  schedules{
-            
-                    edges{
-            
-                      node{
-            
-                        id
-            
-                      }
-            
-                    }
-            
-                  }
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
+        edges{
+        node{
+        name
+        schedules{
+        edges{
+        node{
+        id
+        }
+        }
+        }
+        }
+        }
+        }
+        }
         }
 
         ```sh

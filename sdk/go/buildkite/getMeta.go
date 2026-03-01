@@ -23,7 +23,7 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws/ec2"
+//	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite"
 //
@@ -36,14 +36,14 @@ import (
 //				return err
 //			}
 //			// Create an AWS security group allowing ingress from Buildkite
-//			_, err = ec2.NewSecurityGroup(ctx, "from_buildkite", &ec2.SecurityGroupArgs{
-//				Name: pulumi.String("from_buildkite"),
-//				Ingress: ec2.SecurityGroupIngressArray{
-//					&ec2.SecurityGroupIngressArgs{
-//						FromPort:   pulumi.Int("*"),
-//						ToPort:     pulumi.Int(443),
-//						Protocol:   pulumi.String("tcp"),
-//						CidrBlocks: interface{}(ips.WebhookIps),
+//			_, err = aws.NewSecurityGroup(ctx, "from_buildkite", &aws.SecurityGroupArgs{
+//				Name: "from_buildkite",
+//				Ingress: []map[string]interface{}{
+//					map[string]interface{}{
+//						"fromPort":   "*",
+//						"toPort":     "443",
+//						"protocol":   "tcp",
+//						"cidrBlocks": ips.WebhookIps,
 //					},
 //				},
 //			})

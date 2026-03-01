@@ -262,12 +262,19 @@ class Rule(pulumi.CustomResource):
         import json
         import pulumiverse_buildkite as buildkite
 
-        # Creates a TRIGGER_BUILD organization rule with required attributes
+        # Creates a TRIGGER_BUILD organization rule using pipeline UUIDs
         trigger_build_test_dev = buildkite.organization.Rule("trigger_build_test_dev",
             type="pipeline.trigger_build.pipeline",
             value=json.dumps({
                 "source_pipeline": app_dev_deploy["uuid"],
                 "target_pipeline": app_test_ci["uuid"],
+            }))
+        # Creates a TRIGGER_BUILD organization rule using pipeline slugs
+        trigger_build_test_dev_slug = buildkite.organization.Rule("trigger_build_test_dev_slug",
+            type="pipeline.trigger_build.pipeline",
+            value=json.dumps({
+                "source_pipeline": "app-dev-deploy",
+                "target_pipeline": "app-test-ci",
             }))
         # Creates a ARTIFACTS_READ organization rule with an optional description
         artifacts_read_test_dev = buildkite.organization.Rule("artifacts_read_test_dev",
@@ -294,91 +301,50 @@ class Rule(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import an organization rule resource using the rules GraphQL ID
 
         You can use this query to find the first 50 organiation rules (adjust for less or more):
-
         query getOrganizationRules {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            rules(first: 50) {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                  sourceType
-            
-                  targetType
-            
-                  action
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        rules(first: 50) {
+        edges{
+        node{
+        id
+        sourceType
+        targetType
+        action
+        }
+        }
+        }
+        }
         }
 
         Depending on the speciific source/target, you're also able to filter on the source/target information
-
         query getOrganizationRules {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            rules(first: 50) {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                  sourceType
-            
-                  source {
-            
-                    ... on Pipeline{
-            
-                      uuid
-            
-                      name
-            
-                    }            
-            
-                  }
-            
-                  targetType
-            
-                  target {
-            
-                    ... on Pipeline{
-            
-                      uuid
-            
-                      name
-            
-                    }            
-            
-                  }
-            
-                  action
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        rules(first: 50) {
+        edges{
+        node{
+        id
+        sourceType
+        source {
+        ... on Pipeline{
+        uuid
+        name
+        }
+        }
+        targetType
+        target {
+        ... on Pipeline{
+        uuid
+        name
+        }
+        }
+        action
+        }
+        }
+        }
+        }
         }
 
         ```sh
@@ -411,12 +377,19 @@ class Rule(pulumi.CustomResource):
         import json
         import pulumiverse_buildkite as buildkite
 
-        # Creates a TRIGGER_BUILD organization rule with required attributes
+        # Creates a TRIGGER_BUILD organization rule using pipeline UUIDs
         trigger_build_test_dev = buildkite.organization.Rule("trigger_build_test_dev",
             type="pipeline.trigger_build.pipeline",
             value=json.dumps({
                 "source_pipeline": app_dev_deploy["uuid"],
                 "target_pipeline": app_test_ci["uuid"],
+            }))
+        # Creates a TRIGGER_BUILD organization rule using pipeline slugs
+        trigger_build_test_dev_slug = buildkite.organization.Rule("trigger_build_test_dev_slug",
+            type="pipeline.trigger_build.pipeline",
+            value=json.dumps({
+                "source_pipeline": "app-dev-deploy",
+                "target_pipeline": "app-test-ci",
             }))
         # Creates a ARTIFACTS_READ organization rule with an optional description
         artifacts_read_test_dev = buildkite.organization.Rule("artifacts_read_test_dev",
@@ -443,91 +416,50 @@ class Rule(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import an organization rule resource using the rules GraphQL ID
 
         You can use this query to find the first 50 organiation rules (adjust for less or more):
-
         query getOrganizationRules {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            rules(first: 50) {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                  sourceType
-            
-                  targetType
-            
-                  action
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        rules(first: 50) {
+        edges{
+        node{
+        id
+        sourceType
+        targetType
+        action
+        }
+        }
+        }
+        }
         }
 
         Depending on the speciific source/target, you're also able to filter on the source/target information
-
         query getOrganizationRules {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            rules(first: 50) {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                  sourceType
-            
-                  source {
-            
-                    ... on Pipeline{
-            
-                      uuid
-            
-                      name
-            
-                    }            
-            
-                  }
-            
-                  targetType
-            
-                  target {
-            
-                    ... on Pipeline{
-            
-                      uuid
-            
-                      name
-            
-                    }            
-            
-                  }
-            
-                  action
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        rules(first: 50) {
+        edges{
+        node{
+        id
+        sourceType
+        source {
+        ... on Pipeline{
+        uuid
+        name
+        }
+        }
+        targetType
+        target {
+        ... on Pipeline{
+        uuid
+        name
+        }
+        }
+        action
+        }
+        }
+        }
+        }
         }
 
         ```sh
