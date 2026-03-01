@@ -65,33 +65,20 @@ import (
 // ## Import
 //
 // Using `pulumi import`, import resources using the `id`. For example:
-//
 // import a cluster resource using the GraphQL ID
 //
 // you can use this query to find the ID:
-//
 // query getClusters {
-//
-//	organization(slug: "ORGANIZATION"){
-//
-//	  clusters(first: 5, order:NAME) {
-//
-//	    edges{
-//
-//	      node {
-//
-//	        id
-//
-//	        name
-//
-//	      }
-//
-//	    }
-//
-//	  }
-//
-//	}
-//
+// organization(slug: "ORGANIZATION"){
+// clusters(first: 5, order:NAME) {
+// edges{
+// node {
+// id
+// name
+// }
+// }
+// }
+// }
 // }
 //
 // ```sh

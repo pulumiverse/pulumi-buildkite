@@ -16,6 +16,9 @@ from .. import _utilities
 from . import outputs
 
 apiToken: Optional[str]
+"""
+API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
+"""
 
 archivePipelineOnDelete: Optional[bool]
 """

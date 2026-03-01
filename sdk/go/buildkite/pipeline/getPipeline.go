@@ -76,6 +76,8 @@ type LookupPipelineResult struct {
 	Slug string `pulumi:"slug"`
 	// The UUID of the pipeline.
 	Uuid string `pulumi:"uuid"`
+	// The visibility of the pipeline (PUBLIC or PRIVATE).
+	Visibility string `pulumi:"visibility"`
 	// The Buildkite webhook URL that triggers builds on this pipeline.
 	WebhookUrl string `pulumi:"webhookUrl"`
 }
@@ -157,6 +159,11 @@ func (o LookupPipelineResultOutput) Slug() pulumi.StringOutput {
 // The UUID of the pipeline.
 func (o LookupPipelineResultOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPipelineResult) string { return v.Uuid }).(pulumi.StringOutput)
+}
+
+// The visibility of the pipeline (PUBLIC or PRIVATE).
+func (o LookupPipelineResultOutput) Visibility() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupPipelineResult) string { return v.Visibility }).(pulumi.StringOutput)
 }
 
 // The Buildkite webhook URL that triggers builds on this pipeline.

@@ -36,34 +36,21 @@ namespace Pulumiverse.Buildkite.Team
     /// 
     /// ## Import
     /// 
-    /// Using `pulumi import`, import resources using the `id`. For example:
-    /// 
+    /// Using `pulumi import`, import resources using the `Id`. For example:
     /// import a team resource using the GraphQL ID
     /// 
     /// you can use this query to find the ID:
-    /// 
     /// query getTeamId {
-    /// 
-    ///   organization(slug: "ORGANIZATION_SLUG") {
-    /// 
-    ///     teams(first: 1, search: "TEAM_SEARCH_TERM") {
-    ///     
-    ///       edges {
-    ///     
-    ///         node {
-    ///     
-    ///           id
-    ///     
-    ///           name
-    ///     
-    ///         }
-    ///     
-    ///       }
-    ///     
-    ///     }
-    /// 
-    ///   }
-    /// 
+    /// organization(slug: "ORGANIZATION_SLUG") {
+    /// teams(first: 1, search: "TEAM_SEARCH_TERM") {
+    /// edges {
+    /// node {
+    /// id
+    /// name
+    /// }
+    /// }
+    /// }
+    /// }
     /// }
     /// 
     /// ```sh

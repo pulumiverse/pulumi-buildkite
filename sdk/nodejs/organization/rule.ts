@@ -17,12 +17,20 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * // Creates a TRIGGER_BUILD organization rule with required attributes
+ * // Creates a TRIGGER_BUILD organization rule using pipeline UUIDs
  * const triggerBuildTestDev = new buildkite.organization.Rule("trigger_build_test_dev", {
  *     type: "pipeline.trigger_build.pipeline",
  *     value: JSON.stringify({
  *         source_pipeline: appDevDeploy.uuid,
  *         target_pipeline: appTestCi.uuid,
+ *     }),
+ * });
+ * // Creates a TRIGGER_BUILD organization rule using pipeline slugs
+ * const triggerBuildTestDevSlug = new buildkite.organization.Rule("trigger_build_test_dev_slug", {
+ *     type: "pipeline.trigger_build.pipeline",
+ *     value: JSON.stringify({
+ *         source_pipeline: "app-dev-deploy",
+ *         target_pipeline: "app-test-ci",
  *     }),
  * });
  * // Creates a ARTIFACTS_READ organization rule with an optional description
@@ -52,91 +60,50 @@ import * as utilities from "../utilities";
  * ## Import
  *
  * Using `pulumi import`, import resources using the `id`. For example:
- *
  * import an organization rule resource using the rules GraphQL ID
  *
  * You can use this query to find the first 50 organiation rules (adjust for less or more):
- *
  * query getOrganizationRules {
- *
- *   organization(slug: "ORGANIZATION_SLUG") {
- *
- *     rules(first: 50) {
- *     
- *       edges{
- *     
- *         node{
- *     
- *           id
- *     
- *           sourceType
- *     
- *           targetType
- *     
- *           action
- *     
- *         }
- *     
- *       }
- *     
- *     }
- *
- *   }
- *
+ * organization(slug: "ORGANIZATION_SLUG") {
+ * rules(first: 50) {
+ * edges{
+ * node{
+ * id
+ * sourceType
+ * targetType
+ * action
+ * }
+ * }
+ * }
+ * }
  * }
  *
  * Depending on the speciific source/target, you're also able to filter on the source/target information
- *
  * query getOrganizationRules {
- *
- *   organization(slug: "ORGANIZATION_SLUG") {
- *
- *     rules(first: 50) {
- *     
- *       edges{
- *     
- *         node{
- *     
- *           id
- *     
- *           sourceType
- *     
- *           source {
- *     
- *             ... on Pipeline{
- *     
- *               uuid
- *     
- *               name
- *     
- *             }            
- *     
- *           }
- *     
- *           targetType
- *     
- *           target {
- *     
- *             ... on Pipeline{
- *     
- *               uuid
- *     
- *               name
- *     
- *             }            
- *     
- *           }
- *     
- *           action
- *     
- *         }
- *     
- *       }
- *     
- *     }
- *
- *   }
- *
+ * organization(slug: "ORGANIZATION_SLUG") {
+ * rules(first: 50) {
+ * edges{
+ * node{
+ * id
+ * sourceType
+ * source {
+ * ... on Pipeline{
+ * uuid
+ * name
+ * }
+ * }
+ * targetType
+ * target {
+ * ... on Pipeline{
+ * uuid
+ * name
+ * }
+ * }
+ * action
+ * }
+ * }
+ * }
+ * }
  * }
  *
  * ```sh

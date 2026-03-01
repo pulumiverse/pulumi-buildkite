@@ -78,6 +78,10 @@ export interface GetPipelineResult {
      */
     readonly uuid: string;
     /**
+     * The visibility of the pipeline (PUBLIC or PRIVATE).
+     */
+    readonly visibility: string;
+    /**
      * The Buildkite webhook URL that triggers builds on this pipeline.
      */
     readonly webhookUrl: string;

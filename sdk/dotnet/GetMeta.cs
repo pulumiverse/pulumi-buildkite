@@ -32,17 +32,17 @@ namespace Pulumiverse.Buildkite
         ///     var ips = Buildkite.GetMeta.Invoke();
         /// 
         ///     // Create an AWS security group allowing ingress from Buildkite
-        ///     var fromBuildkite = new Aws.Ec2.SecurityGroup("from_buildkite", new()
+        ///     var fromBuildkite = new Aws.Index.SecurityGroup("from_buildkite", new()
         ///     {
         ///         Name = "from_buildkite",
         ///         Ingress = new[]
         ///         {
-        ///             new Aws.Ec2.Inputs.SecurityGroupIngressArgs
+        ///             
         ///             {
-        ///                 FromPort = "*",
-        ///                 ToPort = 443,
-        ///                 Protocol = "tcp",
-        ///                 CidrBlocks = ips.Apply(getMetaResult =&gt; getMetaResult.WebhookIps),
+        ///                 { "fromPort", "*" },
+        ///                 { "toPort", "443" },
+        ///                 { "protocol", "tcp" },
+        ///                 { "cidrBlocks", ips.Apply(getMetaResult =&gt; getMetaResult.WebhookIps) },
         ///             },
         ///         },
         ///     });
@@ -73,17 +73,17 @@ namespace Pulumiverse.Buildkite
         ///     var ips = Buildkite.GetMeta.Invoke();
         /// 
         ///     // Create an AWS security group allowing ingress from Buildkite
-        ///     var fromBuildkite = new Aws.Ec2.SecurityGroup("from_buildkite", new()
+        ///     var fromBuildkite = new Aws.Index.SecurityGroup("from_buildkite", new()
         ///     {
         ///         Name = "from_buildkite",
         ///         Ingress = new[]
         ///         {
-        ///             new Aws.Ec2.Inputs.SecurityGroupIngressArgs
+        ///             
         ///             {
-        ///                 FromPort = "*",
-        ///                 ToPort = 443,
-        ///                 Protocol = "tcp",
-        ///                 CidrBlocks = ips.Apply(getMetaResult =&gt; getMetaResult.WebhookIps),
+        ///                 { "fromPort", "*" },
+        ///                 { "toPort", "443" },
+        ///                 { "protocol", "tcp" },
+        ///                 { "cidrBlocks", ips.Apply(getMetaResult =&gt; getMetaResult.WebhookIps) },
         ///             },
         ///         },
         ///     });
@@ -114,17 +114,17 @@ namespace Pulumiverse.Buildkite
         ///     var ips = Buildkite.GetMeta.Invoke();
         /// 
         ///     // Create an AWS security group allowing ingress from Buildkite
-        ///     var fromBuildkite = new Aws.Ec2.SecurityGroup("from_buildkite", new()
+        ///     var fromBuildkite = new Aws.Index.SecurityGroup("from_buildkite", new()
         ///     {
         ///         Name = "from_buildkite",
         ///         Ingress = new[]
         ///         {
-        ///             new Aws.Ec2.Inputs.SecurityGroupIngressArgs
+        ///             
         ///             {
-        ///                 FromPort = "*",
-        ///                 ToPort = 443,
-        ///                 Protocol = "tcp",
-        ///                 CidrBlocks = ips.Apply(getMetaResult =&gt; getMetaResult.WebhookIps),
+        ///                 { "fromPort", "*" },
+        ///                 { "toPort", "443" },
+        ///                 { "protocol", "tcp" },
+        ///                 { "cidrBlocks", ips.Apply(getMetaResult =&gt; getMetaResult.WebhookIps) },
         ///             },
         ///         },
         ///     });
