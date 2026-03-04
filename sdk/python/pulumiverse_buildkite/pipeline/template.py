@@ -216,33 +216,20 @@ class Template(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline template resource using the templates GraphQL ID
 
         You can use this query to find the first 50 templates (adjust for less or more):
-
         query getPipelineTemplateIds {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            pipelineTemplates(first: 50) {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                  name
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        pipelineTemplates(first: 50) {
+        edges{
+        node{
+        id
+        name
+        }
+        }
+        }
+        }
         }
 
         ```sh
@@ -292,33 +279,20 @@ class Template(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline template resource using the templates GraphQL ID
 
         You can use this query to find the first 50 templates (adjust for less or more):
-
         query getPipelineTemplateIds {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            pipelineTemplates(first: 50) {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                  name
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        pipelineTemplates(first: 50) {
+        edges{
+        node{
+        id
+        name
+        }
+        }
+        }
+        }
         }
 
         ```sh
