@@ -77,13 +77,13 @@ def get_meta(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetMetaRes
 
     ips = buildkite.get_meta()
     # Create an AWS security group allowing ingress from Buildkite
-    from_buildkite = aws.ec2.SecurityGroup("from_buildkite",
-        name="from_buildkite",
+    from_buildkite = aws.index.SecurityGroup("from_buildkite",
+        name=from_buildkite,
         ingress=[{
-            "from_port": "*",
-            "to_port": 443,
-            "protocol": "tcp",
-            "cidr_blocks": ips.webhook_ips,
+            fromPort: *,
+            toPort: 443,
+            protocol: tcp,
+            cidrBlocks: ips.webhook_ips,
         }])
     ```
     """
@@ -110,13 +110,13 @@ def get_meta_output(opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutp
 
     ips = buildkite.get_meta()
     # Create an AWS security group allowing ingress from Buildkite
-    from_buildkite = aws.ec2.SecurityGroup("from_buildkite",
-        name="from_buildkite",
+    from_buildkite = aws.index.SecurityGroup("from_buildkite",
+        name=from_buildkite,
         ingress=[{
-            "from_port": "*",
-            "to_port": 443,
-            "protocol": "tcp",
-            "cidr_blocks": ips.webhook_ips,
+            fromPort: *,
+            toPort: 443,
+            protocol: tcp,
+            cidrBlocks: ips.webhook_ips,
         }])
     ```
     """
