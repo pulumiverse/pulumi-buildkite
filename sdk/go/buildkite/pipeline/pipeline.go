@@ -21,10 +21,8 @@ import (
 // ## Import
 //
 // Using `pulumi import`, import resources using the `id`. For example:
-//
 // import a pipeline resource using the pipelines GraphQL ID
-//
-// # GraphQL ID for a pipeline can be found on its settings page
+// GraphQL ID for a pipeline can be found on its settings page
 //
 // ```sh
 // $ pulumi import buildkite:Pipeline/pipeline:Pipeline pipeline UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
@@ -80,6 +78,8 @@ type Pipeline struct {
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// The UUID of the pipeline.
 	Uuid pulumi.StringOutput `pulumi:"uuid"`
+	// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+	Visibility pulumi.StringOutput `pulumi:"visibility"`
 	// The webhook URL used to trigger builds from VCS providers.
 	WebhookUrl pulumi.StringOutput `pulumi:"webhookUrl"`
 }
@@ -165,6 +165,8 @@ type pipelineState struct {
 	Tags []string `pulumi:"tags"`
 	// The UUID of the pipeline.
 	Uuid *string `pulumi:"uuid"`
+	// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+	Visibility *string `pulumi:"visibility"`
 	// The webhook URL used to trigger builds from VCS providers.
 	WebhookUrl *string `pulumi:"webhookUrl"`
 }
@@ -218,6 +220,8 @@ type PipelineState struct {
 	Tags pulumi.StringArrayInput
 	// The UUID of the pipeline.
 	Uuid pulumi.StringPtrInput
+	// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+	Visibility pulumi.StringPtrInput
 	// The webhook URL used to trigger builds from VCS providers.
 	WebhookUrl pulumi.StringPtrInput
 }
@@ -269,6 +273,8 @@ type pipelineArgs struct {
 	Steps *string `pulumi:"steps"`
 	// Tags to attribute to the pipeline. Useful for searching by in the UI.
 	Tags []string `pulumi:"tags"`
+	// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+	Visibility *string `pulumi:"visibility"`
 }
 
 // The set of arguments for constructing a Pipeline resource.
@@ -315,6 +321,8 @@ type PipelineArgs struct {
 	Steps pulumi.StringPtrInput
 	// Tags to attribute to the pipeline. Useful for searching by in the UI.
 	Tags pulumi.StringArrayInput
+	// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+	Visibility pulumi.StringPtrInput
 }
 
 func (PipelineArgs) ElementType() reflect.Type {
@@ -522,6 +530,11 @@ func (o PipelineOutput) Tags() pulumi.StringArrayOutput {
 // The UUID of the pipeline.
 func (o PipelineOutput) Uuid() pulumi.StringOutput {
 	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
+}
+
+// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+func (o PipelineOutput) Visibility() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.Visibility }).(pulumi.StringOutput)
 }
 
 // The webhook URL used to trigger builds from VCS providers.

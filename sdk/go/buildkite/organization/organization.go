@@ -48,7 +48,6 @@ import (
 // ## Import
 //
 // Using `pulumi import`, import resources using the `organization-slug`. For example:
-//
 // import the organization settings via the organization slug
 //
 // ```sh

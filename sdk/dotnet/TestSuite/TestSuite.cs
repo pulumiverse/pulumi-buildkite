@@ -37,34 +37,21 @@ namespace Pulumiverse.Buildkite.TestSuite
     /// 
     /// ## Import
     /// 
-    /// Using `pulumi import`, import resources using the `id`. For example:
-    /// 
+    /// Using `pulumi import`, import resources using the `Id`. For example:
     /// import a test suite resource using the GraphQL ID
     /// 
     /// you can use this query to find the ID:
-    /// 
     /// query getSuiteIds {
-    /// 
-    ///   organization(slug: "ORGANIZATION_SLUG") {
-    /// 
-    ///     suites(first: 1, search:"SUITE_SEARCH_TERM") {
-    ///     
-    ///       edges {
-    ///     
-    ///         node {
-    ///     
-    ///           id
-    ///     
-    ///           name
-    ///     
-    ///         }
-    ///     
-    ///       }
-    ///     
-    ///     }
-    /// 
-    ///   }
-    /// 
+    /// organization(slug: "ORGANIZATION_SLUG") {
+    /// suites(first: 1, search:"SUITE_SEARCH_TERM") {
+    /// edges {
+    /// node {
+    /// id
+    /// name
+    /// }
+    /// }
+    /// }
+    /// }
     /// }
     /// 
     /// ```sh

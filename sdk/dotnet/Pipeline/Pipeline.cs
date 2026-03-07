@@ -19,10 +19,8 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     /// ## Import
     /// 
-    /// Using `pulumi import`, import resources using the `id`. For example:
-    /// 
+    /// Using `pulumi import`, import resources using the `Id`. For example:
     /// import a pipeline resource using the pipelines GraphQL ID
-    /// 
     /// GraphQL ID for a pipeline can be found on its settings page
     /// 
     /// ```sh
@@ -175,6 +173,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// </summary>
         [Output("uuid")]
         public Output<string> Uuid { get; private set; } = null!;
+
+        /// <summary>
+        /// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        /// </summary>
+        [Output("visibility")]
+        public Output<string> Visibility { get; private set; } = null!;
 
         /// <summary>
         /// The webhook URL used to trigger builds from VCS providers.
@@ -361,6 +365,12 @@ namespace Pulumiverse.Buildkite.Pipeline
             set => _tags = value;
         }
 
+        /// <summary>
+        /// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        /// </summary>
+        [Input("visibility")]
+        public Input<string>? Visibility { get; set; }
+
         public PipelineArgs()
         {
         }
@@ -518,6 +528,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// </summary>
         [Input("uuid")]
         public Input<string>? Uuid { get; set; }
+
+        /// <summary>
+        /// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        /// </summary>
+        [Input("visibility")]
+        public Input<string>? Visibility { get; set; }
 
         /// <summary>
         /// The webhook URL used to trigger builds from VCS providers.
