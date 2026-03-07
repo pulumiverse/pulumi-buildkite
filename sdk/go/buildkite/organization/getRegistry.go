@@ -45,11 +45,15 @@ type LookupRegistryResult struct {
 	Id string `pulumi:"id"`
 	// The name of the registry.
 	Name string `pulumi:"name"`
-	// The registry's OIDC policy.
+	// The registry's OIDC policy, in YAML format.
 	OidcPolicy string `pulumi:"oidcPolicy"`
+	// Whether the registry is publicly accessible.
+	Public bool `pulumi:"public"`
+	// The type of the registry (e.g. `source`).
+	RegistryType string `pulumi:"registryType"`
 	// The slug of the registry. This is used to identify the registry.
 	Slug string `pulumi:"slug"`
-	// A list of team GraphQL IDs that have access to this registry.
+	// A list of team UUIDs that have access to this registry.
 	TeamIds []string `pulumi:"teamIds"`
 	// The UUID of the registry.
 	Uuid string `pulumi:"uuid"`
@@ -119,9 +123,19 @@ func (o LookupRegistryResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRegistryResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// The registry's OIDC policy.
+// The registry's OIDC policy, in YAML format.
 func (o LookupRegistryResultOutput) OidcPolicy() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRegistryResult) string { return v.OidcPolicy }).(pulumi.StringOutput)
+}
+
+// Whether the registry is publicly accessible.
+func (o LookupRegistryResultOutput) Public() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupRegistryResult) bool { return v.Public }).(pulumi.BoolOutput)
+}
+
+// The type of the registry (e.g. `source`).
+func (o LookupRegistryResultOutput) RegistryType() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupRegistryResult) string { return v.RegistryType }).(pulumi.StringOutput)
 }
 
 // The slug of the registry. This is used to identify the registry.
@@ -129,7 +143,7 @@ func (o LookupRegistryResultOutput) Slug() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRegistryResult) string { return v.Slug }).(pulumi.StringOutput)
 }
 
-// A list of team GraphQL IDs that have access to this registry.
+// A list of team UUIDs that have access to this registry.
 func (o LookupRegistryResultOutput) TeamIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupRegistryResult) []string { return v.TeamIds }).(pulumi.StringArrayOutput)
 }

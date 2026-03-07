@@ -92,37 +92,22 @@ import (
 // ## Import
 //
 // Using `pulumi import`, import resources using the `id`. For example:
-//
 // import a cluster queue resource using the GraphQL ID along with its respective cluster UUID
 //
 // you can use this query to find the ID:
-//
 // query getClusterQueues {
-//
-//	organization(slug: "ORGANIZATION_SLUG") {
-//
-//	  cluster(id: "CLUSTER_UUID") {
-//
-//	    queues(first: 50) {
-//
-//	      edges {
-//
-//	        node {
-//
-//	          id
-//
-//	          key
-//
-//	        }
-//
-//	      }
-//
-//	    }
-//
-//	  }
-//
-//	}
-//
+// organization(slug: "ORGANIZATION_SLUG") {
+// cluster(id: "CLUSTER_UUID") {
+// queues(first: 50) {
+// edges {
+// node {
+// id
+// key
+// }
+// }
+// }
+// }
+// }
 // }
 //
 // ```sh

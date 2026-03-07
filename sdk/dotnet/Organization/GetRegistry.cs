@@ -98,15 +98,23 @@ namespace Pulumiverse.Buildkite.Organization
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// The registry's OIDC policy.
+        /// The registry's OIDC policy, in YAML format.
         /// </summary>
         public readonly string OidcPolicy;
+        /// <summary>
+        /// Whether the registry is publicly accessible.
+        /// </summary>
+        public readonly bool Public;
+        /// <summary>
+        /// The type of the registry (e.g. `Source`).
+        /// </summary>
+        public readonly string RegistryType;
         /// <summary>
         /// The slug of the registry. This is used to identify the registry.
         /// </summary>
         public readonly string Slug;
         /// <summary>
-        /// A list of team GraphQL IDs that have access to this registry.
+        /// A list of team UUIDs that have access to this registry.
         /// </summary>
         public readonly ImmutableArray<string> TeamIds;
         /// <summary>
@@ -130,6 +138,10 @@ namespace Pulumiverse.Buildkite.Organization
 
             string oidcPolicy,
 
+            bool @public,
+
+            string registryType,
+
             string slug,
 
             ImmutableArray<string> teamIds,
@@ -143,6 +155,8 @@ namespace Pulumiverse.Buildkite.Organization
             Id = id;
             Name = name;
             OidcPolicy = oidcPolicy;
+            Public = @public;
+            RegistryType = registryType;
             Slug = slug;
             TeamIds = teamIds;
             Uuid = uuid;
