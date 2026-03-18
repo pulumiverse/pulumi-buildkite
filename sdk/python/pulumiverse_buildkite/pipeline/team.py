@@ -178,31 +178,19 @@ class Team(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline team resource using the GraphQL ID
 
         you can use this query to find the ID:
-
         query getPipelineTeamId {
-
-          pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
-
-            teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
+        teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
+        edges{
+        node{
+        id
+        }
+        }
+        }
+        }
         }
 
         ```sh
@@ -248,31 +236,19 @@ class Team(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline team resource using the GraphQL ID
 
         you can use this query to find the ID:
-
         query getPipelineTeamId {
-
-          pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
-
-            teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        pipeline(slug: "ORGANIZATION_SLUG/PIPELINE_SLUG") {
+        teams(first: 5, search: "PIPELINE_SEARCH_TERM") {
+        edges{
+        node{
+        id
+        }
+        }
+        }
+        }
         }
 
         ```sh

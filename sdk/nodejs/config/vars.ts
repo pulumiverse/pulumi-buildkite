@@ -9,6 +9,9 @@ import * as utilities from "../utilities";
 declare var exports: any;
 const __config = new pulumi.Config("buildkite");
 
+/**
+ * API token with GraphQL access and `writePipelines`, `readPipelines` and `writeSuites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
+ */
 export declare const apiToken: string | undefined;
 Object.defineProperty(exports, "apiToken", {
     get() {

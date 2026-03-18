@@ -26,7 +26,7 @@ class GetRegistryResult:
     """
     A collection of values returned by getRegistry.
     """
-    def __init__(__self__, color=None, description=None, ecosystem=None, emoji=None, id=None, name=None, oidc_policy=None, slug=None, team_ids=None, uuid=None):
+    def __init__(__self__, color=None, description=None, ecosystem=None, emoji=None, id=None, name=None, oidc_policy=None, public=None, registry_type=None, slug=None, team_ids=None, uuid=None):
         if color and not isinstance(color, str):
             raise TypeError("Expected argument 'color' to be a str")
         pulumi.set(__self__, "color", color)
@@ -48,6 +48,12 @@ class GetRegistryResult:
         if oidc_policy and not isinstance(oidc_policy, str):
             raise TypeError("Expected argument 'oidc_policy' to be a str")
         pulumi.set(__self__, "oidc_policy", oidc_policy)
+        if public and not isinstance(public, bool):
+            raise TypeError("Expected argument 'public' to be a bool")
+        pulumi.set(__self__, "public", public)
+        if registry_type and not isinstance(registry_type, str):
+            raise TypeError("Expected argument 'registry_type' to be a str")
+        pulumi.set(__self__, "registry_type", registry_type)
         if slug and not isinstance(slug, str):
             raise TypeError("Expected argument 'slug' to be a str")
         pulumi.set(__self__, "slug", slug)
@@ -110,9 +116,25 @@ class GetRegistryResult:
     @pulumi.getter(name="oidcPolicy")
     def oidc_policy(self) -> _builtins.str:
         """
-        The registry's OIDC policy.
+        The registry's OIDC policy, in YAML format.
         """
         return pulumi.get(self, "oidc_policy")
+
+    @_builtins.property
+    @pulumi.getter
+    def public(self) -> _builtins.bool:
+        """
+        Whether the registry is publicly accessible.
+        """
+        return pulumi.get(self, "public")
+
+    @_builtins.property
+    @pulumi.getter(name="registryType")
+    def registry_type(self) -> _builtins.str:
+        """
+        The type of the registry (e.g. `source`).
+        """
+        return pulumi.get(self, "registry_type")
 
     @_builtins.property
     @pulumi.getter
@@ -126,7 +148,7 @@ class GetRegistryResult:
     @pulumi.getter(name="teamIds")
     def team_ids(self) -> Sequence[_builtins.str]:
         """
-        A list of team GraphQL IDs that have access to this registry.
+        A list of team UUIDs that have access to this registry.
         """
         return pulumi.get(self, "team_ids")
 
@@ -152,6 +174,8 @@ class AwaitableGetRegistryResult(GetRegistryResult):
             id=self.id,
             name=self.name,
             oidc_policy=self.oidc_policy,
+            public=self.public,
+            registry_type=self.registry_type,
             slug=self.slug,
             team_ids=self.team_ids,
             uuid=self.uuid)
@@ -181,6 +205,8 @@ def get_registry(slug: Optional[_builtins.str] = None,
         id=pulumi.get(__ret__, 'id'),
         name=pulumi.get(__ret__, 'name'),
         oidc_policy=pulumi.get(__ret__, 'oidc_policy'),
+        public=pulumi.get(__ret__, 'public'),
+        registry_type=pulumi.get(__ret__, 'registry_type'),
         slug=pulumi.get(__ret__, 'slug'),
         team_ids=pulumi.get(__ret__, 'team_ids'),
         uuid=pulumi.get(__ret__, 'uuid'))
@@ -207,6 +233,8 @@ def get_registry_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
         id=pulumi.get(__response__, 'id'),
         name=pulumi.get(__response__, 'name'),
         oidc_policy=pulumi.get(__response__, 'oidc_policy'),
+        public=pulumi.get(__response__, 'public'),
+        registry_type=pulumi.get(__response__, 'registry_type'),
         slug=pulumi.get(__response__, 'slug'),
         team_ids=pulumi.get(__response__, 'team_ids'),
         uuid=pulumi.get(__response__, 'uuid')))

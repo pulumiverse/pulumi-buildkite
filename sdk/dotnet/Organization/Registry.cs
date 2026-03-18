@@ -31,6 +31,17 @@ namespace Pulumiverse.Buildkite.Organization
     ///         Ecosystem = "ruby",
     ///         Emoji = ":ruby:",
     ///         Color = "#ff0000",
+    ///         TeamIds = new[]
+    ///         {
+    ///             frontendTeam.Uuid,
+    ///             backendTeam.Uuid,
+    ///         },
+    ///         OidcPolicy = @"- iss: https://agent.buildkite.com
+    ///   scopes:
+    ///     - read_packages
+    ///   claims:
+    ///     build_branch: main
+    /// ",
     ///     });
     /// 
     /// });
@@ -53,7 +64,7 @@ namespace Pulumiverse.Buildkite.Organization
         public Output<string?> Description { get; private set; } = null!;
 
         /// <summary>
-        /// The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+        /// The ecosystem of the registry. This value cannot be changed after creation.
         /// </summary>
         [Output("ecosystem")]
         public Output<string> Ecosystem { get; private set; } = null!;
@@ -72,10 +83,22 @@ namespace Pulumiverse.Buildkite.Organization
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The registry's OIDC policy.
+        /// The registry's OIDC policy, in YAML format.
         /// </summary>
         [Output("oidcPolicy")]
         public Output<string?> OidcPolicy { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether the registry is publicly accessible.
+        /// </summary>
+        [Output("public")]
+        public Output<bool> Public { get; private set; } = null!;
+
+        /// <summary>
+        /// The type of the registry (e.g. `Source`).
+        /// </summary>
+        [Output("registryType")]
+        public Output<string> RegistryType { get; private set; } = null!;
 
         /// <summary>
         /// The slug of the registry.
@@ -84,7 +107,7 @@ namespace Pulumiverse.Buildkite.Organization
         public Output<string> Slug { get; private set; } = null!;
 
         /// <summary>
-        /// The team IDs that have access to the registry.
+        /// The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
         /// </summary>
         [Output("teamIds")]
         public Output<ImmutableArray<string>> TeamIds { get; private set; } = null!;
@@ -156,7 +179,7 @@ namespace Pulumiverse.Buildkite.Organization
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+        /// The ecosystem of the registry. This value cannot be changed after creation.
         /// </summary>
         [Input("ecosystem", required: true)]
         public Input<string> Ecosystem { get; set; } = null!;
@@ -175,16 +198,16 @@ namespace Pulumiverse.Buildkite.Organization
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The registry's OIDC policy.
+        /// The registry's OIDC policy, in YAML format.
         /// </summary>
         [Input("oidcPolicy")]
         public Input<string>? OidcPolicy { get; set; }
 
-        [Input("teamIds")]
+        [Input("teamIds", required: true)]
         private InputList<string>? _teamIds;
 
         /// <summary>
-        /// The team IDs that have access to the registry.
+        /// The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
         /// </summary>
         public InputList<string> TeamIds
         {
@@ -214,7 +237,7 @@ namespace Pulumiverse.Buildkite.Organization
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+        /// The ecosystem of the registry. This value cannot be changed after creation.
         /// </summary>
         [Input("ecosystem")]
         public Input<string>? Ecosystem { get; set; }
@@ -233,10 +256,22 @@ namespace Pulumiverse.Buildkite.Organization
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The registry's OIDC policy.
+        /// The registry's OIDC policy, in YAML format.
         /// </summary>
         [Input("oidcPolicy")]
         public Input<string>? OidcPolicy { get; set; }
+
+        /// <summary>
+        /// Whether the registry is publicly accessible.
+        /// </summary>
+        [Input("public")]
+        public Input<bool>? Public { get; set; }
+
+        /// <summary>
+        /// The type of the registry (e.g. `Source`).
+        /// </summary>
+        [Input("registryType")]
+        public Input<string>? RegistryType { get; set; }
 
         /// <summary>
         /// The slug of the registry.
@@ -248,7 +283,7 @@ namespace Pulumiverse.Buildkite.Organization
         private InputList<string>? _teamIds;
 
         /// <summary>
-        /// The team IDs that have access to the registry.
+        /// The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
         /// </summary>
         public InputList<string> TeamIds
         {
