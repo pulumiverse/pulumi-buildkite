@@ -9,7 +9,7 @@ replace (
 
 require (
 	github.com/buildkite/terraform-provider-buildkite v1.31.0
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.123.0
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.124.0
 	github.com/pulumi/pulumi/sdk/v3 v3.225.1
 )
 
@@ -171,7 +171,7 @@ require (
 	github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.101.2 // indirect
 	github.com/pulumi/pulumi-java/pkg v1.21.2 // indirect
 	github.com/pulumi/pulumi-yaml v1.30.0 // indirect
-	github.com/pulumi/pulumi/pkg/v3 v3.225.0 // indirect
+	github.com/pulumi/pulumi/pkg/v3 v3.225.1 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
