@@ -42,7 +42,7 @@ import (
 //				return err
 //			}
 //			json0 := string(tmpJSON0)
-//			// Creates a TRIGGER_BUILD organization rule with required attributes
+//			// Creates a TRIGGER_BUILD organization rule using pipeline UUIDs
 //			_, err = organization.NewRule(ctx, "trigger_build_test_dev", &organization.RuleArgs{
 //				Type:  pulumi.String("pipeline.trigger_build.pipeline"),
 //				Value: pulumi.String(json0),
@@ -51,23 +51,39 @@ import (
 //				return err
 //			}
 //			tmpJSON1, err := json.Marshal(map[string]interface{}{
+//				"source_pipeline": "app-dev-deploy",
+//				"target_pipeline": "app-test-ci",
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			json1 := string(tmpJSON1)
+//			// Creates a TRIGGER_BUILD organization rule using pipeline slugs
+//			_, err = organization.NewRule(ctx, "trigger_build_test_dev_slug", &organization.RuleArgs{
+//				Type:  pulumi.String("pipeline.trigger_build.pipeline"),
+//				Value: pulumi.String(json1),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			tmpJSON2, err := json.Marshal(map[string]interface{}{
 //				"source_pipeline": appTestCi.Uuid,
 //				"target_pipeline": appDevDeploy.Uuid,
 //			})
 //			if err != nil {
 //				return err
 //			}
-//			json1 := string(tmpJSON1)
+//			json2 := string(tmpJSON2)
 //			// Creates a ARTIFACTS_READ organization rule with an optional description
 //			_, err = organization.NewRule(ctx, "artifacts_read_test_dev", &organization.RuleArgs{
 //				Type:        pulumi.String("pipeline.artifacts_read.pipeline"),
 //				Description: pulumi.String("A rule to allow artifact reads by app_test_ci to app_dev_deploy"),
-//				Value:       pulumi.String(json1),
+//				Value:       pulumi.String(json2),
 //			})
 //			if err != nil {
 //				return err
 //			}
-//			tmpJSON2, err := json.Marshal(map[string]interface{}{
+//			tmpJSON3, err := json.Marshal(map[string]interface{}{
 //				"source_pipeline": appDevDeploy.Uuid,
 //				"target_pipeline": appTestCi.Uuid,
 //				"conditions": []string{
@@ -78,12 +94,12 @@ import (
 //			if err != nil {
 //				return err
 //			}
-//			json2 := string(tmpJSON2)
+//			json3 := string(tmpJSON3)
 //			// Creates a TRIGGER_BUILD organization rule with an optional description and conditions
 //			_, err = organization.NewRule(ctx, "trigger_build_test_dev_cond", &organization.RuleArgs{
 //				Type:        pulumi.String("pipeline.trigger_build.pipeline"),
 //				Description: pulumi.String("A rule to allow app_dev_deploy to trigger app_test_ci builds with conditions"),
-//				Value:       pulumi.String(json2),
+//				Value:       pulumi.String(json3),
 //			})
 //			if err != nil {
 //				return err
@@ -97,91 +113,50 @@ import (
 // ## Import
 //
 // Using `pulumi import`, import resources using the `id`. For example:
-//
 // import an organization rule resource using the rules GraphQL ID
 //
 // You can use this query to find the first 50 organiation rules (adjust for less or more):
-//
 // query getOrganizationRules {
-//
-//	organization(slug: "ORGANIZATION_SLUG") {
-//
-//	  rules(first: 50) {
-//
-//	    edges{
-//
-//	      node{
-//
-//	        id
-//
-//	        sourceType
-//
-//	        targetType
-//
-//	        action
-//
-//	      }
-//
-//	    }
-//
-//	  }
-//
-//	}
-//
+// organization(slug: "ORGANIZATION_SLUG") {
+// rules(first: 50) {
+// edges{
+// node{
+// id
+// sourceType
+// targetType
+// action
+// }
+// }
+// }
+// }
 // }
 //
 // Depending on the speciific source/target, you're also able to filter on the source/target information
-//
 // query getOrganizationRules {
-//
-//	organization(slug: "ORGANIZATION_SLUG") {
-//
-//	  rules(first: 50) {
-//
-//	    edges{
-//
-//	      node{
-//
-//	        id
-//
-//	        sourceType
-//
-//	        source {
-//
-//	          ... on Pipeline{
-//
-//	            uuid
-//
-//	            name
-//
-//	          }
-//
-//	        }
-//
-//	        targetType
-//
-//	        target {
-//
-//	          ... on Pipeline{
-//
-//	            uuid
-//
-//	            name
-//
-//	          }
-//
-//	        }
-//
-//	        action
-//
-//	      }
-//
-//	    }
-//
-//	  }
-//
-//	}
-//
+// organization(slug: "ORGANIZATION_SLUG") {
+// rules(first: 50) {
+// edges{
+// node{
+// id
+// sourceType
+// source {
+// ... on Pipeline{
+// uuid
+// name
+// }
+// }
+// targetType
+// target {
+// ... on Pipeline{
+// uuid
+// name
+// }
+// }
+// action
+// }
+// }
+// }
+// }
 // }
 //
 // ```sh

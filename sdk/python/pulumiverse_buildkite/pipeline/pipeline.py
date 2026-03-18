@@ -41,7 +41,8 @@ class PipelineArgs:
                  skip_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
                  slug: Optional[pulumi.Input[_builtins.str]] = None,
                  steps: Optional[pulumi.Input[_builtins.str]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Pipeline resource.
         :param pulumi.Input[_builtins.str] repository: URL to the repository this pipeline is configured for.
@@ -65,6 +66,7 @@ class PipelineArgs:
         :param pulumi.Input[_builtins.str] slug: A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If not provided, the slug will be [derived](https://buildkite.com/docs/apis/graphql/cookbooks/pipelines#create-a-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name) from the pipeline `name`.
         :param pulumi.Input[_builtins.str] steps: The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`pipeline_get_signed_steps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags to attribute to the pipeline. Useful for searching by in the UI.
+        :param pulumi.Input[_builtins.str] visibility: The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
         """
         pulumi.set(__self__, "repository", repository)
         if allow_rebuilds is not None:
@@ -107,6 +109,8 @@ class PipelineArgs:
             pulumi.set(__self__, "steps", steps)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if visibility is not None:
+            pulumi.set(__self__, "visibility", visibility)
 
     @_builtins.property
     @pulumi.getter
@@ -360,6 +364,18 @@ class PipelineArgs:
     def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
+    @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        """
+        return pulumi.get(self, "visibility")
+
+    @visibility.setter
+    def visibility(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "visibility", value)
+
 
 @pulumi.input_type
 class _PipelineState:
@@ -388,6 +404,7 @@ class _PipelineState:
                  steps: Optional[pulumi.Input[_builtins.str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  uuid: Optional[pulumi.Input[_builtins.str]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None,
                  webhook_url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Pipeline resources.
@@ -415,6 +432,7 @@ class _PipelineState:
         :param pulumi.Input[_builtins.str] steps: The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`pipeline_get_signed_steps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags to attribute to the pipeline. Useful for searching by in the UI.
         :param pulumi.Input[_builtins.str] uuid: The UUID of the pipeline.
+        :param pulumi.Input[_builtins.str] visibility: The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
         :param pulumi.Input[_builtins.str] webhook_url: The webhook URL used to trigger builds from VCS providers.
         """
         if allow_rebuilds is not None:
@@ -465,6 +483,8 @@ class _PipelineState:
             pulumi.set(__self__, "tags", tags)
         if uuid is not None:
             pulumi.set(__self__, "uuid", uuid)
+        if visibility is not None:
+            pulumi.set(__self__, "visibility", visibility)
         if webhook_url is not None:
             pulumi.set(__self__, "webhook_url", webhook_url)
 
@@ -757,6 +777,18 @@ class _PipelineState:
         pulumi.set(self, "uuid", value)
 
     @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        """
+        return pulumi.get(self, "visibility")
+
+    @visibility.setter
+    def visibility(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "visibility", value)
+
+    @_builtins.property
     @pulumi.getter(name="webhookUrl")
     def webhook_url(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -796,6 +828,7 @@ class Pipeline(pulumi.CustomResource):
                  slug: Optional[pulumi.Input[_builtins.str]] = None,
                  steps: Optional[pulumi.Input[_builtins.str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
         This resource allows you to create and manage pipelines for repositories.
@@ -807,9 +840,7 @@ class Pipeline(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline resource using the pipelines GraphQL ID
-
         GraphQL ID for a pipeline can be found on its settings page
 
         ```sh
@@ -839,6 +870,7 @@ class Pipeline(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] slug: A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If not provided, the slug will be [derived](https://buildkite.com/docs/apis/graphql/cookbooks/pipelines#create-a-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name) from the pipeline `name`.
         :param pulumi.Input[_builtins.str] steps: The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`pipeline_get_signed_steps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags to attribute to the pipeline. Useful for searching by in the UI.
+        :param pulumi.Input[_builtins.str] visibility: The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
         """
         ...
     @overload
@@ -856,9 +888,7 @@ class Pipeline(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline resource using the pipelines GraphQL ID
-
         GraphQL ID for a pipeline can be found on its settings page
 
         ```sh
@@ -901,6 +931,7 @@ class Pipeline(pulumi.CustomResource):
                  slug: Optional[pulumi.Input[_builtins.str]] = None,
                  steps: Optional[pulumi.Input[_builtins.str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -933,6 +964,7 @@ class Pipeline(pulumi.CustomResource):
             __props__.__dict__["slug"] = slug
             __props__.__dict__["steps"] = steps
             __props__.__dict__["tags"] = tags
+            __props__.__dict__["visibility"] = visibility
             __props__.__dict__["badge_url"] = None
             __props__.__dict__["cluster_name"] = None
             __props__.__dict__["uuid"] = None
@@ -971,6 +1003,7 @@ class Pipeline(pulumi.CustomResource):
             steps: Optional[pulumi.Input[_builtins.str]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             uuid: Optional[pulumi.Input[_builtins.str]] = None,
+            visibility: Optional[pulumi.Input[_builtins.str]] = None,
             webhook_url: Optional[pulumi.Input[_builtins.str]] = None) -> 'Pipeline':
         """
         Get an existing Pipeline resource's state with the given name, id, and optional extra
@@ -1003,6 +1036,7 @@ class Pipeline(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] steps: The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`pipeline_get_signed_steps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags to attribute to the pipeline. Useful for searching by in the UI.
         :param pulumi.Input[_builtins.str] uuid: The UUID of the pipeline.
+        :param pulumi.Input[_builtins.str] visibility: The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
         :param pulumi.Input[_builtins.str] webhook_url: The webhook URL used to trigger builds from VCS providers.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -1033,6 +1067,7 @@ class Pipeline(pulumi.CustomResource):
         __props__.__dict__["steps"] = steps
         __props__.__dict__["tags"] = tags
         __props__.__dict__["uuid"] = uuid
+        __props__.__dict__["visibility"] = visibility
         __props__.__dict__["webhook_url"] = webhook_url
         return Pipeline(resource_name, opts=opts, __props__=__props__)
 
@@ -1227,6 +1262,14 @@ class Pipeline(pulumi.CustomResource):
         The UUID of the pipeline.
         """
         return pulumi.get(self, "uuid")
+
+    @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> pulumi.Output[_builtins.str]:
+        """
+        The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        """
+        return pulumi.get(self, "visibility")
 
     @_builtins.property
     @pulumi.getter(name="webhookUrl")
