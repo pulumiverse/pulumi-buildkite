@@ -104,6 +104,10 @@ export namespace Pipeline {
          */
         buildPullRequestLabelsChanged?: pulumi.Input<boolean>;
         /**
+         * Whether to build the test merge commit (the merged result of a pull request with its base branch).
+         */
+        buildPullRequestMergeCommits?: pulumi.Input<boolean>;
+        /**
          * Whether to create a build when a pull request changes to "Ready for review".
          */
         buildPullRequestReadyForReview?: pulumi.Input<boolean>;

@@ -33,6 +33,8 @@ class PipelineProviderSettings(dict):
             suggest = "build_pull_request_forks"
         elif key == "buildPullRequestLabelsChanged":
             suggest = "build_pull_request_labels_changed"
+        elif key == "buildPullRequestMergeCommits":
+            suggest = "build_pull_request_merge_commits"
         elif key == "buildPullRequestReadyForReview":
             suggest = "build_pull_request_ready_for_review"
         elif key == "buildPullRequests":
@@ -89,6 +91,7 @@ class PipelineProviderSettings(dict):
                  build_pull_request_base_branch_changed: Optional[_builtins.bool] = None,
                  build_pull_request_forks: Optional[_builtins.bool] = None,
                  build_pull_request_labels_changed: Optional[_builtins.bool] = None,
+                 build_pull_request_merge_commits: Optional[_builtins.bool] = None,
                  build_pull_request_ready_for_review: Optional[_builtins.bool] = None,
                  build_pull_requests: Optional[_builtins.bool] = None,
                  build_tags: Optional[_builtins.bool] = None,
@@ -114,6 +117,7 @@ class PipelineProviderSettings(dict):
         :param _builtins.bool build_pull_request_base_branch_changed: Whether to create builds for pull requests when its base branch changes.
         :param _builtins.bool build_pull_request_forks: Whether to create builds for pull requests from third-party forks.
         :param _builtins.bool build_pull_request_labels_changed: Whether to create builds for pull requests when labels are added or removed.
+        :param _builtins.bool build_pull_request_merge_commits: Whether to build the test merge commit (the merged result of a pull request with its base branch).
         :param _builtins.bool build_pull_request_ready_for_review: Whether to create a build when a pull request changes to "Ready for review".
         :param _builtins.bool build_pull_requests: Whether to create builds for commits that are part of a pull request.
         :param _builtins.bool build_tags: Whether to create builds when tags are pushed.
@@ -151,6 +155,8 @@ class PipelineProviderSettings(dict):
             pulumi.set(__self__, "build_pull_request_forks", build_pull_request_forks)
         if build_pull_request_labels_changed is not None:
             pulumi.set(__self__, "build_pull_request_labels_changed", build_pull_request_labels_changed)
+        if build_pull_request_merge_commits is not None:
+            pulumi.set(__self__, "build_pull_request_merge_commits", build_pull_request_merge_commits)
         if build_pull_request_ready_for_review is not None:
             pulumi.set(__self__, "build_pull_request_ready_for_review", build_pull_request_ready_for_review)
         if build_pull_requests is not None:
@@ -229,6 +235,14 @@ class PipelineProviderSettings(dict):
         Whether to create builds for pull requests when labels are added or removed.
         """
         return pulumi.get(self, "build_pull_request_labels_changed")
+
+    @_builtins.property
+    @pulumi.getter(name="buildPullRequestMergeCommits")
+    def build_pull_request_merge_commits(self) -> Optional[_builtins.bool]:
+        """
+        Whether to build the test merge commit (the merged result of a pull request with its base branch).
+        """
+        return pulumi.get(self, "build_pull_request_merge_commits")
 
     @_builtins.property
     @pulumi.getter(name="buildPullRequestReadyForReview")

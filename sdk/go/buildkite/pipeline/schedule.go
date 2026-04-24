@@ -31,7 +31,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			// create a pipeline
-//			_, err := pipeline.NewPipeline(ctx, "pipeline", &pipeline.PipelineArgs{
+//			pipeline, err := pipeline.NewPipeline(ctx, "pipeline", &pipeline.PipelineArgs{
 //				Name:       pulumi.String("my pipeline"),
 //				Repository: pulumi.String("https://github.com/..."),
 //			})
@@ -40,10 +40,10 @@ import (
 //			}
 //			// schedule a build at midnight every day
 //			_, err = pipeline.NewSchedule(ctx, "nightly", &pipeline.ScheduleArgs{
-//				PipelineId: pulumi.Any(repo.Id),
+//				PipelineId: pipeline.ID(),
 //				Label:      pulumi.String("Nightly build"),
 //				Cronline:   pulumi.String("@midnight"),
-//				Branch:     pulumi.Any(repo.DefaultBranch),
+//				Branch:     pipeline.DefaultBranch,
 //			})
 //			if err != nil {
 //				return err
@@ -57,45 +57,26 @@ import (
 // ## Import
 //
 // Using `pulumi import`, import resources using the `id`. For example:
-//
 // import a pipeline schedule resource using the schedules GraphQL ID
 //
 // you can use this query to find the schedule:
-//
 // query getPipelineScheduleId {
-//
-//	organization(slug: "ORGANIZATION_SLUG") {
-//
-//	      pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
-//
-//	    edges{
-//
-//	      node{
-//
-//	        name
-//
-//	        schedules{
-//
-//	          edges{
-//
-//	            node{
-//
-//	              id
-//
-//	            }
-//
-//	          }
-//
-//	        }
-//
-//	      }
-//
-//	    }
-//
-//	  }
-//
-//	}
-//
+// organization(slug: "ORGANIZATION_SLUG") {
+// pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
+// edges{
+// node{
+// name
+// schedules{
+// edges{
+// node{
+// id
+// }
+// }
+// }
+// }
+// }
+// }
+// }
 // }
 //
 // ```sh

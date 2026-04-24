@@ -35,6 +35,10 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         /// </summary>
         public readonly bool? BuildPullRequestLabelsChanged;
         /// <summary>
+        /// Whether to build the test merge commit (the merged result of a pull request with its base branch).
+        /// </summary>
+        public readonly bool? BuildPullRequestMergeCommits;
+        /// <summary>
         /// Whether to create a build when a pull request changes to "Ready for review".
         /// </summary>
         public readonly bool? BuildPullRequestReadyForReview;
@@ -130,6 +134,8 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
 
             bool? buildPullRequestLabelsChanged,
 
+            bool? buildPullRequestMergeCommits,
+
             bool? buildPullRequestReadyForReview,
 
             bool? buildPullRequests,
@@ -173,6 +179,7 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
             BuildPullRequestBaseBranchChanged = buildPullRequestBaseBranchChanged;
             BuildPullRequestForks = buildPullRequestForks;
             BuildPullRequestLabelsChanged = buildPullRequestLabelsChanged;
+            BuildPullRequestMergeCommits = buildPullRequestMergeCommits;
             BuildPullRequestReadyForReview = buildPullRequestReadyForReview;
             BuildPullRequests = buildPullRequests;
             BuildTags = buildTags;

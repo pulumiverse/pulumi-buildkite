@@ -39,7 +39,7 @@ import (
 //			_, err = pipeline.NewPipeline(ctx, "terraform-provider-buildkite", &pipeline.PipelineArgs{
 //				Name:       pulumi.String("terraform-provider-buildkite"),
 //				Repository: pulumi.String("git@github.com:buildkite/terraform-provider-buildkite.git"),
-//				ClusterId:  pulumi.String(_default.Id),
+//				ClusterId:  pulumi.String(pulumi.String(_default.Id)),
 //			})
 //			if err != nil {
 //				return err

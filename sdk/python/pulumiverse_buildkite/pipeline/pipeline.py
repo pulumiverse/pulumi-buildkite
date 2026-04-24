@@ -23,6 +23,7 @@ class PipelineArgs:
     def __init__(__self__, *,
                  repository: pulumi.Input[_builtins.str],
                  allow_rebuilds: Optional[pulumi.Input[_builtins.bool]] = None,
+                 archived: Optional[pulumi.Input[_builtins.bool]] = None,
                  branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
@@ -41,11 +42,13 @@ class PipelineArgs:
                  skip_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
                  slug: Optional[pulumi.Input[_builtins.str]] = None,
                  steps: Optional[pulumi.Input[_builtins.str]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Pipeline resource.
         :param pulumi.Input[_builtins.str] repository: URL to the repository this pipeline is configured for.
         :param pulumi.Input[_builtins.bool] allow_rebuilds: Whether rebuilds are allowed for this pipeline.
+        :param pulumi.Input[_builtins.bool] archived: Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
         :param pulumi.Input[_builtins.str] branch_configuration: Configure the pipeline to only build on this branch conditional.
         :param pulumi.Input[_builtins.bool] cancel_intermediate_builds: Whether to cancel builds when a new commit is pushed to a matching branch.
         :param pulumi.Input[_builtins.str] cancel_intermediate_builds_branch_filter: Filter the `cancel_intermediate_builds` setting based on this branch condition.
@@ -65,10 +68,13 @@ class PipelineArgs:
         :param pulumi.Input[_builtins.str] slug: A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If not provided, the slug will be [derived](https://buildkite.com/docs/apis/graphql/cookbooks/pipelines#create-a-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name) from the pipeline `name`.
         :param pulumi.Input[_builtins.str] steps: The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`pipeline_get_signed_steps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags to attribute to the pipeline. Useful for searching by in the UI.
+        :param pulumi.Input[_builtins.str] visibility: The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
         """
         pulumi.set(__self__, "repository", repository)
         if allow_rebuilds is not None:
             pulumi.set(__self__, "allow_rebuilds", allow_rebuilds)
+        if archived is not None:
+            pulumi.set(__self__, "archived", archived)
         if branch_configuration is not None:
             pulumi.set(__self__, "branch_configuration", branch_configuration)
         if cancel_intermediate_builds is not None:
@@ -107,6 +113,8 @@ class PipelineArgs:
             pulumi.set(__self__, "steps", steps)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if visibility is not None:
+            pulumi.set(__self__, "visibility", visibility)
 
     @_builtins.property
     @pulumi.getter
@@ -131,6 +139,18 @@ class PipelineArgs:
     @allow_rebuilds.setter
     def allow_rebuilds(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "allow_rebuilds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def archived(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
+        """
+        return pulumi.get(self, "archived")
+
+    @archived.setter
+    def archived(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "archived", value)
 
     @_builtins.property
     @pulumi.getter(name="branchConfiguration")
@@ -360,11 +380,24 @@ class PipelineArgs:
     def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
+    @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        """
+        return pulumi.get(self, "visibility")
+
+    @visibility.setter
+    def visibility(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "visibility", value)
+
 
 @pulumi.input_type
 class _PipelineState:
     def __init__(__self__, *,
                  allow_rebuilds: Optional[pulumi.Input[_builtins.bool]] = None,
+                 archived: Optional[pulumi.Input[_builtins.bool]] = None,
                  badge_url: Optional[pulumi.Input[_builtins.str]] = None,
                  branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -388,10 +421,12 @@ class _PipelineState:
                  steps: Optional[pulumi.Input[_builtins.str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  uuid: Optional[pulumi.Input[_builtins.str]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None,
                  webhook_url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Pipeline resources.
         :param pulumi.Input[_builtins.bool] allow_rebuilds: Whether rebuilds are allowed for this pipeline.
+        :param pulumi.Input[_builtins.bool] archived: Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
         :param pulumi.Input[_builtins.str] badge_url: The badge URL showing build state.
         :param pulumi.Input[_builtins.str] branch_configuration: Configure the pipeline to only build on this branch conditional.
         :param pulumi.Input[_builtins.bool] cancel_intermediate_builds: Whether to cancel builds when a new commit is pushed to a matching branch.
@@ -415,10 +450,13 @@ class _PipelineState:
         :param pulumi.Input[_builtins.str] steps: The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`pipeline_get_signed_steps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags to attribute to the pipeline. Useful for searching by in the UI.
         :param pulumi.Input[_builtins.str] uuid: The UUID of the pipeline.
+        :param pulumi.Input[_builtins.str] visibility: The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
         :param pulumi.Input[_builtins.str] webhook_url: The webhook URL used to trigger builds from VCS providers.
         """
         if allow_rebuilds is not None:
             pulumi.set(__self__, "allow_rebuilds", allow_rebuilds)
+        if archived is not None:
+            pulumi.set(__self__, "archived", archived)
         if badge_url is not None:
             pulumi.set(__self__, "badge_url", badge_url)
         if branch_configuration is not None:
@@ -465,6 +503,8 @@ class _PipelineState:
             pulumi.set(__self__, "tags", tags)
         if uuid is not None:
             pulumi.set(__self__, "uuid", uuid)
+        if visibility is not None:
+            pulumi.set(__self__, "visibility", visibility)
         if webhook_url is not None:
             pulumi.set(__self__, "webhook_url", webhook_url)
 
@@ -479,6 +519,18 @@ class _PipelineState:
     @allow_rebuilds.setter
     def allow_rebuilds(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "allow_rebuilds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def archived(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
+        """
+        return pulumi.get(self, "archived")
+
+    @archived.setter
+    def archived(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "archived", value)
 
     @_builtins.property
     @pulumi.getter(name="badgeUrl")
@@ -757,6 +809,18 @@ class _PipelineState:
         pulumi.set(self, "uuid", value)
 
     @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        """
+        return pulumi.get(self, "visibility")
+
+    @visibility.setter
+    def visibility(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "visibility", value)
+
+    @_builtins.property
     @pulumi.getter(name="webhookUrl")
     def webhook_url(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -776,6 +840,7 @@ class Pipeline(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allow_rebuilds: Optional[pulumi.Input[_builtins.bool]] = None,
+                 archived: Optional[pulumi.Input[_builtins.bool]] = None,
                  branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
@@ -796,6 +861,7 @@ class Pipeline(pulumi.CustomResource):
                  slug: Optional[pulumi.Input[_builtins.str]] = None,
                  steps: Optional[pulumi.Input[_builtins.str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
         This resource allows you to create and manage pipelines for repositories.
@@ -807,9 +873,7 @@ class Pipeline(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline resource using the pipelines GraphQL ID
-
         GraphQL ID for a pipeline can be found on its settings page
 
         ```sh
@@ -819,6 +883,7 @@ class Pipeline(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] allow_rebuilds: Whether rebuilds are allowed for this pipeline.
+        :param pulumi.Input[_builtins.bool] archived: Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
         :param pulumi.Input[_builtins.str] branch_configuration: Configure the pipeline to only build on this branch conditional.
         :param pulumi.Input[_builtins.bool] cancel_intermediate_builds: Whether to cancel builds when a new commit is pushed to a matching branch.
         :param pulumi.Input[_builtins.str] cancel_intermediate_builds_branch_filter: Filter the `cancel_intermediate_builds` setting based on this branch condition.
@@ -839,6 +904,7 @@ class Pipeline(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] slug: A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If not provided, the slug will be [derived](https://buildkite.com/docs/apis/graphql/cookbooks/pipelines#create-a-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name) from the pipeline `name`.
         :param pulumi.Input[_builtins.str] steps: The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`pipeline_get_signed_steps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags to attribute to the pipeline. Useful for searching by in the UI.
+        :param pulumi.Input[_builtins.str] visibility: The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
         """
         ...
     @overload
@@ -856,9 +922,7 @@ class Pipeline(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline resource using the pipelines GraphQL ID
-
         GraphQL ID for a pipeline can be found on its settings page
 
         ```sh
@@ -881,6 +945,7 @@ class Pipeline(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allow_rebuilds: Optional[pulumi.Input[_builtins.bool]] = None,
+                 archived: Optional[pulumi.Input[_builtins.bool]] = None,
                  branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
@@ -901,6 +966,7 @@ class Pipeline(pulumi.CustomResource):
                  slug: Optional[pulumi.Input[_builtins.str]] = None,
                  steps: Optional[pulumi.Input[_builtins.str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 visibility: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -911,6 +977,7 @@ class Pipeline(pulumi.CustomResource):
             __props__ = PipelineArgs.__new__(PipelineArgs)
 
             __props__.__dict__["allow_rebuilds"] = allow_rebuilds
+            __props__.__dict__["archived"] = archived
             __props__.__dict__["branch_configuration"] = branch_configuration
             __props__.__dict__["cancel_intermediate_builds"] = cancel_intermediate_builds
             __props__.__dict__["cancel_intermediate_builds_branch_filter"] = cancel_intermediate_builds_branch_filter
@@ -933,6 +1000,7 @@ class Pipeline(pulumi.CustomResource):
             __props__.__dict__["slug"] = slug
             __props__.__dict__["steps"] = steps
             __props__.__dict__["tags"] = tags
+            __props__.__dict__["visibility"] = visibility
             __props__.__dict__["badge_url"] = None
             __props__.__dict__["cluster_name"] = None
             __props__.__dict__["uuid"] = None
@@ -948,6 +1016,7 @@ class Pipeline(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             allow_rebuilds: Optional[pulumi.Input[_builtins.bool]] = None,
+            archived: Optional[pulumi.Input[_builtins.bool]] = None,
             badge_url: Optional[pulumi.Input[_builtins.str]] = None,
             branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
             cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -971,6 +1040,7 @@ class Pipeline(pulumi.CustomResource):
             steps: Optional[pulumi.Input[_builtins.str]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             uuid: Optional[pulumi.Input[_builtins.str]] = None,
+            visibility: Optional[pulumi.Input[_builtins.str]] = None,
             webhook_url: Optional[pulumi.Input[_builtins.str]] = None) -> 'Pipeline':
         """
         Get an existing Pipeline resource's state with the given name, id, and optional extra
@@ -980,6 +1050,7 @@ class Pipeline(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] allow_rebuilds: Whether rebuilds are allowed for this pipeline.
+        :param pulumi.Input[_builtins.bool] archived: Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
         :param pulumi.Input[_builtins.str] badge_url: The badge URL showing build state.
         :param pulumi.Input[_builtins.str] branch_configuration: Configure the pipeline to only build on this branch conditional.
         :param pulumi.Input[_builtins.bool] cancel_intermediate_builds: Whether to cancel builds when a new commit is pushed to a matching branch.
@@ -1003,6 +1074,7 @@ class Pipeline(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] steps: The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`pipeline_get_signed_steps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags to attribute to the pipeline. Useful for searching by in the UI.
         :param pulumi.Input[_builtins.str] uuid: The UUID of the pipeline.
+        :param pulumi.Input[_builtins.str] visibility: The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
         :param pulumi.Input[_builtins.str] webhook_url: The webhook URL used to trigger builds from VCS providers.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -1010,6 +1082,7 @@ class Pipeline(pulumi.CustomResource):
         __props__ = _PipelineState.__new__(_PipelineState)
 
         __props__.__dict__["allow_rebuilds"] = allow_rebuilds
+        __props__.__dict__["archived"] = archived
         __props__.__dict__["badge_url"] = badge_url
         __props__.__dict__["branch_configuration"] = branch_configuration
         __props__.__dict__["cancel_intermediate_builds"] = cancel_intermediate_builds
@@ -1033,6 +1106,7 @@ class Pipeline(pulumi.CustomResource):
         __props__.__dict__["steps"] = steps
         __props__.__dict__["tags"] = tags
         __props__.__dict__["uuid"] = uuid
+        __props__.__dict__["visibility"] = visibility
         __props__.__dict__["webhook_url"] = webhook_url
         return Pipeline(resource_name, opts=opts, __props__=__props__)
 
@@ -1043,6 +1117,14 @@ class Pipeline(pulumi.CustomResource):
         Whether rebuilds are allowed for this pipeline.
         """
         return pulumi.get(self, "allow_rebuilds")
+
+    @_builtins.property
+    @pulumi.getter
+    def archived(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
+        """
+        return pulumi.get(self, "archived")
 
     @_builtins.property
     @pulumi.getter(name="badgeUrl")
@@ -1227,6 +1309,14 @@ class Pipeline(pulumi.CustomResource):
         The UUID of the pipeline.
         """
         return pulumi.get(self, "uuid")
+
+    @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> pulumi.Output[_builtins.str]:
+        """
+        The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        """
+        return pulumi.get(self, "visibility")
 
     @_builtins.property
     @pulumi.getter(name="webhookUrl")
