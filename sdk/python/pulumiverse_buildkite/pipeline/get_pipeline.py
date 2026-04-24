@@ -26,7 +26,7 @@ class GetPipelineResult:
     """
     A collection of values returned by getPipeline.
     """
-    def __init__(__self__, cluster_id=None, cluster_name=None, default_branch=None, description=None, id=None, name=None, repository=None, slug=None, uuid=None, webhook_url=None):
+    def __init__(__self__, cluster_id=None, cluster_name=None, default_branch=None, description=None, id=None, name=None, repository=None, slug=None, uuid=None, visibility=None, webhook_url=None):
         if cluster_id and not isinstance(cluster_id, str):
             raise TypeError("Expected argument 'cluster_id' to be a str")
         pulumi.set(__self__, "cluster_id", cluster_id)
@@ -54,6 +54,9 @@ class GetPipelineResult:
         if uuid and not isinstance(uuid, str):
             raise TypeError("Expected argument 'uuid' to be a str")
         pulumi.set(__self__, "uuid", uuid)
+        if visibility and not isinstance(visibility, str):
+            raise TypeError("Expected argument 'visibility' to be a str")
+        pulumi.set(__self__, "visibility", visibility)
         if webhook_url and not isinstance(webhook_url, str):
             raise TypeError("Expected argument 'webhook_url' to be a str")
         pulumi.set(__self__, "webhook_url", webhook_url)
@@ -131,6 +134,14 @@ class GetPipelineResult:
         return pulumi.get(self, "uuid")
 
     @_builtins.property
+    @pulumi.getter
+    def visibility(self) -> _builtins.str:
+        """
+        The visibility of the pipeline (PUBLIC or PRIVATE).
+        """
+        return pulumi.get(self, "visibility")
+
+    @_builtins.property
     @pulumi.getter(name="webhookUrl")
     def webhook_url(self) -> _builtins.str:
         """
@@ -154,6 +165,7 @@ class AwaitableGetPipelineResult(GetPipelineResult):
             repository=self.repository,
             slug=self.slug,
             uuid=self.uuid,
+            visibility=self.visibility,
             webhook_url=self.webhook_url)
 
 
@@ -191,6 +203,7 @@ def get_pipeline(slug: Optional[_builtins.str] = None,
         repository=pulumi.get(__ret__, 'repository'),
         slug=pulumi.get(__ret__, 'slug'),
         uuid=pulumi.get(__ret__, 'uuid'),
+        visibility=pulumi.get(__ret__, 'visibility'),
         webhook_url=pulumi.get(__ret__, 'webhook_url'))
 def get_pipeline_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
                         opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetPipelineResult]:
@@ -225,4 +238,5 @@ def get_pipeline_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
         repository=pulumi.get(__response__, 'repository'),
         slug=pulumi.get(__response__, 'slug'),
         uuid=pulumi.get(__response__, 'uuid'),
+        visibility=pulumi.get(__response__, 'visibility'),
         webhook_url=pulumi.get(__response__, 'webhook_url')))

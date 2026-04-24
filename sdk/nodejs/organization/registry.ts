@@ -20,6 +20,16 @@ import * as utilities from "../utilities";
  *     ecosystem: "ruby",
  *     emoji: ":ruby:",
  *     color: "#ff0000",
+ *     teamIds: [
+ *         frontendTeam.uuid,
+ *         backendTeam.uuid,
+ *     ],
+ *     oidcPolicy: `- iss: https://agent.buildkite.com
+ *   scopes:
+ *     - read_packages
+ *   claims:
+ *     build_branch: main
+ * `,
  * });
  * ```
  */
@@ -61,7 +71,7 @@ export class Registry extends pulumi.CustomResource {
      */
     declare public readonly description: pulumi.Output<string | undefined>;
     /**
-     * The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+     * The ecosystem of the registry. This value cannot be changed after creation.
      */
     declare public readonly ecosystem: pulumi.Output<string>;
     /**
@@ -74,17 +84,25 @@ export class Registry extends pulumi.CustomResource {
      */
     declare public readonly name: pulumi.Output<string>;
     /**
-     * The registry's OIDC policy.
+     * The registry's OIDC policy, in YAML format.
      */
     declare public readonly oidcPolicy: pulumi.Output<string | undefined>;
+    /**
+     * Whether the registry is publicly accessible.
+     */
+    declare public /*out*/ readonly public: pulumi.Output<boolean>;
+    /**
+     * The type of the registry (e.g. `source`).
+     */
+    declare public /*out*/ readonly registryType: pulumi.Output<string>;
     /**
      * The slug of the registry.
      */
     declare public /*out*/ readonly slug: pulumi.Output<string>;
     /**
-     * The team IDs that have access to the registry.
+     * The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
      */
-    declare public readonly teamIds: pulumi.Output<string[] | undefined>;
+    declare public readonly teamIds: pulumi.Output<string[]>;
     /**
      * The UUID of the registry.
      */
@@ -109,6 +127,8 @@ export class Registry extends pulumi.CustomResource {
             resourceInputs["emoji"] = state?.emoji;
             resourceInputs["name"] = state?.name;
             resourceInputs["oidcPolicy"] = state?.oidcPolicy;
+            resourceInputs["public"] = state?.public;
+            resourceInputs["registryType"] = state?.registryType;
             resourceInputs["slug"] = state?.slug;
             resourceInputs["teamIds"] = state?.teamIds;
             resourceInputs["uuid"] = state?.uuid;
@@ -117,6 +137,9 @@ export class Registry extends pulumi.CustomResource {
             if (args?.ecosystem === undefined && !opts.urn) {
                 throw new Error("Missing required property 'ecosystem'");
             }
+            if (args?.teamIds === undefined && !opts.urn) {
+                throw new Error("Missing required property 'teamIds'");
+            }
             resourceInputs["color"] = args?.color;
             resourceInputs["description"] = args?.description;
             resourceInputs["ecosystem"] = args?.ecosystem;
@@ -124,6 +147,8 @@ export class Registry extends pulumi.CustomResource {
             resourceInputs["name"] = args?.name;
             resourceInputs["oidcPolicy"] = args?.oidcPolicy;
             resourceInputs["teamIds"] = args?.teamIds;
+            resourceInputs["public"] = undefined /*out*/;
+            resourceInputs["registryType"] = undefined /*out*/;
             resourceInputs["slug"] = undefined /*out*/;
             resourceInputs["uuid"] = undefined /*out*/;
         }
@@ -146,7 +171,7 @@ export interface RegistryState {
      */
     description?: pulumi.Input<string>;
     /**
-     * The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+     * The ecosystem of the registry. This value cannot be changed after creation.
      */
     ecosystem?: pulumi.Input<string>;
     /**
@@ -159,15 +184,23 @@ export interface RegistryState {
      */
     name?: pulumi.Input<string>;
     /**
-     * The registry's OIDC policy.
+     * The registry's OIDC policy, in YAML format.
      */
     oidcPolicy?: pulumi.Input<string>;
+    /**
+     * Whether the registry is publicly accessible.
+     */
+    public?: pulumi.Input<boolean>;
+    /**
+     * The type of the registry (e.g. `source`).
+     */
+    registryType?: pulumi.Input<string>;
     /**
      * The slug of the registry.
      */
     slug?: pulumi.Input<string>;
     /**
-     * The team IDs that have access to the registry.
+     * The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
      */
     teamIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -190,7 +223,7 @@ export interface RegistryArgs {
      */
     description?: pulumi.Input<string>;
     /**
-     * The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+     * The ecosystem of the registry. This value cannot be changed after creation.
      */
     ecosystem: pulumi.Input<string>;
     /**
@@ -203,11 +236,11 @@ export interface RegistryArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * The registry's OIDC policy.
+     * The registry's OIDC policy, in YAML format.
      */
     oidcPolicy?: pulumi.Input<string>;
     /**
-     * The team IDs that have access to the registry.
+     * The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
      */
-    teamIds?: pulumi.Input<pulumi.Input<string>[]>;
+    teamIds: pulumi.Input<pulumi.Input<string>[]>;
 }

@@ -35,6 +35,18 @@ import (
 //				Ecosystem:   pulumi.String("ruby"),
 //				Emoji:       pulumi.String(":ruby:"),
 //				Color:       pulumi.String("#ff0000"),
+//				TeamIds: pulumi.StringArray{
+//					frontendTeam.Uuid,
+//					backendTeam.Uuid,
+//				},
+//				OidcPolicy: pulumi.String(`- iss: https://agent.buildkite.com
+//	  scopes:
+//	    - read_packages
+//	  claims:
+//	    build_branch: main
+//
+// `),
+//
 //			})
 //			if err != nil {
 //				return err
@@ -52,18 +64,22 @@ type Registry struct {
 	// This is a description for the registry, this may describe the usage for it, the region, or something else
 	// which would help identify the registry's purpose.
 	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+	// The ecosystem of the registry. This value cannot be changed after creation.
 	Ecosystem pulumi.StringOutput `pulumi:"ecosystem"`
 	// An emoji to use with the registry, this can either be set using :buildkite: notation, or with the
 	// emoji itself, such as 🚀.
 	Emoji pulumi.StringPtrOutput `pulumi:"emoji"`
 	// The name of the registry. Can only contain numbers and letters, no spaces or special characters.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The registry's OIDC policy.
+	// The registry's OIDC policy, in YAML format.
 	OidcPolicy pulumi.StringPtrOutput `pulumi:"oidcPolicy"`
+	// Whether the registry is publicly accessible.
+	Public pulumi.BoolOutput `pulumi:"public"`
+	// The type of the registry (e.g. `source`).
+	RegistryType pulumi.StringOutput `pulumi:"registryType"`
 	// The slug of the registry.
 	Slug pulumi.StringOutput `pulumi:"slug"`
-	// The team IDs that have access to the registry.
+	// The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
 	TeamIds pulumi.StringArrayOutput `pulumi:"teamIds"`
 	// The UUID of the registry.
 	Uuid pulumi.StringOutput `pulumi:"uuid"`
@@ -78,6 +94,9 @@ func NewRegistry(ctx *pulumi.Context,
 
 	if args.Ecosystem == nil {
 		return nil, errors.New("invalid value for required argument 'Ecosystem'")
+	}
+	if args.TeamIds == nil {
+		return nil, errors.New("invalid value for required argument 'TeamIds'")
 	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Registry
@@ -107,18 +126,22 @@ type registryState struct {
 	// This is a description for the registry, this may describe the usage for it, the region, or something else
 	// which would help identify the registry's purpose.
 	Description *string `pulumi:"description"`
-	// The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+	// The ecosystem of the registry. This value cannot be changed after creation.
 	Ecosystem *string `pulumi:"ecosystem"`
 	// An emoji to use with the registry, this can either be set using :buildkite: notation, or with the
 	// emoji itself, such as 🚀.
 	Emoji *string `pulumi:"emoji"`
 	// The name of the registry. Can only contain numbers and letters, no spaces or special characters.
 	Name *string `pulumi:"name"`
-	// The registry's OIDC policy.
+	// The registry's OIDC policy, in YAML format.
 	OidcPolicy *string `pulumi:"oidcPolicy"`
+	// Whether the registry is publicly accessible.
+	Public *bool `pulumi:"public"`
+	// The type of the registry (e.g. `source`).
+	RegistryType *string `pulumi:"registryType"`
 	// The slug of the registry.
 	Slug *string `pulumi:"slug"`
-	// The team IDs that have access to the registry.
+	// The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
 	TeamIds []string `pulumi:"teamIds"`
 	// The UUID of the registry.
 	Uuid *string `pulumi:"uuid"`
@@ -130,18 +153,22 @@ type RegistryState struct {
 	// This is a description for the registry, this may describe the usage for it, the region, or something else
 	// which would help identify the registry's purpose.
 	Description pulumi.StringPtrInput
-	// The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+	// The ecosystem of the registry. This value cannot be changed after creation.
 	Ecosystem pulumi.StringPtrInput
 	// An emoji to use with the registry, this can either be set using :buildkite: notation, or with the
 	// emoji itself, such as 🚀.
 	Emoji pulumi.StringPtrInput
 	// The name of the registry. Can only contain numbers and letters, no spaces or special characters.
 	Name pulumi.StringPtrInput
-	// The registry's OIDC policy.
+	// The registry's OIDC policy, in YAML format.
 	OidcPolicy pulumi.StringPtrInput
+	// Whether the registry is publicly accessible.
+	Public pulumi.BoolPtrInput
+	// The type of the registry (e.g. `source`).
+	RegistryType pulumi.StringPtrInput
 	// The slug of the registry.
 	Slug pulumi.StringPtrInput
-	// The team IDs that have access to the registry.
+	// The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
 	TeamIds pulumi.StringArrayInput
 	// The UUID of the registry.
 	Uuid pulumi.StringPtrInput
@@ -157,16 +184,16 @@ type registryArgs struct {
 	// This is a description for the registry, this may describe the usage for it, the region, or something else
 	// which would help identify the registry's purpose.
 	Description *string `pulumi:"description"`
-	// The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+	// The ecosystem of the registry. This value cannot be changed after creation.
 	Ecosystem string `pulumi:"ecosystem"`
 	// An emoji to use with the registry, this can either be set using :buildkite: notation, or with the
 	// emoji itself, such as 🚀.
 	Emoji *string `pulumi:"emoji"`
 	// The name of the registry. Can only contain numbers and letters, no spaces or special characters.
 	Name *string `pulumi:"name"`
-	// The registry's OIDC policy.
+	// The registry's OIDC policy, in YAML format.
 	OidcPolicy *string `pulumi:"oidcPolicy"`
-	// The team IDs that have access to the registry.
+	// The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
 	TeamIds []string `pulumi:"teamIds"`
 }
 
@@ -177,16 +204,16 @@ type RegistryArgs struct {
 	// This is a description for the registry, this may describe the usage for it, the region, or something else
 	// which would help identify the registry's purpose.
 	Description pulumi.StringPtrInput
-	// The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+	// The ecosystem of the registry. This value cannot be changed after creation.
 	Ecosystem pulumi.StringInput
 	// An emoji to use with the registry, this can either be set using :buildkite: notation, or with the
 	// emoji itself, such as 🚀.
 	Emoji pulumi.StringPtrInput
 	// The name of the registry. Can only contain numbers and letters, no spaces or special characters.
 	Name pulumi.StringPtrInput
-	// The registry's OIDC policy.
+	// The registry's OIDC policy, in YAML format.
 	OidcPolicy pulumi.StringPtrInput
-	// The team IDs that have access to the registry.
+	// The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
 	TeamIds pulumi.StringArrayInput
 }
 
@@ -288,7 +315,7 @@ func (o RegistryOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Registry) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
-// The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+// The ecosystem of the registry. This value cannot be changed after creation.
 func (o RegistryOutput) Ecosystem() pulumi.StringOutput {
 	return o.ApplyT(func(v *Registry) pulumi.StringOutput { return v.Ecosystem }).(pulumi.StringOutput)
 }
@@ -304,9 +331,19 @@ func (o RegistryOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Registry) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The registry's OIDC policy.
+// The registry's OIDC policy, in YAML format.
 func (o RegistryOutput) OidcPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Registry) pulumi.StringPtrOutput { return v.OidcPolicy }).(pulumi.StringPtrOutput)
+}
+
+// Whether the registry is publicly accessible.
+func (o RegistryOutput) Public() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Registry) pulumi.BoolOutput { return v.Public }).(pulumi.BoolOutput)
+}
+
+// The type of the registry (e.g. `source`).
+func (o RegistryOutput) RegistryType() pulumi.StringOutput {
+	return o.ApplyT(func(v *Registry) pulumi.StringOutput { return v.RegistryType }).(pulumi.StringOutput)
 }
 
 // The slug of the registry.
@@ -314,7 +351,7 @@ func (o RegistryOutput) Slug() pulumi.StringOutput {
 	return o.ApplyT(func(v *Registry) pulumi.StringOutput { return v.Slug }).(pulumi.StringOutput)
 }
 
-// The team IDs that have access to the registry.
+// The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
 func (o RegistryOutput) TeamIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Registry) pulumi.StringArrayOutput { return v.TeamIds }).(pulumi.StringArrayOutput)
 }

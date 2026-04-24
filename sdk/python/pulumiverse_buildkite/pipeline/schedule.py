@@ -332,54 +332,35 @@ class Schedule(pulumi.CustomResource):
             repository="https://github.com/...")
         # schedule a build at midnight every day
         nightly = buildkite.pipeline.Schedule("nightly",
-            pipeline_id=repo["id"],
+            pipeline_id=pipeline.id,
             label="Nightly build",
             cronline="@midnight",
-            branch=repo["defaultBranch"])
+            branch=pipeline.default_branch)
         ```
 
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline schedule resource using the schedules GraphQL ID
 
         you can use this query to find the schedule:
-
         query getPipelineScheduleId {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-                pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
-            
-              edges{
-            
-                node{
-            
-                  name
-            
-                  schedules{
-            
-                    edges{
-            
-                      node{
-            
-                        id
-            
-                      }
-            
-                    }
-            
-                  }
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
+        edges{
+        node{
+        name
+        schedules{
+        edges{
+        node{
+        id
+        }
+        }
+        }
+        }
+        }
+        }
+        }
         }
 
         ```sh
@@ -420,54 +401,35 @@ class Schedule(pulumi.CustomResource):
             repository="https://github.com/...")
         # schedule a build at midnight every day
         nightly = buildkite.pipeline.Schedule("nightly",
-            pipeline_id=repo["id"],
+            pipeline_id=pipeline.id,
             label="Nightly build",
             cronline="@midnight",
-            branch=repo["defaultBranch"])
+            branch=pipeline.default_branch)
         ```
 
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a pipeline schedule resource using the schedules GraphQL ID
 
         you can use this query to find the schedule:
-
         query getPipelineScheduleId {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-                pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
-            
-              edges{
-            
-                node{
-            
-                  name
-            
-                  schedules{
-            
-                    edges{
-            
-                      node{
-            
-                        id
-            
-                      }
-            
-                    }
-            
-                  }
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
+        edges{
+        node{
+        name
+        schedules{
+        edges{
+        node{
+        id
+        }
+        }
+        }
+        }
+        }
+        }
+        }
         }
 
         ```sh

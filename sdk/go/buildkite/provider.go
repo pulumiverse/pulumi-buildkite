@@ -18,6 +18,7 @@ import (
 type Provider struct {
 	pulumi.ProviderResourceState
 
+	// API token with GraphQL access and `writePipelines`, `readPipelines` and `writeSuites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
 	ApiToken pulumi.StringPtrOutput `pulumi:"apiToken"`
 	// Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment variable.
 	GraphqlUrl pulumi.StringPtrOutput `pulumi:"graphqlUrl"`
@@ -51,6 +52,7 @@ func NewProvider(ctx *pulumi.Context,
 }
 
 type providerArgs struct {
+	// API token with GraphQL access and `writePipelines`, `readPipelines` and `writeSuites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
 	ApiToken *string `pulumi:"apiToken"`
 	// Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
 	ArchivePipelineOnDelete *bool `pulumi:"archivePipelineOnDelete"`
@@ -67,6 +69,7 @@ type providerArgs struct {
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
+	// API token with GraphQL access and `writePipelines`, `readPipelines` and `writeSuites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
 	ApiToken pulumi.StringPtrInput
 	// Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
 	ArchivePipelineOnDelete pulumi.BoolPtrInput
@@ -141,6 +144,7 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 	return o
 }
 
+// API token with GraphQL access and `writePipelines`, `readPipelines` and `writeSuites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
 func (o ProviderOutput) ApiToken() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiToken }).(pulumi.StringPtrOutput)
 }

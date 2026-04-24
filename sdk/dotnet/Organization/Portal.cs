@@ -80,16 +80,13 @@ namespace Pulumiverse.Buildkite.Organization
     /// 
     /// ## Import
     /// 
-    /// Using `pulumi import`, import resources using the `id`. For example:
-    /// 
+    /// Using `pulumi import`, import resources using the `Id`. For example:
     /// import a portal resource using the portal slug
     /// 
     /// you can find the slug from the Buildkite web UI in the portal's URL:
-    /// 
     /// https://buildkite.com/organizations/{org}/portals/{slug}
     /// 
     /// or by listing all portals via the REST API:
-    /// 
     /// GET https://api.buildkite.com/v2/organizations/{org}/portals
     /// 
     /// ```sh

@@ -44,16 +44,16 @@ import (
 //			}
 //			_, err = pipeline.NewPipeline(ctx, "apiv2_dev", &pipeline.PipelineArgs{
 //				Name:               pulumi.String("API v2"),
-//				Repository:         pulumi.String(repository),
-//				PipelineTemplateId: pulumi.String(devTemplate.Id),
+//				Repository:         pulumi.String(pulumi.String(repository)),
+//				PipelineTemplateId: pulumi.String(pulumi.String(devTemplate.Id)),
 //			})
 //			if err != nil {
 //				return err
 //			}
 //			_, err = pipeline.NewPipeline(ctx, "frontend", &pipeline.PipelineArgs{
 //				Name:               pulumi.String("Frontend"),
-//				Repository:         pulumi.String(repository),
-//				PipelineTemplateId: pulumi.String(frontendTemplate.Id),
+//				Repository:         pulumi.String(pulumi.String(repository)),
+//				PipelineTemplateId: pulumi.String(pulumi.String(frontendTemplate.Id)),
 //			})
 //			if err != nil {
 //				return err

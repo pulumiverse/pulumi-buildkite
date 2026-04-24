@@ -41,7 +41,7 @@ import (
 //				return err
 //			}
 //			_, err = testsuite.NewTeam(ctx, "everyone", &testsuite.TeamArgs{
-//				TeamId:      pulumi.String(team.Id),
+//				TeamId:      pulumi.String(pulumi.String(team.Id)),
 //				SuiteId:     application.Id,
 //				AccessLevel: pulumi.String("MANAGE_AND_READ"),
 //			})

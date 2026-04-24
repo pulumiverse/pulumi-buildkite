@@ -23,6 +23,9 @@ __config__ = pulumi.Config('buildkite')
 class _ExportableConfig(types.ModuleType):
     @_builtins.property
     def api_token(self) -> Optional[str]:
+        """
+        API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
+        """
         return __config__.get('apiToken')
 
     @_builtins.property

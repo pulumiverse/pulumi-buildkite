@@ -24,6 +24,8 @@ type PipelineProviderSettings struct {
 	BuildPullRequestForks *bool `pulumi:"buildPullRequestForks"`
 	// Whether to create builds for pull requests when labels are added or removed.
 	BuildPullRequestLabelsChanged *bool `pulumi:"buildPullRequestLabelsChanged"`
+	// Whether to build the test merge commit (the merged result of a pull request with its base branch).
+	BuildPullRequestMergeCommits *bool `pulumi:"buildPullRequestMergeCommits"`
 	// Whether to create a build when a pull request changes to "Ready for review".
 	BuildPullRequestReadyForReview *bool `pulumi:"buildPullRequestReadyForReview"`
 	// Whether to create builds for commits that are part of a pull request.
@@ -93,6 +95,8 @@ type PipelineProviderSettingsArgs struct {
 	BuildPullRequestForks pulumi.BoolPtrInput `pulumi:"buildPullRequestForks"`
 	// Whether to create builds for pull requests when labels are added or removed.
 	BuildPullRequestLabelsChanged pulumi.BoolPtrInput `pulumi:"buildPullRequestLabelsChanged"`
+	// Whether to build the test merge commit (the merged result of a pull request with its base branch).
+	BuildPullRequestMergeCommits pulumi.BoolPtrInput `pulumi:"buildPullRequestMergeCommits"`
 	// Whether to create a build when a pull request changes to "Ready for review".
 	BuildPullRequestReadyForReview pulumi.BoolPtrInput `pulumi:"buildPullRequestReadyForReview"`
 	// Whether to create builds for commits that are part of a pull request.
@@ -240,6 +244,11 @@ func (o PipelineProviderSettingsOutput) BuildPullRequestForks() pulumi.BoolPtrOu
 // Whether to create builds for pull requests when labels are added or removed.
 func (o PipelineProviderSettingsOutput) BuildPullRequestLabelsChanged() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequestLabelsChanged }).(pulumi.BoolPtrOutput)
+}
+
+// Whether to build the test merge commit (the merged result of a pull request with its base branch).
+func (o PipelineProviderSettingsOutput) BuildPullRequestMergeCommits() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequestMergeCommits }).(pulumi.BoolPtrOutput)
 }
 
 // Whether to create a build when a pull request changes to "Ready for review".
@@ -419,6 +428,16 @@ func (o PipelineProviderSettingsPtrOutput) BuildPullRequestLabelsChanged() pulum
 			return nil
 		}
 		return v.BuildPullRequestLabelsChanged
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to build the test merge commit (the merged result of a pull request with its base branch).
+func (o PipelineProviderSettingsPtrOutput) BuildPullRequestMergeCommits() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildPullRequestMergeCommits
 	}).(pulumi.BoolPtrOutput)
 }
 
