@@ -24,6 +24,7 @@ class ClusterMaintainerArgs:
                  user_uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ClusterMaintainer resource.
+
         :param pulumi.Input[_builtins.str] cluster_uuid: The UUID of the cluster.
         :param pulumi.Input[_builtins.str] team_uuid: The UUID of the team to add as a maintainer. This is mutually exclusive with user*uuid.
                Only one of user*uuid or team_uuid can be specified.
@@ -88,6 +89,7 @@ class _ClusterMaintainerState:
                  user_uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ClusterMaintainer resources.
+
         :param pulumi.Input[_builtins.str] actor_email: The email of the actor (only for users).
         :param pulumi.Input[_builtins.str] actor_name: The name of the actor.
         :param pulumi.Input[_builtins.str] actor_slug: The slug of the actor (only for teams).
@@ -260,6 +262,7 @@ class ClusterMaintainer(pulumi.CustomResource):
         $ pulumi import buildkite:Cluster/clusterMaintainer:ClusterMaintainer user_maintainer 01234567-89ab-cdef-0123-456789abcdef/977b68d3-f8fe-4784-8d43-5bc857e10541
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] cluster_uuid: The UUID of the cluster.
@@ -308,6 +311,7 @@ class ClusterMaintainer(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Cluster/clusterMaintainer:ClusterMaintainer user_maintainer 01234567-89ab-cdef-0123-456789abcdef/977b68d3-f8fe-4784-8d43-5bc857e10541
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ClusterMaintainerArgs args: The arguments to use to populate this resource's properties.

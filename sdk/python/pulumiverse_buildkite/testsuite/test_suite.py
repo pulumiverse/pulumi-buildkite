@@ -25,6 +25,7 @@ class TestSuiteArgs:
                  name: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a TestSuite resource.
+
         :param pulumi.Input[_builtins.str] default_branch: The default branch for the repository this test suite is for.
         :param pulumi.Input[_builtins.str] team_owner_id: The GraphQL ID of the team to mark as the owner/admin of the test suite.
         :param pulumi.Input[_builtins.str] emoji: The emoji associated with this test suite, eg :buildkite:
@@ -98,6 +99,7 @@ class _TestSuiteState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering TestSuite resources.
+
         :param pulumi.Input[_builtins.str] api_token: The API token to use to send test run data to the API.
         :param pulumi.Input[_builtins.str] default_branch: The default branch for the repository this test suite is for.
         :param pulumi.Input[_builtins.str] emoji: The emoji associated with this test suite, eg :buildkite:
@@ -257,6 +259,7 @@ class TestSuite(pulumi.CustomResource):
         $ pulumi import buildkite:TestSuite/testSuite:TestSuite acceptance VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] default_branch: The default branch for the repository this test suite is for.
@@ -309,6 +312,7 @@ class TestSuite(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:TestSuite/testSuite:TestSuite acceptance VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi
         ```
+
 
         :param str resource_name: The name of the resource.
         :param TestSuiteArgs args: The arguments to use to populate this resource's properties.

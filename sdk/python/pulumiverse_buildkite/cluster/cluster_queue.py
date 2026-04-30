@@ -29,6 +29,7 @@ class ClusterQueueArgs:
                  retry_agent_affinity: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ClusterQueue resource.
+
         :param pulumi.Input[_builtins.str] cluster_id: The ID of the cluster that this cluster queue belongs to.
         :param pulumi.Input[_builtins.str] key: The key of the cluster queue.
         :param pulumi.Input[_builtins.str] description: A description for the cluster queue.
@@ -133,6 +134,7 @@ class _ClusterQueueState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ClusterQueue resources.
+
         :param pulumi.Input[_builtins.str] cluster_id: The ID of the cluster that this cluster queue belongs to.
         :param pulumi.Input[_builtins.str] cluster_uuid: The UUID of the cluster this queue belongs to.
         :param pulumi.Input[_builtins.str] description: A description for the cluster queue.
@@ -339,6 +341,7 @@ class ClusterQueue(pulumi.CustomResource):
         $ pulumi import buildkite:Cluster/clusterQueue:ClusterQueue test Q2x1c3RlclF1ZXVlLS0tYjJiOGRhNTEtOWY5My00Y2MyLTkyMjktMGRiNzg3ZDQzOTAz,35498aaf-ad05-4fa5-9a07-91bf6cacd2bd
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] cluster_id: The ID of the cluster that this cluster queue belongs to.
@@ -423,6 +426,7 @@ class ClusterQueue(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Cluster/clusterQueue:ClusterQueue test Q2x1c3RlclF1ZXVlLS0tYjJiOGRhNTEtOWY5My00Y2MyLTkyMjktMGRiNzg3ZDQzOTAz,35498aaf-ad05-4fa5-9a07-91bf6cacd2bd
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ClusterQueueArgs args: The arguments to use to populate this resource's properties.

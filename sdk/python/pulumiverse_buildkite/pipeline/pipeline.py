@@ -46,6 +46,7 @@ class PipelineArgs:
                  visibility: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Pipeline resource.
+
         :param pulumi.Input[_builtins.str] repository: URL to the repository this pipeline is configured for.
         :param pulumi.Input[_builtins.bool] allow_rebuilds: Whether rebuilds are allowed for this pipeline.
         :param pulumi.Input[_builtins.bool] archived: Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
@@ -425,6 +426,7 @@ class _PipelineState:
                  webhook_url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Pipeline resources.
+
         :param pulumi.Input[_builtins.bool] allow_rebuilds: Whether rebuilds are allowed for this pipeline.
         :param pulumi.Input[_builtins.bool] archived: Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
         :param pulumi.Input[_builtins.str] badge_url: The badge URL showing build state.
@@ -880,6 +882,7 @@ class Pipeline(pulumi.CustomResource):
         $ pulumi import buildkite:Pipeline/pipeline:Pipeline pipeline UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] allow_rebuilds: Whether rebuilds are allowed for this pipeline.
@@ -928,6 +931,7 @@ class Pipeline(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Pipeline/pipeline:Pipeline pipeline UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
         ```
+
 
         :param str resource_name: The name of the resource.
         :param PipelineArgs args: The arguments to use to populate this resource's properties.

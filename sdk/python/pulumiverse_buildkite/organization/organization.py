@@ -23,6 +23,7 @@ class OrganizationArgs:
                  enforce2fa: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Organization resource.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
         :param pulumi.Input[_builtins.bool] enforce2fa: Sets whether the organization requires two-factor authentication for all members.
         """
@@ -64,6 +65,7 @@ class _OrganizationState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Organization resources.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
         :param pulumi.Input[_builtins.bool] enforce2fa: Sets whether the organization requires two-factor authentication for all members.
         :param pulumi.Input[_builtins.str] uuid: The UUID of the organization.
@@ -147,6 +149,7 @@ class Organization(pulumi.CustomResource):
         $ pulumi import buildkite:Organization/organization:Organization settings my-buildkite-organization
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_api_ip_addresses: A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
@@ -183,6 +186,7 @@ class Organization(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Organization/organization:Organization settings my-buildkite-organization
         ```
+
 
         :param str resource_name: The name of the resource.
         :param OrganizationArgs args: The arguments to use to populate this resource's properties.

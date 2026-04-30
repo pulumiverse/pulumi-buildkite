@@ -25,6 +25,7 @@ class TemplateArgs:
                  name: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Template resource.
+
         :param pulumi.Input[_builtins.str] configuration: The YAML step configuration for the pipeline template.
         :param pulumi.Input[_builtins.bool] available: If the pipeline template is available for assignment by non admin users.
         :param pulumi.Input[_builtins.str] description: A description for the pipeline template.
@@ -97,6 +98,7 @@ class _TemplateState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Template resources.
+
         :param pulumi.Input[_builtins.bool] available: If the pipeline template is available for assignment by non admin users.
         :param pulumi.Input[_builtins.str] configuration: The YAML step configuration for the pipeline template.
         :param pulumi.Input[_builtins.str] description: A description for the pipeline template.
@@ -236,6 +238,7 @@ class Template(pulumi.CustomResource):
         $ pulumi import buildkite:Pipeline/template:Template template UGlwZWxpbmVUZW1wbGF0ZS0tLWU0YWQ3YjdjLTljZDYtNGM0MS1hYWE0LTY2ZmI3ODY0MTMwNw==
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] available: If the pipeline template is available for assignment by non admin users.
@@ -298,6 +301,7 @@ class Template(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Pipeline/template:Template template UGlwZWxpbmVUZW1wbGF0ZS0tLWU0YWQ3YjdjLTljZDYtNGM0MS1hYWE0LTY2ZmI3ODY0MTMwNw==
         ```
+
 
         :param str resource_name: The name of the resource.
         :param TemplateArgs args: The arguments to use to populate this resource's properties.

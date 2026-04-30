@@ -24,6 +24,7 @@ class TeamArgs:
                  team_id: pulumi.Input[_builtins.str]):
         """
         The set of arguments for constructing a Team resource.
+
         :param pulumi.Input[_builtins.str] access_level: The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline.
         :param pulumi.Input[_builtins.str] team_id: The GraphQL ID of the team.
@@ -78,6 +79,7 @@ class _TeamState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Team resources.
+
         :param pulumi.Input[_builtins.str] access_level: The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline.
         :param pulumi.Input[_builtins.str] team_id: The GraphQL ID of the team.
@@ -197,6 +199,7 @@ class Team(pulumi.CustomResource):
         $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] access_level: The access level for the team. Either `READ_ONLY`, `BUILD_AND_READ` or `MANAGE_BUILD_AND_READ`.
@@ -254,6 +257,7 @@ class Team(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==
         ```
+
 
         :param str resource_name: The name of the resource.
         :param TeamArgs args: The arguments to use to populate this resource's properties.

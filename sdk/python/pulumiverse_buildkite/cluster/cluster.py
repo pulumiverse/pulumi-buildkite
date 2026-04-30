@@ -25,6 +25,7 @@ class ClusterArgs:
                  name: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Cluster resource.
+
         :param pulumi.Input[_builtins.str] color: A color representation of the Cluster. Accepts hex codes, eg #BADA55.
         :param pulumi.Input[_builtins.str] description: This is a description for the cluster, this may describe the usage for it, the region, or something else
                which would help identify the Cluster's purpose.
@@ -102,6 +103,7 @@ class _ClusterState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Cluster resources.
+
         :param pulumi.Input[_builtins.str] color: A color representation of the Cluster. Accepts hex codes, eg #BADA55.
         :param pulumi.Input[_builtins.str] description: This is a description for the cluster, this may describe the usage for it, the region, or something else
                which would help identify the Cluster's purpose.
@@ -245,6 +247,7 @@ class Cluster(pulumi.CustomResource):
         $ pulumi import buildkite:Cluster/cluster:Cluster primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] color: A color representation of the Cluster. Accepts hex codes, eg #BADA55.
@@ -309,6 +312,7 @@ class Cluster(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Cluster/cluster:Cluster primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ClusterArgs args: The arguments to use to populate this resource's properties.

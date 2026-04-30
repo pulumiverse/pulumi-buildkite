@@ -23,6 +23,7 @@ class WebhookArgs:
                  repository: pulumi.Input[_builtins.str]):
         """
         The set of arguments for constructing a Webhook resource.
+
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline.
         :param pulumi.Input[_builtins.str] repository: The repository URL the webhook is configured for. The webhook will be replaced when this value changes.
         """
@@ -62,6 +63,7 @@ class _WebhookState:
                  webhook_url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Webhook resources.
+
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline.
         :param pulumi.Input[_builtins.str] repository: The repository URL the webhook is configured for. The webhook will be replaced when this value changes.
         :param pulumi.Input[_builtins.str] webhook_url: The Buildkite webhook URL that receives events from the repository.
@@ -163,6 +165,7 @@ class Webhook(pulumi.CustomResource):
         $ pulumi import buildkite:Pipeline/webhook:Webhook webhook UGlwZWxpbmUtLS0wMTkzYTNlOC1lYzc4LTQyNWEtYTM0Ny03YzRjNDczZDFlMGE=
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline.
@@ -217,6 +220,7 @@ class Webhook(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Pipeline/webhook:Webhook webhook UGlwZWxpbmUtLS0wMTkzYTNlOC1lYzc4LTQyNWEtYTM0Ny03YzRjNDczZDFlMGE=
         ```
+
 
         :param str resource_name: The name of the resource.
         :param WebhookArgs args: The arguments to use to populate this resource's properties.

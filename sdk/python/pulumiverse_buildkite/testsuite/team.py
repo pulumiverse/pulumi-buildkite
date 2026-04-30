@@ -24,6 +24,7 @@ class TeamArgs:
                  test_suite_id: pulumi.Input[_builtins.str]):
         """
         The set of arguments for constructing a Team resource.
+
         :param pulumi.Input[_builtins.str] access_level: The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
         :param pulumi.Input[_builtins.str] team_id: The GraphQL ID of the team.
         :param pulumi.Input[_builtins.str] test_suite_id: The GraphQL ID of the test suite.
@@ -78,6 +79,7 @@ class _TeamState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Team resources.
+
         :param pulumi.Input[_builtins.str] access_level: The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
         :param pulumi.Input[_builtins.str] team_id: The GraphQL ID of the team.
         :param pulumi.Input[_builtins.str] test_suite_id: The GraphQL ID of the test suite.
@@ -206,6 +208,7 @@ class Team(pulumi.CustomResource):
         $ pulumi import buildkite:TestSuite/team:Team main_everyone VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] access_level: The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
@@ -272,6 +275,7 @@ class Team(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:TestSuite/team:Team main_everyone VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi
         ```
+
 
         :param str resource_name: The name of the resource.
         :param TeamArgs args: The arguments to use to populate this resource's properties.

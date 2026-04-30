@@ -22,6 +22,7 @@ class BannerArgs:
                  message: pulumi.Input[_builtins.str]):
         """
         The set of arguments for constructing a Banner resource.
+
         :param pulumi.Input[_builtins.str] message: The organization banner's message.
         """
         pulumi.set(__self__, "message", message)
@@ -46,6 +47,7 @@ class _BannerState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Banner resources.
+
         :param pulumi.Input[_builtins.str] message: The organization banner's message.
         :param pulumi.Input[_builtins.str] uuid: The UUID of the organization banner.
         """
@@ -123,6 +125,7 @@ class Banner(pulumi.CustomResource):
         $ pulumi import buildkite:Organization/banner:Banner banner T3JnYW5pemF0aW9uQmFubmVyLS0tNjZlMmE5YzktM2IzMy00OGE5LTk1NjItMzY2YzMwNzYzN2Uz
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] message: The organization banner's message.
@@ -168,6 +171,7 @@ class Banner(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Organization/banner:Banner banner T3JnYW5pemF0aW9uQmFubmVyLS0tNjZlMmE5YzktM2IzMy00OGE5LTk1NjItMzY2YzMwNzYzN2Uz
         ```
+
 
         :param str resource_name: The name of the resource.
         :param BannerArgs args: The arguments to use to populate this resource's properties.

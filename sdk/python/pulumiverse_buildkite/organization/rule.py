@@ -24,6 +24,7 @@ class RuleArgs:
                  description: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Rule resource.
+
         :param pulumi.Input[_builtins.str] type: The type of organization rule.
         :param pulumi.Input[_builtins.str] value: The JSON document that this organization rule implements.
         :param pulumi.Input[_builtins.str] description: The description of the organization rule.
@@ -85,6 +86,7 @@ class _RuleState:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Rule resources.
+
         :param pulumi.Input[_builtins.str] action: The action defined between source and target resources.
         :param pulumi.Input[_builtins.str] description: The description of the organization rule.
         :param pulumi.Input[_builtins.str] effect: Whether this organization rule allows or denies the action to take place between source and target resources.
@@ -351,6 +353,7 @@ class Rule(pulumi.CustomResource):
         $ pulumi import buildkite:Organization/rule:Rule artifact_read UnVsZS0tLTAxOTE5NmU2LWNiNjctNzZiZi1iYzAyLTVhYzFiNzhhMWMyOA==
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] description: The description of the organization rule.
@@ -465,6 +468,7 @@ class Rule(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Organization/rule:Rule artifact_read UnVsZS0tLTAxOTE5NmU2LWNiNjctNzZiZi1iYzAyLTVhYzFiNzhhMWMyOA==
         ```
+
 
         :param str resource_name: The name of the resource.
         :param RuleArgs args: The arguments to use to populate this resource's properties.

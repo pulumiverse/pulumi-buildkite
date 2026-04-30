@@ -28,6 +28,7 @@ class RegistryArgs:
                  oidc_policy: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Registry resource.
+
         :param pulumi.Input[_builtins.str] ecosystem: The ecosystem of the registry. This value cannot be changed after creation.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] team_ids: The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
         :param pulumi.Input[_builtins.str] color: A color representation of the registry. Accepts hex codes, eg #BADA55.
@@ -154,6 +155,7 @@ class _RegistryState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Registry resources.
+
         :param pulumi.Input[_builtins.str] color: A color representation of the registry. Accepts hex codes, eg #BADA55.
         :param pulumi.Input[_builtins.str] description: This is a description for the registry, this may describe the usage for it, the region, or something else
                which would help identify the registry's purpose.
@@ -368,6 +370,7 @@ class Registry(pulumi.CustomResource):
         \"\"\")
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] color: A color representation of the registry. Accepts hex codes, eg #BADA55.
@@ -413,6 +416,7 @@ class Registry(pulumi.CustomResource):
             build_branch: main
         \"\"\")
         ```
+
 
         :param str resource_name: The name of the resource.
         :param RegistryArgs args: The arguments to use to populate this resource's properties.

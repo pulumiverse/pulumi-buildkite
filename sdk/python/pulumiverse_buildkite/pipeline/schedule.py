@@ -29,6 +29,7 @@ class ScheduleArgs:
                  message: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Schedule resource.
+
         :param pulumi.Input[_builtins.str] branch: The branch that the schedule should run on.
         :param pulumi.Input[_builtins.str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         :param pulumi.Input[_builtins.str] label: A label to describe the schedule.
@@ -162,6 +163,7 @@ class _ScheduleState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Schedule resources.
+
         :param pulumi.Input[_builtins.str] branch: The branch that the schedule should run on.
         :param pulumi.Input[_builtins.str] commit: The commit that the schedule should run on.
         :param pulumi.Input[_builtins.str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
@@ -367,6 +369,7 @@ class Schedule(pulumi.CustomResource):
         $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] branch: The branch that the schedule should run on.
@@ -435,6 +438,7 @@ class Schedule(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Pipeline/schedule:Schedule test UGlwZWxpgm5Tf2hhZHVsZ35tLWRk4DdmN7c4LTA5M2ItNDM9YS0gMWE0LTAwZDUgYTAxYvRf49==
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ScheduleArgs args: The arguments to use to populate this resource's properties.
