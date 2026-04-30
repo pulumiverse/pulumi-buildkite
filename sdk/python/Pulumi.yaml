@@ -1,3 +1,0 @@
-name: buildkite
-description: A Pulumi resource provider for buildkite.
-language: python
