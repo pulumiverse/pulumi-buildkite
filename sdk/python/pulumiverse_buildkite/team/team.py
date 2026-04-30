@@ -31,6 +31,7 @@ class TeamArgs:
                  name: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Team resource.
+
         :param pulumi.Input[_builtins.str] default_member_role: The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
         :param pulumi.Input[_builtins.bool] default_team: Whether this is the default team for the organization.
         :param pulumi.Input[_builtins.str] privacy: The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
@@ -198,6 +199,7 @@ class _TeamState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Team resources.
+
         :param pulumi.Input[_builtins.str] default_member_role: The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
         :param pulumi.Input[_builtins.bool] default_team: Whether this is the default team for the organization.
         :param pulumi.Input[_builtins.str] description: A description for the team. This is displayed in the Buildkite UI.
@@ -417,38 +419,26 @@ class Team(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a team resource using the GraphQL ID
 
         you can use this query to find the ID:
-
         query getTeamId {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            teams(first: 1, search: "TEAM_SEARCH_TERM") {
-            
-              edges {
-            
-                node {
-            
-                  id
-            
-                  name
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        teams(first: 1, search: "TEAM_SEARCH_TERM") {
+        edges {
+        node {
+        id
+        name
+        }
+        }
+        }
+        }
         }
 
         ```sh
         $ pulumi import buildkite:Team/team:Team everyone UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -488,38 +478,26 @@ class Team(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a team resource using the GraphQL ID
 
         you can use this query to find the ID:
-
         query getTeamId {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            teams(first: 1, search: "TEAM_SEARCH_TERM") {
-            
-              edges {
-            
-                node {
-            
-                  id
-            
-                  name
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        teams(first: 1, search: "TEAM_SEARCH_TERM") {
+        edges {
+        node {
+        id
+        name
+        }
+        }
+        }
+        }
         }
 
         ```sh
         $ pulumi import buildkite:Team/team:Team everyone UGlwZWxpbmUtLS00MzVjYWQ1OC1lODFkLTQ1YWYtODYzNy1iMWNmODA3MDIzOGQ=
         ```
+
 
         :param str resource_name: The name of the resource.
         :param TeamArgs args: The arguments to use to populate this resource's properties.

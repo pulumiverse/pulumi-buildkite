@@ -56,15 +56,23 @@ export interface GetRegistryResult {
      */
     readonly name: string;
     /**
-     * The registry's OIDC policy.
+     * The registry's OIDC policy, in YAML format.
      */
     readonly oidcPolicy: string;
+    /**
+     * Whether the registry is publicly accessible.
+     */
+    readonly public: boolean;
+    /**
+     * The type of the registry (e.g. `source`).
+     */
+    readonly registryType: string;
     /**
      * The slug of the registry. This is used to identify the registry.
      */
     readonly slug: string;
     /**
-     * A list of team GraphQL IDs that have access to this registry.
+     * A list of team UUIDs that have access to this registry.
      */
     readonly teamIds: string[];
     /**

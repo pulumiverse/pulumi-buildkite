@@ -24,6 +24,7 @@ class MemberArgs:
                  user_id: pulumi.Input[_builtins.str]):
         """
         The set of arguments for constructing a Member resource.
+
         :param pulumi.Input[_builtins.str] role: The role for the user. Either `MEMBER` or `MAINTAINER`.
         :param pulumi.Input[_builtins.str] team_id: The GraphQL ID of the team.
         :param pulumi.Input[_builtins.str] user_id: The GraphQL ID of the user.
@@ -78,6 +79,7 @@ class _MemberState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Member resources.
+
         :param pulumi.Input[_builtins.str] role: The role for the user. Either `MEMBER` or `MAINTAINER`.
         :param pulumi.Input[_builtins.str] team_id: The GraphQL ID of the team.
         :param pulumi.Input[_builtins.str] user_id: The GraphQL ID of the user.
@@ -174,48 +176,31 @@ class Member(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a team member resource using the GraphQL ID
 
         you can use this query to find the ID:
-
         query getTeamMemberId {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            teams(first: 2, search: "TEAM_SEARCH_TERM") {
-            
-              edges {
-            
-                node {
-            
-                  members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
-            
-                    edges {
-            
-                      node {
-            
-                        id
-            
-                      }
-            
-                    }
-            
-                  }
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        teams(first: 2, search: "TEAM_SEARCH_TERM") {
+        edges {
+        node {
+        members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
+        edges {
+        node {
+        id
+        }
+        }
+        }
+        }
+        }
+        }
+        }
         }
 
         ```sh
         $ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -252,48 +237,31 @@ class Member(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a team member resource using the GraphQL ID
 
         you can use this query to find the ID:
-
         query getTeamMemberId {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            teams(first: 2, search: "TEAM_SEARCH_TERM") {
-            
-              edges {
-            
-                node {
-            
-                  members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
-            
-                    edges {
-            
-                      node {
-            
-                        id
-            
-                      }
-            
-                    }
-            
-                  }
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        teams(first: 2, search: "TEAM_SEARCH_TERM") {
+        edges {
+        node {
+        members(first: 2, search: "TEAM_MEMBER_SEARCH_TERM") {
+        edges {
+        node {
+        id
+        }
+        }
+        }
+        }
+        }
+        }
+        }
         }
 
         ```sh
         $ pulumi import buildkite:Team/member:Member a_smith VGVhbU1lbWJlci0tLTVlZDEyMmY2LTM2NjQtNDI1MS04YzMwLTc4NjRiMDdiZDQ4Zg==
         ```
+
 
         :param str resource_name: The name of the resource.
         :param MemberArgs args: The arguments to use to populate this resource's properties.

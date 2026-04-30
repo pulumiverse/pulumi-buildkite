@@ -23,6 +23,7 @@ class ClusterDefaultQueueArgs:
                  queue_id: pulumi.Input[_builtins.str]):
         """
         The set of arguments for constructing a ClusterDefaultQueue resource.
+
         :param pulumi.Input[_builtins.str] cluster_id: The GraphQL ID of the cluster to which to add a default queue.
         :param pulumi.Input[_builtins.str] queue_id: The GraphQL ID of the cluster queue to set as default on the cluster.
         """
@@ -63,6 +64,7 @@ class _ClusterDefaultQueueState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ClusterDefaultQueue resources.
+
         :param pulumi.Input[_builtins.str] cluster_id: The GraphQL ID of the cluster to which to add a default queue.
         :param pulumi.Input[_builtins.str] key: The Key for the cluster queue; its unique identifier
         :param pulumi.Input[_builtins.str] queue_id: The GraphQL ID of the cluster queue to set as default on the cluster.
@@ -162,38 +164,26 @@ class ClusterDefaultQueue(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a clusters default queue resource using the GraphQL ID of the cluster itself
 
         you can use this query to find the ID:
-
         query getClusters {
-
-          organization(slug: "ORGANIZATION"){
-
-            clusters(first: 5, order:NAME) {
-            
-              edges{
-            
-                node {
-            
-                  id
-            
-                  name
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION"){
+        clusters(first: 5, order:NAME) {
+        edges{
+        node {
+        id
+        name
+        }
+        }
+        }
+        }
         }
 
         ```sh
         $ pulumi import buildkite:Cluster/clusterDefaultQueue:ClusterDefaultQueue primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -233,38 +223,26 @@ class ClusterDefaultQueue(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a clusters default queue resource using the GraphQL ID of the cluster itself
 
         you can use this query to find the ID:
-
         query getClusters {
-
-          organization(slug: "ORGANIZATION"){
-
-            clusters(first: 5, order:NAME) {
-            
-              edges{
-            
-                node {
-            
-                  id
-            
-                  name
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION"){
+        clusters(first: 5, order:NAME) {
+        edges{
+        node {
+        id
+        name
+        }
+        }
+        }
+        }
         }
 
         ```sh
         $ pulumi import buildkite:Cluster/clusterDefaultQueue:ClusterDefaultQueue primary Q2x1c3Rlci0tLTI3ZmFmZjA4LTA3OWEtNDk5ZC1hMmIwLTIzNmY3NWFkMWZjYg==
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ClusterDefaultQueueArgs args: The arguments to use to populate this resource's properties.

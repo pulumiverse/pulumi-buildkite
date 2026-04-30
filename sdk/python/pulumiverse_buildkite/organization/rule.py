@@ -24,6 +24,7 @@ class RuleArgs:
                  description: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Rule resource.
+
         :param pulumi.Input[_builtins.str] type: The type of organization rule.
         :param pulumi.Input[_builtins.str] value: The JSON document that this organization rule implements.
         :param pulumi.Input[_builtins.str] description: The description of the organization rule.
@@ -85,6 +86,7 @@ class _RuleState:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Rule resources.
+
         :param pulumi.Input[_builtins.str] action: The action defined between source and target resources.
         :param pulumi.Input[_builtins.str] description: The description of the organization rule.
         :param pulumi.Input[_builtins.str] effect: Whether this organization rule allows or denies the action to take place between source and target resources.
@@ -262,12 +264,19 @@ class Rule(pulumi.CustomResource):
         import json
         import pulumiverse_buildkite as buildkite
 
-        # Creates a TRIGGER_BUILD organization rule with required attributes
+        # Creates a TRIGGER_BUILD organization rule using pipeline UUIDs
         trigger_build_test_dev = buildkite.organization.Rule("trigger_build_test_dev",
             type="pipeline.trigger_build.pipeline",
             value=json.dumps({
                 "source_pipeline": app_dev_deploy["uuid"],
                 "target_pipeline": app_test_ci["uuid"],
+            }))
+        # Creates a TRIGGER_BUILD organization rule using pipeline slugs
+        trigger_build_test_dev_slug = buildkite.organization.Rule("trigger_build_test_dev_slug",
+            type="pipeline.trigger_build.pipeline",
+            value=json.dumps({
+                "source_pipeline": "app-dev-deploy",
+                "target_pipeline": "app-test-ci",
             }))
         # Creates a ARTIFACTS_READ organization rule with an optional description
         artifacts_read_test_dev = buildkite.organization.Rule("artifacts_read_test_dev",
@@ -294,96 +303,56 @@ class Rule(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import an organization rule resource using the rules GraphQL ID
 
         You can use this query to find the first 50 organiation rules (adjust for less or more):
-
         query getOrganizationRules {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            rules(first: 50) {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                  sourceType
-            
-                  targetType
-            
-                  action
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        rules(first: 50) {
+        edges{
+        node{
+        id
+        sourceType
+        targetType
+        action
+        }
+        }
+        }
+        }
         }
 
         Depending on the speciific source/target, you're also able to filter on the source/target information
-
         query getOrganizationRules {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            rules(first: 50) {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                  sourceType
-            
-                  source {
-            
-                    ... on Pipeline{
-            
-                      uuid
-            
-                      name
-            
-                    }            
-            
-                  }
-            
-                  targetType
-            
-                  target {
-            
-                    ... on Pipeline{
-            
-                      uuid
-            
-                      name
-            
-                    }            
-            
-                  }
-            
-                  action
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        rules(first: 50) {
+        edges{
+        node{
+        id
+        sourceType
+        source {
+        ... on Pipeline{
+        uuid
+        name
+        }
+        }
+        targetType
+        target {
+        ... on Pipeline{
+        uuid
+        name
+        }
+        }
+        action
+        }
+        }
+        }
+        }
         }
 
         ```sh
         $ pulumi import buildkite:Organization/rule:Rule artifact_read UnVsZS0tLTAxOTE5NmU2LWNiNjctNzZiZi1iYzAyLTVhYzFiNzhhMWMyOA==
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -411,12 +380,19 @@ class Rule(pulumi.CustomResource):
         import json
         import pulumiverse_buildkite as buildkite
 
-        # Creates a TRIGGER_BUILD organization rule with required attributes
+        # Creates a TRIGGER_BUILD organization rule using pipeline UUIDs
         trigger_build_test_dev = buildkite.organization.Rule("trigger_build_test_dev",
             type="pipeline.trigger_build.pipeline",
             value=json.dumps({
                 "source_pipeline": app_dev_deploy["uuid"],
                 "target_pipeline": app_test_ci["uuid"],
+            }))
+        # Creates a TRIGGER_BUILD organization rule using pipeline slugs
+        trigger_build_test_dev_slug = buildkite.organization.Rule("trigger_build_test_dev_slug",
+            type="pipeline.trigger_build.pipeline",
+            value=json.dumps({
+                "source_pipeline": "app-dev-deploy",
+                "target_pipeline": "app-test-ci",
             }))
         # Creates a ARTIFACTS_READ organization rule with an optional description
         artifacts_read_test_dev = buildkite.organization.Rule("artifacts_read_test_dev",
@@ -443,96 +419,56 @@ class Rule(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import an organization rule resource using the rules GraphQL ID
 
         You can use this query to find the first 50 organiation rules (adjust for less or more):
-
         query getOrganizationRules {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            rules(first: 50) {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                  sourceType
-            
-                  targetType
-            
-                  action
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        rules(first: 50) {
+        edges{
+        node{
+        id
+        sourceType
+        targetType
+        action
+        }
+        }
+        }
+        }
         }
 
         Depending on the speciific source/target, you're also able to filter on the source/target information
-
         query getOrganizationRules {
-
-          organization(slug: "ORGANIZATION_SLUG") {
-
-            rules(first: 50) {
-            
-              edges{
-            
-                node{
-            
-                  id
-            
-                  sourceType
-            
-                  source {
-            
-                    ... on Pipeline{
-            
-                      uuid
-            
-                      name
-            
-                    }            
-            
-                  }
-            
-                  targetType
-            
-                  target {
-            
-                    ... on Pipeline{
-            
-                      uuid
-            
-                      name
-            
-                    }            
-            
-                  }
-            
-                  action
-            
-                }
-            
-              }
-            
-            }
-
-          }
-
+        organization(slug: "ORGANIZATION_SLUG") {
+        rules(first: 50) {
+        edges{
+        node{
+        id
+        sourceType
+        source {
+        ... on Pipeline{
+        uuid
+        name
+        }
+        }
+        targetType
+        target {
+        ... on Pipeline{
+        uuid
+        name
+        }
+        }
+        action
+        }
+        }
+        }
+        }
         }
 
         ```sh
         $ pulumi import buildkite:Organization/rule:Rule artifact_read UnVsZS0tLTAxOTE5NmU2LWNiNjctNzZiZi1iYzAyLTVhYzFiNzhhMWMyOA==
         ```
+
 
         :param str resource_name: The name of the resource.
         :param RuleArgs args: The arguments to use to populate this resource's properties.

@@ -16,9 +16,7 @@ import * as utilities from "../utilities";
  * ## Import
  *
  * Using `pulumi import`, import resources using the `id`. For example:
- *
  * import a pipeline resource using the pipelines GraphQL ID
- *
  * GraphQL ID for a pipeline can be found on its settings page
  *
  * ```sh
@@ -57,6 +55,10 @@ export class Pipeline extends pulumi.CustomResource {
      * Whether rebuilds are allowed for this pipeline.
      */
     declare public readonly allowRebuilds: pulumi.Output<boolean>;
+    /**
+     * Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
+     */
+    declare public readonly archived: pulumi.Output<boolean>;
     /**
      * The badge URL showing build state.
      */
@@ -150,6 +152,10 @@ export class Pipeline extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly uuid: pulumi.Output<string>;
     /**
+     * The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+     */
+    declare public readonly visibility: pulumi.Output<string>;
+    /**
      * The webhook URL used to trigger builds from VCS providers.
      */
     declare public /*out*/ readonly webhookUrl: pulumi.Output<string>;
@@ -168,6 +174,7 @@ export class Pipeline extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as PipelineState | undefined;
             resourceInputs["allowRebuilds"] = state?.allowRebuilds;
+            resourceInputs["archived"] = state?.archived;
             resourceInputs["badgeUrl"] = state?.badgeUrl;
             resourceInputs["branchConfiguration"] = state?.branchConfiguration;
             resourceInputs["cancelIntermediateBuilds"] = state?.cancelIntermediateBuilds;
@@ -191,6 +198,7 @@ export class Pipeline extends pulumi.CustomResource {
             resourceInputs["steps"] = state?.steps;
             resourceInputs["tags"] = state?.tags;
             resourceInputs["uuid"] = state?.uuid;
+            resourceInputs["visibility"] = state?.visibility;
             resourceInputs["webhookUrl"] = state?.webhookUrl;
         } else {
             const args = argsOrState as PipelineArgs | undefined;
@@ -198,6 +206,7 @@ export class Pipeline extends pulumi.CustomResource {
                 throw new Error("Missing required property 'repository'");
             }
             resourceInputs["allowRebuilds"] = args?.allowRebuilds;
+            resourceInputs["archived"] = args?.archived;
             resourceInputs["branchConfiguration"] = args?.branchConfiguration;
             resourceInputs["cancelIntermediateBuilds"] = args?.cancelIntermediateBuilds;
             resourceInputs["cancelIntermediateBuildsBranchFilter"] = args?.cancelIntermediateBuildsBranchFilter;
@@ -218,6 +227,7 @@ export class Pipeline extends pulumi.CustomResource {
             resourceInputs["slug"] = args?.slug;
             resourceInputs["steps"] = args?.steps;
             resourceInputs["tags"] = args?.tags;
+            resourceInputs["visibility"] = args?.visibility;
             resourceInputs["badgeUrl"] = undefined /*out*/;
             resourceInputs["clusterName"] = undefined /*out*/;
             resourceInputs["uuid"] = undefined /*out*/;
@@ -236,6 +246,10 @@ export interface PipelineState {
      * Whether rebuilds are allowed for this pipeline.
      */
     allowRebuilds?: pulumi.Input<boolean>;
+    /**
+     * Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
+     */
+    archived?: pulumi.Input<boolean>;
     /**
      * The badge URL showing build state.
      */
@@ -329,6 +343,10 @@ export interface PipelineState {
      */
     uuid?: pulumi.Input<string>;
     /**
+     * The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+     */
+    visibility?: pulumi.Input<string>;
+    /**
      * The webhook URL used to trigger builds from VCS providers.
      */
     webhookUrl?: pulumi.Input<string>;
@@ -342,6 +360,10 @@ export interface PipelineArgs {
      * Whether rebuilds are allowed for this pipeline.
      */
     allowRebuilds?: pulumi.Input<boolean>;
+    /**
+     * Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
+     */
+    archived?: pulumi.Input<boolean>;
     /**
      * Configure the pipeline to only build on this branch conditional.
      */
@@ -422,4 +444,8 @@ export interface PipelineArgs {
      * Tags to attribute to the pipeline. Useful for searching by in the UI.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+     */
+    visibility?: pulumi.Input<string>;
 }

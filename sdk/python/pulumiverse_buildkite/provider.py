@@ -29,6 +29,8 @@ class ProviderArgs:
                  timeouts: Optional[pulumi.Input['ProviderTimeoutsArgs']] = None):
         """
         The set of arguments for constructing a Provider resource.
+
+        :param pulumi.Input[_builtins.str] api_token: API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
         :param pulumi.Input[_builtins.bool] archive_pipeline_on_delete: Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
         :param pulumi.Input[_builtins.str] graphql_url: Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment variable.
         :param pulumi.Input[_builtins.int] max_retries: Maximum number of retry attempts for retryable HTTP requests. Defaults to 10.
@@ -53,6 +55,9 @@ class ProviderArgs:
     @_builtins.property
     @pulumi.getter(name="apiToken")
     def api_token(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
+        """
         return pulumi.get(self, "api_token")
 
     @api_token.setter
@@ -149,8 +154,10 @@ class Provider(pulumi.ProviderResource):
         construction to achieve fine-grained programmatic control over provider settings. See the
         [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.str] api_token: API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
         :param pulumi.Input[_builtins.bool] archive_pipeline_on_delete: Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
         :param pulumi.Input[_builtins.str] graphql_url: Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment variable.
         :param pulumi.Input[_builtins.int] max_retries: Maximum number of retry attempts for retryable HTTP requests. Defaults to 10.
@@ -168,6 +175,7 @@ class Provider(pulumi.ProviderResource):
         settings, however an explicit `Provider` instance may be created and passed during resource
         construction to achieve fine-grained programmatic control over provider settings. See the
         [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
+
 
         :param str resource_name: The name of the resource.
         :param ProviderArgs args: The arguments to use to populate this resource's properties.
@@ -218,6 +226,9 @@ class Provider(pulumi.ProviderResource):
     @_builtins.property
     @pulumi.getter(name="apiToken")
     def api_token(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
+        """
         return pulumi.get(self, "api_token")
 
     @_builtins.property

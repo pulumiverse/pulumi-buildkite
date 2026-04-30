@@ -20,25 +20,27 @@ __all__ = ['RegistryArgs', 'Registry']
 class RegistryArgs:
     def __init__(__self__, *,
                  ecosystem: pulumi.Input[_builtins.str],
+                 team_ids: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
                  color: Optional[pulumi.Input[_builtins.str]] = None,
                  description: Optional[pulumi.Input[_builtins.str]] = None,
                  emoji: Optional[pulumi.Input[_builtins.str]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
-                 oidc_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 team_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 oidc_policy: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Registry resource.
-        :param pulumi.Input[_builtins.str] ecosystem: The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+
+        :param pulumi.Input[_builtins.str] ecosystem: The ecosystem of the registry. This value cannot be changed after creation.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] team_ids: The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
         :param pulumi.Input[_builtins.str] color: A color representation of the registry. Accepts hex codes, eg #BADA55.
         :param pulumi.Input[_builtins.str] description: This is a description for the registry, this may describe the usage for it, the region, or something else
                which would help identify the registry's purpose.
         :param pulumi.Input[_builtins.str] emoji: An emoji to use with the registry, this can either be set using :buildkite: notation, or with the
                emoji itself, such as 🚀.
         :param pulumi.Input[_builtins.str] name: The name of the registry. Can only contain numbers and letters, no spaces or special characters.
-        :param pulumi.Input[_builtins.str] oidc_policy: The registry's OIDC policy.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] team_ids: The team IDs that have access to the registry.
+        :param pulumi.Input[_builtins.str] oidc_policy: The registry's OIDC policy, in YAML format.
         """
         pulumi.set(__self__, "ecosystem", ecosystem)
+        pulumi.set(__self__, "team_ids", team_ids)
         if color is not None:
             pulumi.set(__self__, "color", color)
         if description is not None:
@@ -49,20 +51,30 @@ class RegistryArgs:
             pulumi.set(__self__, "name", name)
         if oidc_policy is not None:
             pulumi.set(__self__, "oidc_policy", oidc_policy)
-        if team_ids is not None:
-            pulumi.set(__self__, "team_ids", team_ids)
 
     @_builtins.property
     @pulumi.getter
     def ecosystem(self) -> pulumi.Input[_builtins.str]:
         """
-        The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+        The ecosystem of the registry. This value cannot be changed after creation.
         """
         return pulumi.get(self, "ecosystem")
 
     @ecosystem.setter
     def ecosystem(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "ecosystem", value)
+
+    @_builtins.property
+    @pulumi.getter(name="teamIds")
+    def team_ids(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
+        """
+        The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
+        """
+        return pulumi.get(self, "team_ids")
+
+    @team_ids.setter
+    def team_ids(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        pulumi.set(self, "team_ids", value)
 
     @_builtins.property
     @pulumi.getter
@@ -118,25 +130,13 @@ class RegistryArgs:
     @pulumi.getter(name="oidcPolicy")
     def oidc_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The registry's OIDC policy.
+        The registry's OIDC policy, in YAML format.
         """
         return pulumi.get(self, "oidc_policy")
 
     @oidc_policy.setter
     def oidc_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "oidc_policy", value)
-
-    @_builtins.property
-    @pulumi.getter(name="teamIds")
-    def team_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        The team IDs that have access to the registry.
-        """
-        return pulumi.get(self, "team_ids")
-
-    @team_ids.setter
-    def team_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "team_ids", value)
 
 
 @pulumi.input_type
@@ -148,21 +148,26 @@ class _RegistryState:
                  emoji: Optional[pulumi.Input[_builtins.str]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  oidc_policy: Optional[pulumi.Input[_builtins.str]] = None,
+                 public: Optional[pulumi.Input[_builtins.bool]] = None,
+                 registry_type: Optional[pulumi.Input[_builtins.str]] = None,
                  slug: Optional[pulumi.Input[_builtins.str]] = None,
                  team_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Registry resources.
+
         :param pulumi.Input[_builtins.str] color: A color representation of the registry. Accepts hex codes, eg #BADA55.
         :param pulumi.Input[_builtins.str] description: This is a description for the registry, this may describe the usage for it, the region, or something else
                which would help identify the registry's purpose.
-        :param pulumi.Input[_builtins.str] ecosystem: The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+        :param pulumi.Input[_builtins.str] ecosystem: The ecosystem of the registry. This value cannot be changed after creation.
         :param pulumi.Input[_builtins.str] emoji: An emoji to use with the registry, this can either be set using :buildkite: notation, or with the
                emoji itself, such as 🚀.
         :param pulumi.Input[_builtins.str] name: The name of the registry. Can only contain numbers and letters, no spaces or special characters.
-        :param pulumi.Input[_builtins.str] oidc_policy: The registry's OIDC policy.
+        :param pulumi.Input[_builtins.str] oidc_policy: The registry's OIDC policy, in YAML format.
+        :param pulumi.Input[_builtins.bool] public: Whether the registry is publicly accessible.
+        :param pulumi.Input[_builtins.str] registry_type: The type of the registry (e.g. `source`).
         :param pulumi.Input[_builtins.str] slug: The slug of the registry.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] team_ids: The team IDs that have access to the registry.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] team_ids: The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
         :param pulumi.Input[_builtins.str] uuid: The UUID of the registry.
         """
         if color is not None:
@@ -177,6 +182,10 @@ class _RegistryState:
             pulumi.set(__self__, "name", name)
         if oidc_policy is not None:
             pulumi.set(__self__, "oidc_policy", oidc_policy)
+        if public is not None:
+            pulumi.set(__self__, "public", public)
+        if registry_type is not None:
+            pulumi.set(__self__, "registry_type", registry_type)
         if slug is not None:
             pulumi.set(__self__, "slug", slug)
         if team_ids is not None:
@@ -213,7 +222,7 @@ class _RegistryState:
     @pulumi.getter
     def ecosystem(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+        The ecosystem of the registry. This value cannot be changed after creation.
         """
         return pulumi.get(self, "ecosystem")
 
@@ -250,13 +259,37 @@ class _RegistryState:
     @pulumi.getter(name="oidcPolicy")
     def oidc_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The registry's OIDC policy.
+        The registry's OIDC policy, in YAML format.
         """
         return pulumi.get(self, "oidc_policy")
 
     @oidc_policy.setter
     def oidc_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "oidc_policy", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def public(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the registry is publicly accessible.
+        """
+        return pulumi.get(self, "public")
+
+    @public.setter
+    def public(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "public", value)
+
+    @_builtins.property
+    @pulumi.getter(name="registryType")
+    def registry_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The type of the registry (e.g. `source`).
+        """
+        return pulumi.get(self, "registry_type")
+
+    @registry_type.setter
+    def registry_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "registry_type", value)
 
     @_builtins.property
     @pulumi.getter
@@ -274,7 +307,7 @@ class _RegistryState:
     @pulumi.getter(name="teamIds")
     def team_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        The team IDs that have access to the registry.
+        The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
         """
         return pulumi.get(self, "team_ids")
 
@@ -324,20 +357,31 @@ class Registry(pulumi.CustomResource):
             description="super cool ruby registry",
             ecosystem="ruby",
             emoji=":ruby:",
-            color="#ff0000")
+            color="#ff0000",
+            team_ids=[
+                frontend_team["uuid"],
+                backend_team["uuid"],
+            ],
+            oidc_policy=\"\"\"- iss: https://agent.buildkite.com
+          scopes:
+            - read_packages
+          claims:
+            build_branch: main
+        \"\"\")
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] color: A color representation of the registry. Accepts hex codes, eg #BADA55.
         :param pulumi.Input[_builtins.str] description: This is a description for the registry, this may describe the usage for it, the region, or something else
                which would help identify the registry's purpose.
-        :param pulumi.Input[_builtins.str] ecosystem: The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+        :param pulumi.Input[_builtins.str] ecosystem: The ecosystem of the registry. This value cannot be changed after creation.
         :param pulumi.Input[_builtins.str] emoji: An emoji to use with the registry, this can either be set using :buildkite: notation, or with the
                emoji itself, such as 🚀.
         :param pulumi.Input[_builtins.str] name: The name of the registry. Can only contain numbers and letters, no spaces or special characters.
-        :param pulumi.Input[_builtins.str] oidc_policy: The registry's OIDC policy.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] team_ids: The team IDs that have access to the registry.
+        :param pulumi.Input[_builtins.str] oidc_policy: The registry's OIDC policy, in YAML format.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] team_ids: The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
         """
         ...
     @overload
@@ -360,8 +404,19 @@ class Registry(pulumi.CustomResource):
             description="super cool ruby registry",
             ecosystem="ruby",
             emoji=":ruby:",
-            color="#ff0000")
+            color="#ff0000",
+            team_ids=[
+                frontend_team["uuid"],
+                backend_team["uuid"],
+            ],
+            oidc_policy=\"\"\"- iss: https://agent.buildkite.com
+          scopes:
+            - read_packages
+          claims:
+            build_branch: main
+        \"\"\")
         ```
+
 
         :param str resource_name: The name of the resource.
         :param RegistryArgs args: The arguments to use to populate this resource's properties.
@@ -402,7 +457,11 @@ class Registry(pulumi.CustomResource):
             __props__.__dict__["emoji"] = emoji
             __props__.__dict__["name"] = name
             __props__.__dict__["oidc_policy"] = oidc_policy
+            if team_ids is None and not opts.urn:
+                raise TypeError("Missing required property 'team_ids'")
             __props__.__dict__["team_ids"] = team_ids
+            __props__.__dict__["public"] = None
+            __props__.__dict__["registry_type"] = None
             __props__.__dict__["slug"] = None
             __props__.__dict__["uuid"] = None
         super(Registry, __self__).__init__(
@@ -421,6 +480,8 @@ class Registry(pulumi.CustomResource):
             emoji: Optional[pulumi.Input[_builtins.str]] = None,
             name: Optional[pulumi.Input[_builtins.str]] = None,
             oidc_policy: Optional[pulumi.Input[_builtins.str]] = None,
+            public: Optional[pulumi.Input[_builtins.bool]] = None,
+            registry_type: Optional[pulumi.Input[_builtins.str]] = None,
             slug: Optional[pulumi.Input[_builtins.str]] = None,
             team_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             uuid: Optional[pulumi.Input[_builtins.str]] = None) -> 'Registry':
@@ -434,13 +495,15 @@ class Registry(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] color: A color representation of the registry. Accepts hex codes, eg #BADA55.
         :param pulumi.Input[_builtins.str] description: This is a description for the registry, this may describe the usage for it, the region, or something else
                which would help identify the registry's purpose.
-        :param pulumi.Input[_builtins.str] ecosystem: The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+        :param pulumi.Input[_builtins.str] ecosystem: The ecosystem of the registry. This value cannot be changed after creation.
         :param pulumi.Input[_builtins.str] emoji: An emoji to use with the registry, this can either be set using :buildkite: notation, or with the
                emoji itself, such as 🚀.
         :param pulumi.Input[_builtins.str] name: The name of the registry. Can only contain numbers and letters, no spaces or special characters.
-        :param pulumi.Input[_builtins.str] oidc_policy: The registry's OIDC policy.
+        :param pulumi.Input[_builtins.str] oidc_policy: The registry's OIDC policy, in YAML format.
+        :param pulumi.Input[_builtins.bool] public: Whether the registry is publicly accessible.
+        :param pulumi.Input[_builtins.str] registry_type: The type of the registry (e.g. `source`).
         :param pulumi.Input[_builtins.str] slug: The slug of the registry.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] team_ids: The team IDs that have access to the registry.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] team_ids: The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
         :param pulumi.Input[_builtins.str] uuid: The UUID of the registry.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -453,6 +516,8 @@ class Registry(pulumi.CustomResource):
         __props__.__dict__["emoji"] = emoji
         __props__.__dict__["name"] = name
         __props__.__dict__["oidc_policy"] = oidc_policy
+        __props__.__dict__["public"] = public
+        __props__.__dict__["registry_type"] = registry_type
         __props__.__dict__["slug"] = slug
         __props__.__dict__["team_ids"] = team_ids
         __props__.__dict__["uuid"] = uuid
@@ -479,7 +544,7 @@ class Registry(pulumi.CustomResource):
     @pulumi.getter
     def ecosystem(self) -> pulumi.Output[_builtins.str]:
         """
-        The ecosystem of the registry. **Warning:** This value cannot be changed after creation. Any attempts to update this field will result in API errors.
+        The ecosystem of the registry. This value cannot be changed after creation.
         """
         return pulumi.get(self, "ecosystem")
 
@@ -504,9 +569,25 @@ class Registry(pulumi.CustomResource):
     @pulumi.getter(name="oidcPolicy")
     def oidc_policy(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The registry's OIDC policy.
+        The registry's OIDC policy, in YAML format.
         """
         return pulumi.get(self, "oidc_policy")
+
+    @_builtins.property
+    @pulumi.getter
+    def public(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Whether the registry is publicly accessible.
+        """
+        return pulumi.get(self, "public")
+
+    @_builtins.property
+    @pulumi.getter(name="registryType")
+    def registry_type(self) -> pulumi.Output[_builtins.str]:
+        """
+        The type of the registry (e.g. `source`).
+        """
+        return pulumi.get(self, "registry_type")
 
     @_builtins.property
     @pulumi.getter
@@ -518,9 +599,9 @@ class Registry(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="teamIds")
-    def team_ids(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def team_ids(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        The team IDs that have access to the registry.
+        The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
         """
         return pulumi.get(self, "team_ids")
 

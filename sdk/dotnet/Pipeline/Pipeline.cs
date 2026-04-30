@@ -19,10 +19,8 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     /// ## Import
     /// 
-    /// Using `pulumi import`, import resources using the `id`. For example:
-    /// 
+    /// Using `pulumi import`, import resources using the `Id`. For example:
     /// import a pipeline resource using the pipelines GraphQL ID
-    /// 
     /// GraphQL ID for a pipeline can be found on its settings page
     /// 
     /// ```sh
@@ -37,6 +35,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// </summary>
         [Output("allowRebuilds")]
         public Output<bool> AllowRebuilds { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
+        /// </summary>
+        [Output("archived")]
+        public Output<bool> Archived { get; private set; } = null!;
 
         /// <summary>
         /// The badge URL showing build state.
@@ -177,6 +181,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Output<string> Uuid { get; private set; } = null!;
 
         /// <summary>
+        /// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        /// </summary>
+        [Output("visibility")]
+        public Output<string> Visibility { get; private set; } = null!;
+
+        /// <summary>
         /// The webhook URL used to trigger builds from VCS providers.
         /// </summary>
         [Output("webhookUrl")]
@@ -234,6 +244,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// </summary>
         [Input("allowRebuilds")]
         public Input<bool>? AllowRebuilds { get; set; }
+
+        /// <summary>
+        /// Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
+        /// </summary>
+        [Input("archived")]
+        public Input<bool>? Archived { get; set; }
 
         /// <summary>
         /// Configure the pipeline to only build on this branch conditional.
@@ -361,6 +377,12 @@ namespace Pulumiverse.Buildkite.Pipeline
             set => _tags = value;
         }
 
+        /// <summary>
+        /// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        /// </summary>
+        [Input("visibility")]
+        public Input<string>? Visibility { get; set; }
+
         public PipelineArgs()
         {
         }
@@ -374,6 +396,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// </summary>
         [Input("allowRebuilds")]
         public Input<bool>? AllowRebuilds { get; set; }
+
+        /// <summary>
+        /// Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
+        /// </summary>
+        [Input("archived")]
+        public Input<bool>? Archived { get; set; }
 
         /// <summary>
         /// The badge URL showing build state.
@@ -518,6 +546,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// </summary>
         [Input("uuid")]
         public Input<string>? Uuid { get; set; }
+
+        /// <summary>
+        /// The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
+        /// </summary>
+        [Input("visibility")]
+        public Input<string>? Visibility { get; set; }
 
         /// <summary>
         /// The webhook URL used to trigger builds from VCS providers.

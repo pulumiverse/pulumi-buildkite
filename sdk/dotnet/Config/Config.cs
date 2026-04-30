@@ -33,6 +33,9 @@ namespace Pulumiverse.Buildkite
         private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("buildkite");
 
         private static readonly __Value<string?> _apiToken = new __Value<string?>(() => __config.Get("apiToken"));
+        /// <summary>
+        /// API token with GraphQL access and `WritePipelines`, `ReadPipelines` and `WriteSuites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&amp;scopes[]=write_pipelines&amp;scopes[]=write_suites&amp;scopes[]=read_pipelines&amp;scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
+        /// </summary>
         public static string? ApiToken
         {
             get => _apiToken.Get();

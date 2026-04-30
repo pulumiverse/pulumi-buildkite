@@ -46,7 +46,7 @@ import (
 //			}
 //			_, err = team.NewMember(ctx, "developers_a_smith", &team.MemberArgs{
 //				TeamId: developers.ID(),
-//				UserId: pulumi.String(aSmith.Id),
+//				UserId: pulumi.String(pulumi.String(aSmith.Id)),
 //				Role:   pulumi.String("MEMBER"),
 //			})
 //			if err != nil {

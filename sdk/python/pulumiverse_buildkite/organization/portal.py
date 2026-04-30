@@ -29,6 +29,7 @@ class PortalArgs:
                  user_invokable: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Portal resource.
+
         :param pulumi.Input[_builtins.str] query: The GraphQL query that the portal executes.
         :param pulumi.Input[_builtins.str] slug: The slug of the portal. Used in the portal's URL path.
         :param pulumi.Input[_builtins.str] allowed_ip_addresses: Space-delimited list of IP addresses (in CIDR notation) allowed to invoke this portal. If not specified, all IP addresses are allowed.
@@ -135,6 +136,7 @@ class _PortalState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Portal resources.
+
         :param pulumi.Input[_builtins.str] allowed_ip_addresses: Space-delimited list of IP addresses (in CIDR notation) allowed to invoke this portal. If not specified, all IP addresses are allowed.
         :param pulumi.Input[_builtins.str] created_at: The time when the portal was created.
         :param pulumi.Input['PortalCreatedByArgs'] created_by: Information about the user who created the portal.
@@ -358,20 +360,18 @@ class Portal(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a portal resource using the portal slug
 
         you can find the slug from the Buildkite web UI in the portal's URL:
-
         https://buildkite.com/organizations/{org}/portals/{slug}
 
         or by listing all portals via the REST API:
-
         GET https://api.buildkite.com/v2/organizations/{org}/portals
 
         ```sh
         $ pulumi import buildkite:Organization/portal:Portal viewer viewer-info
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -445,20 +445,18 @@ class Portal(pulumi.CustomResource):
         ## Import
 
         Using `pulumi import`, import resources using the `id`. For example:
-
         import a portal resource using the portal slug
 
         you can find the slug from the Buildkite web UI in the portal's URL:
-
         https://buildkite.com/organizations/{org}/portals/{slug}
 
         or by listing all portals via the REST API:
-
         GET https://api.buildkite.com/v2/organizations/{org}/portals
 
         ```sh
         $ pulumi import buildkite:Organization/portal:Portal viewer viewer-info
         ```
+
 
         :param str resource_name: The name of the resource.
         :param PortalArgs args: The arguments to use to populate this resource's properties.

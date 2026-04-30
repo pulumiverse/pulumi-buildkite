@@ -24,6 +24,7 @@ class ClusterAgentTokenArgs:
                  allowed_ip_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         The set of arguments for constructing a ClusterAgentToken resource.
+
         :param pulumi.Input[_builtins.str] cluster_id: The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
         :param pulumi.Input[_builtins.str] description: A description about what this cluster agent token is used for.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_ip_addresses: A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
@@ -81,6 +82,7 @@ class _ClusterAgentTokenState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ClusterAgentToken resources.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_ip_addresses: A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
         :param pulumi.Input[_builtins.str] cluster_id: The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
         :param pulumi.Input[_builtins.str] cluster_uuid: The UUID of the Cluster that this token belongs to.
@@ -216,6 +218,7 @@ class ClusterAgentToken(pulumi.CustomResource):
             key="default")
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_ip_addresses: A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
@@ -259,6 +262,7 @@ class ClusterAgentToken(pulumi.CustomResource):
             cluster_id=primary.id,
             key="default")
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ClusterAgentTokenArgs args: The arguments to use to populate this resource's properties.

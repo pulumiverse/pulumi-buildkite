@@ -35,10 +35,10 @@ namespace Pulumiverse.Buildkite.Pipeline
     ///     // schedule a build at midnight every day
     ///     var nightly = new Buildkite.Pipeline.Schedule("nightly", new()
     ///     {
-    ///         PipelineId = repo.Id,
+    ///         PipelineId = pipeline.Id,
     ///         Label = "Nightly build",
     ///         Cronline = "@midnight",
-    ///         Branch = repo.DefaultBranch,
+    ///         Branch = pipeline.DefaultBranch,
     ///     });
     /// 
     /// });
@@ -46,46 +46,27 @@ namespace Pulumiverse.Buildkite.Pipeline
     /// 
     /// ## Import
     /// 
-    /// Using `pulumi import`, import resources using the `id`. For example:
-    /// 
+    /// Using `pulumi import`, import resources using the `Id`. For example:
     /// import a pipeline schedule resource using the schedules GraphQL ID
     /// 
     /// you can use this query to find the schedule:
-    /// 
     /// query getPipelineScheduleId {
-    /// 
-    ///   organization(slug: "ORGANIZATION_SLUG") {
-    /// 
-    ///         pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
-    ///     
-    ///       edges{
-    ///     
-    ///         node{
-    ///     
-    ///           name
-    ///     
-    ///           schedules{
-    ///     
-    ///             edges{
-    ///     
-    ///               node{
-    ///     
-    ///                 id
-    ///     
-    ///               }
-    ///     
-    ///             }
-    ///     
-    ///           }
-    ///     
-    ///         }
-    ///     
-    ///       }
-    ///     
-    ///     }
-    /// 
-    ///   }
-    /// 
+    /// organization(slug: "ORGANIZATION_SLUG") {
+    /// pipelines(first: 5, search: "PIPELINE_SEARCH_TERM") {
+    /// edges{
+    /// node{
+    /// name
+    /// schedules{
+    /// edges{
+    /// node{
+    /// id
+    /// }
+    /// }
+    /// }
+    /// }
+    /// }
+    /// }
+    /// }
     /// }
     /// 
     /// ```sh

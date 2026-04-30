@@ -22,6 +22,7 @@ class AgentTokenArgs:
                  description: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a AgentToken resource.
+
         :param pulumi.Input[_builtins.str] description: The description of the agent token. Used to help identify its use.
         """
         if description is not None:
@@ -48,6 +49,7 @@ class _AgentTokenState:
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering AgentToken resources.
+
         :param pulumi.Input[_builtins.str] description: The description of the agent token. Used to help identify its use.
         :param pulumi.Input[_builtins.str] token: The token value used by an agent to register with the API.
         :param pulumi.Input[_builtins.str] uuid: The UUID of the agent token.
@@ -118,6 +120,7 @@ class AgentToken(pulumi.CustomResource):
         default = buildkite.agent.AgentToken("default", description="Default token")
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] description: The description of the agent token. Used to help identify its use.
@@ -141,6 +144,7 @@ class AgentToken(pulumi.CustomResource):
         # create a default token
         default = buildkite.agent.AgentToken("default", description="Default token")
         ```
+
 
         :param str resource_name: The name of the resource.
         :param AgentTokenArgs args: The arguments to use to populate this resource's properties.
