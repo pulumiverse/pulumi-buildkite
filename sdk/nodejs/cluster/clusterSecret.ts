@@ -84,7 +84,7 @@ export class ClusterSecret extends pulumi.CustomResource {
      */
     declare public readonly description: pulumi.Output<string | undefined>;
     /**
-     * The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+     * The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
      */
     declare public readonly key: pulumi.Output<string>;
     /**
@@ -163,7 +163,7 @@ export interface ClusterSecretState {
      */
     description?: pulumi.Input<string>;
     /**
-     * The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+     * The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
      */
     key?: pulumi.Input<string>;
     /**
@@ -193,7 +193,7 @@ export interface ClusterSecretArgs {
      */
     description?: pulumi.Input<string>;
     /**
-     * The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+     * The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
      */
     key: pulumi.Input<string>;
     /**

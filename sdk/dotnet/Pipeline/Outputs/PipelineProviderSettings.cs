@@ -19,6 +19,10 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         /// </summary>
         public readonly bool? BuildBranches;
         /// <summary>
+        /// Whether to create builds when an issue comment is created on a pull request.
+        /// </summary>
+        public readonly bool? BuildIssueCommentCreated;
+        /// <summary>
         /// Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
         /// </summary>
         public readonly bool? BuildMergeGroupChecksRequested;
@@ -70,6 +74,14 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         /// Whether to prevent caching pull requests with the source branch matching the default branch.
         /// </summary>
         public readonly bool? IgnoreDefaultBranchPullRequests;
+        /// <summary>
+        /// The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
+        /// </summary>
+        public readonly string? IssueCommentCommandWord;
+        /// <summary>
+        /// The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
+        /// </summary>
+        public readonly string? IssueCommentMatchMode;
         /// <summary>
         /// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
         /// </summary>
@@ -126,6 +138,8 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         private PipelineProviderSettings(
             bool? buildBranches,
 
+            bool? buildIssueCommentCreated,
+
             bool? buildMergeGroupChecksRequested,
 
             bool? buildPullRequestBaseBranchChanged,
@@ -152,6 +166,10 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
 
             bool? ignoreDefaultBranchPullRequests,
 
+            string? issueCommentCommandWord,
+
+            string? issueCommentMatchMode,
+
             bool? prefixPullRequestForkBranchNames,
 
             bool? publishBlockedAsPending,
@@ -175,6 +193,7 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
             bool? useMergeGroupBaseCommitForGitDiffBase)
         {
             BuildBranches = buildBranches;
+            BuildIssueCommentCreated = buildIssueCommentCreated;
             BuildMergeGroupChecksRequested = buildMergeGroupChecksRequested;
             BuildPullRequestBaseBranchChanged = buildPullRequestBaseBranchChanged;
             BuildPullRequestForks = buildPullRequestForks;
@@ -188,6 +207,8 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
             FilterCondition = filterCondition;
             FilterEnabled = filterEnabled;
             IgnoreDefaultBranchPullRequests = ignoreDefaultBranchPullRequests;
+            IssueCommentCommandWord = issueCommentCommandWord;
+            IssueCommentMatchMode = issueCommentMatchMode;
             PrefixPullRequestForkBranchNames = prefixPullRequestForkBranchNames;
             PublishBlockedAsPending = publishBlockedAsPending;
             PublishCommitStatus = publishCommitStatus;

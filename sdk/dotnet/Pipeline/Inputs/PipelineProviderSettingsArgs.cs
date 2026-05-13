@@ -20,6 +20,12 @@ namespace Pulumiverse.Buildkite.Pipeline.Inputs
         public Input<bool>? BuildBranches { get; set; }
 
         /// <summary>
+        /// Whether to create builds when an issue comment is created on a pull request.
+        /// </summary>
+        [Input("buildIssueCommentCreated")]
+        public Input<bool>? BuildIssueCommentCreated { get; set; }
+
+        /// <summary>
         /// Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
         /// </summary>
         [Input("buildMergeGroupChecksRequested")]
@@ -96,6 +102,18 @@ namespace Pulumiverse.Buildkite.Pipeline.Inputs
         /// </summary>
         [Input("ignoreDefaultBranchPullRequests")]
         public Input<bool>? IgnoreDefaultBranchPullRequests { get; set; }
+
+        /// <summary>
+        /// The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
+        /// </summary>
+        [Input("issueCommentCommandWord")]
+        public Input<string>? IssueCommentCommandWord { get; set; }
+
+        /// <summary>
+        /// The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
+        /// </summary>
+        [Input("issueCommentMatchMode")]
+        public Input<string>? IssueCommentMatchMode { get; set; }
 
         /// <summary>
         /// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.

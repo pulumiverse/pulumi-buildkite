@@ -16,6 +16,8 @@ var _ = internal.GetEnvOrDefault
 type PipelineProviderSettings struct {
 	// Whether to create builds when branches are pushed.
 	BuildBranches *bool `pulumi:"buildBranches"`
+	// Whether to create builds when an issue comment is created on a pull request.
+	BuildIssueCommentCreated *bool `pulumi:"buildIssueCommentCreated"`
 	// Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
 	BuildMergeGroupChecksRequested *bool `pulumi:"buildMergeGroupChecksRequested"`
 	// Whether to create builds for pull requests when its base branch changes.
@@ -42,6 +44,10 @@ type PipelineProviderSettings struct {
 	FilterEnabled *bool `pulumi:"filterEnabled"`
 	// Whether to prevent caching pull requests with the source branch matching the default branch.
 	IgnoreDefaultBranchPullRequests *bool `pulumi:"ignoreDefaultBranchPullRequests"`
+	// The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
+	IssueCommentCommandWord *string `pulumi:"issueCommentCommandWord"`
+	// The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
+	IssueCommentMatchMode *string `pulumi:"issueCommentMatchMode"`
 	// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
 	PrefixPullRequestForkBranchNames *bool `pulumi:"prefixPullRequestForkBranchNames"`
 	// The status to use for blocked builds. Pending can be used with [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) to prevent merging pull requests with blocked builds.
@@ -87,6 +93,8 @@ type PipelineProviderSettingsInput interface {
 type PipelineProviderSettingsArgs struct {
 	// Whether to create builds when branches are pushed.
 	BuildBranches pulumi.BoolPtrInput `pulumi:"buildBranches"`
+	// Whether to create builds when an issue comment is created on a pull request.
+	BuildIssueCommentCreated pulumi.BoolPtrInput `pulumi:"buildIssueCommentCreated"`
 	// Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
 	BuildMergeGroupChecksRequested pulumi.BoolPtrInput `pulumi:"buildMergeGroupChecksRequested"`
 	// Whether to create builds for pull requests when its base branch changes.
@@ -113,6 +121,10 @@ type PipelineProviderSettingsArgs struct {
 	FilterEnabled pulumi.BoolPtrInput `pulumi:"filterEnabled"`
 	// Whether to prevent caching pull requests with the source branch matching the default branch.
 	IgnoreDefaultBranchPullRequests pulumi.BoolPtrInput `pulumi:"ignoreDefaultBranchPullRequests"`
+	// The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
+	IssueCommentCommandWord pulumi.StringPtrInput `pulumi:"issueCommentCommandWord"`
+	// The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
+	IssueCommentMatchMode pulumi.StringPtrInput `pulumi:"issueCommentMatchMode"`
 	// Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
 	PrefixPullRequestForkBranchNames pulumi.BoolPtrInput `pulumi:"prefixPullRequestForkBranchNames"`
 	// The status to use for blocked builds. Pending can be used with [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) to prevent merging pull requests with blocked builds.
@@ -226,6 +238,11 @@ func (o PipelineProviderSettingsOutput) BuildBranches() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildBranches }).(pulumi.BoolPtrOutput)
 }
 
+// Whether to create builds when an issue comment is created on a pull request.
+func (o PipelineProviderSettingsOutput) BuildIssueCommentCreated() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildIssueCommentCreated }).(pulumi.BoolPtrOutput)
+}
+
 // Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
 func (o PipelineProviderSettingsOutput) BuildMergeGroupChecksRequested() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildMergeGroupChecksRequested }).(pulumi.BoolPtrOutput)
@@ -289,6 +306,16 @@ func (o PipelineProviderSettingsOutput) FilterEnabled() pulumi.BoolPtrOutput {
 // Whether to prevent caching pull requests with the source branch matching the default branch.
 func (o PipelineProviderSettingsOutput) IgnoreDefaultBranchPullRequests() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.IgnoreDefaultBranchPullRequests }).(pulumi.BoolPtrOutput)
+}
+
+// The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
+func (o PipelineProviderSettingsOutput) IssueCommentCommandWord() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *string { return v.IssueCommentCommandWord }).(pulumi.StringPtrOutput)
+}
+
+// The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
+func (o PipelineProviderSettingsOutput) IssueCommentMatchMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *string { return v.IssueCommentMatchMode }).(pulumi.StringPtrOutput)
 }
 
 // Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
@@ -388,6 +415,16 @@ func (o PipelineProviderSettingsPtrOutput) BuildBranches() pulumi.BoolPtrOutput 
 			return nil
 		}
 		return v.BuildBranches
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create builds when an issue comment is created on a pull request.
+func (o PipelineProviderSettingsPtrOutput) BuildIssueCommentCreated() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildIssueCommentCreated
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -519,6 +556,26 @@ func (o PipelineProviderSettingsPtrOutput) IgnoreDefaultBranchPullRequests() pul
 		}
 		return v.IgnoreDefaultBranchPullRequests
 	}).(pulumi.BoolPtrOutput)
+}
+
+// The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
+func (o PipelineProviderSettingsPtrOutput) IssueCommentCommandWord() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IssueCommentCommandWord
+	}).(pulumi.StringPtrOutput)
+}
+
+// The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
+func (o PipelineProviderSettingsPtrOutput) IssueCommentMatchMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IssueCommentMatchMode
+	}).(pulumi.StringPtrOutput)
 }
 
 // Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
