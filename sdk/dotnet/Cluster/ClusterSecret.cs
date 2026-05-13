@@ -78,7 +78,7 @@ namespace Pulumiverse.Buildkite.Cluster
         public Output<string?> Description { get; private set; } = null!;
 
         /// <summary>
-        /// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+        /// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `Buildkite` or `Bk` (case-insensitive) as these prefixes are reserved.
         /// </summary>
         [Output("key")]
         public Output<string> Key { get; private set; } = null!;
@@ -165,7 +165,7 @@ namespace Pulumiverse.Buildkite.Cluster
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+        /// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `Buildkite` or `Bk` (case-insensitive) as these prefixes are reserved.
         /// </summary>
         [Input("key", required: true)]
         public Input<string> Key { get; set; } = null!;
@@ -219,7 +219,7 @@ namespace Pulumiverse.Buildkite.Cluster
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+        /// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `Buildkite` or `Bk` (case-insensitive) as these prefixes are reserved.
         /// </summary>
         [Input("key")]
         public Input<string>? Key { get; set; }

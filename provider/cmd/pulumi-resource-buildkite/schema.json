@@ -487,6 +487,10 @@
                     "type": "boolean",
                     "description": "Whether to create builds when branches are pushed.\n"
                 },
+                "buildIssueCommentCreated": {
+                    "type": "boolean",
+                    "description": "Whether to create builds when an issue comment is created on a pull request.\n"
+                },
                 "buildMergeGroupChecksRequested": {
                     "type": "boolean",
                     "description": "Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks\n"
@@ -539,6 +543,14 @@
                     "type": "boolean",
                     "description": "Whether to prevent caching pull requests with the source branch matching the default branch.\n"
                 },
+                "issueCommentCommandWord": {
+                    "type": "string",
+                    "description": "The command word used to trigger builds from issue comments (e.g. \"/bk\"). Only comments starting with or containing this word will trigger builds. Defaults to \"/bk\".\n"
+                },
+                "issueCommentMatchMode": {
+                    "type": "string",
+                    "description": "The match mode for the issue comment command word. Valid values are \"exact\" and \"contains\". Defaults to \"exact\".\n"
+                },
                 "prefixPullRequestForkBranchNames": {
                     "type": "boolean",
                     "description": "Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.\n"
@@ -589,6 +601,7 @@
                 "nodejs": {
                     "requiredOutputs": [
                         "buildBranches",
+                        "buildIssueCommentCreated",
                         "buildMergeGroupChecksRequested",
                         "buildPullRequestBaseBranchChanged",
                         "buildPullRequestForks",
@@ -602,6 +615,8 @@
                         "filterCondition",
                         "filterEnabled",
                         "ignoreDefaultBranchPullRequests",
+                        "issueCommentCommandWord",
+                        "issueCommentMatchMode",
                         "prefixPullRequestForkBranchNames",
                         "publishBlockedAsPending",
                         "publishCommitStatus",
@@ -1312,7 +1327,7 @@
                 },
                 "key": {
                     "type": "string",
-                    "description": "The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.\n"
+                    "description": "The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with \u003cspan pulumi-lang-nodejs=\"`buildkite`\" pulumi-lang-dotnet=\"`Buildkite`\" pulumi-lang-go=\"`buildkite`\" pulumi-lang-python=\"`buildkite`\" pulumi-lang-yaml=\"`buildkite`\" pulumi-lang-java=\"`buildkite`\"\u003e`buildkite`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`bk`\" pulumi-lang-dotnet=\"`Bk`\" pulumi-lang-go=\"`bk`\" pulumi-lang-python=\"`bk`\" pulumi-lang-yaml=\"`bk`\" pulumi-lang-java=\"`bk`\"\u003e`bk`\u003c/span\u003e (case-insensitive) as these prefixes are reserved.\n"
                 },
                 "policy": {
                     "type": "string",
@@ -1346,7 +1361,7 @@
                 },
                 "key": {
                     "type": "string",
-                    "description": "The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.\n"
+                    "description": "The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with \u003cspan pulumi-lang-nodejs=\"`buildkite`\" pulumi-lang-dotnet=\"`Buildkite`\" pulumi-lang-go=\"`buildkite`\" pulumi-lang-python=\"`buildkite`\" pulumi-lang-yaml=\"`buildkite`\" pulumi-lang-java=\"`buildkite`\"\u003e`buildkite`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`bk`\" pulumi-lang-dotnet=\"`Bk`\" pulumi-lang-go=\"`bk`\" pulumi-lang-python=\"`bk`\" pulumi-lang-yaml=\"`bk`\" pulumi-lang-java=\"`bk`\"\u003e`bk`\u003c/span\u003e (case-insensitive) as these prefixes are reserved.\n"
                 },
                 "policy": {
                     "type": "string",
@@ -1380,7 +1395,7 @@
                     },
                     "key": {
                         "type": "string",
-                        "description": "The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.\n"
+                        "description": "The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with \u003cspan pulumi-lang-nodejs=\"`buildkite`\" pulumi-lang-dotnet=\"`Buildkite`\" pulumi-lang-go=\"`buildkite`\" pulumi-lang-python=\"`buildkite`\" pulumi-lang-yaml=\"`buildkite`\" pulumi-lang-java=\"`buildkite`\"\u003e`buildkite`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`bk`\" pulumi-lang-dotnet=\"`Bk`\" pulumi-lang-go=\"`bk`\" pulumi-lang-python=\"`bk`\" pulumi-lang-yaml=\"`bk`\" pulumi-lang-java=\"`bk`\"\u003e`bk`\u003c/span\u003e (case-insensitive) as these prefixes are reserved.\n"
                     },
                     "policy": {
                         "type": "string",

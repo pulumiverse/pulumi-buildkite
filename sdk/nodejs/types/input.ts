@@ -88,6 +88,10 @@ export namespace Pipeline {
          */
         buildBranches?: pulumi.Input<boolean>;
         /**
+         * Whether to create builds when an issue comment is created on a pull request.
+         */
+        buildIssueCommentCreated?: pulumi.Input<boolean>;
+        /**
          * Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
          */
         buildMergeGroupChecksRequested?: pulumi.Input<boolean>;
@@ -139,6 +143,14 @@ export namespace Pipeline {
          * Whether to prevent caching pull requests with the source branch matching the default branch.
          */
         ignoreDefaultBranchPullRequests?: pulumi.Input<boolean>;
+        /**
+         * The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
+         */
+        issueCommentCommandWord?: pulumi.Input<string>;
+        /**
+         * The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
+         */
+        issueCommentMatchMode?: pulumi.Input<string>;
         /**
          * Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
          */

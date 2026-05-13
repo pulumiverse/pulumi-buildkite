@@ -24,6 +24,10 @@ class PipelineProviderSettingsArgsDict(TypedDict):
     """
     Whether to create builds when branches are pushed.
     """
+    build_issue_comment_created: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to create builds when an issue comment is created on a pull request.
+    """
     build_merge_group_checks_requested: NotRequired[pulumi.Input[_builtins.bool]]
     """
     Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
@@ -75,6 +79,14 @@ class PipelineProviderSettingsArgsDict(TypedDict):
     ignore_default_branch_pull_requests: NotRequired[pulumi.Input[_builtins.bool]]
     """
     Whether to prevent caching pull requests with the source branch matching the default branch.
+    """
+    issue_comment_command_word: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
+    """
+    issue_comment_match_mode: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
     """
     prefix_pull_request_fork_branch_names: NotRequired[pulumi.Input[_builtins.bool]]
     """
@@ -132,6 +144,7 @@ class PipelineProviderSettingsArgsDict(TypedDict):
 class PipelineProviderSettingsArgs:
     def __init__(__self__, *,
                  build_branches: Optional[pulumi.Input[_builtins.bool]] = None,
+                 build_issue_comment_created: Optional[pulumi.Input[_builtins.bool]] = None,
                  build_merge_group_checks_requested: Optional[pulumi.Input[_builtins.bool]] = None,
                  build_pull_request_base_branch_changed: Optional[pulumi.Input[_builtins.bool]] = None,
                  build_pull_request_forks: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -145,6 +158,8 @@ class PipelineProviderSettingsArgs:
                  filter_condition: Optional[pulumi.Input[_builtins.str]] = None,
                  filter_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  ignore_default_branch_pull_requests: Optional[pulumi.Input[_builtins.bool]] = None,
+                 issue_comment_command_word: Optional[pulumi.Input[_builtins.str]] = None,
+                 issue_comment_match_mode: Optional[pulumi.Input[_builtins.str]] = None,
                  prefix_pull_request_fork_branch_names: Optional[pulumi.Input[_builtins.bool]] = None,
                  publish_blocked_as_pending: Optional[pulumi.Input[_builtins.bool]] = None,
                  publish_commit_status: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -158,6 +173,7 @@ class PipelineProviderSettingsArgs:
                  use_merge_group_base_commit_for_git_diff_base: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         :param pulumi.Input[_builtins.bool] build_branches: Whether to create builds when branches are pushed.
+        :param pulumi.Input[_builtins.bool] build_issue_comment_created: Whether to create builds when an issue comment is created on a pull request.
         :param pulumi.Input[_builtins.bool] build_merge_group_checks_requested: Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
         :param pulumi.Input[_builtins.bool] build_pull_request_base_branch_changed: Whether to create builds for pull requests when its base branch changes.
         :param pulumi.Input[_builtins.bool] build_pull_request_forks: Whether to create builds for pull requests from third-party forks.
@@ -171,6 +187,8 @@ class PipelineProviderSettingsArgs:
         :param pulumi.Input[_builtins.str] filter_condition: The condition to evaluate when deciding if a build should run. This is only valid when `trigger_mode` is `code`. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals).
         :param pulumi.Input[_builtins.bool] filter_enabled: Whether to filter builds to only run when the condition in `filter_condition` is true.
         :param pulumi.Input[_builtins.bool] ignore_default_branch_pull_requests: Whether to prevent caching pull requests with the source branch matching the default branch.
+        :param pulumi.Input[_builtins.str] issue_comment_command_word: The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
+        :param pulumi.Input[_builtins.str] issue_comment_match_mode: The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
         :param pulumi.Input[_builtins.bool] prefix_pull_request_fork_branch_names: Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
         :param pulumi.Input[_builtins.bool] publish_blocked_as_pending: The status to use for blocked builds. Pending can be used with [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) to prevent merging pull requests with blocked builds.
         :param pulumi.Input[_builtins.bool] publish_commit_status: Whether to update the status of commits in Bitbucket, GitHub, or GitLab.
@@ -192,6 +210,8 @@ class PipelineProviderSettingsArgs:
         """
         if build_branches is not None:
             pulumi.set(__self__, "build_branches", build_branches)
+        if build_issue_comment_created is not None:
+            pulumi.set(__self__, "build_issue_comment_created", build_issue_comment_created)
         if build_merge_group_checks_requested is not None:
             pulumi.set(__self__, "build_merge_group_checks_requested", build_merge_group_checks_requested)
         if build_pull_request_base_branch_changed is not None:
@@ -218,6 +238,10 @@ class PipelineProviderSettingsArgs:
             pulumi.set(__self__, "filter_enabled", filter_enabled)
         if ignore_default_branch_pull_requests is not None:
             pulumi.set(__self__, "ignore_default_branch_pull_requests", ignore_default_branch_pull_requests)
+        if issue_comment_command_word is not None:
+            pulumi.set(__self__, "issue_comment_command_word", issue_comment_command_word)
+        if issue_comment_match_mode is not None:
+            pulumi.set(__self__, "issue_comment_match_mode", issue_comment_match_mode)
         if prefix_pull_request_fork_branch_names is not None:
             pulumi.set(__self__, "prefix_pull_request_fork_branch_names", prefix_pull_request_fork_branch_names)
         if publish_blocked_as_pending is not None:
@@ -252,6 +276,18 @@ class PipelineProviderSettingsArgs:
     @build_branches.setter
     def build_branches(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "build_branches", value)
+
+    @_builtins.property
+    @pulumi.getter(name="buildIssueCommentCreated")
+    def build_issue_comment_created(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether to create builds when an issue comment is created on a pull request.
+        """
+        return pulumi.get(self, "build_issue_comment_created")
+
+    @build_issue_comment_created.setter
+    def build_issue_comment_created(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "build_issue_comment_created", value)
 
     @_builtins.property
     @pulumi.getter(name="buildMergeGroupChecksRequested")
@@ -408,6 +444,30 @@ class PipelineProviderSettingsArgs:
     @ignore_default_branch_pull_requests.setter
     def ignore_default_branch_pull_requests(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "ignore_default_branch_pull_requests", value)
+
+    @_builtins.property
+    @pulumi.getter(name="issueCommentCommandWord")
+    def issue_comment_command_word(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
+        """
+        return pulumi.get(self, "issue_comment_command_word")
+
+    @issue_comment_command_word.setter
+    def issue_comment_command_word(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "issue_comment_command_word", value)
+
+    @_builtins.property
+    @pulumi.getter(name="issueCommentMatchMode")
+    def issue_comment_match_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
+        """
+        return pulumi.get(self, "issue_comment_match_mode")
+
+    @issue_comment_match_mode.setter
+    def issue_comment_match_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "issue_comment_match_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="prefixPullRequestForkBranchNames")

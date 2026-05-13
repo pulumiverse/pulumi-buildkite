@@ -71,7 +71,7 @@ type ClusterSecret struct {
 	CreatedAt pulumi.StringOutput `pulumi:"createdAt"`
 	// A description of what this secret is for.
 	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+	// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
 	Key pulumi.StringOutput `pulumi:"key"`
 	// YAML access policy defining which pipelines and branches can access this secret.
 	Policy pulumi.StringPtrOutput `pulumi:"policy"`
@@ -133,7 +133,7 @@ type clusterSecretState struct {
 	CreatedAt *string `pulumi:"createdAt"`
 	// A description of what this secret is for.
 	Description *string `pulumi:"description"`
-	// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+	// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
 	Key *string `pulumi:"key"`
 	// YAML access policy defining which pipelines and branches can access this secret.
 	Policy *string `pulumi:"policy"`
@@ -150,7 +150,7 @@ type ClusterSecretState struct {
 	CreatedAt pulumi.StringPtrInput
 	// A description of what this secret is for.
 	Description pulumi.StringPtrInput
-	// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+	// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
 	Key pulumi.StringPtrInput
 	// YAML access policy defining which pipelines and branches can access this secret.
 	Policy pulumi.StringPtrInput
@@ -169,7 +169,7 @@ type clusterSecretArgs struct {
 	ClusterId string `pulumi:"clusterId"`
 	// A description of what this secret is for.
 	Description *string `pulumi:"description"`
-	// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+	// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
 	Key string `pulumi:"key"`
 	// YAML access policy defining which pipelines and branches can access this secret.
 	Policy *string `pulumi:"policy"`
@@ -183,7 +183,7 @@ type ClusterSecretArgs struct {
 	ClusterId pulumi.StringInput
 	// A description of what this secret is for.
 	Description pulumi.StringPtrInput
-	// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+	// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
 	Key pulumi.StringInput
 	// YAML access policy defining which pipelines and branches can access this secret.
 	Policy pulumi.StringPtrInput
@@ -293,7 +293,7 @@ func (o ClusterSecretOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterSecret) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
-// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+// The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
 func (o ClusterSecretOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterSecret) pulumi.StringOutput { return v.Key }).(pulumi.StringOutput)
 }

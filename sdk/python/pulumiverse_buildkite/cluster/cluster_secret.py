@@ -28,7 +28,7 @@ class ClusterSecretArgs:
         The set of arguments for constructing a ClusterSecret resource.
 
         :param pulumi.Input[_builtins.str] cluster_id: The UUID of the cluster this secret belongs to.
-        :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+        :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
         :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB.
         :param pulumi.Input[_builtins.str] description: A description of what this secret is for.
         :param pulumi.Input[_builtins.str] policy: YAML access policy defining which pipelines and branches can access this secret.
@@ -57,7 +57,7 @@ class ClusterSecretArgs:
     @pulumi.getter
     def key(self) -> pulumi.Input[_builtins.str]:
         """
-        The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+        The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
         """
         return pulumi.get(self, "key")
 
@@ -118,7 +118,7 @@ class _ClusterSecretState:
         :param pulumi.Input[_builtins.str] cluster_id: The UUID of the cluster this secret belongs to.
         :param pulumi.Input[_builtins.str] created_at: The time when the secret was created.
         :param pulumi.Input[_builtins.str] description: A description of what this secret is for.
-        :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+        :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
         :param pulumi.Input[_builtins.str] policy: YAML access policy defining which pipelines and branches can access this secret.
         :param pulumi.Input[_builtins.str] updated_at: The time when the secret was last updated.
         :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB.
@@ -178,7 +178,7 @@ class _ClusterSecretState:
     @pulumi.getter
     def key(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+        The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
         """
         return pulumi.get(self, "key")
 
@@ -278,7 +278,7 @@ class ClusterSecret(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] cluster_id: The UUID of the cluster this secret belongs to.
         :param pulumi.Input[_builtins.str] description: A description of what this secret is for.
-        :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+        :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
         :param pulumi.Input[_builtins.str] policy: YAML access policy defining which pipelines and branches can access this secret.
         :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB.
         """
@@ -398,7 +398,7 @@ class ClusterSecret(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] cluster_id: The UUID of the cluster this secret belongs to.
         :param pulumi.Input[_builtins.str] created_at: The time when the secret was created.
         :param pulumi.Input[_builtins.str] description: A description of what this secret is for.
-        :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+        :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
         :param pulumi.Input[_builtins.str] policy: YAML access policy defining which pipelines and branches can access this secret.
         :param pulumi.Input[_builtins.str] updated_at: The time when the secret was last updated.
         :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB.
@@ -444,7 +444,7 @@ class ClusterSecret(pulumi.CustomResource):
     @pulumi.getter
     def key(self) -> pulumi.Output[_builtins.str]:
         """
-        The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters.
+        The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
         """
         return pulumi.get(self, "key")
 
