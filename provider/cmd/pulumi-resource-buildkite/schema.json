@@ -487,6 +487,18 @@
                     "type": "boolean",
                     "description": "Whether to create builds when branches are pushed.\n"
                 },
+                "buildCheckRunCompleted": {
+                    "type": "boolean",
+                    "description": "Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.\n"
+                },
+                "buildCreateEvent": {
+                    "type": "boolean",
+                    "description": "Whether to create a build when a branch or tag is created on GitHub.\n"
+                },
+                "buildDeploymentStatusCreated": {
+                    "type": "boolean",
+                    "description": "Whether to create a build when a GitHub deployment status is created.\n"
+                },
                 "buildIssueCommentCreated": {
                     "type": "boolean",
                     "description": "Whether to create builds when an issue comment is created on a pull request.\n"
@@ -498,6 +510,10 @@
                 "buildPullRequestBaseBranchChanged": {
                     "type": "boolean",
                     "description": "Whether to create builds for pull requests when its base branch changes.\n"
+                },
+                "buildPullRequestConvertedToDraft": {
+                    "type": "boolean",
+                    "description": "Whether to create a build when a pull request is converted to a draft.\n"
                 },
                 "buildPullRequestForks": {
                     "type": "boolean",
@@ -515,9 +531,33 @@
                     "type": "boolean",
                     "description": "Whether to create a build when a pull request changes to \"Ready for review\".\n"
                 },
+                "buildPullRequestReviewDismissed": {
+                    "type": "boolean",
+                    "description": "Whether to create a build when a pull request review is dismissed.\n"
+                },
+                "buildPullRequestReviewRequested": {
+                    "type": "boolean",
+                    "description": "Whether to create a build when a review is requested on a pull request.\n"
+                },
+                "buildPullRequestReviewSubmitted": {
+                    "type": "boolean",
+                    "description": "Whether to create a build when a pull request review is submitted.\n"
+                },
                 "buildPullRequests": {
                     "type": "boolean",
                     "description": "Whether to create builds for commits that are part of a pull request.\n"
+                },
+                "buildReleaseCreated": {
+                    "type": "boolean",
+                    "description": "Whether to create a build when a GitHub release is created (including drafts).\n"
+                },
+                "buildReleasePublished": {
+                    "type": "boolean",
+                    "description": "Whether to create a build when a GitHub release is published.\n"
+                },
+                "buildReleaseReleased": {
+                    "type": "boolean",
+                    "description": "Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).\n"
                 },
                 "buildTags": {
                     "type": "boolean",
@@ -594,6 +634,10 @@
                 "useMergeGroupBaseCommitForGitDiffBase": {
                     "type": "boolean",
                     "description": "When enabled, agents performing a git diff to determine steps to upload based on [\u003cspan pulumi-lang-nodejs=\"`ifChanged`\" pulumi-lang-dotnet=\"`IfChanged`\" pulumi-lang-go=\"`ifChanged`\" pulumi-lang-python=\"`if_changed`\" pulumi-lang-yaml=\"`ifChanged`\" pulumi-lang-java=\"`ifChanged`\"\u003e`ifChanged`\u003c/span\u003e](https://buildkite.com/docs/pipelines/configure/step-types/command-step#agent-applied-attributes)comparisons will use the base commit that points to the previous merge group rather than the base branch\n"
+                },
+                "useStepKeyAsCommitStatus": {
+                    "type": "boolean",
+                    "description": "Whether to use step keys as commit status names for per-step commit statuses. Requires \u003cspan pulumi-lang-nodejs=\"`publishCommitStatus`\" pulumi-lang-dotnet=\"`PublishCommitStatus`\" pulumi-lang-go=\"`publishCommitStatus`\" pulumi-lang-python=\"`publish_commit_status`\" pulumi-lang-yaml=\"`publishCommitStatus`\" pulumi-lang-java=\"`publishCommitStatus`\"\u003e`publishCommitStatus`\u003c/span\u003e and \u003cspan pulumi-lang-nodejs=\"`publishCommitStatusPerStep`\" pulumi-lang-dotnet=\"`PublishCommitStatusPerStep`\" pulumi-lang-go=\"`publishCommitStatusPerStep`\" pulumi-lang-python=\"`publish_commit_status_per_step`\" pulumi-lang-yaml=\"`publishCommitStatusPerStep`\" pulumi-lang-java=\"`publishCommitStatusPerStep`\"\u003e`publishCommitStatusPerStep`\u003c/span\u003e to also be enabled. Defaults to false.\n"
                 }
             },
             "type": "object",
@@ -601,14 +645,24 @@
                 "nodejs": {
                     "requiredOutputs": [
                         "buildBranches",
+                        "buildCheckRunCompleted",
+                        "buildCreateEvent",
+                        "buildDeploymentStatusCreated",
                         "buildIssueCommentCreated",
                         "buildMergeGroupChecksRequested",
                         "buildPullRequestBaseBranchChanged",
+                        "buildPullRequestConvertedToDraft",
                         "buildPullRequestForks",
                         "buildPullRequestLabelsChanged",
                         "buildPullRequestMergeCommits",
                         "buildPullRequestReadyForReview",
+                        "buildPullRequestReviewDismissed",
+                        "buildPullRequestReviewRequested",
+                        "buildPullRequestReviewSubmitted",
                         "buildPullRequests",
+                        "buildReleaseCreated",
+                        "buildReleasePublished",
+                        "buildReleaseReleased",
                         "buildTags",
                         "cancelDeletedBranchBuilds",
                         "cancelWhenMergeGroupDestroyed",
@@ -627,7 +681,8 @@
                         "skipBuildsForExistingCommits",
                         "skipPullRequestBuildsForExistingCommits",
                         "triggerMode",
-                        "useMergeGroupBaseCommitForGitDiffBase"
+                        "useMergeGroupBaseCommitForGitDiffBase",
+                        "useStepKeyAsCommitStatus"
                     ]
                 }
             }
@@ -1311,7 +1366,7 @@
             }
         },
         "buildkite:Cluster/clusterSecret:ClusterSecret": {
-            "description": "A Cluster Secret is an encrypted key-value pair that can be accessed by agents within a cluster.\nSecrets are encrypted and can only be accessed by agents that match the access policy.\n\n**Note:** Secret values are write-only and cannot be retrieved from the API. When importing an existing\ncluster secret, you must manually set the 'value' attribute in your configuration to match the secret's\nactual value, as Terraform cannot read it from the Buildkite API.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumiverse/buildkite\";\n\nconst example = new buildkite.cluster.ClusterSecret(\"example\", {\n    clusterId: \"01234567-89ab-cdef-0123-456789abcdef\",\n    key: \"DATABASE_PASSWORD\",\n    value: \"super-secret-password\",\n    description: \"Production database password\",\n    policy: `- pipeline_slug: my-pipeline\n  build_branch: main\n`,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_buildkite as buildkite\n\nexample = buildkite.cluster.ClusterSecret(\"example\",\n    cluster_id=\"01234567-89ab-cdef-0123-456789abcdef\",\n    key=\"DATABASE_PASSWORD\",\n    value=\"super-secret-password\",\n    description=\"Production database password\",\n    policy=\"\"\"- pipeline_slug: my-pipeline\n  build_branch: main\n\"\"\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Buildkite = Pulumiverse.Buildkite;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Buildkite.Cluster.ClusterSecret(\"example\", new()\n    {\n        ClusterId = \"01234567-89ab-cdef-0123-456789abcdef\",\n        Key = \"DATABASE_PASSWORD\",\n        Value = \"super-secret-password\",\n        Description = \"Production database password\",\n        Policy = @\"- pipeline_slug: my-pipeline\n  build_branch: main\n\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/cluster\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := cluster.NewClusterSecret(ctx, \"example\", \u0026cluster.ClusterSecretArgs{\n\t\t\tClusterId:   pulumi.String(\"01234567-89ab-cdef-0123-456789abcdef\"),\n\t\t\tKey:         pulumi.String(\"DATABASE_PASSWORD\"),\n\t\t\tValue:       pulumi.String(\"super-secret-password\"),\n\t\t\tDescription: pulumi.String(\"Production database password\"),\n\t\t\tPolicy:      pulumi.String(\"- pipeline_slug: my-pipeline\\n  build_branch: main\\n\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.buildkite.Cluster.ClusterSecret;\nimport com.pulumi.buildkite.Cluster.ClusterSecretArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new ClusterSecret(\"example\", ClusterSecretArgs.builder()\n            .clusterId(\"01234567-89ab-cdef-0123-456789abcdef\")\n            .key(\"DATABASE_PASSWORD\")\n            .value(\"super-secret-password\")\n            .description(\"Production database password\")\n            .policy(\"\"\"\n- pipeline_slug: my-pipeline\n  build_branch: main\n            \"\"\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: buildkite:Cluster:ClusterSecret\n    properties:\n      clusterId: 01234567-89ab-cdef-0123-456789abcdef\n      key: DATABASE_PASSWORD\n      value: super-secret-password\n      description: Production database password\n      policy: |\n        - pipeline_slug: my-pipeline\n          build_branch: main\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nUsing `pulumi import`, import resources using the \u003cspan pulumi-lang-nodejs=\"`id`\" pulumi-lang-dotnet=\"`Id`\" pulumi-lang-go=\"`id`\" pulumi-lang-python=\"`id`\" pulumi-lang-yaml=\"`id`\" pulumi-lang-java=\"`id`\"\u003e`id`\u003c/span\u003e. For example:\nImport a cluster secret using {cluster_id}/{secret_id}\n\nYou can find the\u003cspan pulumi-lang-nodejs=\" clusterId \" pulumi-lang-dotnet=\" ClusterId \" pulumi-lang-go=\" clusterId \" pulumi-lang-python=\" cluster_id \" pulumi-lang-yaml=\" clusterId \" pulumi-lang-java=\" clusterId \"\u003e clusterId \u003c/span\u003eunder cluster settings in the UI\nand find the\u003cspan pulumi-lang-nodejs=\" secretId \" pulumi-lang-dotnet=\" SecretId \" pulumi-lang-go=\" secretId \" pulumi-lang-python=\" secret_id \" pulumi-lang-yaml=\" secretId \" pulumi-lang-java=\" secretId \"\u003e secretId \u003c/span\u003efrom the secrets list using the\nREST API response from:\nGET /v2/organizations/{org_slug}/clusters/{cluster_id}/secrets\n\n```sh\n$ pulumi import buildkite:Cluster/clusterSecret:ClusterSecret example 01234567-89ab-cdef-0123-456789abcdef/fedcba98-7654-3210-fedc-ba9876543210\n```\n\n",
+            "description": "A Cluster Secret is an encrypted key-value pair that can be accessed by agents within a cluster.\nSecrets are encrypted and can only be accessed by agents that match the access policy.\n\n**Note:** Secret values are write-only in the Buildkite API and cannot be retrieved after they are set.\nExactly one of value or\u003cspan pulumi-lang-nodejs=\" valueWo \" pulumi-lang-dotnet=\" ValueWo \" pulumi-lang-go=\" valueWo \" pulumi-lang-python=\" value_wo \" pulumi-lang-yaml=\" valueWo \" pulumi-lang-java=\" valueWo \"\u003e valueWo \u003c/span\u003emust be configured. The value attribute is stored in\nTerraform state so Terraform can detect changes. Use\u003cspan pulumi-lang-nodejs=\" valueWo \" pulumi-lang-dotnet=\" ValueWo \" pulumi-lang-go=\" valueWo \" pulumi-lang-python=\" value_wo \" pulumi-lang-yaml=\" valueWo \" pulumi-lang-java=\" valueWo \"\u003e valueWo \u003c/span\u003ewith\u003cspan pulumi-lang-nodejs=\" valueWoVersion\n\" pulumi-lang-dotnet=\" ValueWoVersion\n\" pulumi-lang-go=\" valueWoVersion\n\" pulumi-lang-python=\" value_wo_version\n\" pulumi-lang-yaml=\" valueWoVersion\n\" pulumi-lang-java=\" valueWoVersion\n\"\u003e valueWoVersion\n\u003c/span\u003eto pass a secret value without storing it in pulumi preview or state artifacts.\n\n## Import\n\nUsing `pulumi import`, import resources using the \u003cspan pulumi-lang-nodejs=\"`id`\" pulumi-lang-dotnet=\"`Id`\" pulumi-lang-go=\"`id`\" pulumi-lang-python=\"`id`\" pulumi-lang-yaml=\"`id`\" pulumi-lang-java=\"`id`\"\u003e`id`\u003c/span\u003e. For example:\nImport a cluster secret using {cluster_id}/{secret_id}\n\nYou can find the\u003cspan pulumi-lang-nodejs=\" clusterId \" pulumi-lang-dotnet=\" ClusterId \" pulumi-lang-go=\" clusterId \" pulumi-lang-python=\" cluster_id \" pulumi-lang-yaml=\" clusterId \" pulumi-lang-java=\" clusterId \"\u003e clusterId \u003c/span\u003eunder cluster settings in the UI\nand find the\u003cspan pulumi-lang-nodejs=\" secretId \" pulumi-lang-dotnet=\" SecretId \" pulumi-lang-go=\" secretId \" pulumi-lang-python=\" secret_id \" pulumi-lang-yaml=\" secretId \" pulumi-lang-java=\" secretId \"\u003e secretId \u003c/span\u003efrom the secrets list using the\nREST API response from:\nGET /v2/organizations/{org_slug}/clusters/{cluster_id}/secrets\n\n```sh\n$ pulumi import buildkite:Cluster/clusterSecret:ClusterSecret example 01234567-89ab-cdef-0123-456789abcdef/fedcba98-7654-3210-fedc-ba9876543210\n```\n\nBecause Buildkite does not return secret values after they are set, imported secrets cannot populate \u003cspan pulumi-lang-nodejs=\"`value`\" pulumi-lang-dotnet=\"`Value`\" pulumi-lang-go=\"`value`\" pulumi-lang-python=\"`value`\" pulumi-lang-yaml=\"`value`\" pulumi-lang-java=\"`value`\"\u003e`value`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`valueWoVersion`\" pulumi-lang-dotnet=\"`ValueWoVersion`\" pulumi-lang-go=\"`valueWoVersion`\" pulumi-lang-python=\"`value_wo_version`\" pulumi-lang-yaml=\"`valueWoVersion`\" pulumi-lang-java=\"`valueWoVersion`\"\u003e`valueWoVersion`\u003c/span\u003e in Terraform state. Configure either \u003cspan pulumi-lang-nodejs=\"`value`\" pulumi-lang-dotnet=\"`Value`\" pulumi-lang-go=\"`value`\" pulumi-lang-python=\"`value`\" pulumi-lang-yaml=\"`value`\" pulumi-lang-java=\"`value`\"\u003e`value`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e before the next plan. When using \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e, the first apply after import will re-send the configured secret value because \u003cspan pulumi-lang-nodejs=\"`valueWoVersion`\" pulumi-lang-dotnet=\"`ValueWoVersion`\" pulumi-lang-go=\"`valueWoVersion`\" pulumi-lang-python=\"`value_wo_version`\" pulumi-lang-yaml=\"`valueWoVersion`\" pulumi-lang-java=\"`valueWoVersion`\"\u003e`valueWoVersion`\u003c/span\u003e changes from no state value to the configured value.\n\n",
             "properties": {
                 "clusterId": {
                     "type": "string",
@@ -1319,11 +1374,11 @@
                 },
                 "createdAt": {
                     "type": "string",
-                    "description": "The time when the secret was created.\n"
+                    "description": "The time when the secret was created."
                 },
                 "description": {
                     "type": "string",
-                    "description": "A description of what this secret is for.\n"
+                    "description": "A description of what this secret is for."
                 },
                 "key": {
                     "type": "string",
@@ -1331,24 +1386,32 @@
                 },
                 "policy": {
                     "type": "string",
-                    "description": "YAML access policy defining which pipelines and branches can access this secret.\n"
+                    "description": "YAML access policy defining which pipelines and branches can access this secret."
                 },
                 "updatedAt": {
                     "type": "string",
-                    "description": "The time when the secret was last updated.\n"
+                    "description": "The time when the secret was last updated."
                 },
                 "value": {
                     "type": "string",
-                    "description": "The secret value. Must be less than 8KB.\n",
+                    "description": "The secret value. Must be less than 8KB. Exactly one of \u003cspan pulumi-lang-nodejs=\"`value`\" pulumi-lang-dotnet=\"`Value`\" pulumi-lang-go=\"`value`\" pulumi-lang-python=\"`value`\" pulumi-lang-yaml=\"`value`\" pulumi-lang-java=\"`value`\"\u003e`value`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e must be configured. This value is stored in Terraform state; use \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e with \u003cspan pulumi-lang-nodejs=\"`valueWoVersion`\" pulumi-lang-dotnet=\"`ValueWoVersion`\" pulumi-lang-go=\"`valueWoVersion`\" pulumi-lang-python=\"`value_wo_version`\" pulumi-lang-yaml=\"`valueWoVersion`\" pulumi-lang-java=\"`valueWoVersion`\"\u003e`valueWoVersion`\u003c/span\u003e to avoid storing secret values in state.",
                     "secret": true
+                },
+                "valueWo": {
+                    "type": "string",
+                    "description": "**NOTE:** This field is write-only and its value will not be updated in state as part of read operations.\nWrite-only secret value. Must be less than 8KB. Exactly one of \u003cspan pulumi-lang-nodejs=\"`value`\" pulumi-lang-dotnet=\"`Value`\" pulumi-lang-go=\"`value`\" pulumi-lang-python=\"`value`\" pulumi-lang-yaml=\"`value`\" pulumi-lang-java=\"`value`\"\u003e`value`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e must be configured. This value is not stored in Terraform plan or state artifacts. Pair with \u003cspan pulumi-lang-nodejs=\"`valueWoVersion`\" pulumi-lang-dotnet=\"`ValueWoVersion`\" pulumi-lang-go=\"`valueWoVersion`\" pulumi-lang-python=\"`value_wo_version`\" pulumi-lang-yaml=\"`valueWoVersion`\" pulumi-lang-java=\"`valueWoVersion`\"\u003e`valueWoVersion`\u003c/span\u003e to trigger secret value updates.",
+                    "secret": true
+                },
+                "valueWoVersion": {
+                    "type": "string",
+                    "description": "Non-empty, non-secret version identifier for \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e. Required when \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID."
                 }
             },
             "required": [
                 "clusterId",
                 "createdAt",
                 "key",
-                "updatedAt",
-                "value"
+                "updatedAt"
             ],
             "inputProperties": {
                 "clusterId": {
@@ -1357,7 +1420,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "A description of what this secret is for.\n"
+                    "description": "A description of what this secret is for."
                 },
                 "key": {
                     "type": "string",
@@ -1365,18 +1428,26 @@
                 },
                 "policy": {
                     "type": "string",
-                    "description": "YAML access policy defining which pipelines and branches can access this secret.\n"
+                    "description": "YAML access policy defining which pipelines and branches can access this secret."
                 },
                 "value": {
                     "type": "string",
-                    "description": "The secret value. Must be less than 8KB.\n",
+                    "description": "The secret value. Must be less than 8KB. Exactly one of \u003cspan pulumi-lang-nodejs=\"`value`\" pulumi-lang-dotnet=\"`Value`\" pulumi-lang-go=\"`value`\" pulumi-lang-python=\"`value`\" pulumi-lang-yaml=\"`value`\" pulumi-lang-java=\"`value`\"\u003e`value`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e must be configured. This value is stored in Terraform state; use \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e with \u003cspan pulumi-lang-nodejs=\"`valueWoVersion`\" pulumi-lang-dotnet=\"`ValueWoVersion`\" pulumi-lang-go=\"`valueWoVersion`\" pulumi-lang-python=\"`value_wo_version`\" pulumi-lang-yaml=\"`valueWoVersion`\" pulumi-lang-java=\"`valueWoVersion`\"\u003e`valueWoVersion`\u003c/span\u003e to avoid storing secret values in state.",
                     "secret": true
+                },
+                "valueWo": {
+                    "type": "string",
+                    "description": "**NOTE:** This field is write-only and its value will not be updated in state as part of read operations.\nWrite-only secret value. Must be less than 8KB. Exactly one of \u003cspan pulumi-lang-nodejs=\"`value`\" pulumi-lang-dotnet=\"`Value`\" pulumi-lang-go=\"`value`\" pulumi-lang-python=\"`value`\" pulumi-lang-yaml=\"`value`\" pulumi-lang-java=\"`value`\"\u003e`value`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e must be configured. This value is not stored in Terraform plan or state artifacts. Pair with \u003cspan pulumi-lang-nodejs=\"`valueWoVersion`\" pulumi-lang-dotnet=\"`ValueWoVersion`\" pulumi-lang-go=\"`valueWoVersion`\" pulumi-lang-python=\"`value_wo_version`\" pulumi-lang-yaml=\"`valueWoVersion`\" pulumi-lang-java=\"`valueWoVersion`\"\u003e`valueWoVersion`\u003c/span\u003e to trigger secret value updates.",
+                    "secret": true
+                },
+                "valueWoVersion": {
+                    "type": "string",
+                    "description": "Non-empty, non-secret version identifier for \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e. Required when \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID."
                 }
             },
             "requiredInputs": [
                 "clusterId",
-                "key",
-                "value"
+                "key"
             ],
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering ClusterSecret resources.\n",
@@ -1387,11 +1458,11 @@
                     },
                     "createdAt": {
                         "type": "string",
-                        "description": "The time when the secret was created.\n"
+                        "description": "The time when the secret was created."
                     },
                     "description": {
                         "type": "string",
-                        "description": "A description of what this secret is for.\n"
+                        "description": "A description of what this secret is for."
                     },
                     "key": {
                         "type": "string",
@@ -1399,16 +1470,25 @@
                     },
                     "policy": {
                         "type": "string",
-                        "description": "YAML access policy defining which pipelines and branches can access this secret.\n"
+                        "description": "YAML access policy defining which pipelines and branches can access this secret."
                     },
                     "updatedAt": {
                         "type": "string",
-                        "description": "The time when the secret was last updated.\n"
+                        "description": "The time when the secret was last updated."
                     },
                     "value": {
                         "type": "string",
-                        "description": "The secret value. Must be less than 8KB.\n",
+                        "description": "The secret value. Must be less than 8KB. Exactly one of \u003cspan pulumi-lang-nodejs=\"`value`\" pulumi-lang-dotnet=\"`Value`\" pulumi-lang-go=\"`value`\" pulumi-lang-python=\"`value`\" pulumi-lang-yaml=\"`value`\" pulumi-lang-java=\"`value`\"\u003e`value`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e must be configured. This value is stored in Terraform state; use \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e with \u003cspan pulumi-lang-nodejs=\"`valueWoVersion`\" pulumi-lang-dotnet=\"`ValueWoVersion`\" pulumi-lang-go=\"`valueWoVersion`\" pulumi-lang-python=\"`value_wo_version`\" pulumi-lang-yaml=\"`valueWoVersion`\" pulumi-lang-java=\"`valueWoVersion`\"\u003e`valueWoVersion`\u003c/span\u003e to avoid storing secret values in state.",
                         "secret": true
+                    },
+                    "valueWo": {
+                        "type": "string",
+                        "description": "**NOTE:** This field is write-only and its value will not be updated in state as part of read operations.\nWrite-only secret value. Must be less than 8KB. Exactly one of \u003cspan pulumi-lang-nodejs=\"`value`\" pulumi-lang-dotnet=\"`Value`\" pulumi-lang-go=\"`value`\" pulumi-lang-python=\"`value`\" pulumi-lang-yaml=\"`value`\" pulumi-lang-java=\"`value`\"\u003e`value`\u003c/span\u003e or \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e must be configured. This value is not stored in Terraform plan or state artifacts. Pair with \u003cspan pulumi-lang-nodejs=\"`valueWoVersion`\" pulumi-lang-dotnet=\"`ValueWoVersion`\" pulumi-lang-go=\"`valueWoVersion`\" pulumi-lang-python=\"`value_wo_version`\" pulumi-lang-yaml=\"`valueWoVersion`\" pulumi-lang-java=\"`valueWoVersion`\"\u003e`valueWoVersion`\u003c/span\u003e to trigger secret value updates.",
+                        "secret": true
+                    },
+                    "valueWoVersion": {
+                        "type": "string",
+                        "description": "Non-empty, non-secret version identifier for \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e. Required when \u003cspan pulumi-lang-nodejs=\"`valueWo`\" pulumi-lang-dotnet=\"`ValueWo`\" pulumi-lang-go=\"`valueWo`\" pulumi-lang-python=\"`value_wo`\" pulumi-lang-yaml=\"`valueWo`\" pulumi-lang-java=\"`valueWo`\"\u003e`valueWo`\u003c/span\u003e is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID."
                     }
                 },
                 "type": "object"
@@ -2295,7 +2375,7 @@
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "The environment variables that scheduled builds should use.\n"
+                    "description": "The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.\n"
                 },
                 "label": {
                     "type": "string",
@@ -2345,7 +2425,7 @@
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "The environment variables that scheduled builds should use.\n"
+                    "description": "The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.\n"
                 },
                 "label": {
                     "type": "string",
@@ -2390,7 +2470,7 @@
                         "additionalProperties": {
                             "type": "string"
                         },
-                        "description": "The environment variables that scheduled builds should use.\n"
+                        "description": "The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.\n"
                     },
                     "label": {
                         "type": "string",
