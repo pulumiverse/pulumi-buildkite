@@ -198,10 +198,14 @@ github.com/bufbuild/protocompile v0.14.1 h1:iA73zAf/fyljNjQKwYzUHD6AD4R8KMasmwa/
 github.com/bufbuild/protocompile v0.14.1/go.mod h1:ppVdAIhbr2H8asPk6k4pY7t9zB1OU5DoEw9xY/FUi1c=
 github.com/buildkite/go-pipeline v0.17.0 h1:/80mKEgxxNA2o63y10viKkG9NO8tyKBXYKn0ivUw5bQ=
 github.com/buildkite/go-pipeline v0.17.0/go.mod h1:VE37qY3X5pmAKKUMoDZvPsHOQuyakB9cmXj9Qn6QasA=
+github.com/buildkite/go-pipeline v0.17.1 h1:m7+a2SF9hLjqsbe6HShmzm9M4rDk4QtanKTF2LD6LG0=
+github.com/buildkite/go-pipeline v0.17.1/go.mod h1:VE37qY3X5pmAKKUMoDZvPsHOQuyakB9cmXj9Qn6QasA=
 github.com/buildkite/interpolate v0.1.5 h1:v2Ji3voik69UZlbfoqzx+qfcsOKLA61nHdU79VV+tPU=
 github.com/buildkite/interpolate v0.1.5/go.mod h1:dHnrwHew5O8VNOAgMDpwRlFnhL5VSN6M1bHVmRZ9Ccc=
 github.com/buildkite/terraform-provider-buildkite v1.33.0 h1:wJLoSmPpz8fHcb/d7DaOv2wkux1M8/967Z0ILwVQDIQ=
 github.com/buildkite/terraform-provider-buildkite v1.33.0/go.mod h1:LRhuWirzfnhjfF6yJ4rr2fGEGRtD6zuADBo8HYj/2Io=
+github.com/buildkite/terraform-provider-buildkite v1.34.2 h1:2qITpT/2xJW8vQ7RXlfD2QJCEwTy9t5FiKIffUqB+qc=
+github.com/buildkite/terraform-provider-buildkite v1.34.2/go.mod h1:E8zzLkO5qzscWgqs+22yGdcP8hoiUi4xJ0dkWHn4F+A=
 github.com/cenkalti/backoff/v3 v3.2.2 h1:cfUAAO3yvKMYKPrvhDuHSwQnhZNk/RMHKdZqKTxfm6M=
 github.com/cenkalti/backoff/v3 v3.2.2/go.mod h1:cIeZDE3IrqwwJl6VUwCN6trj1oXrTS4rc0ij+ULvLYs=
 github.com/cenkalti/backoff/v5 v5.0.3 h1:ZN+IMa753KfX5hd8vVaMixjnqRZ3y8CuJKRKj1xcsSM=
