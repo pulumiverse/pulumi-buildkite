@@ -15,39 +15,10 @@ import (
 // A Cluster Secret is an encrypted key-value pair that can be accessed by agents within a cluster.
 // Secrets are encrypted and can only be accessed by agents that match the access policy.
 //
-// **Note:** Secret values are write-only and cannot be retrieved from the API. When importing an existing
-// cluster secret, you must manually set the 'value' attribute in your configuration to match the secret's
-// actual value, as Terraform cannot read it from the Buildkite API.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/cluster"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := cluster.NewClusterSecret(ctx, "example", &cluster.ClusterSecretArgs{
-//				ClusterId:   pulumi.String("01234567-89ab-cdef-0123-456789abcdef"),
-//				Key:         pulumi.String("DATABASE_PASSWORD"),
-//				Value:       pulumi.String("super-secret-password"),
-//				Description: pulumi.String("Production database password"),
-//				Policy:      pulumi.String("- pipeline_slug: my-pipeline\n  build_branch: main\n"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
+// **Note:** Secret values are write-only in the Buildkite API and cannot be retrieved after they are set.
+// Exactly one of value or valueWo must be configured. The value attribute is stored in
+// Terraform state so Terraform can detect changes. Use valueWo with valueWoVersion
+// to pass a secret value without storing it in pulumi preview or state artifacts.
 //
 // ## Import
 //
@@ -62,6 +33,8 @@ import (
 // ```sh
 // $ pulumi import buildkite:Cluster/clusterSecret:ClusterSecret example 01234567-89ab-cdef-0123-456789abcdef/fedcba98-7654-3210-fedc-ba9876543210
 // ```
+//
+// Because Buildkite does not return secret values after they are set, imported secrets cannot populate `value` or `valueWoVersion` in Terraform state. Configure either `value` or `valueWo` before the next plan. When using `valueWo`, the first apply after import will re-send the configured secret value because `valueWoVersion` changes from no state value to the configured value.
 type ClusterSecret struct {
 	pulumi.CustomResourceState
 
@@ -77,8 +50,13 @@ type ClusterSecret struct {
 	Policy pulumi.StringPtrOutput `pulumi:"policy"`
 	// The time when the secret was last updated.
 	UpdatedAt pulumi.StringOutput `pulumi:"updatedAt"`
-	// The secret value. Must be less than 8KB.
-	Value pulumi.StringOutput `pulumi:"value"`
+	// The secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is stored in Terraform state; use `valueWo` with `valueWoVersion` to avoid storing secret values in state.
+	Value pulumi.StringPtrOutput `pulumi:"value"`
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// Write-only secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `valueWoVersion` to trigger secret value updates.
+	ValueWo pulumi.StringPtrOutput `pulumi:"valueWo"`
+	// Non-empty, non-secret version identifier for `valueWo`. Required when `valueWo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+	ValueWoVersion pulumi.StringPtrOutput `pulumi:"valueWoVersion"`
 }
 
 // NewClusterSecret registers a new resource with the given unique name, arguments, and options.
@@ -94,14 +72,15 @@ func NewClusterSecret(ctx *pulumi.Context,
 	if args.Key == nil {
 		return nil, errors.New("invalid value for required argument 'Key'")
 	}
-	if args.Value == nil {
-		return nil, errors.New("invalid value for required argument 'Value'")
-	}
 	if args.Value != nil {
-		args.Value = pulumi.ToSecret(args.Value).(pulumi.StringInput)
+		args.Value = pulumi.ToSecret(args.Value).(pulumi.StringPtrInput)
+	}
+	if args.ValueWo != nil {
+		args.ValueWo = pulumi.ToSecret(args.ValueWo).(pulumi.StringPtrInput)
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"value",
+		"valueWo",
 	})
 	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
@@ -139,8 +118,13 @@ type clusterSecretState struct {
 	Policy *string `pulumi:"policy"`
 	// The time when the secret was last updated.
 	UpdatedAt *string `pulumi:"updatedAt"`
-	// The secret value. Must be less than 8KB.
+	// The secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is stored in Terraform state; use `valueWo` with `valueWoVersion` to avoid storing secret values in state.
 	Value *string `pulumi:"value"`
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// Write-only secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `valueWoVersion` to trigger secret value updates.
+	ValueWo *string `pulumi:"valueWo"`
+	// Non-empty, non-secret version identifier for `valueWo`. Required when `valueWo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+	ValueWoVersion *string `pulumi:"valueWoVersion"`
 }
 
 type ClusterSecretState struct {
@@ -156,8 +140,13 @@ type ClusterSecretState struct {
 	Policy pulumi.StringPtrInput
 	// The time when the secret was last updated.
 	UpdatedAt pulumi.StringPtrInput
-	// The secret value. Must be less than 8KB.
+	// The secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is stored in Terraform state; use `valueWo` with `valueWoVersion` to avoid storing secret values in state.
 	Value pulumi.StringPtrInput
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// Write-only secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `valueWoVersion` to trigger secret value updates.
+	ValueWo pulumi.StringPtrInput
+	// Non-empty, non-secret version identifier for `valueWo`. Required when `valueWo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+	ValueWoVersion pulumi.StringPtrInput
 }
 
 func (ClusterSecretState) ElementType() reflect.Type {
@@ -173,8 +162,13 @@ type clusterSecretArgs struct {
 	Key string `pulumi:"key"`
 	// YAML access policy defining which pipelines and branches can access this secret.
 	Policy *string `pulumi:"policy"`
-	// The secret value. Must be less than 8KB.
-	Value string `pulumi:"value"`
+	// The secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is stored in Terraform state; use `valueWo` with `valueWoVersion` to avoid storing secret values in state.
+	Value *string `pulumi:"value"`
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// Write-only secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `valueWoVersion` to trigger secret value updates.
+	ValueWo *string `pulumi:"valueWo"`
+	// Non-empty, non-secret version identifier for `valueWo`. Required when `valueWo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+	ValueWoVersion *string `pulumi:"valueWoVersion"`
 }
 
 // The set of arguments for constructing a ClusterSecret resource.
@@ -187,8 +181,13 @@ type ClusterSecretArgs struct {
 	Key pulumi.StringInput
 	// YAML access policy defining which pipelines and branches can access this secret.
 	Policy pulumi.StringPtrInput
-	// The secret value. Must be less than 8KB.
-	Value pulumi.StringInput
+	// The secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is stored in Terraform state; use `valueWo` with `valueWoVersion` to avoid storing secret values in state.
+	Value pulumi.StringPtrInput
+	// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+	// Write-only secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `valueWoVersion` to trigger secret value updates.
+	ValueWo pulumi.StringPtrInput
+	// Non-empty, non-secret version identifier for `valueWo`. Required when `valueWo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+	ValueWoVersion pulumi.StringPtrInput
 }
 
 func (ClusterSecretArgs) ElementType() reflect.Type {
@@ -308,9 +307,20 @@ func (o ClusterSecretOutput) UpdatedAt() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterSecret) pulumi.StringOutput { return v.UpdatedAt }).(pulumi.StringOutput)
 }
 
-// The secret value. Must be less than 8KB.
-func (o ClusterSecretOutput) Value() pulumi.StringOutput {
-	return o.ApplyT(func(v *ClusterSecret) pulumi.StringOutput { return v.Value }).(pulumi.StringOutput)
+// The secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is stored in Terraform state; use `valueWo` with `valueWoVersion` to avoid storing secret values in state.
+func (o ClusterSecretOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterSecret) pulumi.StringPtrOutput { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+// Write-only secret value. Must be less than 8KB. Exactly one of `value` or `valueWo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `valueWoVersion` to trigger secret value updates.
+func (o ClusterSecretOutput) ValueWo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterSecret) pulumi.StringPtrOutput { return v.ValueWo }).(pulumi.StringPtrOutput)
+}
+
+// Non-empty, non-secret version identifier for `valueWo`. Required when `valueWo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+func (o ClusterSecretOutput) ValueWoVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterSecret) pulumi.StringPtrOutput { return v.ValueWoVersion }).(pulumi.StringPtrOutput)
 }
 
 type ClusterSecretArrayOutput struct{ *pulumi.OutputState }

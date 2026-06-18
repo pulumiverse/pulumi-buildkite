@@ -20,6 +20,24 @@ namespace Pulumiverse.Buildkite.Pipeline.Inputs
         public Input<bool>? BuildBranches { get; set; }
 
         /// <summary>
+        /// Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.
+        /// </summary>
+        [Input("buildCheckRunCompleted")]
+        public Input<bool>? BuildCheckRunCompleted { get; set; }
+
+        /// <summary>
+        /// Whether to create a build when a branch or tag is created on GitHub.
+        /// </summary>
+        [Input("buildCreateEvent")]
+        public Input<bool>? BuildCreateEvent { get; set; }
+
+        /// <summary>
+        /// Whether to create a build when a GitHub deployment status is created.
+        /// </summary>
+        [Input("buildDeploymentStatusCreated")]
+        public Input<bool>? BuildDeploymentStatusCreated { get; set; }
+
+        /// <summary>
         /// Whether to create builds when an issue comment is created on a pull request.
         /// </summary>
         [Input("buildIssueCommentCreated")]
@@ -36,6 +54,12 @@ namespace Pulumiverse.Buildkite.Pipeline.Inputs
         /// </summary>
         [Input("buildPullRequestBaseBranchChanged")]
         public Input<bool>? BuildPullRequestBaseBranchChanged { get; set; }
+
+        /// <summary>
+        /// Whether to create a build when a pull request is converted to a draft.
+        /// </summary>
+        [Input("buildPullRequestConvertedToDraft")]
+        public Input<bool>? BuildPullRequestConvertedToDraft { get; set; }
 
         /// <summary>
         /// Whether to create builds for pull requests from third-party forks.
@@ -62,10 +86,46 @@ namespace Pulumiverse.Buildkite.Pipeline.Inputs
         public Input<bool>? BuildPullRequestReadyForReview { get; set; }
 
         /// <summary>
+        /// Whether to create a build when a pull request review is dismissed.
+        /// </summary>
+        [Input("buildPullRequestReviewDismissed")]
+        public Input<bool>? BuildPullRequestReviewDismissed { get; set; }
+
+        /// <summary>
+        /// Whether to create a build when a review is requested on a pull request.
+        /// </summary>
+        [Input("buildPullRequestReviewRequested")]
+        public Input<bool>? BuildPullRequestReviewRequested { get; set; }
+
+        /// <summary>
+        /// Whether to create a build when a pull request review is submitted.
+        /// </summary>
+        [Input("buildPullRequestReviewSubmitted")]
+        public Input<bool>? BuildPullRequestReviewSubmitted { get; set; }
+
+        /// <summary>
         /// Whether to create builds for commits that are part of a pull request.
         /// </summary>
         [Input("buildPullRequests")]
         public Input<bool>? BuildPullRequests { get; set; }
+
+        /// <summary>
+        /// Whether to create a build when a GitHub release is created (including drafts).
+        /// </summary>
+        [Input("buildReleaseCreated")]
+        public Input<bool>? BuildReleaseCreated { get; set; }
+
+        /// <summary>
+        /// Whether to create a build when a GitHub release is published.
+        /// </summary>
+        [Input("buildReleasePublished")]
+        public Input<bool>? BuildReleasePublished { get; set; }
+
+        /// <summary>
+        /// Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
+        /// </summary>
+        [Input("buildReleaseReleased")]
+        public Input<bool>? BuildReleaseReleased { get; set; }
 
         /// <summary>
         /// Whether to create builds when tags are pushed.
@@ -187,6 +247,12 @@ namespace Pulumiverse.Buildkite.Pipeline.Inputs
         /// </summary>
         [Input("useMergeGroupBaseCommitForGitDiffBase")]
         public Input<bool>? UseMergeGroupBaseCommitForGitDiffBase { get; set; }
+
+        /// <summary>
+        /// Whether to use step keys as commit status names for per-step commit statuses. Requires `PublishCommitStatus` and `PublishCommitStatusPerStep` to also be enabled. Defaults to false.
+        /// </summary>
+        [Input("useStepKeyAsCommitStatus")]
+        public Input<bool>? UseStepKeyAsCommitStatus { get; set; }
 
         public PipelineProviderSettingsGetArgs()
         {

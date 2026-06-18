@@ -21,25 +21,35 @@ class ClusterSecretArgs:
     def __init__(__self__, *,
                  cluster_id: pulumi.Input[_builtins.str],
                  key: pulumi.Input[_builtins.str],
-                 value: pulumi.Input[_builtins.str],
                  description: Optional[pulumi.Input[_builtins.str]] = None,
-                 policy: Optional[pulumi.Input[_builtins.str]] = None):
+                 policy: Optional[pulumi.Input[_builtins.str]] = None,
+                 value: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo_version: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ClusterSecret resource.
 
         :param pulumi.Input[_builtins.str] cluster_id: The UUID of the cluster this secret belongs to.
         :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
-        :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB.
         :param pulumi.Input[_builtins.str] description: A description of what this secret is for.
         :param pulumi.Input[_builtins.str] policy: YAML access policy defining which pipelines and branches can access this secret.
+        :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is stored in Terraform state; use `value_wo` with `value_wo_version` to avoid storing secret values in state.
+        :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               Write-only secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `value_wo_version` to trigger secret value updates.
+        :param pulumi.Input[_builtins.str] value_wo_version: Non-empty, non-secret version identifier for `value_wo`. Required when `value_wo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
         """
         pulumi.set(__self__, "cluster_id", cluster_id)
         pulumi.set(__self__, "key", key)
-        pulumi.set(__self__, "value", value)
         if description is not None:
             pulumi.set(__self__, "description", description)
         if policy is not None:
             pulumi.set(__self__, "policy", policy)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+        if value_wo is not None:
+            pulumi.set(__self__, "value_wo", value_wo)
+        if value_wo_version is not None:
+            pulumi.set(__self__, "value_wo_version", value_wo_version)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
@@ -67,18 +77,6 @@ class ClusterSecretArgs:
 
     @_builtins.property
     @pulumi.getter
-    def value(self) -> pulumi.Input[_builtins.str]:
-        """
-        The secret value. Must be less than 8KB.
-        """
-        return pulumi.get(self, "value")
-
-    @value.setter
-    def value(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "value", value)
-
-    @_builtins.property
-    @pulumi.getter
     def description(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         A description of what this secret is for.
@@ -101,6 +99,43 @@ class ClusterSecretArgs:
     def policy(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "policy", value)
 
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is stored in Terraform state; use `value_wo` with `value_wo_version` to avoid storing secret values in state.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueWo")
+    def value_wo(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        Write-only secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `value_wo_version` to trigger secret value updates.
+        """
+        return pulumi.get(self, "value_wo")
+
+    @value_wo.setter
+    def value_wo(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value_wo", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueWoVersion")
+    def value_wo_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Non-empty, non-secret version identifier for `value_wo`. Required when `value_wo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+        """
+        return pulumi.get(self, "value_wo_version")
+
+    @value_wo_version.setter
+    def value_wo_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value_wo_version", value)
+
 
 @pulumi.input_type
 class _ClusterSecretState:
@@ -111,7 +146,9 @@ class _ClusterSecretState:
                  key: Optional[pulumi.Input[_builtins.str]] = None,
                  policy: Optional[pulumi.Input[_builtins.str]] = None,
                  updated_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 value: Optional[pulumi.Input[_builtins.str]] = None):
+                 value: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo_version: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ClusterSecret resources.
 
@@ -121,7 +158,10 @@ class _ClusterSecretState:
         :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
         :param pulumi.Input[_builtins.str] policy: YAML access policy defining which pipelines and branches can access this secret.
         :param pulumi.Input[_builtins.str] updated_at: The time when the secret was last updated.
-        :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB.
+        :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is stored in Terraform state; use `value_wo` with `value_wo_version` to avoid storing secret values in state.
+        :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               Write-only secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `value_wo_version` to trigger secret value updates.
+        :param pulumi.Input[_builtins.str] value_wo_version: Non-empty, non-secret version identifier for `value_wo`. Required when `value_wo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
         """
         if cluster_id is not None:
             pulumi.set(__self__, "cluster_id", cluster_id)
@@ -137,6 +177,10 @@ class _ClusterSecretState:
             pulumi.set(__self__, "updated_at", updated_at)
         if value is not None:
             pulumi.set(__self__, "value", value)
+        if value_wo is not None:
+            pulumi.set(__self__, "value_wo", value_wo)
+        if value_wo_version is not None:
+            pulumi.set(__self__, "value_wo_version", value_wo_version)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
@@ -214,13 +258,38 @@ class _ClusterSecretState:
     @pulumi.getter
     def value(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The secret value. Must be less than 8KB.
+        The secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is stored in Terraform state; use `value_wo` with `value_wo_version` to avoid storing secret values in state.
         """
         return pulumi.get(self, "value")
 
     @value.setter
     def value(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "value", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueWo")
+    def value_wo(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        Write-only secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `value_wo_version` to trigger secret value updates.
+        """
+        return pulumi.get(self, "value_wo")
+
+    @value_wo.setter
+    def value_wo(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value_wo", value)
+
+    @_builtins.property
+    @pulumi.getter(name="valueWoVersion")
+    def value_wo_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Non-empty, non-secret version identifier for `value_wo`. Required when `value_wo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+        """
+        return pulumi.get(self, "value_wo_version")
+
+    @value_wo_version.setter
+    def value_wo_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "value_wo_version", value)
 
 
 @pulumi.type_token("buildkite:Cluster/clusterSecret:ClusterSecret")
@@ -234,30 +303,17 @@ class ClusterSecret(pulumi.CustomResource):
                  key: Optional[pulumi.Input[_builtins.str]] = None,
                  policy: Optional[pulumi.Input[_builtins.str]] = None,
                  value: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo_version: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
         A Cluster Secret is an encrypted key-value pair that can be accessed by agents within a cluster.
         Secrets are encrypted and can only be accessed by agents that match the access policy.
 
-        **Note:** Secret values are write-only and cannot be retrieved from the API. When importing an existing
-        cluster secret, you must manually set the 'value' attribute in your configuration to match the secret's
-        actual value, as Terraform cannot read it from the Buildkite API.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        example = buildkite.cluster.ClusterSecret("example",
-            cluster_id="01234567-89ab-cdef-0123-456789abcdef",
-            key="DATABASE_PASSWORD",
-            value="super-secret-password",
-            description="Production database password",
-            policy=\"\"\"- pipeline_slug: my-pipeline
-          build_branch: main
-        \"\"\")
-        ```
+        **Note:** Secret values are write-only in the Buildkite API and cannot be retrieved after they are set.
+        Exactly one of value or value_wo must be configured. The value attribute is stored in
+        Terraform state so Terraform can detect changes. Use value_wo with value_wo_version
+        to pass a secret value without storing it in pulumi preview or state artifacts.
 
         ## Import
 
@@ -273,6 +329,8 @@ class ClusterSecret(pulumi.CustomResource):
         $ pulumi import buildkite:Cluster/clusterSecret:ClusterSecret example 01234567-89ab-cdef-0123-456789abcdef/fedcba98-7654-3210-fedc-ba9876543210
         ```
 
+        Because Buildkite does not return secret values after they are set, imported secrets cannot populate `value` or `value_wo_version` in Terraform state. Configure either `value` or `value_wo` before the next plan. When using `value_wo`, the first apply after import will re-send the configured secret value because `value_wo_version` changes from no state value to the configured value.
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -280,7 +338,10 @@ class ClusterSecret(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] description: A description of what this secret is for.
         :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
         :param pulumi.Input[_builtins.str] policy: YAML access policy defining which pipelines and branches can access this secret.
-        :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB.
+        :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is stored in Terraform state; use `value_wo` with `value_wo_version` to avoid storing secret values in state.
+        :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               Write-only secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `value_wo_version` to trigger secret value updates.
+        :param pulumi.Input[_builtins.str] value_wo_version: Non-empty, non-secret version identifier for `value_wo`. Required when `value_wo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
         """
         ...
     @overload
@@ -292,25 +353,10 @@ class ClusterSecret(pulumi.CustomResource):
         A Cluster Secret is an encrypted key-value pair that can be accessed by agents within a cluster.
         Secrets are encrypted and can only be accessed by agents that match the access policy.
 
-        **Note:** Secret values are write-only and cannot be retrieved from the API. When importing an existing
-        cluster secret, you must manually set the 'value' attribute in your configuration to match the secret's
-        actual value, as Terraform cannot read it from the Buildkite API.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_buildkite as buildkite
-
-        example = buildkite.cluster.ClusterSecret("example",
-            cluster_id="01234567-89ab-cdef-0123-456789abcdef",
-            key="DATABASE_PASSWORD",
-            value="super-secret-password",
-            description="Production database password",
-            policy=\"\"\"- pipeline_slug: my-pipeline
-          build_branch: main
-        \"\"\")
-        ```
+        **Note:** Secret values are write-only in the Buildkite API and cannot be retrieved after they are set.
+        Exactly one of value or value_wo must be configured. The value attribute is stored in
+        Terraform state so Terraform can detect changes. Use value_wo with value_wo_version
+        to pass a secret value without storing it in pulumi preview or state artifacts.
 
         ## Import
 
@@ -325,6 +371,8 @@ class ClusterSecret(pulumi.CustomResource):
         ```sh
         $ pulumi import buildkite:Cluster/clusterSecret:ClusterSecret example 01234567-89ab-cdef-0123-456789abcdef/fedcba98-7654-3210-fedc-ba9876543210
         ```
+
+        Because Buildkite does not return secret values after they are set, imported secrets cannot populate `value` or `value_wo_version` in Terraform state. Configure either `value` or `value_wo` before the next plan. When using `value_wo`, the first apply after import will re-send the configured secret value because `value_wo_version` changes from no state value to the configured value.
 
 
         :param str resource_name: The name of the resource.
@@ -347,6 +395,8 @@ class ClusterSecret(pulumi.CustomResource):
                  key: Optional[pulumi.Input[_builtins.str]] = None,
                  policy: Optional[pulumi.Input[_builtins.str]] = None,
                  value: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo: Optional[pulumi.Input[_builtins.str]] = None,
+                 value_wo_version: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -364,12 +414,12 @@ class ClusterSecret(pulumi.CustomResource):
                 raise TypeError("Missing required property 'key'")
             __props__.__dict__["key"] = key
             __props__.__dict__["policy"] = policy
-            if value is None and not opts.urn:
-                raise TypeError("Missing required property 'value'")
             __props__.__dict__["value"] = None if value is None else pulumi.Output.secret(value)
+            __props__.__dict__["value_wo"] = None if value_wo is None else pulumi.Output.secret(value_wo)
+            __props__.__dict__["value_wo_version"] = value_wo_version
             __props__.__dict__["created_at"] = None
             __props__.__dict__["updated_at"] = None
-        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["value"])
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["value", "valueWo"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(ClusterSecret, __self__).__init__(
             'buildkite:Cluster/clusterSecret:ClusterSecret',
@@ -387,7 +437,9 @@ class ClusterSecret(pulumi.CustomResource):
             key: Optional[pulumi.Input[_builtins.str]] = None,
             policy: Optional[pulumi.Input[_builtins.str]] = None,
             updated_at: Optional[pulumi.Input[_builtins.str]] = None,
-            value: Optional[pulumi.Input[_builtins.str]] = None) -> 'ClusterSecret':
+            value: Optional[pulumi.Input[_builtins.str]] = None,
+            value_wo: Optional[pulumi.Input[_builtins.str]] = None,
+            value_wo_version: Optional[pulumi.Input[_builtins.str]] = None) -> 'ClusterSecret':
         """
         Get an existing ClusterSecret resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -401,7 +453,10 @@ class ClusterSecret(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] key: The key name for the secret. Must start with a letter and only contain letters, numbers, and underscores. Maximum 255 characters. Must not start with `buildkite` or `bk` (case-insensitive) as these prefixes are reserved.
         :param pulumi.Input[_builtins.str] policy: YAML access policy defining which pipelines and branches can access this secret.
         :param pulumi.Input[_builtins.str] updated_at: The time when the secret was last updated.
-        :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB.
+        :param pulumi.Input[_builtins.str] value: The secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is stored in Terraform state; use `value_wo` with `value_wo_version` to avoid storing secret values in state.
+        :param pulumi.Input[_builtins.str] value_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+               Write-only secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `value_wo_version` to trigger secret value updates.
+        :param pulumi.Input[_builtins.str] value_wo_version: Non-empty, non-secret version identifier for `value_wo`. Required when `value_wo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -414,6 +469,8 @@ class ClusterSecret(pulumi.CustomResource):
         __props__.__dict__["policy"] = policy
         __props__.__dict__["updated_at"] = updated_at
         __props__.__dict__["value"] = value
+        __props__.__dict__["value_wo"] = value_wo
+        __props__.__dict__["value_wo_version"] = value_wo_version
         return ClusterSecret(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -466,9 +523,26 @@ class ClusterSecret(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def value(self) -> pulumi.Output[_builtins.str]:
+    def value(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The secret value. Must be less than 8KB.
+        The secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is stored in Terraform state; use `value_wo` with `value_wo_version` to avoid storing secret values in state.
         """
         return pulumi.get(self, "value")
+
+    @_builtins.property
+    @pulumi.getter(name="valueWo")
+    def value_wo(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        Write-only secret value. Must be less than 8KB. Exactly one of `value` or `value_wo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `value_wo_version` to trigger secret value updates.
+        """
+        return pulumi.get(self, "value_wo")
+
+    @_builtins.property
+    @pulumi.getter(name="valueWoVersion")
+    def value_wo_version(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Non-empty, non-secret version identifier for `value_wo`. Required when `value_wo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+        """
+        return pulumi.get(self, "value_wo_version")
 
