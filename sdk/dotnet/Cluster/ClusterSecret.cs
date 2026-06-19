@@ -14,33 +14,10 @@ namespace Pulumiverse.Buildkite.Cluster
     /// A Cluster Secret is an encrypted key-value pair that can be accessed by agents within a cluster.
     /// Secrets are encrypted and can only be accessed by agents that match the access policy.
     /// 
-    /// **Note:** Secret values are write-only and cannot be retrieved from the API. When importing an existing
-    /// cluster secret, you must manually set the 'value' attribute in your configuration to match the secret's
-    /// actual value, as Terraform cannot read it from the Buildkite API.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Buildkite = Pulumiverse.Buildkite;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     var example = new Buildkite.Cluster.ClusterSecret("example", new()
-    ///     {
-    ///         ClusterId = "01234567-89ab-cdef-0123-456789abcdef",
-    ///         Key = "DATABASE_PASSWORD",
-    ///         Value = "super-secret-password",
-    ///         Description = "Production database password",
-    ///         Policy = @"- pipeline_slug: my-pipeline
-    ///   build_branch: main
-    /// ",
-    ///     });
-    /// 
-    /// });
-    /// ```
+    /// **Note:** Secret values are write-only in the Buildkite API and cannot be retrieved after they are set.
+    /// Exactly one of value or ValueWo must be configured. The value attribute is stored in
+    /// Terraform state so Terraform can detect changes. Use ValueWo with ValueWoVersion
+    /// to pass a secret value without storing it in pulumi preview or state artifacts.
     /// 
     /// ## Import
     /// 
@@ -55,6 +32,8 @@ namespace Pulumiverse.Buildkite.Cluster
     /// ```sh
     /// $ pulumi import buildkite:Cluster/clusterSecret:ClusterSecret example 01234567-89ab-cdef-0123-456789abcdef/fedcba98-7654-3210-fedc-ba9876543210
     /// ```
+    /// 
+    /// Because Buildkite does not return secret values after they are set, imported secrets cannot populate `Value` or `ValueWoVersion` in Terraform state. Configure either `Value` or `ValueWo` before the next plan. When using `ValueWo`, the first apply after import will re-send the configured secret value because `ValueWoVersion` changes from no state value to the configured value.
     /// </summary>
     [BuildkiteResourceType("buildkite:Cluster/clusterSecret:ClusterSecret")]
     public partial class ClusterSecret : global::Pulumi.CustomResource
@@ -96,10 +75,23 @@ namespace Pulumiverse.Buildkite.Cluster
         public Output<string> UpdatedAt { get; private set; } = null!;
 
         /// <summary>
-        /// The secret value. Must be less than 8KB.
+        /// The secret value. Must be less than 8KB. Exactly one of `Value` or `ValueWo` must be configured. This value is stored in Terraform state; use `ValueWo` with `ValueWoVersion` to avoid storing secret values in state.
         /// </summary>
         [Output("value")]
-        public Output<string> Value { get; private set; } = null!;
+        public Output<string?> Value { get; private set; } = null!;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// Write-only secret value. Must be less than 8KB. Exactly one of `Value` or `ValueWo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `ValueWoVersion` to trigger secret value updates.
+        /// </summary>
+        [Output("valueWo")]
+        public Output<string?> ValueWo { get; private set; } = null!;
+
+        /// <summary>
+        /// Non-empty, non-secret version identifier for `ValueWo`. Required when `ValueWo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+        /// </summary>
+        [Output("valueWoVersion")]
+        public Output<string?> ValueWoVersion { get; private set; } = null!;
 
 
         /// <summary>
@@ -128,6 +120,7 @@ namespace Pulumiverse.Buildkite.Cluster
                 AdditionalSecretOutputs =
                 {
                     "value",
+                    "valueWo",
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -176,11 +169,11 @@ namespace Pulumiverse.Buildkite.Cluster
         [Input("policy")]
         public Input<string>? Policy { get; set; }
 
-        [Input("value", required: true)]
+        [Input("value")]
         private Input<string>? _value;
 
         /// <summary>
-        /// The secret value. Must be less than 8KB.
+        /// The secret value. Must be less than 8KB. Exactly one of `Value` or `ValueWo` must be configured. This value is stored in Terraform state; use `ValueWo` with `ValueWoVersion` to avoid storing secret values in state.
         /// </summary>
         public Input<string>? Value
         {
@@ -191,6 +184,29 @@ namespace Pulumiverse.Buildkite.Cluster
                 _value = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
+
+        [Input("valueWo")]
+        private Input<string>? _valueWo;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// Write-only secret value. Must be less than 8KB. Exactly one of `Value` or `ValueWo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `ValueWoVersion` to trigger secret value updates.
+        /// </summary>
+        public Input<string>? ValueWo
+        {
+            get => _valueWo;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _valueWo = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// Non-empty, non-secret version identifier for `ValueWo`. Required when `ValueWo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+        /// </summary>
+        [Input("valueWoVersion")]
+        public Input<string>? ValueWoVersion { get; set; }
 
         public ClusterSecretArgs()
         {
@@ -240,7 +256,7 @@ namespace Pulumiverse.Buildkite.Cluster
         private Input<string>? _value;
 
         /// <summary>
-        /// The secret value. Must be less than 8KB.
+        /// The secret value. Must be less than 8KB. Exactly one of `Value` or `ValueWo` must be configured. This value is stored in Terraform state; use `ValueWo` with `ValueWoVersion` to avoid storing secret values in state.
         /// </summary>
         public Input<string>? Value
         {
@@ -251,6 +267,29 @@ namespace Pulumiverse.Buildkite.Cluster
                 _value = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
+
+        [Input("valueWo")]
+        private Input<string>? _valueWo;
+
+        /// <summary>
+        /// **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+        /// Write-only secret value. Must be less than 8KB. Exactly one of `Value` or `ValueWo` must be configured. This value is not stored in Terraform plan or state artifacts. Pair with `ValueWoVersion` to trigger secret value updates.
+        /// </summary>
+        public Input<string>? ValueWo
+        {
+            get => _valueWo;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _valueWo = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// Non-empty, non-secret version identifier for `ValueWo`. Required when `ValueWo` is configured. Change this value when the write-only secret value changes, for example by using an external secret manager version ID.
+        /// </summary>
+        [Input("valueWoVersion")]
+        public Input<string>? ValueWoVersion { get; set; }
 
         public ClusterSecretState()
         {

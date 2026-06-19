@@ -114,9 +114,9 @@ export interface GetSignedStepsOutputArgs {
      * If `jwksKeyId` is not specified, and the set contains exactly one key, that key will
      * be used.
      */
-    jwks?: pulumi.Input<string>;
-    jwksFile?: pulumi.Input<string>;
-    jwksKeyId?: pulumi.Input<string>;
+    jwks?: pulumi.Input<string | undefined>;
+    jwksFile?: pulumi.Input<string | undefined>;
+    jwksKeyId?: pulumi.Input<string | undefined>;
     /**
      * The repository that will be checked out in a build of the pipeline.
      */

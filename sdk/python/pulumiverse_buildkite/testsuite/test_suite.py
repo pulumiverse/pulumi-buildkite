@@ -21,8 +21,8 @@ class TestSuiteArgs:
     def __init__(__self__, *,
                  default_branch: pulumi.Input[_builtins.str],
                  team_owner_id: pulumi.Input[_builtins.str],
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None):
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a TestSuite resource.
 
@@ -64,39 +64,39 @@ class TestSuiteArgs:
 
     @_builtins.property
     @pulumi.getter
-    def emoji(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def emoji(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The emoji associated with this test suite, eg :buildkite:
         """
         return pulumi.get(self, "emoji")
 
     @emoji.setter
-    def emoji(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def emoji(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "emoji", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name to give the test suite.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
 
 @pulumi.input_type
 class _TestSuiteState:
     def __init__(__self__, *,
-                 api_token: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_branch: Optional[pulumi.Input[_builtins.str]] = None,
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug: Optional[pulumi.Input[_builtins.str]] = None,
-                 team_owner_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 uuid: Optional[pulumi.Input[_builtins.str]] = None):
+                 api_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_branch: pulumi.Input[Optional[_builtins.str]] = None,
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 team_owner_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 uuid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering TestSuite resources.
 
@@ -125,86 +125,86 @@ class _TestSuiteState:
 
     @_builtins.property
     @pulumi.getter(name="apiToken")
-    def api_token(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_token(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The API token to use to send test run data to the API.
         """
         return pulumi.get(self, "api_token")
 
     @api_token.setter
-    def api_token(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_token(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_token", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultBranch")
-    def default_branch(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def default_branch(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The default branch for the repository this test suite is for.
         """
         return pulumi.get(self, "default_branch")
 
     @default_branch.setter
-    def default_branch(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def default_branch(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "default_branch", value)
 
     @_builtins.property
     @pulumi.getter
-    def emoji(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def emoji(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The emoji associated with this test suite, eg :buildkite:
         """
         return pulumi.get(self, "emoji")
 
     @emoji.setter
-    def emoji(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def emoji(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "emoji", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name to give the test suite.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def slug(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def slug(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The generated slug of the test suite.
         """
         return pulumi.get(self, "slug")
 
     @slug.setter
-    def slug(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def slug(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "slug", value)
 
     @_builtins.property
     @pulumi.getter(name="teamOwnerId")
-    def team_owner_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def team_owner_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The GraphQL ID of the team to mark as the owner/admin of the test suite.
         """
         return pulumi.get(self, "team_owner_id")
 
     @team_owner_id.setter
-    def team_owner_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def team_owner_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "team_owner_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the test suite.
         """
         return pulumi.get(self, "uuid")
 
     @uuid.setter
-    def uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uuid", value)
 
 
@@ -214,10 +214,10 @@ class TestSuite(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 default_branch: Optional[pulumi.Input[_builtins.str]] = None,
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 team_owner_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 default_branch: pulumi.Input[Optional[_builtins.str]] = None,
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 team_owner_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         A test suite is a collection of tests. A run is to a suite what a build is to a Pipeline.Use this resource to manage [Test Suites](https://buildkite.com/docs/test-analytics) on Buildkite.
@@ -329,10 +329,10 @@ class TestSuite(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 default_branch: Optional[pulumi.Input[_builtins.str]] = None,
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 team_owner_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 default_branch: pulumi.Input[Optional[_builtins.str]] = None,
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 team_owner_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -365,13 +365,13 @@ class TestSuite(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            api_token: Optional[pulumi.Input[_builtins.str]] = None,
-            default_branch: Optional[pulumi.Input[_builtins.str]] = None,
-            emoji: Optional[pulumi.Input[_builtins.str]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            slug: Optional[pulumi.Input[_builtins.str]] = None,
-            team_owner_id: Optional[pulumi.Input[_builtins.str]] = None,
-            uuid: Optional[pulumi.Input[_builtins.str]] = None) -> 'TestSuite':
+            api_token: pulumi.Input[Optional[_builtins.str]] = None,
+            default_branch: pulumi.Input[Optional[_builtins.str]] = None,
+            emoji: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            slug: pulumi.Input[Optional[_builtins.str]] = None,
+            team_owner_id: pulumi.Input[Optional[_builtins.str]] = None,
+            uuid: pulumi.Input[Optional[_builtins.str]] = None) -> 'TestSuite':
         """
         Get an existing TestSuite resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

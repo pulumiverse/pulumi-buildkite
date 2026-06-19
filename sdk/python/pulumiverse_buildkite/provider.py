@@ -20,13 +20,13 @@ __all__ = ['ProviderArgs', 'Provider']
 @pulumi.input_type
 class ProviderArgs:
     def __init__(__self__, *,
-                 api_token: Optional[pulumi.Input[_builtins.str]] = None,
-                 archive_pipeline_on_delete: Optional[pulumi.Input[_builtins.bool]] = None,
-                 graphql_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 max_retries: Optional[pulumi.Input[_builtins.int]] = None,
-                 organization: Optional[pulumi.Input[_builtins.str]] = None,
-                 rest_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 timeouts: Optional[pulumi.Input['ProviderTimeoutsArgs']] = None):
+                 api_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 archive_pipeline_on_delete: pulumi.Input[Optional[_builtins.bool]] = None,
+                 graphql_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 max_retries: pulumi.Input[Optional[_builtins.int]] = None,
+                 organization: pulumi.Input[Optional[_builtins.str]] = None,
+                 rest_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 timeouts: pulumi.Input[Optional['ProviderTimeoutsArgs']] = None):
         """
         The set of arguments for constructing a Provider resource.
 
@@ -54,83 +54,83 @@ class ProviderArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiToken")
-    def api_token(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_token(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         API token with GraphQL access and `write_pipelines`, `read_pipelines` and `write_suites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
         """
         return pulumi.get(self, "api_token")
 
     @api_token.setter
-    def api_token(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_token(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_token", value)
 
     @_builtins.property
     @pulumi.getter(name="archivePipelineOnDelete")
-    def archive_pipeline_on_delete(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def archive_pipeline_on_delete(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
         """
         return pulumi.get(self, "archive_pipeline_on_delete")
 
     @archive_pipeline_on_delete.setter
-    def archive_pipeline_on_delete(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def archive_pipeline_on_delete(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "archive_pipeline_on_delete", value)
 
     @_builtins.property
     @pulumi.getter(name="graphqlUrl")
-    def graphql_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def graphql_url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment variable.
         """
         return pulumi.get(self, "graphql_url")
 
     @graphql_url.setter
-    def graphql_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def graphql_url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "graphql_url", value)
 
     @_builtins.property
     @pulumi.getter(name="maxRetries")
-    def max_retries(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def max_retries(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Maximum number of retry attempts for retryable HTTP requests. Defaults to 10.
         """
         return pulumi.get(self, "max_retries")
 
     @max_retries.setter
-    def max_retries(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def max_retries(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "max_retries", value)
 
     @_builtins.property
     @pulumi.getter
-    def organization(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def organization(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings) page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
         """
         return pulumi.get(self, "organization")
 
     @organization.setter
-    def organization(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def organization(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "organization", value)
 
     @_builtins.property
     @pulumi.getter(name="restUrl")
-    def rest_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def rest_url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment variable.
         """
         return pulumi.get(self, "rest_url")
 
     @rest_url.setter
-    def rest_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def rest_url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "rest_url", value)
 
     @_builtins.property
     @pulumi.getter
-    def timeouts(self) -> Optional[pulumi.Input['ProviderTimeoutsArgs']]:
+    def timeouts(self) -> pulumi.Input[Optional['ProviderTimeoutsArgs']]:
         return pulumi.get(self, "timeouts")
 
     @timeouts.setter
-    def timeouts(self, value: Optional[pulumi.Input['ProviderTimeoutsArgs']]):
+    def timeouts(self, value: pulumi.Input[Optional['ProviderTimeoutsArgs']]):
         pulumi.set(self, "timeouts", value)
 
 
@@ -140,13 +140,13 @@ class Provider(pulumi.ProviderResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_token: Optional[pulumi.Input[_builtins.str]] = None,
-                 archive_pipeline_on_delete: Optional[pulumi.Input[_builtins.bool]] = None,
-                 graphql_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 max_retries: Optional[pulumi.Input[_builtins.int]] = None,
-                 organization: Optional[pulumi.Input[_builtins.str]] = None,
-                 rest_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 timeouts: Optional[pulumi.Input[Union['ProviderTimeoutsArgs', 'ProviderTimeoutsArgsDict']]] = None,
+                 api_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 archive_pipeline_on_delete: pulumi.Input[Optional[_builtins.bool]] = None,
+                 graphql_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 max_retries: pulumi.Input[Optional[_builtins.int]] = None,
+                 organization: pulumi.Input[Optional[_builtins.str]] = None,
+                 rest_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 timeouts: pulumi.Input[Optional[Union['ProviderTimeoutsArgs', 'ProviderTimeoutsArgsDict']]] = None,
                  __props__=None):
         """
         The provider type for the buildkite package. By default, resources use package-wide configuration
@@ -192,13 +192,13 @@ class Provider(pulumi.ProviderResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_token: Optional[pulumi.Input[_builtins.str]] = None,
-                 archive_pipeline_on_delete: Optional[pulumi.Input[_builtins.bool]] = None,
-                 graphql_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 max_retries: Optional[pulumi.Input[_builtins.int]] = None,
-                 organization: Optional[pulumi.Input[_builtins.str]] = None,
-                 rest_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 timeouts: Optional[pulumi.Input[Union['ProviderTimeoutsArgs', 'ProviderTimeoutsArgsDict']]] = None,
+                 api_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 archive_pipeline_on_delete: pulumi.Input[Optional[_builtins.bool]] = None,
+                 graphql_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 max_retries: pulumi.Input[Optional[_builtins.int]] = None,
+                 organization: pulumi.Input[Optional[_builtins.str]] = None,
+                 rest_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 timeouts: pulumi.Input[Optional[Union['ProviderTimeoutsArgs', 'ProviderTimeoutsArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

@@ -23,10 +23,10 @@ class ScheduleArgs:
                  cronline: pulumi.Input[_builtins.str],
                  label: pulumi.Input[_builtins.str],
                  pipeline_id: pulumi.Input[_builtins.str],
-                 commit: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 message: Optional[pulumi.Input[_builtins.str]] = None):
+                 commit: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 env: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 message: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Schedule resource.
 
@@ -36,7 +36,7 @@ class ScheduleArgs:
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
         :param pulumi.Input[_builtins.str] commit: The commit that the schedule should run on.
         :param pulumi.Input[_builtins.bool] enabled: Whether the schedule is enabled or not.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         :param pulumi.Input[_builtins.str] message: The message the builds show for builds created by this schedule.
         """
         pulumi.set(__self__, "branch", branch)
@@ -102,65 +102,65 @@ class ScheduleArgs:
 
     @_builtins.property
     @pulumi.getter
-    def commit(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def commit(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The commit that the schedule should run on.
         """
         return pulumi.get(self, "commit")
 
     @commit.setter
-    def commit(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def commit(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "commit", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether the schedule is enabled or not.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def env(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def env(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
-        The environment variables that scheduled builds should use.
+        The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         """
         return pulumi.get(self, "env")
 
     @env.setter
-    def env(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def env(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "env", value)
 
     @_builtins.property
     @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The message the builds show for builds created by this schedule.
         """
         return pulumi.get(self, "message")
 
     @message.setter
-    def message(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message", value)
 
 
 @pulumi.input_type
 class _ScheduleState:
     def __init__(__self__, *,
-                 branch: Optional[pulumi.Input[_builtins.str]] = None,
-                 commit: Optional[pulumi.Input[_builtins.str]] = None,
-                 cronline: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 label: Optional[pulumi.Input[_builtins.str]] = None,
-                 message: Optional[pulumi.Input[_builtins.str]] = None,
-                 pipeline_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 uuid: Optional[pulumi.Input[_builtins.str]] = None):
+                 branch: pulumi.Input[Optional[_builtins.str]] = None,
+                 commit: pulumi.Input[Optional[_builtins.str]] = None,
+                 cronline: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 env: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 label: pulumi.Input[Optional[_builtins.str]] = None,
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 pipeline_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 uuid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Schedule resources.
 
@@ -168,7 +168,7 @@ class _ScheduleState:
         :param pulumi.Input[_builtins.str] commit: The commit that the schedule should run on.
         :param pulumi.Input[_builtins.str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         :param pulumi.Input[_builtins.bool] enabled: Whether the schedule is enabled or not.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         :param pulumi.Input[_builtins.str] label: A label to describe the schedule.
         :param pulumi.Input[_builtins.str] message: The message the builds show for builds created by this schedule.
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
@@ -195,110 +195,110 @@ class _ScheduleState:
 
     @_builtins.property
     @pulumi.getter
-    def branch(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def branch(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The branch that the schedule should run on.
         """
         return pulumi.get(self, "branch")
 
     @branch.setter
-    def branch(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def branch(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "branch", value)
 
     @_builtins.property
     @pulumi.getter
-    def commit(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def commit(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The commit that the schedule should run on.
         """
         return pulumi.get(self, "commit")
 
     @commit.setter
-    def commit(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def commit(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "commit", value)
 
     @_builtins.property
     @pulumi.getter
-    def cronline(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cronline(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         """
         return pulumi.get(self, "cronline")
 
     @cronline.setter
-    def cronline(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cronline(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cronline", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether the schedule is enabled or not.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def env(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def env(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
-        The environment variables that scheduled builds should use.
+        The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         """
         return pulumi.get(self, "env")
 
     @env.setter
-    def env(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def env(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "env", value)
 
     @_builtins.property
     @pulumi.getter
-    def label(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def label(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A label to describe the schedule.
         """
         return pulumi.get(self, "label")
 
     @label.setter
-    def label(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def label(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "label", value)
 
     @_builtins.property
     @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The message the builds show for builds created by this schedule.
         """
         return pulumi.get(self, "message")
 
     @message.setter
-    def message(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message", value)
 
     @_builtins.property
     @pulumi.getter(name="pipelineId")
-    def pipeline_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def pipeline_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The GraphQL ID of the pipeline that this schedule belongs to.
         """
         return pulumi.get(self, "pipeline_id")
 
     @pipeline_id.setter
-    def pipeline_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def pipeline_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "pipeline_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the schedule.
         """
         return pulumi.get(self, "uuid")
 
     @uuid.setter
-    def uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uuid", value)
 
 
@@ -308,14 +308,14 @@ class Schedule(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 branch: Optional[pulumi.Input[_builtins.str]] = None,
-                 commit: Optional[pulumi.Input[_builtins.str]] = None,
-                 cronline: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 label: Optional[pulumi.Input[_builtins.str]] = None,
-                 message: Optional[pulumi.Input[_builtins.str]] = None,
-                 pipeline_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 branch: pulumi.Input[Optional[_builtins.str]] = None,
+                 commit: pulumi.Input[Optional[_builtins.str]] = None,
+                 cronline: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 env: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 label: pulumi.Input[Optional[_builtins.str]] = None,
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 pipeline_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         A pipeline schedule is a schedule that triggers a pipeline to run at a specific time.
@@ -376,7 +376,7 @@ class Schedule(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] commit: The commit that the schedule should run on.
         :param pulumi.Input[_builtins.str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         :param pulumi.Input[_builtins.bool] enabled: Whether the schedule is enabled or not.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         :param pulumi.Input[_builtins.str] label: A label to describe the schedule.
         :param pulumi.Input[_builtins.str] message: The message the builds show for builds created by this schedule.
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
@@ -455,14 +455,14 @@ class Schedule(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 branch: Optional[pulumi.Input[_builtins.str]] = None,
-                 commit: Optional[pulumi.Input[_builtins.str]] = None,
-                 cronline: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 label: Optional[pulumi.Input[_builtins.str]] = None,
-                 message: Optional[pulumi.Input[_builtins.str]] = None,
-                 pipeline_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 branch: pulumi.Input[Optional[_builtins.str]] = None,
+                 commit: pulumi.Input[Optional[_builtins.str]] = None,
+                 cronline: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 env: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 label: pulumi.Input[Optional[_builtins.str]] = None,
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 pipeline_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -499,15 +499,15 @@ class Schedule(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            branch: Optional[pulumi.Input[_builtins.str]] = None,
-            commit: Optional[pulumi.Input[_builtins.str]] = None,
-            cronline: Optional[pulumi.Input[_builtins.str]] = None,
-            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            env: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-            label: Optional[pulumi.Input[_builtins.str]] = None,
-            message: Optional[pulumi.Input[_builtins.str]] = None,
-            pipeline_id: Optional[pulumi.Input[_builtins.str]] = None,
-            uuid: Optional[pulumi.Input[_builtins.str]] = None) -> 'Schedule':
+            branch: pulumi.Input[Optional[_builtins.str]] = None,
+            commit: pulumi.Input[Optional[_builtins.str]] = None,
+            cronline: pulumi.Input[Optional[_builtins.str]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            env: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+            label: pulumi.Input[Optional[_builtins.str]] = None,
+            message: pulumi.Input[Optional[_builtins.str]] = None,
+            pipeline_id: pulumi.Input[Optional[_builtins.str]] = None,
+            uuid: pulumi.Input[Optional[_builtins.str]] = None) -> 'Schedule':
         """
         Get an existing Schedule resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -519,7 +519,7 @@ class Schedule(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] commit: The commit that the schedule should run on.
         :param pulumi.Input[_builtins.str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         :param pulumi.Input[_builtins.bool] enabled: Whether the schedule is enabled or not.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         :param pulumi.Input[_builtins.str] label: A label to describe the schedule.
         :param pulumi.Input[_builtins.str] message: The message the builds show for builds created by this schedule.
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
@@ -576,7 +576,7 @@ class Schedule(pulumi.CustomResource):
     @pulumi.getter
     def env(self) -> pulumi.Output[Optional[Mapping[str, _builtins.str]]]:
         """
-        The environment variables that scheduled builds should use.
+        The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         """
         return pulumi.get(self, "env")
 

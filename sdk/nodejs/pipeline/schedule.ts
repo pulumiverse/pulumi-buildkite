@@ -103,7 +103,7 @@ export class Schedule extends pulumi.CustomResource {
      */
     declare public readonly enabled: pulumi.Output<boolean>;
     /**
-     * The environment variables that scheduled builds should use.
+     * The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
      */
     declare public readonly env: pulumi.Output<{[key: string]: string} | undefined>;
     /**
@@ -181,39 +181,39 @@ export interface ScheduleState {
     /**
      * The branch that the schedule should run on.
      */
-    branch?: pulumi.Input<string>;
+    branch?: pulumi.Input<string | undefined>;
     /**
      * The commit that the schedule should run on.
      */
-    commit?: pulumi.Input<string>;
+    commit?: pulumi.Input<string | undefined>;
     /**
      * The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
      */
-    cronline?: pulumi.Input<string>;
+    cronline?: pulumi.Input<string | undefined>;
     /**
      * Whether the schedule is enabled or not.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
-     * The environment variables that scheduled builds should use.
+     * The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
      */
-    env?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    env?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * A label to describe the schedule.
      */
-    label?: pulumi.Input<string>;
+    label?: pulumi.Input<string | undefined>;
     /**
      * The message the builds show for builds created by this schedule.
      */
-    message?: pulumi.Input<string>;
+    message?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL ID of the pipeline that this schedule belongs to.
      */
-    pipelineId?: pulumi.Input<string>;
+    pipelineId?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the schedule.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -227,7 +227,7 @@ export interface ScheduleArgs {
     /**
      * The commit that the schedule should run on.
      */
-    commit?: pulumi.Input<string>;
+    commit?: pulumi.Input<string | undefined>;
     /**
      * The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
      */
@@ -235,11 +235,11 @@ export interface ScheduleArgs {
     /**
      * Whether the schedule is enabled or not.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
-     * The environment variables that scheduled builds should use.
+     * The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
      */
-    env?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    env?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * A label to describe the schedule.
      */
@@ -247,7 +247,7 @@ export interface ScheduleArgs {
     /**
      * The message the builds show for builds created by this schedule.
      */
-    message?: pulumi.Input<string>;
+    message?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL ID of the pipeline that this schedule belongs to.
      */

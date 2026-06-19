@@ -45,7 +45,7 @@ import (
 //			// Creates a TRIGGER_BUILD organization rule using pipeline UUIDs
 //			_, err = organization.NewRule(ctx, "trigger_build_test_dev", &organization.RuleArgs{
 //				Type:  pulumi.String("pipeline.trigger_build.pipeline"),
-//				Value: pulumi.String(pulumi.String(json0)),
+//				Value: pulumi.String(json0),
 //			})
 //			if err != nil {
 //				return err
@@ -61,7 +61,7 @@ import (
 //			// Creates a TRIGGER_BUILD organization rule using pipeline slugs
 //			_, err = organization.NewRule(ctx, "trigger_build_test_dev_slug", &organization.RuleArgs{
 //				Type:  pulumi.String("pipeline.trigger_build.pipeline"),
-//				Value: pulumi.String(pulumi.String(json1)),
+//				Value: pulumi.String(json1),
 //			})
 //			if err != nil {
 //				return err
@@ -78,7 +78,7 @@ import (
 //			_, err = organization.NewRule(ctx, "artifacts_read_test_dev", &organization.RuleArgs{
 //				Type:        pulumi.String("pipeline.artifacts_read.pipeline"),
 //				Description: pulumi.String("A rule to allow artifact reads by app_test_ci to app_dev_deploy"),
-//				Value:       pulumi.String(pulumi.String(json2)),
+//				Value:       pulumi.String(json2),
 //			})
 //			if err != nil {
 //				return err
@@ -99,7 +99,7 @@ import (
 //			_, err = organization.NewRule(ctx, "trigger_build_test_dev_cond", &organization.RuleArgs{
 //				Type:        pulumi.String("pipeline.trigger_build.pipeline"),
 //				Description: pulumi.String("A rule to allow app_dev_deploy to trigger app_test_ci builds with conditions"),
-//				Value:       pulumi.String(pulumi.String(json3)),
+//				Value:       pulumi.String(json3),
 //			})
 //			if err != nil {
 //				return err

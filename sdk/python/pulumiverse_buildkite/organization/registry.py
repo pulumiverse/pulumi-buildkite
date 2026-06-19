@@ -21,11 +21,11 @@ class RegistryArgs:
     def __init__(__self__, *,
                  ecosystem: pulumi.Input[_builtins.str],
                  team_ids: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
-                 color: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 oidc_policy: Optional[pulumi.Input[_builtins.str]] = None):
+                 color: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 oidc_policy: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Registry resource.
 
@@ -78,19 +78,19 @@ class RegistryArgs:
 
     @_builtins.property
     @pulumi.getter
-    def color(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def color(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A color representation of the registry. Accepts hex codes, eg #BADA55.
         """
         return pulumi.get(self, "color")
 
     @color.setter
-    def color(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def color(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "color", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         This is a description for the registry, this may describe the usage for it, the region, or something else
         which would help identify the registry's purpose.
@@ -98,12 +98,12 @@ class RegistryArgs:
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def emoji(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def emoji(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         An emoji to use with the registry, this can either be set using :buildkite: notation, or with the
         emoji itself, such as 🚀.
@@ -111,48 +111,48 @@ class RegistryArgs:
         return pulumi.get(self, "emoji")
 
     @emoji.setter
-    def emoji(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def emoji(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "emoji", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the registry. Can only contain numbers and letters, no spaces or special characters.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="oidcPolicy")
-    def oidc_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def oidc_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The registry's OIDC policy, in YAML format.
         """
         return pulumi.get(self, "oidc_policy")
 
     @oidc_policy.setter
-    def oidc_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def oidc_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "oidc_policy", value)
 
 
 @pulumi.input_type
 class _RegistryState:
     def __init__(__self__, *,
-                 color: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 ecosystem: Optional[pulumi.Input[_builtins.str]] = None,
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 oidc_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 public: Optional[pulumi.Input[_builtins.bool]] = None,
-                 registry_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug: Optional[pulumi.Input[_builtins.str]] = None,
-                 team_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 uuid: Optional[pulumi.Input[_builtins.str]] = None):
+                 color: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 ecosystem: pulumi.Input[Optional[_builtins.str]] = None,
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 oidc_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 public: pulumi.Input[Optional[_builtins.bool]] = None,
+                 registry_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 team_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 uuid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Registry resources.
 
@@ -195,19 +195,19 @@ class _RegistryState:
 
     @_builtins.property
     @pulumi.getter
-    def color(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def color(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A color representation of the registry. Accepts hex codes, eg #BADA55.
         """
         return pulumi.get(self, "color")
 
     @color.setter
-    def color(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def color(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "color", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         This is a description for the registry, this may describe the usage for it, the region, or something else
         which would help identify the registry's purpose.
@@ -215,24 +215,24 @@ class _RegistryState:
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def ecosystem(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ecosystem(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ecosystem of the registry. This value cannot be changed after creation.
         """
         return pulumi.get(self, "ecosystem")
 
     @ecosystem.setter
-    def ecosystem(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ecosystem(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ecosystem", value)
 
     @_builtins.property
     @pulumi.getter
-    def emoji(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def emoji(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         An emoji to use with the registry, this can either be set using :buildkite: notation, or with the
         emoji itself, such as 🚀.
@@ -240,91 +240,91 @@ class _RegistryState:
         return pulumi.get(self, "emoji")
 
     @emoji.setter
-    def emoji(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def emoji(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "emoji", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the registry. Can only contain numbers and letters, no spaces or special characters.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="oidcPolicy")
-    def oidc_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def oidc_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The registry's OIDC policy, in YAML format.
         """
         return pulumi.get(self, "oidc_policy")
 
     @oidc_policy.setter
-    def oidc_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def oidc_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "oidc_policy", value)
 
     @_builtins.property
     @pulumi.getter
-    def public(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def public(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether the registry is publicly accessible.
         """
         return pulumi.get(self, "public")
 
     @public.setter
-    def public(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def public(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "public", value)
 
     @_builtins.property
     @pulumi.getter(name="registryType")
-    def registry_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def registry_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The type of the registry (e.g. `source`).
         """
         return pulumi.get(self, "registry_type")
 
     @registry_type.setter
-    def registry_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def registry_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "registry_type", value)
 
     @_builtins.property
     @pulumi.getter
-    def slug(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def slug(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The slug of the registry.
         """
         return pulumi.get(self, "slug")
 
     @slug.setter
-    def slug(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def slug(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "slug", value)
 
     @_builtins.property
     @pulumi.getter(name="teamIds")
-    def team_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def team_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The team UUIDs that have access to the registry. At least one team must be specified. This value cannot be changed after creation.
         """
         return pulumi.get(self, "team_ids")
 
     @team_ids.setter
-    def team_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def team_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "team_ids", value)
 
     @_builtins.property
     @pulumi.getter
-    def uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the registry.
         """
         return pulumi.get(self, "uuid")
 
     @uuid.setter
-    def uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uuid", value)
 
 
@@ -334,13 +334,13 @@ class Registry(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 color: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 ecosystem: Optional[pulumi.Input[_builtins.str]] = None,
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 oidc_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 team_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 color: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 ecosystem: pulumi.Input[Optional[_builtins.str]] = None,
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 oidc_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 team_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         """
         This resource allows you to create and manage a Buildkite Registry.
@@ -433,13 +433,13 @@ class Registry(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 color: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 ecosystem: Optional[pulumi.Input[_builtins.str]] = None,
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 oidc_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 team_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 color: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 ecosystem: pulumi.Input[Optional[_builtins.str]] = None,
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 oidc_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 team_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -474,17 +474,17 @@ class Registry(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            color: Optional[pulumi.Input[_builtins.str]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            ecosystem: Optional[pulumi.Input[_builtins.str]] = None,
-            emoji: Optional[pulumi.Input[_builtins.str]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            oidc_policy: Optional[pulumi.Input[_builtins.str]] = None,
-            public: Optional[pulumi.Input[_builtins.bool]] = None,
-            registry_type: Optional[pulumi.Input[_builtins.str]] = None,
-            slug: Optional[pulumi.Input[_builtins.str]] = None,
-            team_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            uuid: Optional[pulumi.Input[_builtins.str]] = None) -> 'Registry':
+            color: pulumi.Input[Optional[_builtins.str]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            ecosystem: pulumi.Input[Optional[_builtins.str]] = None,
+            emoji: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            oidc_policy: pulumi.Input[Optional[_builtins.str]] = None,
+            public: pulumi.Input[Optional[_builtins.bool]] = None,
+            registry_type: pulumi.Input[Optional[_builtins.str]] = None,
+            slug: pulumi.Input[Optional[_builtins.str]] = None,
+            team_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            uuid: pulumi.Input[Optional[_builtins.str]] = None) -> 'Registry':
         """
         Get an existing Registry resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

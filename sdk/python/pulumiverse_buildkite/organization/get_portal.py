@@ -169,7 +169,7 @@ def get_portal(slug: Optional[_builtins.str] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    viewer = buildkite.Organization.get_portal(slug="viewer-info")
+    viewer = buildkite.organization.get_portal(slug="viewer-info")
     ```
 
 
@@ -191,7 +191,7 @@ def get_portal(slug: Optional[_builtins.str] = None,
         slug=pulumi.get(__ret__, 'slug'),
         user_invokable=pulumi.get(__ret__, 'user_invokable'),
         uuid=pulumi.get(__ret__, 'uuid'))
-def get_portal_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
+def get_portal_output(slug: pulumi.Input[Optional[_builtins.str]] = None,
                       opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetPortalResult]:
     """
     Use this data source to retrieve a portal by slug. You can find out more about portals in the Buildkite [documentation](https://buildkite.com/docs/apis/portals).
@@ -202,7 +202,7 @@ def get_portal_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    viewer = buildkite.Organization.get_portal(slug="viewer-info")
+    viewer = buildkite.organization.get_portal(slug="viewer-info")
     ```
 
 

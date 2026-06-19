@@ -203,43 +203,43 @@ export interface PortalState {
     /**
      * Space-delimited list of IP addresses (in CIDR notation) allowed to invoke this portal. If not specified, all IP addresses are allowed.
      */
-    allowedIpAddresses?: pulumi.Input<string>;
+    allowedIpAddresses?: pulumi.Input<string | undefined>;
     /**
      * The time when the portal was created.
      */
-    createdAt?: pulumi.Input<string>;
+    createdAt?: pulumi.Input<string | undefined>;
     /**
      * Information about the user who created the portal.
      */
-    createdBy?: pulumi.Input<inputs.Organization.PortalCreatedBy>;
+    createdBy?: pulumi.Input<inputs.Organization.PortalCreatedBy | undefined>;
     /**
      * A description of the portal.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The name of the portal.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL query that the portal executes.
      */
-    query?: pulumi.Input<string>;
+    query?: pulumi.Input<string | undefined>;
     /**
      * The slug of the portal. Used in the portal's URL path.
      */
-    slug?: pulumi.Input<string>;
+    slug?: pulumi.Input<string | undefined>;
     /**
      * The token used to invoke the portal. Only returned on creation.
      */
-    token?: pulumi.Input<string>;
+    token?: pulumi.Input<string | undefined>;
     /**
      * Whether users can invoke the portal. Defaults to false.
      */
-    userInvokable?: pulumi.Input<boolean>;
+    userInvokable?: pulumi.Input<boolean | undefined>;
     /**
      * The UUID of the portal.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -249,15 +249,15 @@ export interface PortalArgs {
     /**
      * Space-delimited list of IP addresses (in CIDR notation) allowed to invoke this portal. If not specified, all IP addresses are allowed.
      */
-    allowedIpAddresses?: pulumi.Input<string>;
+    allowedIpAddresses?: pulumi.Input<string | undefined>;
     /**
      * A description of the portal.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The name of the portal.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL query that the portal executes.
      */
@@ -269,5 +269,5 @@ export interface PortalArgs {
     /**
      * Whether users can invoke the portal. Defaults to false.
      */
-    userInvokable?: pulumi.Input<boolean>;
+    userInvokable?: pulumi.Input<boolean | undefined>;
 }

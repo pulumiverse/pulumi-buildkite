@@ -160,11 +160,11 @@ def get_signed_steps(jwks: Optional[_builtins.str] = None,
         repository=pulumi.get(__ret__, 'repository'),
         steps=pulumi.get(__ret__, 'steps'),
         unsigned_steps=pulumi.get(__ret__, 'unsigned_steps'))
-def get_signed_steps_output(jwks: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                            jwks_file: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                            jwks_key_id: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                            repository: Optional[pulumi.Input[_builtins.str]] = None,
-                            unsigned_steps: Optional[pulumi.Input[_builtins.str]] = None,
+def get_signed_steps_output(jwks: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                            jwks_file: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                            jwks_key_id: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                            repository: pulumi.Input[Optional[_builtins.str]] = None,
+                            unsigned_steps: pulumi.Input[Optional[_builtins.str]] = None,
                             opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetSignedStepsResult]:
     """
     Use this data source to sign pipeline steps with a JWKS key. You will need to have

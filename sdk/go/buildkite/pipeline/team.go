@@ -29,14 +29,14 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			pipeline, err := pipeline.NewPipeline(ctx, "pipeline", &pipeline.PipelineArgs{
+//			pipeline2, err := pipeline.NewPipeline(ctx, "pipeline", &pipeline.PipelineArgs{
 //				Name:       pulumi.String("my pipeline"),
 //				Repository: pulumi.String("https://github.com/..."),
 //			})
 //			if err != nil {
 //				return err
 //			}
-//			team, err := team.NewTeam(ctx, "team", &team.TeamArgs{
+//			team2, err := team.NewTeam(ctx, "team", &team.TeamArgs{
 //				Name:              pulumi.String("Everyone"),
 //				Privacy:           pulumi.String("VISIBLE"),
 //				DefaultTeam:       pulumi.Bool(false),
@@ -47,8 +47,8 @@ import (
 //			}
 //			// allow everyone in the "Everyone" team read-only access to pipeline
 //			_, err = pipeline.NewTeam(ctx, "pipeline_team", &pipeline.TeamArgs{
-//				PipelineId:  pipeline.ID(),
-//				TeamId:      team.ID(),
+//				PipelineId:  pipeline2.ID(),
+//				TeamId:      team2.ID(),
 //				AccessLevel: pulumi.String("READ_ONLY"),
 //			})
 //			if err != nil {

@@ -15,7 +15,7 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const all = buildkite.Organization.getPortals({});
+ * const all = buildkite.organization.getPortals({});
  * export const userInvokablePortals = all.then(all => .filter(portal => portal.userInvokable).map(portal => (portal.name)));
  * ```
  */
@@ -44,7 +44,7 @@ export interface GetPortalsResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const all = buildkite.Organization.getPortals({});
+ * const all = buildkite.organization.getPortals({});
  * export const userInvokablePortals = all.then(all => .filter(portal => portal.userInvokable).map(portal => (portal.name)));
  * ```
  */

@@ -1,0 +1,5 @@
+mode: set
+github.com/pulumiverse/pulumi-buildkite/provider/v3/resources.go:52.80,54.2 1 0
+github.com/pulumiverse/pulumi-buildkite/provider/v3/resources.go:60.39,186.2 3 0
+github.com/pulumiverse/pulumi-buildkite/provider/v3/cmd/pulumi-tfgen-buildkite/main.go:23.13,26.2 1 0
+github.com/pulumiverse/pulumi-buildkite/provider/v3/cmd/pulumi-resource-buildkite/main.go:32.13,36.2 2 0

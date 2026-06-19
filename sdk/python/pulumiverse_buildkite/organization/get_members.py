@@ -70,7 +70,7 @@ def get_members(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetMemb
     import pulumi
     import pulumi_buildkite as buildkite
 
-    members = buildkite.Organization.get_members()
+    members = buildkite.organization.get_members()
     ```
     """
     __args__ = dict()
@@ -91,7 +91,7 @@ def get_members_output(opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeO
     import pulumi
     import pulumi_buildkite as buildkite
 
-    members = buildkite.Organization.get_members()
+    members = buildkite.organization.get_members()
     ```
     """
     __args__ = dict()

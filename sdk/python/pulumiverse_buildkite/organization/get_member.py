@@ -98,7 +98,7 @@ def get_member(email: Optional[_builtins.str] = None,
     import pulumi_buildkite as buildkite
     import pulumiverse_buildkite as buildkite
 
-    a_smith = buildkite.Organization.get_member(email="a.smith@company.com")
+    a_smith = buildkite.organization.get_member(email="a.smith@company.com")
     developers = buildkite.team.Team("developers",
         name="Developers",
         privacy="VISIBLE",
@@ -123,7 +123,7 @@ def get_member(email: Optional[_builtins.str] = None,
         id=pulumi.get(__ret__, 'id'),
         name=pulumi.get(__ret__, 'name'),
         uuid=pulumi.get(__ret__, 'uuid'))
-def get_member_output(email: Optional[pulumi.Input[_builtins.str]] = None,
+def get_member_output(email: pulumi.Input[Optional[_builtins.str]] = None,
                       opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetMemberResult]:
     """
     Use this data source to retrieve a specific organization member, using their email. You can find out more about organization members in the Buildkite
@@ -136,7 +136,7 @@ def get_member_output(email: Optional[pulumi.Input[_builtins.str]] = None,
     import pulumi_buildkite as buildkite
     import pulumiverse_buildkite as buildkite
 
-    a_smith = buildkite.Organization.get_member(email="a.smith@company.com")
+    a_smith = buildkite.organization.get_member(email="a.smith@company.com")
     developers = buildkite.team.Team("developers",
         name="Developers",
         privacy="VISIBLE",

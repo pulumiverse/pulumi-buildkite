@@ -192,35 +192,35 @@ export interface ClusterQueueState {
     /**
      * The ID of the cluster that this cluster queue belongs to.
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the cluster this queue belongs to.
      */
-    clusterUuid?: pulumi.Input<string>;
+    clusterUuid?: pulumi.Input<string | undefined>;
     /**
      * A description for the cluster queue.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The dispatch state of a cluster queue.
      */
-    dispatchPaused?: pulumi.Input<boolean>;
+    dispatchPaused?: pulumi.Input<boolean | undefined>;
     /**
      * Control the settings for the Buildkite hosted agents.
      */
-    hostedAgents?: pulumi.Input<inputs.Cluster.ClusterQueueHostedAgents>;
+    hostedAgents?: pulumi.Input<inputs.Cluster.ClusterQueueHostedAgents | undefined>;
     /**
      * The key of the cluster queue.
      */
-    key?: pulumi.Input<string>;
+    key?: pulumi.Input<string | undefined>;
     /**
      * Specifies which agent should be preferred when a job is retried. Valid values are `prefer-warmest` (prefer agents that have recently finished jobs) and `prefer-different` (prefer a different agent if available). Defaults to `prefer-warmest`.
      */
-    retryAgentAffinity?: pulumi.Input<string>;
+    retryAgentAffinity?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the cluster queue.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -234,15 +234,15 @@ export interface ClusterQueueArgs {
     /**
      * A description for the cluster queue.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The dispatch state of a cluster queue.
      */
-    dispatchPaused?: pulumi.Input<boolean>;
+    dispatchPaused?: pulumi.Input<boolean | undefined>;
     /**
      * Control the settings for the Buildkite hosted agents.
      */
-    hostedAgents?: pulumi.Input<inputs.Cluster.ClusterQueueHostedAgents>;
+    hostedAgents?: pulumi.Input<inputs.Cluster.ClusterQueueHostedAgents | undefined>;
     /**
      * The key of the cluster queue.
      */
@@ -250,5 +250,5 @@ export interface ClusterQueueArgs {
     /**
      * Specifies which agent should be preferred when a job is retried. Valid values are `prefer-warmest` (prefer agents that have recently finished jobs) and `prefer-different` (prefer a different agent if available). Defaults to `prefer-warmest`.
      */
-    retryAgentAffinity?: pulumi.Input<string>;
+    retryAgentAffinity?: pulumi.Input<string | undefined>;
 }

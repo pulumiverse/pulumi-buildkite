@@ -22,28 +22,28 @@ __all__ = ['PipelineArgs', 'Pipeline']
 class PipelineArgs:
     def __init__(__self__, *,
                  repository: pulumi.Input[_builtins.str],
-                 allow_rebuilds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 archived: Optional[pulumi.Input[_builtins.bool]] = None,
-                 branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
-                 cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 color: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_branch: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_team_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_timeout_in_minutes: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 maximum_timeout_in_minutes: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 pipeline_template_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 provider_settings: Optional[pulumi.Input['PipelineProviderSettingsArgs']] = None,
-                 skip_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 skip_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug: Optional[pulumi.Input[_builtins.str]] = None,
-                 steps: Optional[pulumi.Input[_builtins.str]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 visibility: Optional[pulumi.Input[_builtins.str]] = None):
+                 allow_rebuilds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 archived: pulumi.Input[Optional[_builtins.bool]] = None,
+                 branch_configuration: pulumi.Input[Optional[_builtins.str]] = None,
+                 cancel_intermediate_builds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cancel_intermediate_builds_branch_filter: pulumi.Input[Optional[_builtins.str]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 color: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_branch: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_team_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_timeout_in_minutes: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 maximum_timeout_in_minutes: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 pipeline_template_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 provider_settings: pulumi.Input[Optional['PipelineProviderSettingsArgs']] = None,
+                 skip_intermediate_builds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_intermediate_builds_branch_filter: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 steps: pulumi.Input[Optional[_builtins.str]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 visibility: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Pipeline resource.
 
@@ -131,299 +131,299 @@ class PipelineArgs:
 
     @_builtins.property
     @pulumi.getter(name="allowRebuilds")
-    def allow_rebuilds(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def allow_rebuilds(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether rebuilds are allowed for this pipeline.
         """
         return pulumi.get(self, "allow_rebuilds")
 
     @allow_rebuilds.setter
-    def allow_rebuilds(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def allow_rebuilds(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "allow_rebuilds", value)
 
     @_builtins.property
     @pulumi.getter
-    def archived(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def archived(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
         """
         return pulumi.get(self, "archived")
 
     @archived.setter
-    def archived(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def archived(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "archived", value)
 
     @_builtins.property
     @pulumi.getter(name="branchConfiguration")
-    def branch_configuration(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def branch_configuration(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Configure the pipeline to only build on this branch conditional.
         """
         return pulumi.get(self, "branch_configuration")
 
     @branch_configuration.setter
-    def branch_configuration(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def branch_configuration(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "branch_configuration", value)
 
     @_builtins.property
     @pulumi.getter(name="cancelIntermediateBuilds")
-    def cancel_intermediate_builds(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def cancel_intermediate_builds(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to cancel builds when a new commit is pushed to a matching branch.
         """
         return pulumi.get(self, "cancel_intermediate_builds")
 
     @cancel_intermediate_builds.setter
-    def cancel_intermediate_builds(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def cancel_intermediate_builds(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "cancel_intermediate_builds", value)
 
     @_builtins.property
     @pulumi.getter(name="cancelIntermediateBuildsBranchFilter")
-    def cancel_intermediate_builds_branch_filter(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cancel_intermediate_builds_branch_filter(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Filter the `cancel_intermediate_builds` setting based on this branch condition.
         """
         return pulumi.get(self, "cancel_intermediate_builds_branch_filter")
 
     @cancel_intermediate_builds_branch_filter.setter
-    def cancel_intermediate_builds_branch_filter(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cancel_intermediate_builds_branch_filter(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cancel_intermediate_builds_branch_filter", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Attach this pipeline to the given cluster GraphQL ID.
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def color(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def color(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A color hex code to represent this pipeline.
         """
         return pulumi.get(self, "color")
 
     @color.setter
-    def color(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def color(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "color", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultBranch")
-    def default_branch(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def default_branch(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Default branch of the pipeline.
         """
         return pulumi.get(self, "default_branch")
 
     @default_branch.setter
-    def default_branch(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def default_branch(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "default_branch", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultTeamId")
-    def default_team_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def default_team_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The GraphQL ID of a team to initially assign to the pipeline. This is required by the Buildkite API when creating a new pipeline. The team assigned here will be given 'Manage Build and Read' access. Further team associations can be managed with the `Pipeline.Team` resource after the pipeline is created.
         """
         return pulumi.get(self, "default_team_id")
 
     @default_team_id.setter
-    def default_team_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def default_team_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "default_team_id", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultTimeoutInMinutes")
-    def default_timeout_in_minutes(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def default_timeout_in_minutes(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Set pipeline wide timeout for command steps.
         """
         return pulumi.get(self, "default_timeout_in_minutes")
 
     @default_timeout_in_minutes.setter
-    def default_timeout_in_minutes(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def default_timeout_in_minutes(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "default_timeout_in_minutes", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Description for the pipeline. Can include emoji 🙌.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def emoji(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def emoji(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         An emoji that represents this pipeline.
         """
         return pulumi.get(self, "emoji")
 
     @emoji.setter
-    def emoji(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def emoji(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "emoji", value)
 
     @_builtins.property
     @pulumi.getter(name="maximumTimeoutInMinutes")
-    def maximum_timeout_in_minutes(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def maximum_timeout_in_minutes(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Set pipeline wide maximum timeout for command steps.
         """
         return pulumi.get(self, "maximum_timeout_in_minutes")
 
     @maximum_timeout_in_minutes.setter
-    def maximum_timeout_in_minutes(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def maximum_timeout_in_minutes(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "maximum_timeout_in_minutes", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name to give the pipeline.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="pipelineTemplateId")
-    def pipeline_template_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def pipeline_template_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The GraphQL ID of the pipeline template applied to this pipeline.
         """
         return pulumi.get(self, "pipeline_template_id")
 
     @pipeline_template_id.setter
-    def pipeline_template_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def pipeline_template_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "pipeline_template_id", value)
 
     @_builtins.property
     @pulumi.getter(name="providerSettings")
-    def provider_settings(self) -> Optional[pulumi.Input['PipelineProviderSettingsArgs']]:
+    def provider_settings(self) -> pulumi.Input[Optional['PipelineProviderSettingsArgs']]:
         """
         Control settings depending on the VCS provider used in `repository`.
         """
         return pulumi.get(self, "provider_settings")
 
     @provider_settings.setter
-    def provider_settings(self, value: Optional[pulumi.Input['PipelineProviderSettingsArgs']]):
+    def provider_settings(self, value: pulumi.Input[Optional['PipelineProviderSettingsArgs']]):
         pulumi.set(self, "provider_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="skipIntermediateBuilds")
-    def skip_intermediate_builds(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def skip_intermediate_builds(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to skip queued builds if a new commit is pushed to a matching branch.
         """
         return pulumi.get(self, "skip_intermediate_builds")
 
     @skip_intermediate_builds.setter
-    def skip_intermediate_builds(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def skip_intermediate_builds(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "skip_intermediate_builds", value)
 
     @_builtins.property
     @pulumi.getter(name="skipIntermediateBuildsBranchFilter")
-    def skip_intermediate_builds_branch_filter(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def skip_intermediate_builds_branch_filter(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Filter the `skip_intermediate_builds` setting based on this branch condition.
         """
         return pulumi.get(self, "skip_intermediate_builds_branch_filter")
 
     @skip_intermediate_builds_branch_filter.setter
-    def skip_intermediate_builds_branch_filter(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def skip_intermediate_builds_branch_filter(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "skip_intermediate_builds_branch_filter", value)
 
     @_builtins.property
     @pulumi.getter
-    def slug(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def slug(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If not provided, the slug will be [derived](https://buildkite.com/docs/apis/graphql/cookbooks/pipelines#create-a-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name) from the pipeline `name`.
         """
         return pulumi.get(self, "slug")
 
     @slug.setter
-    def slug(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def slug(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "slug", value)
 
     @_builtins.property
     @pulumi.getter
-    def steps(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def steps(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`pipeline_get_signed_steps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
         """
         return pulumi.get(self, "steps")
 
     @steps.setter
-    def steps(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def steps(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "steps", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Tags to attribute to the pipeline. Useful for searching by in the UI.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter
-    def visibility(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def visibility(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
         """
         return pulumi.get(self, "visibility")
 
     @visibility.setter
-    def visibility(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def visibility(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "visibility", value)
 
 
 @pulumi.input_type
 class _PipelineState:
     def __init__(__self__, *,
-                 allow_rebuilds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 archived: Optional[pulumi.Input[_builtins.bool]] = None,
-                 badge_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
-                 cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 cluster_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 color: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_branch: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_team_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_timeout_in_minutes: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 maximum_timeout_in_minutes: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 pipeline_template_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 provider_settings: Optional[pulumi.Input['PipelineProviderSettingsArgs']] = None,
-                 repository: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 skip_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug: Optional[pulumi.Input[_builtins.str]] = None,
-                 steps: Optional[pulumi.Input[_builtins.str]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 uuid: Optional[pulumi.Input[_builtins.str]] = None,
-                 visibility: Optional[pulumi.Input[_builtins.str]] = None,
-                 webhook_url: Optional[pulumi.Input[_builtins.str]] = None):
+                 allow_rebuilds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 archived: pulumi.Input[Optional[_builtins.bool]] = None,
+                 badge_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 branch_configuration: pulumi.Input[Optional[_builtins.str]] = None,
+                 cancel_intermediate_builds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cancel_intermediate_builds_branch_filter: pulumi.Input[Optional[_builtins.str]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 cluster_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 color: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_branch: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_team_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_timeout_in_minutes: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 maximum_timeout_in_minutes: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 pipeline_template_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 provider_settings: pulumi.Input[Optional['PipelineProviderSettingsArgs']] = None,
+                 repository: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_intermediate_builds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_intermediate_builds_branch_filter: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 steps: pulumi.Input[Optional[_builtins.str]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 uuid: pulumi.Input[Optional[_builtins.str]] = None,
+                 visibility: pulumi.Input[Optional[_builtins.str]] = None,
+                 webhook_url: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Pipeline resources.
 
@@ -512,326 +512,326 @@ class _PipelineState:
 
     @_builtins.property
     @pulumi.getter(name="allowRebuilds")
-    def allow_rebuilds(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def allow_rebuilds(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether rebuilds are allowed for this pipeline.
         """
         return pulumi.get(self, "allow_rebuilds")
 
     @allow_rebuilds.setter
-    def allow_rebuilds(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def allow_rebuilds(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "allow_rebuilds", value)
 
     @_builtins.property
     @pulumi.getter
-    def archived(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def archived(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
         """
         return pulumi.get(self, "archived")
 
     @archived.setter
-    def archived(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def archived(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "archived", value)
 
     @_builtins.property
     @pulumi.getter(name="badgeUrl")
-    def badge_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def badge_url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The badge URL showing build state.
         """
         return pulumi.get(self, "badge_url")
 
     @badge_url.setter
-    def badge_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def badge_url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "badge_url", value)
 
     @_builtins.property
     @pulumi.getter(name="branchConfiguration")
-    def branch_configuration(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def branch_configuration(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Configure the pipeline to only build on this branch conditional.
         """
         return pulumi.get(self, "branch_configuration")
 
     @branch_configuration.setter
-    def branch_configuration(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def branch_configuration(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "branch_configuration", value)
 
     @_builtins.property
     @pulumi.getter(name="cancelIntermediateBuilds")
-    def cancel_intermediate_builds(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def cancel_intermediate_builds(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to cancel builds when a new commit is pushed to a matching branch.
         """
         return pulumi.get(self, "cancel_intermediate_builds")
 
     @cancel_intermediate_builds.setter
-    def cancel_intermediate_builds(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def cancel_intermediate_builds(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "cancel_intermediate_builds", value)
 
     @_builtins.property
     @pulumi.getter(name="cancelIntermediateBuildsBranchFilter")
-    def cancel_intermediate_builds_branch_filter(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cancel_intermediate_builds_branch_filter(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Filter the `cancel_intermediate_builds` setting based on this branch condition.
         """
         return pulumi.get(self, "cancel_intermediate_builds_branch_filter")
 
     @cancel_intermediate_builds_branch_filter.setter
-    def cancel_intermediate_builds_branch_filter(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cancel_intermediate_builds_branch_filter(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cancel_intermediate_builds_branch_filter", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Attach this pipeline to the given cluster GraphQL ID.
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterName")
-    def cluster_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the cluster the pipeline is (optionally) attached to.
         """
         return pulumi.get(self, "cluster_name")
 
     @cluster_name.setter
-    def cluster_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_name", value)
 
     @_builtins.property
     @pulumi.getter
-    def color(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def color(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A color hex code to represent this pipeline.
         """
         return pulumi.get(self, "color")
 
     @color.setter
-    def color(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def color(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "color", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultBranch")
-    def default_branch(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def default_branch(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Default branch of the pipeline.
         """
         return pulumi.get(self, "default_branch")
 
     @default_branch.setter
-    def default_branch(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def default_branch(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "default_branch", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultTeamId")
-    def default_team_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def default_team_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The GraphQL ID of a team to initially assign to the pipeline. This is required by the Buildkite API when creating a new pipeline. The team assigned here will be given 'Manage Build and Read' access. Further team associations can be managed with the `Pipeline.Team` resource after the pipeline is created.
         """
         return pulumi.get(self, "default_team_id")
 
     @default_team_id.setter
-    def default_team_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def default_team_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "default_team_id", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultTimeoutInMinutes")
-    def default_timeout_in_minutes(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def default_timeout_in_minutes(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Set pipeline wide timeout for command steps.
         """
         return pulumi.get(self, "default_timeout_in_minutes")
 
     @default_timeout_in_minutes.setter
-    def default_timeout_in_minutes(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def default_timeout_in_minutes(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "default_timeout_in_minutes", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Description for the pipeline. Can include emoji 🙌.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def emoji(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def emoji(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         An emoji that represents this pipeline.
         """
         return pulumi.get(self, "emoji")
 
     @emoji.setter
-    def emoji(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def emoji(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "emoji", value)
 
     @_builtins.property
     @pulumi.getter(name="maximumTimeoutInMinutes")
-    def maximum_timeout_in_minutes(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def maximum_timeout_in_minutes(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Set pipeline wide maximum timeout for command steps.
         """
         return pulumi.get(self, "maximum_timeout_in_minutes")
 
     @maximum_timeout_in_minutes.setter
-    def maximum_timeout_in_minutes(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def maximum_timeout_in_minutes(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "maximum_timeout_in_minutes", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name to give the pipeline.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="pipelineTemplateId")
-    def pipeline_template_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def pipeline_template_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The GraphQL ID of the pipeline template applied to this pipeline.
         """
         return pulumi.get(self, "pipeline_template_id")
 
     @pipeline_template_id.setter
-    def pipeline_template_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def pipeline_template_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "pipeline_template_id", value)
 
     @_builtins.property
     @pulumi.getter(name="providerSettings")
-    def provider_settings(self) -> Optional[pulumi.Input['PipelineProviderSettingsArgs']]:
+    def provider_settings(self) -> pulumi.Input[Optional['PipelineProviderSettingsArgs']]:
         """
         Control settings depending on the VCS provider used in `repository`.
         """
         return pulumi.get(self, "provider_settings")
 
     @provider_settings.setter
-    def provider_settings(self, value: Optional[pulumi.Input['PipelineProviderSettingsArgs']]):
+    def provider_settings(self, value: pulumi.Input[Optional['PipelineProviderSettingsArgs']]):
         pulumi.set(self, "provider_settings", value)
 
     @_builtins.property
     @pulumi.getter
-    def repository(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def repository(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         URL to the repository this pipeline is configured for.
         """
         return pulumi.get(self, "repository")
 
     @repository.setter
-    def repository(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def repository(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "repository", value)
 
     @_builtins.property
     @pulumi.getter(name="skipIntermediateBuilds")
-    def skip_intermediate_builds(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def skip_intermediate_builds(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to skip queued builds if a new commit is pushed to a matching branch.
         """
         return pulumi.get(self, "skip_intermediate_builds")
 
     @skip_intermediate_builds.setter
-    def skip_intermediate_builds(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def skip_intermediate_builds(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "skip_intermediate_builds", value)
 
     @_builtins.property
     @pulumi.getter(name="skipIntermediateBuildsBranchFilter")
-    def skip_intermediate_builds_branch_filter(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def skip_intermediate_builds_branch_filter(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Filter the `skip_intermediate_builds` setting based on this branch condition.
         """
         return pulumi.get(self, "skip_intermediate_builds_branch_filter")
 
     @skip_intermediate_builds_branch_filter.setter
-    def skip_intermediate_builds_branch_filter(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def skip_intermediate_builds_branch_filter(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "skip_intermediate_builds_branch_filter", value)
 
     @_builtins.property
     @pulumi.getter
-    def slug(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def slug(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If not provided, the slug will be [derived](https://buildkite.com/docs/apis/graphql/cookbooks/pipelines#create-a-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name) from the pipeline `name`.
         """
         return pulumi.get(self, "slug")
 
     @slug.setter
-    def slug(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def slug(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "slug", value)
 
     @_builtins.property
     @pulumi.getter
-    def steps(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def steps(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`pipeline_get_signed_steps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
         """
         return pulumi.get(self, "steps")
 
     @steps.setter
-    def steps(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def steps(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "steps", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Tags to attribute to the pipeline. Useful for searching by in the UI.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter
-    def uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the pipeline.
         """
         return pulumi.get(self, "uuid")
 
     @uuid.setter
-    def uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uuid", value)
 
     @_builtins.property
     @pulumi.getter
-    def visibility(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def visibility(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
         """
         return pulumi.get(self, "visibility")
 
     @visibility.setter
-    def visibility(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def visibility(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "visibility", value)
 
     @_builtins.property
     @pulumi.getter(name="webhookUrl")
-    def webhook_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def webhook_url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The webhook URL used to trigger builds from VCS providers.
         """
         return pulumi.get(self, "webhook_url")
 
     @webhook_url.setter
-    def webhook_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def webhook_url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "webhook_url", value)
 
 
@@ -841,29 +841,29 @@ class Pipeline(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_rebuilds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 archived: Optional[pulumi.Input[_builtins.bool]] = None,
-                 branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
-                 cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 color: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_branch: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_team_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_timeout_in_minutes: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 maximum_timeout_in_minutes: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 pipeline_template_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 provider_settings: Optional[pulumi.Input[Union['PipelineProviderSettingsArgs', 'PipelineProviderSettingsArgsDict']]] = None,
-                 repository: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 skip_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug: Optional[pulumi.Input[_builtins.str]] = None,
-                 steps: Optional[pulumi.Input[_builtins.str]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 visibility: Optional[pulumi.Input[_builtins.str]] = None,
+                 allow_rebuilds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 archived: pulumi.Input[Optional[_builtins.bool]] = None,
+                 branch_configuration: pulumi.Input[Optional[_builtins.str]] = None,
+                 cancel_intermediate_builds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cancel_intermediate_builds_branch_filter: pulumi.Input[Optional[_builtins.str]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 color: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_branch: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_team_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_timeout_in_minutes: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 maximum_timeout_in_minutes: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 pipeline_template_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 provider_settings: pulumi.Input[Optional[Union['PipelineProviderSettingsArgs', 'PipelineProviderSettingsArgsDict']]] = None,
+                 repository: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_intermediate_builds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_intermediate_builds_branch_filter: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 steps: pulumi.Input[Optional[_builtins.str]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 visibility: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         This resource allows you to create and manage pipelines for repositories.
@@ -948,29 +948,29 @@ class Pipeline(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_rebuilds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 archived: Optional[pulumi.Input[_builtins.bool]] = None,
-                 branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
-                 cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 color: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_branch: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_team_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_timeout_in_minutes: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 maximum_timeout_in_minutes: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 pipeline_template_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 provider_settings: Optional[pulumi.Input[Union['PipelineProviderSettingsArgs', 'PipelineProviderSettingsArgsDict']]] = None,
-                 repository: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 skip_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug: Optional[pulumi.Input[_builtins.str]] = None,
-                 steps: Optional[pulumi.Input[_builtins.str]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 visibility: Optional[pulumi.Input[_builtins.str]] = None,
+                 allow_rebuilds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 archived: pulumi.Input[Optional[_builtins.bool]] = None,
+                 branch_configuration: pulumi.Input[Optional[_builtins.str]] = None,
+                 cancel_intermediate_builds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cancel_intermediate_builds_branch_filter: pulumi.Input[Optional[_builtins.str]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 color: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_branch: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_team_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_timeout_in_minutes: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 emoji: pulumi.Input[Optional[_builtins.str]] = None,
+                 maximum_timeout_in_minutes: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 pipeline_template_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 provider_settings: pulumi.Input[Optional[Union['PipelineProviderSettingsArgs', 'PipelineProviderSettingsArgsDict']]] = None,
+                 repository: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_intermediate_builds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_intermediate_builds_branch_filter: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 steps: pulumi.Input[Optional[_builtins.str]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 visibility: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -1019,33 +1019,33 @@ class Pipeline(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            allow_rebuilds: Optional[pulumi.Input[_builtins.bool]] = None,
-            archived: Optional[pulumi.Input[_builtins.bool]] = None,
-            badge_url: Optional[pulumi.Input[_builtins.str]] = None,
-            branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
-            cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-            cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
-            cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-            cluster_name: Optional[pulumi.Input[_builtins.str]] = None,
-            color: Optional[pulumi.Input[_builtins.str]] = None,
-            default_branch: Optional[pulumi.Input[_builtins.str]] = None,
-            default_team_id: Optional[pulumi.Input[_builtins.str]] = None,
-            default_timeout_in_minutes: Optional[pulumi.Input[_builtins.int]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            emoji: Optional[pulumi.Input[_builtins.str]] = None,
-            maximum_timeout_in_minutes: Optional[pulumi.Input[_builtins.int]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            pipeline_template_id: Optional[pulumi.Input[_builtins.str]] = None,
-            provider_settings: Optional[pulumi.Input[Union['PipelineProviderSettingsArgs', 'PipelineProviderSettingsArgsDict']]] = None,
-            repository: Optional[pulumi.Input[_builtins.str]] = None,
-            skip_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-            skip_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
-            slug: Optional[pulumi.Input[_builtins.str]] = None,
-            steps: Optional[pulumi.Input[_builtins.str]] = None,
-            tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            uuid: Optional[pulumi.Input[_builtins.str]] = None,
-            visibility: Optional[pulumi.Input[_builtins.str]] = None,
-            webhook_url: Optional[pulumi.Input[_builtins.str]] = None) -> 'Pipeline':
+            allow_rebuilds: pulumi.Input[Optional[_builtins.bool]] = None,
+            archived: pulumi.Input[Optional[_builtins.bool]] = None,
+            badge_url: pulumi.Input[Optional[_builtins.str]] = None,
+            branch_configuration: pulumi.Input[Optional[_builtins.str]] = None,
+            cancel_intermediate_builds: pulumi.Input[Optional[_builtins.bool]] = None,
+            cancel_intermediate_builds_branch_filter: pulumi.Input[Optional[_builtins.str]] = None,
+            cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+            cluster_name: pulumi.Input[Optional[_builtins.str]] = None,
+            color: pulumi.Input[Optional[_builtins.str]] = None,
+            default_branch: pulumi.Input[Optional[_builtins.str]] = None,
+            default_team_id: pulumi.Input[Optional[_builtins.str]] = None,
+            default_timeout_in_minutes: pulumi.Input[Optional[_builtins.int]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            emoji: pulumi.Input[Optional[_builtins.str]] = None,
+            maximum_timeout_in_minutes: pulumi.Input[Optional[_builtins.int]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            pipeline_template_id: pulumi.Input[Optional[_builtins.str]] = None,
+            provider_settings: pulumi.Input[Optional[Union['PipelineProviderSettingsArgs', 'PipelineProviderSettingsArgsDict']]] = None,
+            repository: pulumi.Input[Optional[_builtins.str]] = None,
+            skip_intermediate_builds: pulumi.Input[Optional[_builtins.bool]] = None,
+            skip_intermediate_builds_branch_filter: pulumi.Input[Optional[_builtins.str]] = None,
+            slug: pulumi.Input[Optional[_builtins.str]] = None,
+            steps: pulumi.Input[Optional[_builtins.str]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            uuid: pulumi.Input[Optional[_builtins.str]] = None,
+            visibility: pulumi.Input[Optional[_builtins.str]] = None,
+            webhook_url: pulumi.Input[Optional[_builtins.str]] = None) -> 'Pipeline':
         """
         Get an existing Pipeline resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

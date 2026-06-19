@@ -109,8 +109,8 @@ def get_test_suite(slug: Optional[_builtins.str] = None,
     import pulumi_buildkite as buildkite
     import pulumiverse_buildkite as buildkite
 
-    application = buildkite.TestSuite.get_test_suite(slug="application")
-    team = buildkite.Team.get_team(slug="Everyone")
+    application = buildkite.testsuite.get_test_suite(slug="application")
+    team = buildkite.team.get_team(slug="Everyone")
     everyone = buildkite.testsuite.Team("everyone",
         team_id=team.id,
         suite_id=application.id,
@@ -131,7 +131,7 @@ def get_test_suite(slug: Optional[_builtins.str] = None,
         name=pulumi.get(__ret__, 'name'),
         slug=pulumi.get(__ret__, 'slug'),
         uuid=pulumi.get(__ret__, 'uuid'))
-def get_test_suite_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
+def get_test_suite_output(slug: pulumi.Input[Optional[_builtins.str]] = None,
                           opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetTestSuiteResult]:
     """
     A test suite is a collection of tests. A run is to a suite what a build is to a Pipeline.Use this datasource to read attributes for a [Test Suites](https://buildkite.com/docs/test-analytics) on Buildkite.
@@ -143,8 +143,8 @@ def get_test_suite_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
     import pulumi_buildkite as buildkite
     import pulumiverse_buildkite as buildkite
 
-    application = buildkite.TestSuite.get_test_suite(slug="application")
-    team = buildkite.Team.get_team(slug="Everyone")
+    application = buildkite.testsuite.get_test_suite(slug="application")
+    team = buildkite.team.get_team(slug="Everyone")
     everyone = buildkite.testsuite.Team("everyone",
         team_id=team.id,
         suite_id=application.id,

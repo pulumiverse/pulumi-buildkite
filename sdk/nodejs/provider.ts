@@ -86,28 +86,28 @@ export interface ProviderArgs {
     /**
      * API token with GraphQL access and `writePipelines`, `readPipelines` and `writeSuites` REST API scopes. You can generate a token from [your settings page](https://buildkite.com/user/api-access-tokens/new?description=terraform&scopes[]=write_pipelines&scopes[]=write_suites&scopes[]=read_pipelines&scopes[]=graphql). If not provided, the value is taken from the `BUILDKITE_API_TOKEN` environment variable.
      */
-    apiToken?: pulumi.Input<string>;
+    apiToken?: pulumi.Input<string | undefined>;
     /**
      * Enable this to archive pipelines when destroying the resource. This is opposed to completely deleting pipelines.
      */
-    archivePipelineOnDelete?: pulumi.Input<boolean>;
+    archivePipelineOnDelete?: pulumi.Input<boolean | undefined>;
     /**
      * Base URL for the GraphQL API to use. If not provided, the value is taken from the `BUILDKITE_GRAPHQL_URL` environment variable.
      */
-    graphqlUrl?: pulumi.Input<string>;
+    graphqlUrl?: pulumi.Input<string | undefined>;
     /**
      * Maximum number of retry attempts for retryable HTTP requests. Defaults to 10.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * The Buildkite organization slug. This can be found on the [settings](https://buildkite.com/organizations/~/settings) page. If not provided, the value is taken from the `BUILDKITE_ORGANIZATION_SLUG` environment variable.
      */
-    organization?: pulumi.Input<string>;
+    organization?: pulumi.Input<string | undefined>;
     /**
      * Base URL for the REST API to use. If not provided, the value is taken from the `BUILDKITE_REST_URL` environment variable.
      */
-    restUrl?: pulumi.Input<string>;
-    timeouts?: pulumi.Input<inputs.ProviderTimeouts>;
+    restUrl?: pulumi.Input<string | undefined>;
+    timeouts?: pulumi.Input<inputs.ProviderTimeouts | undefined>;
 }
 
 export namespace Provider {

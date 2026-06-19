@@ -22,13 +22,13 @@ class TeamArgs:
                  default_member_role: pulumi.Input[_builtins.str],
                  default_team: pulumi.Input[_builtins.bool],
                  privacy: pulumi.Input[_builtins.str],
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 members_can_create_pipelines: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_create_registries: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_create_suites: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_destroy_packages: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_destroy_registries: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None):
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 members_can_create_pipelines: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_create_registries: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_create_suites: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_destroy_packages: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_destroy_registries: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Team resource.
 
@@ -99,104 +99,104 @@ class TeamArgs:
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description for the team. This is displayed in the Buildkite UI.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="membersCanCreatePipelines")
-    def members_can_create_pipelines(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def members_can_create_pipelines(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether members of the team can create Pipelines.
         """
         return pulumi.get(self, "members_can_create_pipelines")
 
     @members_can_create_pipelines.setter
-    def members_can_create_pipelines(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def members_can_create_pipelines(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "members_can_create_pipelines", value)
 
     @_builtins.property
     @pulumi.getter(name="membersCanCreateRegistries")
-    def members_can_create_registries(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def members_can_create_registries(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether members of the team can create registries.
         """
         return pulumi.get(self, "members_can_create_registries")
 
     @members_can_create_registries.setter
-    def members_can_create_registries(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def members_can_create_registries(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "members_can_create_registries", value)
 
     @_builtins.property
     @pulumi.getter(name="membersCanCreateSuites")
-    def members_can_create_suites(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def members_can_create_suites(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether members of the team can create test suites.
         """
         return pulumi.get(self, "members_can_create_suites")
 
     @members_can_create_suites.setter
-    def members_can_create_suites(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def members_can_create_suites(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "members_can_create_suites", value)
 
     @_builtins.property
     @pulumi.getter(name="membersCanDestroyPackages")
-    def members_can_destroy_packages(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def members_can_destroy_packages(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether members of the team can destroy packages.
         """
         return pulumi.get(self, "members_can_destroy_packages")
 
     @members_can_destroy_packages.setter
-    def members_can_destroy_packages(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def members_can_destroy_packages(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "members_can_destroy_packages", value)
 
     @_builtins.property
     @pulumi.getter(name="membersCanDestroyRegistries")
-    def members_can_destroy_registries(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def members_can_destroy_registries(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether members of the team can destroy registries.
         """
         return pulumi.get(self, "members_can_destroy_registries")
 
     @members_can_destroy_registries.setter
-    def members_can_destroy_registries(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def members_can_destroy_registries(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "members_can_destroy_registries", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the team.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
 
 @pulumi.input_type
 class _TeamState:
     def __init__(__self__, *,
-                 default_member_role: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_team: Optional[pulumi.Input[_builtins.bool]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 members_can_create_pipelines: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_create_registries: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_create_suites: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_destroy_packages: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_destroy_registries: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 privacy: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug: Optional[pulumi.Input[_builtins.str]] = None,
-                 uuid: Optional[pulumi.Input[_builtins.str]] = None):
+                 default_member_role: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_team: pulumi.Input[Optional[_builtins.bool]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 members_can_create_pipelines: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_create_registries: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_create_suites: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_destroy_packages: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_destroy_registries: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 privacy: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 uuid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Team resources.
 
@@ -240,146 +240,146 @@ class _TeamState:
 
     @_builtins.property
     @pulumi.getter(name="defaultMemberRole")
-    def default_member_role(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def default_member_role(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
         """
         return pulumi.get(self, "default_member_role")
 
     @default_member_role.setter
-    def default_member_role(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def default_member_role(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "default_member_role", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultTeam")
-    def default_team(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def default_team(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether this is the default team for the organization.
         """
         return pulumi.get(self, "default_team")
 
     @default_team.setter
-    def default_team(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def default_team(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "default_team", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description for the team. This is displayed in the Buildkite UI.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="membersCanCreatePipelines")
-    def members_can_create_pipelines(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def members_can_create_pipelines(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether members of the team can create Pipelines.
         """
         return pulumi.get(self, "members_can_create_pipelines")
 
     @members_can_create_pipelines.setter
-    def members_can_create_pipelines(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def members_can_create_pipelines(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "members_can_create_pipelines", value)
 
     @_builtins.property
     @pulumi.getter(name="membersCanCreateRegistries")
-    def members_can_create_registries(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def members_can_create_registries(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether members of the team can create registries.
         """
         return pulumi.get(self, "members_can_create_registries")
 
     @members_can_create_registries.setter
-    def members_can_create_registries(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def members_can_create_registries(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "members_can_create_registries", value)
 
     @_builtins.property
     @pulumi.getter(name="membersCanCreateSuites")
-    def members_can_create_suites(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def members_can_create_suites(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether members of the team can create test suites.
         """
         return pulumi.get(self, "members_can_create_suites")
 
     @members_can_create_suites.setter
-    def members_can_create_suites(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def members_can_create_suites(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "members_can_create_suites", value)
 
     @_builtins.property
     @pulumi.getter(name="membersCanDestroyPackages")
-    def members_can_destroy_packages(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def members_can_destroy_packages(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether members of the team can destroy packages.
         """
         return pulumi.get(self, "members_can_destroy_packages")
 
     @members_can_destroy_packages.setter
-    def members_can_destroy_packages(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def members_can_destroy_packages(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "members_can_destroy_packages", value)
 
     @_builtins.property
     @pulumi.getter(name="membersCanDestroyRegistries")
-    def members_can_destroy_registries(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def members_can_destroy_registries(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether members of the team can destroy registries.
         """
         return pulumi.get(self, "members_can_destroy_registries")
 
     @members_can_destroy_registries.setter
-    def members_can_destroy_registries(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def members_can_destroy_registries(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "members_can_destroy_registries", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the team.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def privacy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def privacy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
         """
         return pulumi.get(self, "privacy")
 
     @privacy.setter
-    def privacy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def privacy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "privacy", value)
 
     @_builtins.property
     @pulumi.getter
-    def slug(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def slug(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The generated slug for the team.
         """
         return pulumi.get(self, "slug")
 
     @slug.setter
-    def slug(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def slug(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "slug", value)
 
     @_builtins.property
     @pulumi.getter
-    def uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the team.
         """
         return pulumi.get(self, "uuid")
 
     @uuid.setter
-    def uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uuid", value)
 
 
@@ -389,16 +389,16 @@ class Team(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 default_member_role: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_team: Optional[pulumi.Input[_builtins.bool]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 members_can_create_pipelines: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_create_registries: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_create_suites: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_destroy_packages: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_destroy_registries: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 privacy: Optional[pulumi.Input[_builtins.str]] = None,
+                 default_member_role: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_team: pulumi.Input[Optional[_builtins.bool]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 members_can_create_pipelines: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_create_registries: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_create_suites: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_destroy_packages: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_destroy_registries: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 privacy: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         A Team is a group of users that can be given permissions for using Pipelines.This feature is only available to Business and Enterprise customers.  You can find out more about Teams in the Buildkite [documentation](https://buildkite.com/docs/team-management/permissions).
@@ -514,16 +514,16 @@ class Team(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 default_member_role: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_team: Optional[pulumi.Input[_builtins.bool]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 members_can_create_pipelines: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_create_registries: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_create_suites: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_destroy_packages: Optional[pulumi.Input[_builtins.bool]] = None,
-                 members_can_destroy_registries: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 privacy: Optional[pulumi.Input[_builtins.str]] = None,
+                 default_member_role: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_team: pulumi.Input[Optional[_builtins.bool]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 members_can_create_pipelines: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_create_registries: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_create_suites: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_destroy_packages: pulumi.Input[Optional[_builtins.bool]] = None,
+                 members_can_destroy_registries: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 privacy: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -561,18 +561,18 @@ class Team(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            default_member_role: Optional[pulumi.Input[_builtins.str]] = None,
-            default_team: Optional[pulumi.Input[_builtins.bool]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            members_can_create_pipelines: Optional[pulumi.Input[_builtins.bool]] = None,
-            members_can_create_registries: Optional[pulumi.Input[_builtins.bool]] = None,
-            members_can_create_suites: Optional[pulumi.Input[_builtins.bool]] = None,
-            members_can_destroy_packages: Optional[pulumi.Input[_builtins.bool]] = None,
-            members_can_destroy_registries: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            privacy: Optional[pulumi.Input[_builtins.str]] = None,
-            slug: Optional[pulumi.Input[_builtins.str]] = None,
-            uuid: Optional[pulumi.Input[_builtins.str]] = None) -> 'Team':
+            default_member_role: pulumi.Input[Optional[_builtins.str]] = None,
+            default_team: pulumi.Input[Optional[_builtins.bool]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            members_can_create_pipelines: pulumi.Input[Optional[_builtins.bool]] = None,
+            members_can_create_registries: pulumi.Input[Optional[_builtins.bool]] = None,
+            members_can_create_suites: pulumi.Input[Optional[_builtins.bool]] = None,
+            members_can_destroy_packages: pulumi.Input[Optional[_builtins.bool]] = None,
+            members_can_destroy_registries: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            privacy: pulumi.Input[Optional[_builtins.str]] = None,
+            slug: pulumi.Input[Optional[_builtins.str]] = None,
+            uuid: pulumi.Input[Optional[_builtins.str]] = None) -> 'Team':
         """
         Get an existing Team resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

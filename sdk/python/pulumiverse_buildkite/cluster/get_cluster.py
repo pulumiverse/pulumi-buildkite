@@ -135,7 +135,7 @@ def get_cluster(name: Optional[_builtins.str] = None,
     import pulumiverse_buildkite as buildkite
 
     # Find the "default" cluster
-    default = buildkite.Cluster.get_cluster(name="default")
+    default = buildkite.cluster.get_cluster(name="default")
     # Assign a pipeline to that cluster
     terraform_provider_buildkite = buildkite.pipeline.Pipeline("terraform-provider-buildkite",
         name="terraform-provider-buildkite",
@@ -159,7 +159,7 @@ def get_cluster(name: Optional[_builtins.str] = None,
         maintainers=pulumi.get(__ret__, 'maintainers'),
         name=pulumi.get(__ret__, 'name'),
         uuid=pulumi.get(__ret__, 'uuid'))
-def get_cluster_output(name: Optional[pulumi.Input[_builtins.str]] = None,
+def get_cluster_output(name: pulumi.Input[Optional[_builtins.str]] = None,
                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetClusterResult]:
     """
     Use this data source to retrieve a cluster by name. You can find out more about clusters in the Buildkite [documentation](https://buildkite.com/docs/clusters/overview).
@@ -172,7 +172,7 @@ def get_cluster_output(name: Optional[pulumi.Input[_builtins.str]] = None,
     import pulumiverse_buildkite as buildkite
 
     # Find the "default" cluster
-    default = buildkite.Cluster.get_cluster(name="default")
+    default = buildkite.cluster.get_cluster(name="default")
     # Assign a pipeline to that cluster
     terraform_provider_buildkite = buildkite.pipeline.Pipeline("terraform-provider-buildkite",
         name="terraform-provider-buildkite",

@@ -16,7 +16,7 @@ import * as utilities from "../utilities";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
  * // Find the "default" cluster
- * const _default = buildkite.Cluster.getCluster({
+ * const _default = buildkite.cluster.getCluster({
  *     name: "default",
  * });
  * // Assign a pipeline to that cluster
@@ -87,7 +87,7 @@ export interface GetClusterResult {
  * import * as buildkite from "@pulumiverse/buildkite";
  *
  * // Find the "default" cluster
- * const _default = buildkite.Cluster.getCluster({
+ * const _default = buildkite.cluster.getCluster({
  *     name: "default",
  * });
  * // Assign a pipeline to that cluster

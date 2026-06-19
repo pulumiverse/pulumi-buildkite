@@ -186,9 +186,9 @@ def get_rule(id: Optional[_builtins.str] = None,
     import pulumi_buildkite as buildkite
 
     # Read an organization rule by its id
-    data_artifacts_read_dev_test = buildkite.Organization.get_rule(id=artifacts_read_dev_test["id"])
+    data_artifacts_read_dev_test = buildkite.organization.get_rule(id=artifacts_read_dev_test["id"])
     # Read an organization rule by its uuid
-    data_artifacts_read_test_dev = buildkite.Organization.get_rule(uuid=artifacts_read_test_dev["uuid"])
+    data_artifacts_read_test_dev = buildkite.organization.get_rule(uuid=artifacts_read_test_dev["uuid"])
     ```
 
 
@@ -213,8 +213,8 @@ def get_rule(id: Optional[_builtins.str] = None,
         type=pulumi.get(__ret__, 'type'),
         uuid=pulumi.get(__ret__, 'uuid'),
         value=pulumi.get(__ret__, 'value'))
-def get_rule_output(id: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                    uuid: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+def get_rule_output(id: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                    uuid: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                     opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetRuleResult]:
     """
     > Rules is a feature that is currently in development and enabled on an opt-in basis for early access. To have this enabled for your organization for utilizing this data source, please reach out to Buildkite's Support Team.
@@ -230,9 +230,9 @@ def get_rule_output(id: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
     import pulumi_buildkite as buildkite
 
     # Read an organization rule by its id
-    data_artifacts_read_dev_test = buildkite.Organization.get_rule(id=artifacts_read_dev_test["id"])
+    data_artifacts_read_dev_test = buildkite.organization.get_rule(id=artifacts_read_dev_test["id"])
     # Read an organization rule by its uuid
-    data_artifacts_read_test_dev = buildkite.Organization.get_rule(uuid=artifacts_read_test_dev["uuid"])
+    data_artifacts_read_test_dev = buildkite.organization.get_rule(uuid=artifacts_read_test_dev["uuid"])
     ```
 
 

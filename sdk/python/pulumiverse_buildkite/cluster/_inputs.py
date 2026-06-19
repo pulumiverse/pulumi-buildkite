@@ -39,15 +39,15 @@ class ClusterQueueHostedAgentsArgsDict(TypedDict):
     - LINUX_ARM64_8X32
     - LINUX_ARM64_16X64
     """
-    linux: NotRequired[pulumi.Input['ClusterQueueHostedAgentsLinuxArgsDict']]
-    mac: NotRequired[pulumi.Input['ClusterQueueHostedAgentsMacArgsDict']]
+    linux: NotRequired[pulumi.Input[Optional['ClusterQueueHostedAgentsLinuxArgsDict']]]
+    mac: NotRequired[pulumi.Input[Optional['ClusterQueueHostedAgentsMacArgsDict']]]
 
 @pulumi.input_type
 class ClusterQueueHostedAgentsArgs:
     def __init__(__self__, *,
                  instance_shape: pulumi.Input[_builtins.str],
-                 linux: Optional[pulumi.Input['ClusterQueueHostedAgentsLinuxArgs']] = None,
-                 mac: Optional[pulumi.Input['ClusterQueueHostedAgentsMacArgs']] = None):
+                 linux: pulumi.Input[Optional['ClusterQueueHostedAgentsLinuxArgs']] = None,
+                 mac: pulumi.Input[Optional['ClusterQueueHostedAgentsMacArgs']] = None):
         """
         :param pulumi.Input[_builtins.str] instance_shape: The instance shape to use for the Hosted Agent cluster queue. This can be a MacOS instance shape or a Linux instance shape.
                Valid values are:
@@ -93,20 +93,20 @@ class ClusterQueueHostedAgentsArgs:
 
     @_builtins.property
     @pulumi.getter
-    def linux(self) -> Optional[pulumi.Input['ClusterQueueHostedAgentsLinuxArgs']]:
+    def linux(self) -> pulumi.Input[Optional['ClusterQueueHostedAgentsLinuxArgs']]:
         return pulumi.get(self, "linux")
 
     @linux.setter
-    def linux(self, value: Optional[pulumi.Input['ClusterQueueHostedAgentsLinuxArgs']]):
+    def linux(self, value: pulumi.Input[Optional['ClusterQueueHostedAgentsLinuxArgs']]):
         pulumi.set(self, "linux", value)
 
     @_builtins.property
     @pulumi.getter
-    def mac(self) -> Optional[pulumi.Input['ClusterQueueHostedAgentsMacArgs']]:
+    def mac(self) -> pulumi.Input[Optional['ClusterQueueHostedAgentsMacArgs']]:
         return pulumi.get(self, "mac")
 
     @mac.setter
-    def mac(self, value: Optional[pulumi.Input['ClusterQueueHostedAgentsMacArgs']]):
+    def mac(self, value: pulumi.Input[Optional['ClusterQueueHostedAgentsMacArgs']]):
         pulumi.set(self, "mac", value)
 
 
@@ -143,7 +143,7 @@ class ClusterQueueHostedAgentsMacArgsDict(TypedDict):
     """
     Required selection of a specific XCode version to be selected for jobs in the queue to have available. Please note that this value is currently experimental and may not function as expected.
     """
-    macos_version: NotRequired[pulumi.Input[_builtins.str]]
+    macos_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Optional selection of a specific macOS version to be selected for jobs in the queue to have available. Please note that this value is currently experimental and may not function as expected.
     """
@@ -152,7 +152,7 @@ class ClusterQueueHostedAgentsMacArgsDict(TypedDict):
 class ClusterQueueHostedAgentsMacArgs:
     def __init__(__self__, *,
                  xcode_version: pulumi.Input[_builtins.str],
-                 macos_version: Optional[pulumi.Input[_builtins.str]] = None):
+                 macos_version: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] xcode_version: Required selection of a specific XCode version to be selected for jobs in the queue to have available. Please note that this value is currently experimental and may not function as expected.
         :param pulumi.Input[_builtins.str] macos_version: Optional selection of a specific macOS version to be selected for jobs in the queue to have available. Please note that this value is currently experimental and may not function as expected.
@@ -175,14 +175,14 @@ class ClusterQueueHostedAgentsMacArgs:
 
     @_builtins.property
     @pulumi.getter(name="macosVersion")
-    def macos_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def macos_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional selection of a specific macOS version to be selected for jobs in the queue to have available. Please note that this value is currently experimental and may not function as expected.
         """
         return pulumi.get(self, "macos_version")
 
     @macos_version.setter
-    def macos_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def macos_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "macos_version", value)
 
 

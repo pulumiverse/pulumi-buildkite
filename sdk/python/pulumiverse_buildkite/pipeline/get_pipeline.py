@@ -182,7 +182,7 @@ def get_pipeline(slug: Optional[_builtins.str] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    pipeline = buildkite.Pipeline.get_pipeline(slug="buildkite")
+    pipeline = buildkite.pipeline.get_pipeline(slug="buildkite")
     ```
 
 
@@ -205,7 +205,7 @@ def get_pipeline(slug: Optional[_builtins.str] = None,
         uuid=pulumi.get(__ret__, 'uuid'),
         visibility=pulumi.get(__ret__, 'visibility'),
         webhook_url=pulumi.get(__ret__, 'webhook_url'))
-def get_pipeline_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
+def get_pipeline_output(slug: pulumi.Input[Optional[_builtins.str]] = None,
                         opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetPipelineResult]:
     """
     Use this data source to look up properties on a specific pipeline. This is particularly useful for looking up the webhook URL for each pipeline.
@@ -218,7 +218,7 @@ def get_pipeline_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    pipeline = buildkite.Pipeline.get_pipeline(slug="buildkite")
+    pipeline = buildkite.pipeline.get_pipeline(slug="buildkite")
     ```
 
 

@@ -20,111 +20,151 @@ __all__ = [
 ]
 
 class PipelineProviderSettingsArgsDict(TypedDict):
-    build_branches: NotRequired[pulumi.Input[_builtins.bool]]
+    build_branches: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to create builds when branches are pushed.
     """
-    build_issue_comment_created: NotRequired[pulumi.Input[_builtins.bool]]
+    build_check_run_completed: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.
+    """
+    build_create_event: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to create a build when a branch or tag is created on GitHub.
+    """
+    build_deployment_status_created: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to create a build when a GitHub deployment status is created.
+    """
+    build_issue_comment_created: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to create builds when an issue comment is created on a pull request.
     """
-    build_merge_group_checks_requested: NotRequired[pulumi.Input[_builtins.bool]]
+    build_merge_group_checks_requested: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
     """
-    build_pull_request_base_branch_changed: NotRequired[pulumi.Input[_builtins.bool]]
+    build_pull_request_base_branch_changed: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to create builds for pull requests when its base branch changes.
     """
-    build_pull_request_forks: NotRequired[pulumi.Input[_builtins.bool]]
+    build_pull_request_converted_to_draft: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to create a build when a pull request is converted to a draft.
+    """
+    build_pull_request_forks: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to create builds for pull requests from third-party forks.
     """
-    build_pull_request_labels_changed: NotRequired[pulumi.Input[_builtins.bool]]
+    build_pull_request_labels_changed: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to create builds for pull requests when labels are added or removed.
     """
-    build_pull_request_merge_commits: NotRequired[pulumi.Input[_builtins.bool]]
+    build_pull_request_merge_commits: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to build the test merge commit (the merged result of a pull request with its base branch).
     """
-    build_pull_request_ready_for_review: NotRequired[pulumi.Input[_builtins.bool]]
+    build_pull_request_ready_for_review: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to create a build when a pull request changes to "Ready for review".
     """
-    build_pull_requests: NotRequired[pulumi.Input[_builtins.bool]]
+    build_pull_request_review_dismissed: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to create a build when a pull request review is dismissed.
+    """
+    build_pull_request_review_requested: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to create a build when a review is requested on a pull request.
+    """
+    build_pull_request_review_submitted: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to create a build when a pull request review is submitted.
+    """
+    build_pull_requests: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to create builds for commits that are part of a pull request.
     """
-    build_tags: NotRequired[pulumi.Input[_builtins.bool]]
+    build_release_created: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to create a build when a GitHub release is created (including drafts).
+    """
+    build_release_published: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to create a build when a GitHub release is published.
+    """
+    build_release_released: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
+    """
+    build_tags: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to create builds when tags are pushed.
     """
-    cancel_deleted_branch_builds: NotRequired[pulumi.Input[_builtins.bool]]
+    cancel_deleted_branch_builds: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Automatically cancel running builds for a branch if the branch is deleted.
     """
-    cancel_when_merge_group_destroyed: NotRequired[pulumi.Input[_builtins.bool]]
+    cancel_when_merge_group_destroyed: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to cancel any running builds belonging to a removed merge group.
     """
-    filter_condition: NotRequired[pulumi.Input[_builtins.str]]
+    filter_condition: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The condition to evaluate when deciding if a build should run. This is only valid when `trigger_mode` is `code`. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals).
     """
-    filter_enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    filter_enabled: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to filter builds to only run when the condition in `filter_condition` is true.
     """
-    ignore_default_branch_pull_requests: NotRequired[pulumi.Input[_builtins.bool]]
+    ignore_default_branch_pull_requests: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to prevent caching pull requests with the source branch matching the default branch.
     """
-    issue_comment_command_word: NotRequired[pulumi.Input[_builtins.str]]
+    issue_comment_command_word: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
     """
-    issue_comment_match_mode: NotRequired[pulumi.Input[_builtins.str]]
+    issue_comment_match_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
     """
-    prefix_pull_request_fork_branch_names: NotRequired[pulumi.Input[_builtins.bool]]
+    prefix_pull_request_fork_branch_names: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
     """
-    publish_blocked_as_pending: NotRequired[pulumi.Input[_builtins.bool]]
+    publish_blocked_as_pending: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     The status to use for blocked builds. Pending can be used with [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) to prevent merging pull requests with blocked builds.
     """
-    publish_commit_status: NotRequired[pulumi.Input[_builtins.bool]]
+    publish_commit_status: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to update the status of commits in Bitbucket, GitHub, or GitLab.
     """
-    publish_commit_status_per_step: NotRequired[pulumi.Input[_builtins.bool]]
+    publish_commit_status_per_step: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
     """
-    pull_request_branch_filter_configuration: NotRequired[pulumi.Input[_builtins.str]]
+    pull_request_branch_filter_configuration: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Filter pull requests builds by the branch filter.
     """
-    pull_request_branch_filter_enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    pull_request_branch_filter_enabled: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Filter pull request builds.
     """
-    separate_pull_request_statuses: NotRequired[pulumi.Input[_builtins.bool]]
+    separate_pull_request_statuses: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.
     """
-    skip_builds_for_existing_commits: NotRequired[pulumi.Input[_builtins.bool]]
+    skip_builds_for_existing_commits: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
     """
-    skip_pull_request_builds_for_existing_commits: NotRequired[pulumi.Input[_builtins.bool]]
+    skip_pull_request_builds_for_existing_commits: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
     """
-    trigger_mode: NotRequired[pulumi.Input[_builtins.str]]
+    trigger_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     What type of event to trigger builds on. Must be one of:
     	- `code` will create builds when code is pushed to GitHub.
@@ -135,52 +175,77 @@ class PipelineProviderSettingsArgsDict(TypedDict):
     	> `trigger_mode` is only valid if the pipeline uses a GitHub repository.
     	> If not set, the default value is `code` and other provider settings defaults are applied.
     """
-    use_merge_group_base_commit_for_git_diff_base: NotRequired[pulumi.Input[_builtins.bool]]
+    use_merge_group_base_commit_for_git_diff_base: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     When enabled, agents performing a git diff to determine steps to upload based on [`if_changed`](https://buildkite.com/docs/pipelines/configure/step-types/command-step#agent-applied-attributes)comparisons will use the base commit that points to the previous merge group rather than the base branch
+    """
+    use_step_key_as_commit_status: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to use step keys as commit status names for per-step commit statuses. Requires `publish_commit_status` and `publish_commit_status_per_step` to also be enabled. Defaults to false.
     """
 
 @pulumi.input_type
 class PipelineProviderSettingsArgs:
     def __init__(__self__, *,
-                 build_branches: Optional[pulumi.Input[_builtins.bool]] = None,
-                 build_issue_comment_created: Optional[pulumi.Input[_builtins.bool]] = None,
-                 build_merge_group_checks_requested: Optional[pulumi.Input[_builtins.bool]] = None,
-                 build_pull_request_base_branch_changed: Optional[pulumi.Input[_builtins.bool]] = None,
-                 build_pull_request_forks: Optional[pulumi.Input[_builtins.bool]] = None,
-                 build_pull_request_labels_changed: Optional[pulumi.Input[_builtins.bool]] = None,
-                 build_pull_request_merge_commits: Optional[pulumi.Input[_builtins.bool]] = None,
-                 build_pull_request_ready_for_review: Optional[pulumi.Input[_builtins.bool]] = None,
-                 build_pull_requests: Optional[pulumi.Input[_builtins.bool]] = None,
-                 build_tags: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cancel_deleted_branch_builds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cancel_when_merge_group_destroyed: Optional[pulumi.Input[_builtins.bool]] = None,
-                 filter_condition: Optional[pulumi.Input[_builtins.str]] = None,
-                 filter_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ignore_default_branch_pull_requests: Optional[pulumi.Input[_builtins.bool]] = None,
-                 issue_comment_command_word: Optional[pulumi.Input[_builtins.str]] = None,
-                 issue_comment_match_mode: Optional[pulumi.Input[_builtins.str]] = None,
-                 prefix_pull_request_fork_branch_names: Optional[pulumi.Input[_builtins.bool]] = None,
-                 publish_blocked_as_pending: Optional[pulumi.Input[_builtins.bool]] = None,
-                 publish_commit_status: Optional[pulumi.Input[_builtins.bool]] = None,
-                 publish_commit_status_per_step: Optional[pulumi.Input[_builtins.bool]] = None,
-                 pull_request_branch_filter_configuration: Optional[pulumi.Input[_builtins.str]] = None,
-                 pull_request_branch_filter_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 separate_pull_request_statuses: Optional[pulumi.Input[_builtins.bool]] = None,
-                 skip_builds_for_existing_commits: Optional[pulumi.Input[_builtins.bool]] = None,
-                 skip_pull_request_builds_for_existing_commits: Optional[pulumi.Input[_builtins.bool]] = None,
-                 trigger_mode: Optional[pulumi.Input[_builtins.str]] = None,
-                 use_merge_group_base_commit_for_git_diff_base: Optional[pulumi.Input[_builtins.bool]] = None):
+                 build_branches: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_check_run_completed: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_create_event: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_deployment_status_created: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_issue_comment_created: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_merge_group_checks_requested: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_pull_request_base_branch_changed: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_pull_request_converted_to_draft: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_pull_request_forks: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_pull_request_labels_changed: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_pull_request_merge_commits: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_pull_request_ready_for_review: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_pull_request_review_dismissed: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_pull_request_review_requested: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_pull_request_review_submitted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_pull_requests: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_release_created: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_release_published: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_release_released: pulumi.Input[Optional[_builtins.bool]] = None,
+                 build_tags: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cancel_deleted_branch_builds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cancel_when_merge_group_destroyed: pulumi.Input[Optional[_builtins.bool]] = None,
+                 filter_condition: pulumi.Input[Optional[_builtins.str]] = None,
+                 filter_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ignore_default_branch_pull_requests: pulumi.Input[Optional[_builtins.bool]] = None,
+                 issue_comment_command_word: pulumi.Input[Optional[_builtins.str]] = None,
+                 issue_comment_match_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 prefix_pull_request_fork_branch_names: pulumi.Input[Optional[_builtins.bool]] = None,
+                 publish_blocked_as_pending: pulumi.Input[Optional[_builtins.bool]] = None,
+                 publish_commit_status: pulumi.Input[Optional[_builtins.bool]] = None,
+                 publish_commit_status_per_step: pulumi.Input[Optional[_builtins.bool]] = None,
+                 pull_request_branch_filter_configuration: pulumi.Input[Optional[_builtins.str]] = None,
+                 pull_request_branch_filter_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 separate_pull_request_statuses: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_builds_for_existing_commits: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_pull_request_builds_for_existing_commits: pulumi.Input[Optional[_builtins.bool]] = None,
+                 trigger_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 use_merge_group_base_commit_for_git_diff_base: pulumi.Input[Optional[_builtins.bool]] = None,
+                 use_step_key_as_commit_status: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         :param pulumi.Input[_builtins.bool] build_branches: Whether to create builds when branches are pushed.
+        :param pulumi.Input[_builtins.bool] build_check_run_completed: Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.
+        :param pulumi.Input[_builtins.bool] build_create_event: Whether to create a build when a branch or tag is created on GitHub.
+        :param pulumi.Input[_builtins.bool] build_deployment_status_created: Whether to create a build when a GitHub deployment status is created.
         :param pulumi.Input[_builtins.bool] build_issue_comment_created: Whether to create builds when an issue comment is created on a pull request.
         :param pulumi.Input[_builtins.bool] build_merge_group_checks_requested: Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
         :param pulumi.Input[_builtins.bool] build_pull_request_base_branch_changed: Whether to create builds for pull requests when its base branch changes.
+        :param pulumi.Input[_builtins.bool] build_pull_request_converted_to_draft: Whether to create a build when a pull request is converted to a draft.
         :param pulumi.Input[_builtins.bool] build_pull_request_forks: Whether to create builds for pull requests from third-party forks.
         :param pulumi.Input[_builtins.bool] build_pull_request_labels_changed: Whether to create builds for pull requests when labels are added or removed.
         :param pulumi.Input[_builtins.bool] build_pull_request_merge_commits: Whether to build the test merge commit (the merged result of a pull request with its base branch).
         :param pulumi.Input[_builtins.bool] build_pull_request_ready_for_review: Whether to create a build when a pull request changes to "Ready for review".
+        :param pulumi.Input[_builtins.bool] build_pull_request_review_dismissed: Whether to create a build when a pull request review is dismissed.
+        :param pulumi.Input[_builtins.bool] build_pull_request_review_requested: Whether to create a build when a review is requested on a pull request.
+        :param pulumi.Input[_builtins.bool] build_pull_request_review_submitted: Whether to create a build when a pull request review is submitted.
         :param pulumi.Input[_builtins.bool] build_pull_requests: Whether to create builds for commits that are part of a pull request.
+        :param pulumi.Input[_builtins.bool] build_release_created: Whether to create a build when a GitHub release is created (including drafts).
+        :param pulumi.Input[_builtins.bool] build_release_published: Whether to create a build when a GitHub release is published.
+        :param pulumi.Input[_builtins.bool] build_release_released: Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
         :param pulumi.Input[_builtins.bool] build_tags: Whether to create builds when tags are pushed.
         :param pulumi.Input[_builtins.bool] cancel_deleted_branch_builds: Automatically cancel running builds for a branch if the branch is deleted.
         :param pulumi.Input[_builtins.bool] cancel_when_merge_group_destroyed: Whether to cancel any running builds belonging to a removed merge group.
@@ -207,15 +272,24 @@ class PipelineProviderSettingsArgs:
                	> `trigger_mode` is only valid if the pipeline uses a GitHub repository.
                	> If not set, the default value is `code` and other provider settings defaults are applied.
         :param pulumi.Input[_builtins.bool] use_merge_group_base_commit_for_git_diff_base: When enabled, agents performing a git diff to determine steps to upload based on [`if_changed`](https://buildkite.com/docs/pipelines/configure/step-types/command-step#agent-applied-attributes)comparisons will use the base commit that points to the previous merge group rather than the base branch
+        :param pulumi.Input[_builtins.bool] use_step_key_as_commit_status: Whether to use step keys as commit status names for per-step commit statuses. Requires `publish_commit_status` and `publish_commit_status_per_step` to also be enabled. Defaults to false.
         """
         if build_branches is not None:
             pulumi.set(__self__, "build_branches", build_branches)
+        if build_check_run_completed is not None:
+            pulumi.set(__self__, "build_check_run_completed", build_check_run_completed)
+        if build_create_event is not None:
+            pulumi.set(__self__, "build_create_event", build_create_event)
+        if build_deployment_status_created is not None:
+            pulumi.set(__self__, "build_deployment_status_created", build_deployment_status_created)
         if build_issue_comment_created is not None:
             pulumi.set(__self__, "build_issue_comment_created", build_issue_comment_created)
         if build_merge_group_checks_requested is not None:
             pulumi.set(__self__, "build_merge_group_checks_requested", build_merge_group_checks_requested)
         if build_pull_request_base_branch_changed is not None:
             pulumi.set(__self__, "build_pull_request_base_branch_changed", build_pull_request_base_branch_changed)
+        if build_pull_request_converted_to_draft is not None:
+            pulumi.set(__self__, "build_pull_request_converted_to_draft", build_pull_request_converted_to_draft)
         if build_pull_request_forks is not None:
             pulumi.set(__self__, "build_pull_request_forks", build_pull_request_forks)
         if build_pull_request_labels_changed is not None:
@@ -224,8 +298,20 @@ class PipelineProviderSettingsArgs:
             pulumi.set(__self__, "build_pull_request_merge_commits", build_pull_request_merge_commits)
         if build_pull_request_ready_for_review is not None:
             pulumi.set(__self__, "build_pull_request_ready_for_review", build_pull_request_ready_for_review)
+        if build_pull_request_review_dismissed is not None:
+            pulumi.set(__self__, "build_pull_request_review_dismissed", build_pull_request_review_dismissed)
+        if build_pull_request_review_requested is not None:
+            pulumi.set(__self__, "build_pull_request_review_requested", build_pull_request_review_requested)
+        if build_pull_request_review_submitted is not None:
+            pulumi.set(__self__, "build_pull_request_review_submitted", build_pull_request_review_submitted)
         if build_pull_requests is not None:
             pulumi.set(__self__, "build_pull_requests", build_pull_requests)
+        if build_release_created is not None:
+            pulumi.set(__self__, "build_release_created", build_release_created)
+        if build_release_published is not None:
+            pulumi.set(__self__, "build_release_published", build_release_published)
+        if build_release_released is not None:
+            pulumi.set(__self__, "build_release_released", build_release_released)
         if build_tags is not None:
             pulumi.set(__self__, "build_tags", build_tags)
         if cancel_deleted_branch_builds is not None:
@@ -264,322 +350,444 @@ class PipelineProviderSettingsArgs:
             pulumi.set(__self__, "trigger_mode", trigger_mode)
         if use_merge_group_base_commit_for_git_diff_base is not None:
             pulumi.set(__self__, "use_merge_group_base_commit_for_git_diff_base", use_merge_group_base_commit_for_git_diff_base)
+        if use_step_key_as_commit_status is not None:
+            pulumi.set(__self__, "use_step_key_as_commit_status", use_step_key_as_commit_status)
 
     @_builtins.property
     @pulumi.getter(name="buildBranches")
-    def build_branches(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def build_branches(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to create builds when branches are pushed.
         """
         return pulumi.get(self, "build_branches")
 
     @build_branches.setter
-    def build_branches(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def build_branches(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "build_branches", value)
 
     @_builtins.property
+    @pulumi.getter(name="buildCheckRunCompleted")
+    def build_check_run_completed(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.
+        """
+        return pulumi.get(self, "build_check_run_completed")
+
+    @build_check_run_completed.setter
+    def build_check_run_completed(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "build_check_run_completed", value)
+
+    @_builtins.property
+    @pulumi.getter(name="buildCreateEvent")
+    def build_create_event(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to create a build when a branch or tag is created on GitHub.
+        """
+        return pulumi.get(self, "build_create_event")
+
+    @build_create_event.setter
+    def build_create_event(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "build_create_event", value)
+
+    @_builtins.property
+    @pulumi.getter(name="buildDeploymentStatusCreated")
+    def build_deployment_status_created(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to create a build when a GitHub deployment status is created.
+        """
+        return pulumi.get(self, "build_deployment_status_created")
+
+    @build_deployment_status_created.setter
+    def build_deployment_status_created(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "build_deployment_status_created", value)
+
+    @_builtins.property
     @pulumi.getter(name="buildIssueCommentCreated")
-    def build_issue_comment_created(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def build_issue_comment_created(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to create builds when an issue comment is created on a pull request.
         """
         return pulumi.get(self, "build_issue_comment_created")
 
     @build_issue_comment_created.setter
-    def build_issue_comment_created(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def build_issue_comment_created(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "build_issue_comment_created", value)
 
     @_builtins.property
     @pulumi.getter(name="buildMergeGroupChecksRequested")
-    def build_merge_group_checks_requested(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def build_merge_group_checks_requested(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
         """
         return pulumi.get(self, "build_merge_group_checks_requested")
 
     @build_merge_group_checks_requested.setter
-    def build_merge_group_checks_requested(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def build_merge_group_checks_requested(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "build_merge_group_checks_requested", value)
 
     @_builtins.property
     @pulumi.getter(name="buildPullRequestBaseBranchChanged")
-    def build_pull_request_base_branch_changed(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def build_pull_request_base_branch_changed(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to create builds for pull requests when its base branch changes.
         """
         return pulumi.get(self, "build_pull_request_base_branch_changed")
 
     @build_pull_request_base_branch_changed.setter
-    def build_pull_request_base_branch_changed(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def build_pull_request_base_branch_changed(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "build_pull_request_base_branch_changed", value)
 
     @_builtins.property
+    @pulumi.getter(name="buildPullRequestConvertedToDraft")
+    def build_pull_request_converted_to_draft(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to create a build when a pull request is converted to a draft.
+        """
+        return pulumi.get(self, "build_pull_request_converted_to_draft")
+
+    @build_pull_request_converted_to_draft.setter
+    def build_pull_request_converted_to_draft(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "build_pull_request_converted_to_draft", value)
+
+    @_builtins.property
     @pulumi.getter(name="buildPullRequestForks")
-    def build_pull_request_forks(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def build_pull_request_forks(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to create builds for pull requests from third-party forks.
         """
         return pulumi.get(self, "build_pull_request_forks")
 
     @build_pull_request_forks.setter
-    def build_pull_request_forks(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def build_pull_request_forks(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "build_pull_request_forks", value)
 
     @_builtins.property
     @pulumi.getter(name="buildPullRequestLabelsChanged")
-    def build_pull_request_labels_changed(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def build_pull_request_labels_changed(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to create builds for pull requests when labels are added or removed.
         """
         return pulumi.get(self, "build_pull_request_labels_changed")
 
     @build_pull_request_labels_changed.setter
-    def build_pull_request_labels_changed(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def build_pull_request_labels_changed(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "build_pull_request_labels_changed", value)
 
     @_builtins.property
     @pulumi.getter(name="buildPullRequestMergeCommits")
-    def build_pull_request_merge_commits(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def build_pull_request_merge_commits(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to build the test merge commit (the merged result of a pull request with its base branch).
         """
         return pulumi.get(self, "build_pull_request_merge_commits")
 
     @build_pull_request_merge_commits.setter
-    def build_pull_request_merge_commits(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def build_pull_request_merge_commits(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "build_pull_request_merge_commits", value)
 
     @_builtins.property
     @pulumi.getter(name="buildPullRequestReadyForReview")
-    def build_pull_request_ready_for_review(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def build_pull_request_ready_for_review(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to create a build when a pull request changes to "Ready for review".
         """
         return pulumi.get(self, "build_pull_request_ready_for_review")
 
     @build_pull_request_ready_for_review.setter
-    def build_pull_request_ready_for_review(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def build_pull_request_ready_for_review(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "build_pull_request_ready_for_review", value)
 
     @_builtins.property
+    @pulumi.getter(name="buildPullRequestReviewDismissed")
+    def build_pull_request_review_dismissed(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to create a build when a pull request review is dismissed.
+        """
+        return pulumi.get(self, "build_pull_request_review_dismissed")
+
+    @build_pull_request_review_dismissed.setter
+    def build_pull_request_review_dismissed(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "build_pull_request_review_dismissed", value)
+
+    @_builtins.property
+    @pulumi.getter(name="buildPullRequestReviewRequested")
+    def build_pull_request_review_requested(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to create a build when a review is requested on a pull request.
+        """
+        return pulumi.get(self, "build_pull_request_review_requested")
+
+    @build_pull_request_review_requested.setter
+    def build_pull_request_review_requested(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "build_pull_request_review_requested", value)
+
+    @_builtins.property
+    @pulumi.getter(name="buildPullRequestReviewSubmitted")
+    def build_pull_request_review_submitted(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to create a build when a pull request review is submitted.
+        """
+        return pulumi.get(self, "build_pull_request_review_submitted")
+
+    @build_pull_request_review_submitted.setter
+    def build_pull_request_review_submitted(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "build_pull_request_review_submitted", value)
+
+    @_builtins.property
     @pulumi.getter(name="buildPullRequests")
-    def build_pull_requests(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def build_pull_requests(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to create builds for commits that are part of a pull request.
         """
         return pulumi.get(self, "build_pull_requests")
 
     @build_pull_requests.setter
-    def build_pull_requests(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def build_pull_requests(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "build_pull_requests", value)
 
     @_builtins.property
+    @pulumi.getter(name="buildReleaseCreated")
+    def build_release_created(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to create a build when a GitHub release is created (including drafts).
+        """
+        return pulumi.get(self, "build_release_created")
+
+    @build_release_created.setter
+    def build_release_created(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "build_release_created", value)
+
+    @_builtins.property
+    @pulumi.getter(name="buildReleasePublished")
+    def build_release_published(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to create a build when a GitHub release is published.
+        """
+        return pulumi.get(self, "build_release_published")
+
+    @build_release_published.setter
+    def build_release_published(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "build_release_published", value)
+
+    @_builtins.property
+    @pulumi.getter(name="buildReleaseReleased")
+    def build_release_released(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
+        """
+        return pulumi.get(self, "build_release_released")
+
+    @build_release_released.setter
+    def build_release_released(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "build_release_released", value)
+
+    @_builtins.property
     @pulumi.getter(name="buildTags")
-    def build_tags(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def build_tags(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to create builds when tags are pushed.
         """
         return pulumi.get(self, "build_tags")
 
     @build_tags.setter
-    def build_tags(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def build_tags(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "build_tags", value)
 
     @_builtins.property
     @pulumi.getter(name="cancelDeletedBranchBuilds")
-    def cancel_deleted_branch_builds(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def cancel_deleted_branch_builds(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Automatically cancel running builds for a branch if the branch is deleted.
         """
         return pulumi.get(self, "cancel_deleted_branch_builds")
 
     @cancel_deleted_branch_builds.setter
-    def cancel_deleted_branch_builds(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def cancel_deleted_branch_builds(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "cancel_deleted_branch_builds", value)
 
     @_builtins.property
     @pulumi.getter(name="cancelWhenMergeGroupDestroyed")
-    def cancel_when_merge_group_destroyed(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def cancel_when_merge_group_destroyed(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to cancel any running builds belonging to a removed merge group.
         """
         return pulumi.get(self, "cancel_when_merge_group_destroyed")
 
     @cancel_when_merge_group_destroyed.setter
-    def cancel_when_merge_group_destroyed(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def cancel_when_merge_group_destroyed(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "cancel_when_merge_group_destroyed", value)
 
     @_builtins.property
     @pulumi.getter(name="filterCondition")
-    def filter_condition(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def filter_condition(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The condition to evaluate when deciding if a build should run. This is only valid when `trigger_mode` is `code`. More details available in [the documentation](https://buildkite.com/docs/pipelines/conditionals).
         """
         return pulumi.get(self, "filter_condition")
 
     @filter_condition.setter
-    def filter_condition(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def filter_condition(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "filter_condition", value)
 
     @_builtins.property
     @pulumi.getter(name="filterEnabled")
-    def filter_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def filter_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to filter builds to only run when the condition in `filter_condition` is true.
         """
         return pulumi.get(self, "filter_enabled")
 
     @filter_enabled.setter
-    def filter_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def filter_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "filter_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="ignoreDefaultBranchPullRequests")
-    def ignore_default_branch_pull_requests(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def ignore_default_branch_pull_requests(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to prevent caching pull requests with the source branch matching the default branch.
         """
         return pulumi.get(self, "ignore_default_branch_pull_requests")
 
     @ignore_default_branch_pull_requests.setter
-    def ignore_default_branch_pull_requests(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def ignore_default_branch_pull_requests(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "ignore_default_branch_pull_requests", value)
 
     @_builtins.property
     @pulumi.getter(name="issueCommentCommandWord")
-    def issue_comment_command_word(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def issue_comment_command_word(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The command word used to trigger builds from issue comments (e.g. "/bk"). Only comments starting with or containing this word will trigger builds. Defaults to "/bk".
         """
         return pulumi.get(self, "issue_comment_command_word")
 
     @issue_comment_command_word.setter
-    def issue_comment_command_word(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def issue_comment_command_word(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "issue_comment_command_word", value)
 
     @_builtins.property
     @pulumi.getter(name="issueCommentMatchMode")
-    def issue_comment_match_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def issue_comment_match_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The match mode for the issue comment command word. Valid values are "exact" and "contains". Defaults to "exact".
         """
         return pulumi.get(self, "issue_comment_match_mode")
 
     @issue_comment_match_mode.setter
-    def issue_comment_match_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def issue_comment_match_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "issue_comment_match_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="prefixPullRequestForkBranchNames")
-    def prefix_pull_request_fork_branch_names(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def prefix_pull_request_fork_branch_names(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the main branch from some-user will become some-user:main.
         """
         return pulumi.get(self, "prefix_pull_request_fork_branch_names")
 
     @prefix_pull_request_fork_branch_names.setter
-    def prefix_pull_request_fork_branch_names(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def prefix_pull_request_fork_branch_names(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "prefix_pull_request_fork_branch_names", value)
 
     @_builtins.property
     @pulumi.getter(name="publishBlockedAsPending")
-    def publish_blocked_as_pending(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def publish_blocked_as_pending(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         The status to use for blocked builds. Pending can be used with [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) to prevent merging pull requests with blocked builds.
         """
         return pulumi.get(self, "publish_blocked_as_pending")
 
     @publish_blocked_as_pending.setter
-    def publish_blocked_as_pending(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def publish_blocked_as_pending(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "publish_blocked_as_pending", value)
 
     @_builtins.property
     @pulumi.getter(name="publishCommitStatus")
-    def publish_commit_status(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def publish_commit_status(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to update the status of commits in Bitbucket, GitHub, or GitLab.
         """
         return pulumi.get(self, "publish_commit_status")
 
     @publish_commit_status.setter
-    def publish_commit_status(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def publish_commit_status(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "publish_commit_status", value)
 
     @_builtins.property
     @pulumi.getter(name="publishCommitStatusPerStep")
-    def publish_commit_status_per_step(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def publish_commit_status_per_step(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
         """
         return pulumi.get(self, "publish_commit_status_per_step")
 
     @publish_commit_status_per_step.setter
-    def publish_commit_status_per_step(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def publish_commit_status_per_step(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "publish_commit_status_per_step", value)
 
     @_builtins.property
     @pulumi.getter(name="pullRequestBranchFilterConfiguration")
-    def pull_request_branch_filter_configuration(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def pull_request_branch_filter_configuration(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Filter pull requests builds by the branch filter.
         """
         return pulumi.get(self, "pull_request_branch_filter_configuration")
 
     @pull_request_branch_filter_configuration.setter
-    def pull_request_branch_filter_configuration(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def pull_request_branch_filter_configuration(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "pull_request_branch_filter_configuration", value)
 
     @_builtins.property
     @pulumi.getter(name="pullRequestBranchFilterEnabled")
-    def pull_request_branch_filter_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def pull_request_branch_filter_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Filter pull request builds.
         """
         return pulumi.get(self, "pull_request_branch_filter_enabled")
 
     @pull_request_branch_filter_enabled.setter
-    def pull_request_branch_filter_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def pull_request_branch_filter_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "pull_request_branch_filter_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="separatePullRequestStatuses")
-    def separate_pull_request_statuses(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def separate_pull_request_statuses(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your [required status checks](https://help.github.com/en/articles/enabling-required-status-checks) in GitHub.
         """
         return pulumi.get(self, "separate_pull_request_statuses")
 
     @separate_pull_request_statuses.setter
-    def separate_pull_request_statuses(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def separate_pull_request_statuses(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "separate_pull_request_statuses", value)
 
     @_builtins.property
     @pulumi.getter(name="skipBuildsForExistingCommits")
-    def skip_builds_for_existing_commits(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def skip_builds_for_existing_commits(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to skip creating a new build if an existing build for the commit and branch already exists. This option is only valid if the pipeline uses a GitHub repository.
         """
         return pulumi.get(self, "skip_builds_for_existing_commits")
 
     @skip_builds_for_existing_commits.setter
-    def skip_builds_for_existing_commits(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def skip_builds_for_existing_commits(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "skip_builds_for_existing_commits", value)
 
     @_builtins.property
     @pulumi.getter(name="skipPullRequestBuildsForExistingCommits")
-    def skip_pull_request_builds_for_existing_commits(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def skip_pull_request_builds_for_existing_commits(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
         """
         return pulumi.get(self, "skip_pull_request_builds_for_existing_commits")
 
     @skip_pull_request_builds_for_existing_commits.setter
-    def skip_pull_request_builds_for_existing_commits(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def skip_pull_request_builds_for_existing_commits(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "skip_pull_request_builds_for_existing_commits", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerMode")
-    def trigger_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def trigger_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         What type of event to trigger builds on. Must be one of:
         	- `code` will create builds when code is pushed to GitHub.
@@ -593,19 +801,31 @@ class PipelineProviderSettingsArgs:
         return pulumi.get(self, "trigger_mode")
 
     @trigger_mode.setter
-    def trigger_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def trigger_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "trigger_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="useMergeGroupBaseCommitForGitDiffBase")
-    def use_merge_group_base_commit_for_git_diff_base(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_merge_group_base_commit_for_git_diff_base(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When enabled, agents performing a git diff to determine steps to upload based on [`if_changed`](https://buildkite.com/docs/pipelines/configure/step-types/command-step#agent-applied-attributes)comparisons will use the base commit that points to the previous merge group rather than the base branch
         """
         return pulumi.get(self, "use_merge_group_base_commit_for_git_diff_base")
 
     @use_merge_group_base_commit_for_git_diff_base.setter
-    def use_merge_group_base_commit_for_git_diff_base(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_merge_group_base_commit_for_git_diff_base(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_merge_group_base_commit_for_git_diff_base", value)
+
+    @_builtins.property
+    @pulumi.getter(name="useStepKeyAsCommitStatus")
+    def use_step_key_as_commit_status(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to use step keys as commit status names for per-step commit statuses. Requires `publish_commit_status` and `publish_commit_status_per_step` to also be enabled. Defaults to false.
+        """
+        return pulumi.get(self, "use_step_key_as_commit_status")
+
+    @use_step_key_as_commit_status.setter
+    def use_step_key_as_commit_status(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "use_step_key_as_commit_status", value)
 
 

@@ -142,27 +142,27 @@ export interface ClusterAgentTokenState {
     /**
      * A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
      */
-    allowedIpAddresses?: pulumi.Input<pulumi.Input<string>[]>;
+    allowedIpAddresses?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the Cluster that this token belongs to.
      */
-    clusterUuid?: pulumi.Input<string>;
+    clusterUuid?: pulumi.Input<string | undefined>;
     /**
      * A description about what this cluster agent token is used for.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The token value used by an agent to register with the API.
      */
-    token?: pulumi.Input<string>;
+    token?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the token.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -172,7 +172,7 @@ export interface ClusterAgentTokenArgs {
     /**
      * A list of CIDR-notation IPv4 addresses from which agents can use this Cluster Agent Token.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
      */
-    allowedIpAddresses?: pulumi.Input<pulumi.Input<string>[]>;
+    allowedIpAddresses?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The GraphQL ID of the Cluster that this Cluster Agent Token belongs to.
      */

@@ -206,8 +206,8 @@ def get_team(id: Optional[_builtins.str] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    team_dev = buildkite.Team.get_team(id=team_dev_buildkite_team["id"])
-    team = buildkite.Team.get_team(slug="Everyone")
+    team_dev = buildkite.team.get_team(id=team_dev_buildkite_team["id"])
+    team = buildkite.team.get_team(slug="Everyone")
     ```
 
 
@@ -234,8 +234,8 @@ def get_team(id: Optional[_builtins.str] = None,
         privacy=pulumi.get(__ret__, 'privacy'),
         slug=pulumi.get(__ret__, 'slug'),
         uuid=pulumi.get(__ret__, 'uuid'))
-def get_team_output(id: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                    slug: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+def get_team_output(id: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                    slug: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                     opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetTeamResult]:
     """
     Use this data source to retrieve a team by slug or id. You can find out more about teams in the Buildkite
@@ -247,8 +247,8 @@ def get_team_output(id: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
     import pulumi
     import pulumi_buildkite as buildkite
 
-    team_dev = buildkite.Team.get_team(id=team_dev_buildkite_team["id"])
-    team = buildkite.Team.get_team(slug="Everyone")
+    team_dev = buildkite.team.get_team(id=team_dev_buildkite_team["id"])
+    team = buildkite.team.get_team(slug="Everyone")
     ```
 
 

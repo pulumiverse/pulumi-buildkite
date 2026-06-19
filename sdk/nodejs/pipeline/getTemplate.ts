@@ -16,10 +16,10 @@ import * as utilities from "../utilities";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
  * const repository = "git@github.com:my-org/my-repo.git";
- * const devTemplate = buildkite.Pipeline.getTemplate({
+ * const devTemplate = buildkite.pipeline.getTemplate({
  *     id: templateDev.id,
  * });
- * const frontendTemplate = buildkite.Pipeline.getTemplate({
+ * const frontendTemplate = buildkite.pipeline.getTemplate({
  *     name: "Frontend app template",
  * });
  * const apiv2Dev = new buildkite.pipeline.Pipeline("apiv2_dev", {
@@ -98,10 +98,10 @@ export interface GetTemplateResult {
  * import * as buildkite from "@pulumiverse/buildkite";
  *
  * const repository = "git@github.com:my-org/my-repo.git";
- * const devTemplate = buildkite.Pipeline.getTemplate({
+ * const devTemplate = buildkite.pipeline.getTemplate({
  *     id: templateDev.id,
  * });
- * const frontendTemplate = buildkite.Pipeline.getTemplate({
+ * const frontendTemplate = buildkite.pipeline.getTemplate({
  *     name: "Frontend app template",
  * });
  * const apiv2Dev = new buildkite.pipeline.Pipeline("apiv2_dev", {
@@ -132,9 +132,9 @@ export interface GetTemplateOutputArgs {
     /**
      * The GraphQL ID of the pipeline template.
      */
-    id?: pulumi.Input<string>;
+    id?: pulumi.Input<string | undefined>;
     /**
      * The name of the pipeline template.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
 }

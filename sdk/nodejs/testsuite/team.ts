@@ -151,19 +151,19 @@ export interface TeamState {
     /**
      * The access level the team has on the test suite. Either `READ_ONLY` or `MANAGE_AND_READ`.
      */
-    accessLevel?: pulumi.Input<string>;
+    accessLevel?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL ID of the team.
      */
-    teamId?: pulumi.Input<string>;
+    teamId?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL ID of the test suite.
      */
-    testSuiteId?: pulumi.Input<string>;
+    testSuiteId?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the test suite-team relationship.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
 }
 
 /**

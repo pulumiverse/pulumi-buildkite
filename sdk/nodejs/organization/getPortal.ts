@@ -15,7 +15,7 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const viewer = buildkite.Organization.getPortal({
+ * const viewer = buildkite.organization.getPortal({
  *     slug: "viewer-info",
  * });
  * ```
@@ -91,7 +91,7 @@ export interface GetPortalResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const viewer = buildkite.Organization.getPortal({
+ * const viewer = buildkite.organization.getPortal({
  *     slug: "viewer-info",
  * });
  * ```

@@ -233,43 +233,43 @@ export interface RuleState {
     /**
      * The action defined between source and target resources.
      */
-    action?: pulumi.Input<string>;
+    action?: pulumi.Input<string | undefined>;
     /**
      * The description of the organization rule.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Whether this organization rule allows or denies the action to take place between source and target resources.
      */
-    effect?: pulumi.Input<string>;
+    effect?: pulumi.Input<string | undefined>;
     /**
      * The source resource type that this organization rule allows or denies to invoke its defined action.
      */
-    sourceType?: pulumi.Input<string>;
+    sourceType?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the resource that this organization rule allows or denies invocating its defined action.
      */
-    sourceUuid?: pulumi.Input<string>;
+    sourceUuid?: pulumi.Input<string | undefined>;
     /**
      * The target resource type that this organization rule allows or denies the source to respective action.
      */
-    targetType?: pulumi.Input<string>;
+    targetType?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the target resource that this organization rule allows or denies invocation its respective action.
      */
-    targetUuid?: pulumi.Input<string>;
+    targetUuid?: pulumi.Input<string | undefined>;
     /**
      * The type of organization rule.
      */
-    type?: pulumi.Input<string>;
+    type?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the organization rule.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
     /**
      * The JSON document that this organization rule implements.
      */
-    value?: pulumi.Input<string>;
+    value?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -279,7 +279,7 @@ export interface RuleArgs {
     /**
      * The description of the organization rule.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The type of organization rule.
      */

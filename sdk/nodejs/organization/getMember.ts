@@ -14,7 +14,7 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const aSmith = buildkite.Organization.getMember({
+ * const aSmith = buildkite.organization.getMember({
  *     email: "a.smith@company.com",
  * });
  * const developers = new buildkite.team.Team("developers", {
@@ -78,7 +78,7 @@ export interface GetMemberResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const aSmith = buildkite.Organization.getMember({
+ * const aSmith = buildkite.organization.getMember({
  *     email: "a.smith@company.com",
  * });
  * const developers = new buildkite.team.Team("developers", {

@@ -131,15 +131,15 @@ export interface WebhookState {
     /**
      * The GraphQL ID of the pipeline.
      */
-    pipelineId?: pulumi.Input<string>;
+    pipelineId?: pulumi.Input<string | undefined>;
     /**
      * The repository URL the webhook is configured for. The webhook will be replaced when this value changes.
      */
-    repository?: pulumi.Input<string>;
+    repository?: pulumi.Input<string | undefined>;
     /**
      * The Buildkite webhook URL that receives events from the repository.
      */
-    webhookUrl?: pulumi.Input<string>;
+    webhookUrl?: pulumi.Input<string | undefined>;
 }
 
 /**

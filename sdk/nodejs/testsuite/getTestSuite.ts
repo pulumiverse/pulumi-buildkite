@@ -13,10 +13,10 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const application = buildkite.TestSuite.getTestSuite({
+ * const application = buildkite.testsuite.getTestSuite({
  *     slug: "application",
  * });
- * const team = buildkite.Team.getTeam({
+ * const team = buildkite.team.getTeam({
  *     slug: "Everyone",
  * });
  * const everyone = new buildkite.testsuite.Team("everyone", {
@@ -77,10 +77,10 @@ export interface GetTestSuiteResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const application = buildkite.TestSuite.getTestSuite({
+ * const application = buildkite.testsuite.getTestSuite({
  *     slug: "application",
  * });
- * const team = buildkite.Team.getTeam({
+ * const team = buildkite.team.getTeam({
  *     slug: "Everyone",
  * });
  * const everyone = new buildkite.testsuite.Team("everyone", {

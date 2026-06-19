@@ -69,7 +69,7 @@ def get_portals(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetPort
     import pulumi
     import pulumi_buildkite as buildkite
 
-    all = buildkite.Organization.get_portals()
+    all = buildkite.organization.get_portals()
     pulumi.export("userInvokablePortals", [portal.name for portal in all.portals if portal.user_invokable])
     ```
     """
@@ -90,7 +90,7 @@ def get_portals_output(opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeO
     import pulumi
     import pulumi_buildkite as buildkite
 
-    all = buildkite.Organization.get_portals()
+    all = buildkite.organization.get_portals()
     pulumi.export("userInvokablePortals", [portal.name for portal in all.portals if portal.user_invokable])
     ```
     """

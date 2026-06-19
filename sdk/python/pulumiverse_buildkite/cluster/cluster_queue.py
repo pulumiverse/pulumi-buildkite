@@ -23,10 +23,10 @@ class ClusterQueueArgs:
     def __init__(__self__, *,
                  cluster_id: pulumi.Input[_builtins.str],
                  key: pulumi.Input[_builtins.str],
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 dispatch_paused: Optional[pulumi.Input[_builtins.bool]] = None,
-                 hosted_agents: Optional[pulumi.Input['ClusterQueueHostedAgentsArgs']] = None,
-                 retry_agent_affinity: Optional[pulumi.Input[_builtins.str]] = None):
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 dispatch_paused: pulumi.Input[Optional[_builtins.bool]] = None,
+                 hosted_agents: pulumi.Input[Optional['ClusterQueueHostedAgentsArgs']] = None,
+                 retry_agent_affinity: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a ClusterQueue resource.
 
@@ -74,64 +74,64 @@ class ClusterQueueArgs:
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description for the cluster queue.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="dispatchPaused")
-    def dispatch_paused(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dispatch_paused(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         The dispatch state of a cluster queue.
         """
         return pulumi.get(self, "dispatch_paused")
 
     @dispatch_paused.setter
-    def dispatch_paused(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dispatch_paused(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dispatch_paused", value)
 
     @_builtins.property
     @pulumi.getter(name="hostedAgents")
-    def hosted_agents(self) -> Optional[pulumi.Input['ClusterQueueHostedAgentsArgs']]:
+    def hosted_agents(self) -> pulumi.Input[Optional['ClusterQueueHostedAgentsArgs']]:
         """
         Control the settings for the Buildkite hosted agents.
         """
         return pulumi.get(self, "hosted_agents")
 
     @hosted_agents.setter
-    def hosted_agents(self, value: Optional[pulumi.Input['ClusterQueueHostedAgentsArgs']]):
+    def hosted_agents(self, value: pulumi.Input[Optional['ClusterQueueHostedAgentsArgs']]):
         pulumi.set(self, "hosted_agents", value)
 
     @_builtins.property
     @pulumi.getter(name="retryAgentAffinity")
-    def retry_agent_affinity(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def retry_agent_affinity(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Specifies which agent should be preferred when a job is retried. Valid values are `prefer-warmest` (prefer agents that have recently finished jobs) and `prefer-different` (prefer a different agent if available). Defaults to `prefer-warmest`.
         """
         return pulumi.get(self, "retry_agent_affinity")
 
     @retry_agent_affinity.setter
-    def retry_agent_affinity(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def retry_agent_affinity(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "retry_agent_affinity", value)
 
 
 @pulumi.input_type
 class _ClusterQueueState:
     def __init__(__self__, *,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 cluster_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 dispatch_paused: Optional[pulumi.Input[_builtins.bool]] = None,
-                 hosted_agents: Optional[pulumi.Input['ClusterQueueHostedAgentsArgs']] = None,
-                 key: Optional[pulumi.Input[_builtins.str]] = None,
-                 retry_agent_affinity: Optional[pulumi.Input[_builtins.str]] = None,
-                 uuid: Optional[pulumi.Input[_builtins.str]] = None):
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 cluster_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 dispatch_paused: pulumi.Input[Optional[_builtins.bool]] = None,
+                 hosted_agents: pulumi.Input[Optional['ClusterQueueHostedAgentsArgs']] = None,
+                 key: pulumi.Input[Optional[_builtins.str]] = None,
+                 retry_agent_affinity: pulumi.Input[Optional[_builtins.str]] = None,
+                 uuid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ClusterQueue resources.
 
@@ -163,98 +163,98 @@ class _ClusterQueueState:
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
-    def cluster_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ID of the cluster that this cluster queue belongs to.
         """
         return pulumi.get(self, "cluster_id")
 
     @cluster_id.setter
-    def cluster_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_id", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterUuid")
-    def cluster_uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the cluster this queue belongs to.
         """
         return pulumi.get(self, "cluster_uuid")
 
     @cluster_uuid.setter
-    def cluster_uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_uuid", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description for the cluster queue.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="dispatchPaused")
-    def dispatch_paused(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dispatch_paused(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         The dispatch state of a cluster queue.
         """
         return pulumi.get(self, "dispatch_paused")
 
     @dispatch_paused.setter
-    def dispatch_paused(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dispatch_paused(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dispatch_paused", value)
 
     @_builtins.property
     @pulumi.getter(name="hostedAgents")
-    def hosted_agents(self) -> Optional[pulumi.Input['ClusterQueueHostedAgentsArgs']]:
+    def hosted_agents(self) -> pulumi.Input[Optional['ClusterQueueHostedAgentsArgs']]:
         """
         Control the settings for the Buildkite hosted agents.
         """
         return pulumi.get(self, "hosted_agents")
 
     @hosted_agents.setter
-    def hosted_agents(self, value: Optional[pulumi.Input['ClusterQueueHostedAgentsArgs']]):
+    def hosted_agents(self, value: pulumi.Input[Optional['ClusterQueueHostedAgentsArgs']]):
         pulumi.set(self, "hosted_agents", value)
 
     @_builtins.property
     @pulumi.getter
-    def key(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The key of the cluster queue.
         """
         return pulumi.get(self, "key")
 
     @key.setter
-    def key(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def key(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "key", value)
 
     @_builtins.property
     @pulumi.getter(name="retryAgentAffinity")
-    def retry_agent_affinity(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def retry_agent_affinity(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Specifies which agent should be preferred when a job is retried. Valid values are `prefer-warmest` (prefer agents that have recently finished jobs) and `prefer-different` (prefer a different agent if available). Defaults to `prefer-warmest`.
         """
         return pulumi.get(self, "retry_agent_affinity")
 
     @retry_agent_affinity.setter
-    def retry_agent_affinity(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def retry_agent_affinity(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "retry_agent_affinity", value)
 
     @_builtins.property
     @pulumi.getter
-    def uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the cluster queue.
         """
         return pulumi.get(self, "uuid")
 
     @uuid.setter
-    def uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uuid", value)
 
 
@@ -264,12 +264,12 @@ class ClusterQueue(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 dispatch_paused: Optional[pulumi.Input[_builtins.bool]] = None,
-                 hosted_agents: Optional[pulumi.Input[Union['ClusterQueueHostedAgentsArgs', 'ClusterQueueHostedAgentsArgsDict']]] = None,
-                 key: Optional[pulumi.Input[_builtins.str]] = None,
-                 retry_agent_affinity: Optional[pulumi.Input[_builtins.str]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 dispatch_paused: pulumi.Input[Optional[_builtins.bool]] = None,
+                 hosted_agents: pulumi.Input[Optional[Union['ClusterQueueHostedAgentsArgs', 'ClusterQueueHostedAgentsArgsDict']]] = None,
+                 key: pulumi.Input[Optional[_builtins.str]] = None,
+                 retry_agent_affinity: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         A Cluster Queue is a queue belonging to a specific Cluster for its Agents to target builds on.
@@ -443,12 +443,12 @@ class ClusterQueue(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 dispatch_paused: Optional[pulumi.Input[_builtins.bool]] = None,
-                 hosted_agents: Optional[pulumi.Input[Union['ClusterQueueHostedAgentsArgs', 'ClusterQueueHostedAgentsArgsDict']]] = None,
-                 key: Optional[pulumi.Input[_builtins.str]] = None,
-                 retry_agent_affinity: Optional[pulumi.Input[_builtins.str]] = None,
+                 cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 dispatch_paused: pulumi.Input[Optional[_builtins.bool]] = None,
+                 hosted_agents: pulumi.Input[Optional[Union['ClusterQueueHostedAgentsArgs', 'ClusterQueueHostedAgentsArgsDict']]] = None,
+                 key: pulumi.Input[Optional[_builtins.str]] = None,
+                 retry_agent_affinity: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -480,14 +480,14 @@ class ClusterQueue(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
-            cluster_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            dispatch_paused: Optional[pulumi.Input[_builtins.bool]] = None,
-            hosted_agents: Optional[pulumi.Input[Union['ClusterQueueHostedAgentsArgs', 'ClusterQueueHostedAgentsArgsDict']]] = None,
-            key: Optional[pulumi.Input[_builtins.str]] = None,
-            retry_agent_affinity: Optional[pulumi.Input[_builtins.str]] = None,
-            uuid: Optional[pulumi.Input[_builtins.str]] = None) -> 'ClusterQueue':
+            cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+            cluster_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            dispatch_paused: pulumi.Input[Optional[_builtins.bool]] = None,
+            hosted_agents: pulumi.Input[Optional[Union['ClusterQueueHostedAgentsArgs', 'ClusterQueueHostedAgentsArgsDict']]] = None,
+            key: pulumi.Input[Optional[_builtins.str]] = None,
+            retry_agent_affinity: pulumi.Input[Optional[_builtins.str]] = None,
+            uuid: pulumi.Input[Optional[_builtins.str]] = None) -> 'ClusterQueue':
         """
         Get an existing ClusterQueue resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

@@ -15,7 +15,7 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const pipeline = buildkite.Pipeline.getPipeline({
+ * const pipeline = buildkite.pipeline.getPipeline({
  *     slug: "buildkite",
  * });
  * ```
@@ -97,7 +97,7 @@ export interface GetPipelineResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const pipeline = buildkite.Pipeline.getPipeline({
+ * const pipeline = buildkite.pipeline.getPipeline({
  *     slug: "buildkite",
  * });
  * ```

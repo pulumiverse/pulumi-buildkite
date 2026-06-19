@@ -152,31 +152,31 @@ export interface TestSuiteState {
     /**
      * The API token to use to send test run data to the API.
      */
-    apiToken?: pulumi.Input<string>;
+    apiToken?: pulumi.Input<string | undefined>;
     /**
      * The default branch for the repository this test suite is for.
      */
-    defaultBranch?: pulumi.Input<string>;
+    defaultBranch?: pulumi.Input<string | undefined>;
     /**
      * The emoji associated with this test suite, eg :buildkite:
      */
-    emoji?: pulumi.Input<string>;
+    emoji?: pulumi.Input<string | undefined>;
     /**
      * The name to give the test suite.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The generated slug of the test suite.
      */
-    slug?: pulumi.Input<string>;
+    slug?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL ID of the team to mark as the owner/admin of the test suite.
      */
-    teamOwnerId?: pulumi.Input<string>;
+    teamOwnerId?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the test suite.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -190,11 +190,11 @@ export interface TestSuiteArgs {
     /**
      * The emoji associated with this test suite, eg :buildkite:
      */
-    emoji?: pulumi.Input<string>;
+    emoji?: pulumi.Input<string | undefined>;
     /**
      * The name to give the test suite.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL ID of the team to mark as the owner/admin of the test suite.
      */

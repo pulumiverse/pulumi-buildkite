@@ -61,7 +61,7 @@ func Provider() tfbridge.ProviderInfo {
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
 		P:                    pfbridge.ShimProvider(buildkite.New(version.Version)),
-		Name:                 "buildkite",
+		Name:                 mainPkg,
 		DisplayName:          "Buildkite",
 		Description:          "A Pulumi package for creating and managing Buildkite resources.",
 		Publisher:            "Pulumiverse",

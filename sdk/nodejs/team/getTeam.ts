@@ -14,10 +14,10 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const teamDev = buildkite.Team.getTeam({
+ * const teamDev = buildkite.team.getTeam({
  *     id: teamDevBuildkiteTeam.id,
  * });
- * const team = buildkite.Team.getTeam({
+ * const team = buildkite.team.getTeam({
  *     slug: "Everyone",
  * });
  * ```
@@ -112,10 +112,10 @@ export interface GetTeamResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const teamDev = buildkite.Team.getTeam({
+ * const teamDev = buildkite.team.getTeam({
  *     id: teamDevBuildkiteTeam.id,
  * });
- * const team = buildkite.Team.getTeam({
+ * const team = buildkite.team.getTeam({
  *     slug: "Everyone",
  * });
  * ```
@@ -136,9 +136,9 @@ export interface GetTeamOutputArgs {
     /**
      * The GraphQL ID of the team to find.
      */
-    id?: pulumi.Input<string>;
+    id?: pulumi.Input<string | undefined>;
     /**
      * The slug of the team to find.
      */
-    slug?: pulumi.Input<string>;
+    slug?: pulumi.Input<string | undefined>;
 }

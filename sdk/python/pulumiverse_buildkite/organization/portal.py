@@ -23,10 +23,10 @@ class PortalArgs:
     def __init__(__self__, *,
                  query: pulumi.Input[_builtins.str],
                  slug: pulumi.Input[_builtins.str],
-                 allowed_ip_addresses: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 user_invokable: Optional[pulumi.Input[_builtins.bool]] = None):
+                 allowed_ip_addresses: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 user_invokable: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Portal resource.
 
@@ -74,66 +74,66 @@ class PortalArgs:
 
     @_builtins.property
     @pulumi.getter(name="allowedIpAddresses")
-    def allowed_ip_addresses(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def allowed_ip_addresses(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Space-delimited list of IP addresses (in CIDR notation) allowed to invoke this portal. If not specified, all IP addresses are allowed.
         """
         return pulumi.get(self, "allowed_ip_addresses")
 
     @allowed_ip_addresses.setter
-    def allowed_ip_addresses(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def allowed_ip_addresses(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "allowed_ip_addresses", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the portal.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the portal.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="userInvokable")
-    def user_invokable(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def user_invokable(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether users can invoke the portal. Defaults to false.
         """
         return pulumi.get(self, "user_invokable")
 
     @user_invokable.setter
-    def user_invokable(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def user_invokable(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "user_invokable", value)
 
 
 @pulumi.input_type
 class _PortalState:
     def __init__(__self__, *,
-                 allowed_ip_addresses: Optional[pulumi.Input[_builtins.str]] = None,
-                 created_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 created_by: Optional[pulumi.Input['PortalCreatedByArgs']] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 query: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug: Optional[pulumi.Input[_builtins.str]] = None,
-                 token: Optional[pulumi.Input[_builtins.str]] = None,
-                 user_invokable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 uuid: Optional[pulumi.Input[_builtins.str]] = None):
+                 allowed_ip_addresses: pulumi.Input[Optional[_builtins.str]] = None,
+                 created_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 created_by: pulumi.Input[Optional['PortalCreatedByArgs']] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 token: pulumi.Input[Optional[_builtins.str]] = None,
+                 user_invokable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 uuid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Portal resources.
 
@@ -171,122 +171,122 @@ class _PortalState:
 
     @_builtins.property
     @pulumi.getter(name="allowedIpAddresses")
-    def allowed_ip_addresses(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def allowed_ip_addresses(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Space-delimited list of IP addresses (in CIDR notation) allowed to invoke this portal. If not specified, all IP addresses are allowed.
         """
         return pulumi.get(self, "allowed_ip_addresses")
 
     @allowed_ip_addresses.setter
-    def allowed_ip_addresses(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def allowed_ip_addresses(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "allowed_ip_addresses", value)
 
     @_builtins.property
     @pulumi.getter(name="createdAt")
-    def created_at(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def created_at(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The time when the portal was created.
         """
         return pulumi.get(self, "created_at")
 
     @created_at.setter
-    def created_at(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def created_at(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "created_at", value)
 
     @_builtins.property
     @pulumi.getter(name="createdBy")
-    def created_by(self) -> Optional[pulumi.Input['PortalCreatedByArgs']]:
+    def created_by(self) -> pulumi.Input[Optional['PortalCreatedByArgs']]:
         """
         Information about the user who created the portal.
         """
         return pulumi.get(self, "created_by")
 
     @created_by.setter
-    def created_by(self, value: Optional[pulumi.Input['PortalCreatedByArgs']]):
+    def created_by(self, value: pulumi.Input[Optional['PortalCreatedByArgs']]):
         pulumi.set(self, "created_by", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the portal.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the portal.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def query(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def query(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The GraphQL query that the portal executes.
         """
         return pulumi.get(self, "query")
 
     @query.setter
-    def query(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def query(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "query", value)
 
     @_builtins.property
     @pulumi.getter
-    def slug(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def slug(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The slug of the portal. Used in the portal's URL path.
         """
         return pulumi.get(self, "slug")
 
     @slug.setter
-    def slug(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def slug(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "slug", value)
 
     @_builtins.property
     @pulumi.getter
-    def token(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def token(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The token used to invoke the portal. Only returned on creation.
         """
         return pulumi.get(self, "token")
 
     @token.setter
-    def token(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def token(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "token", value)
 
     @_builtins.property
     @pulumi.getter(name="userInvokable")
-    def user_invokable(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def user_invokable(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether users can invoke the portal. Defaults to false.
         """
         return pulumi.get(self, "user_invokable")
 
     @user_invokable.setter
-    def user_invokable(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def user_invokable(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "user_invokable", value)
 
     @_builtins.property
     @pulumi.getter
-    def uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the portal.
         """
         return pulumi.get(self, "uuid")
 
     @uuid.setter
-    def uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uuid", value)
 
 
@@ -296,12 +296,12 @@ class Portal(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allowed_ip_addresses: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 query: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug: Optional[pulumi.Input[_builtins.str]] = None,
-                 user_invokable: Optional[pulumi.Input[_builtins.bool]] = None,
+                 allowed_ip_addresses: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 user_invokable: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         This resource allows you to manage portals in Buildkite. Portals allow you to expose GraphQL queries
@@ -473,12 +473,12 @@ class Portal(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allowed_ip_addresses: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 query: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug: Optional[pulumi.Input[_builtins.str]] = None,
-                 user_invokable: Optional[pulumi.Input[_builtins.bool]] = None,
+                 allowed_ip_addresses: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 user_invokable: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -514,16 +514,16 @@ class Portal(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            allowed_ip_addresses: Optional[pulumi.Input[_builtins.str]] = None,
-            created_at: Optional[pulumi.Input[_builtins.str]] = None,
-            created_by: Optional[pulumi.Input[Union['PortalCreatedByArgs', 'PortalCreatedByArgsDict']]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            query: Optional[pulumi.Input[_builtins.str]] = None,
-            slug: Optional[pulumi.Input[_builtins.str]] = None,
-            token: Optional[pulumi.Input[_builtins.str]] = None,
-            user_invokable: Optional[pulumi.Input[_builtins.bool]] = None,
-            uuid: Optional[pulumi.Input[_builtins.str]] = None) -> 'Portal':
+            allowed_ip_addresses: pulumi.Input[Optional[_builtins.str]] = None,
+            created_at: pulumi.Input[Optional[_builtins.str]] = None,
+            created_by: pulumi.Input[Optional[Union['PortalCreatedByArgs', 'PortalCreatedByArgsDict']]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            query: pulumi.Input[Optional[_builtins.str]] = None,
+            slug: pulumi.Input[Optional[_builtins.str]] = None,
+            token: pulumi.Input[Optional[_builtins.str]] = None,
+            user_invokable: pulumi.Input[Optional[_builtins.bool]] = None,
+            uuid: pulumi.Input[Optional[_builtins.str]] = None) -> 'Portal':
         """
         Get an existing Portal resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

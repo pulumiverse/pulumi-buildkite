@@ -106,15 +106,15 @@ export interface OrganizationState {
     /**
      * A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
      */
-    allowedApiIpAddresses?: pulumi.Input<pulumi.Input<string>[]>;
+    allowedApiIpAddresses?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Sets whether the organization requires two-factor authentication for all members.
      */
-    enforce2fa?: pulumi.Input<boolean>;
+    enforce2fa?: pulumi.Input<boolean | undefined>;
     /**
      * The UUID of the organization.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -124,9 +124,9 @@ export interface OrganizationArgs {
     /**
      * A list of IP addresses in CIDR format that are allowed to access the Buildkite API.If not set, all IP addresses are allowed (the same as setting 0.0.0.0/0).
      */
-    allowedApiIpAddresses?: pulumi.Input<pulumi.Input<string>[]>;
+    allowedApiIpAddresses?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Sets whether the organization requires two-factor authentication for all members.
      */
-    enforce2fa?: pulumi.Input<boolean>;
+    enforce2fa?: pulumi.Input<boolean | undefined>;
 }

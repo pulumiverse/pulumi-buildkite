@@ -34,14 +34,14 @@ import (
 //			if err != nil {
 //				return err
 //			}
-//			team, err := team.GetTeam(ctx, &team.GetTeamArgs{
+//			team2, err := team.GetTeam(ctx, &team.GetTeamArgs{
 //				Slug: pulumi.StringRef("Everyone"),
 //			}, nil)
 //			if err != nil {
 //				return err
 //			}
 //			_, err = testsuite.NewTeam(ctx, "everyone", &testsuite.TeamArgs{
-//				TeamId:      pulumi.String(pulumi.String(team.Id)),
+//				TeamId:      pulumi.String(team2.Id),
 //				SuiteId:     application.Id,
 //				AccessLevel: pulumi.String("MANAGE_AND_READ"),
 //			})

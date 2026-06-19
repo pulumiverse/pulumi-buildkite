@@ -245,111 +245,111 @@ export interface PipelineState {
     /**
      * Whether rebuilds are allowed for this pipeline.
      */
-    allowRebuilds?: pulumi.Input<boolean>;
+    allowRebuilds?: pulumi.Input<boolean | undefined>;
     /**
      * Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
      */
-    archived?: pulumi.Input<boolean>;
+    archived?: pulumi.Input<boolean | undefined>;
     /**
      * The badge URL showing build state.
      */
-    badgeUrl?: pulumi.Input<string>;
+    badgeUrl?: pulumi.Input<string | undefined>;
     /**
      * Configure the pipeline to only build on this branch conditional.
      */
-    branchConfiguration?: pulumi.Input<string>;
+    branchConfiguration?: pulumi.Input<string | undefined>;
     /**
      * Whether to cancel builds when a new commit is pushed to a matching branch.
      */
-    cancelIntermediateBuilds?: pulumi.Input<boolean>;
+    cancelIntermediateBuilds?: pulumi.Input<boolean | undefined>;
     /**
      * Filter the `cancelIntermediateBuilds` setting based on this branch condition.
      */
-    cancelIntermediateBuildsBranchFilter?: pulumi.Input<string>;
+    cancelIntermediateBuildsBranchFilter?: pulumi.Input<string | undefined>;
     /**
      * Attach this pipeline to the given cluster GraphQL ID.
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * The name of the cluster the pipeline is (optionally) attached to.
      */
-    clusterName?: pulumi.Input<string>;
+    clusterName?: pulumi.Input<string | undefined>;
     /**
      * A color hex code to represent this pipeline.
      */
-    color?: pulumi.Input<string>;
+    color?: pulumi.Input<string | undefined>;
     /**
      * Default branch of the pipeline.
      */
-    defaultBranch?: pulumi.Input<string>;
+    defaultBranch?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL ID of a team to initially assign to the pipeline. This is required by the Buildkite API when creating a new pipeline. The team assigned here will be given 'Manage Build and Read' access. Further team associations can be managed with the `buildkite.Pipeline.Team` resource after the pipeline is created.
      */
-    defaultTeamId?: pulumi.Input<string>;
+    defaultTeamId?: pulumi.Input<string | undefined>;
     /**
      * Set pipeline wide timeout for command steps.
      */
-    defaultTimeoutInMinutes?: pulumi.Input<number>;
+    defaultTimeoutInMinutes?: pulumi.Input<number | undefined>;
     /**
      * Description for the pipeline. Can include emoji 🙌.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * An emoji that represents this pipeline.
      */
-    emoji?: pulumi.Input<string>;
+    emoji?: pulumi.Input<string | undefined>;
     /**
      * Set pipeline wide maximum timeout for command steps.
      */
-    maximumTimeoutInMinutes?: pulumi.Input<number>;
+    maximumTimeoutInMinutes?: pulumi.Input<number | undefined>;
     /**
      * Name to give the pipeline.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL ID of the pipeline template applied to this pipeline.
      */
-    pipelineTemplateId?: pulumi.Input<string>;
+    pipelineTemplateId?: pulumi.Input<string | undefined>;
     /**
      * Control settings depending on the VCS provider used in `repository`.
      */
-    providerSettings?: pulumi.Input<inputs.Pipeline.PipelineProviderSettings>;
+    providerSettings?: pulumi.Input<inputs.Pipeline.PipelineProviderSettings | undefined>;
     /**
      * URL to the repository this pipeline is configured for.
      */
-    repository?: pulumi.Input<string>;
+    repository?: pulumi.Input<string | undefined>;
     /**
      * Whether to skip queued builds if a new commit is pushed to a matching branch.
      */
-    skipIntermediateBuilds?: pulumi.Input<boolean>;
+    skipIntermediateBuilds?: pulumi.Input<boolean | undefined>;
     /**
      * Filter the `skipIntermediateBuilds` setting based on this branch condition.
      */
-    skipIntermediateBuildsBranchFilter?: pulumi.Input<string>;
+    skipIntermediateBuildsBranchFilter?: pulumi.Input<string | undefined>;
     /**
      * A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If not provided, the slug will be [derived](https://buildkite.com/docs/apis/graphql/cookbooks/pipelines#create-a-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name) from the pipeline `name`.
      */
-    slug?: pulumi.Input<string>;
+    slug?: pulumi.Input<string | undefined>;
     /**
      * The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`buildkite.Pipeline.getSignedSteps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
      */
-    steps?: pulumi.Input<string>;
+    steps?: pulumi.Input<string | undefined>;
     /**
      * Tags to attribute to the pipeline. Useful for searching by in the UI.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The UUID of the pipeline.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
     /**
      * The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
      */
-    visibility?: pulumi.Input<string>;
+    visibility?: pulumi.Input<string | undefined>;
     /**
      * The webhook URL used to trigger builds from VCS providers.
      */
-    webhookUrl?: pulumi.Input<string>;
+    webhookUrl?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -359,67 +359,67 @@ export interface PipelineArgs {
     /**
      * Whether rebuilds are allowed for this pipeline.
      */
-    allowRebuilds?: pulumi.Input<boolean>;
+    allowRebuilds?: pulumi.Input<boolean | undefined>;
     /**
      * Whether to archive this pipeline. Archived pipelines are hidden from most views and cannot run new builds.
      */
-    archived?: pulumi.Input<boolean>;
+    archived?: pulumi.Input<boolean | undefined>;
     /**
      * Configure the pipeline to only build on this branch conditional.
      */
-    branchConfiguration?: pulumi.Input<string>;
+    branchConfiguration?: pulumi.Input<string | undefined>;
     /**
      * Whether to cancel builds when a new commit is pushed to a matching branch.
      */
-    cancelIntermediateBuilds?: pulumi.Input<boolean>;
+    cancelIntermediateBuilds?: pulumi.Input<boolean | undefined>;
     /**
      * Filter the `cancelIntermediateBuilds` setting based on this branch condition.
      */
-    cancelIntermediateBuildsBranchFilter?: pulumi.Input<string>;
+    cancelIntermediateBuildsBranchFilter?: pulumi.Input<string | undefined>;
     /**
      * Attach this pipeline to the given cluster GraphQL ID.
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * A color hex code to represent this pipeline.
      */
-    color?: pulumi.Input<string>;
+    color?: pulumi.Input<string | undefined>;
     /**
      * Default branch of the pipeline.
      */
-    defaultBranch?: pulumi.Input<string>;
+    defaultBranch?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL ID of a team to initially assign to the pipeline. This is required by the Buildkite API when creating a new pipeline. The team assigned here will be given 'Manage Build and Read' access. Further team associations can be managed with the `buildkite.Pipeline.Team` resource after the pipeline is created.
      */
-    defaultTeamId?: pulumi.Input<string>;
+    defaultTeamId?: pulumi.Input<string | undefined>;
     /**
      * Set pipeline wide timeout for command steps.
      */
-    defaultTimeoutInMinutes?: pulumi.Input<number>;
+    defaultTimeoutInMinutes?: pulumi.Input<number | undefined>;
     /**
      * Description for the pipeline. Can include emoji 🙌.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * An emoji that represents this pipeline.
      */
-    emoji?: pulumi.Input<string>;
+    emoji?: pulumi.Input<string | undefined>;
     /**
      * Set pipeline wide maximum timeout for command steps.
      */
-    maximumTimeoutInMinutes?: pulumi.Input<number>;
+    maximumTimeoutInMinutes?: pulumi.Input<number | undefined>;
     /**
      * Name to give the pipeline.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL ID of the pipeline template applied to this pipeline.
      */
-    pipelineTemplateId?: pulumi.Input<string>;
+    pipelineTemplateId?: pulumi.Input<string | undefined>;
     /**
      * Control settings depending on the VCS provider used in `repository`.
      */
-    providerSettings?: pulumi.Input<inputs.Pipeline.PipelineProviderSettings>;
+    providerSettings?: pulumi.Input<inputs.Pipeline.PipelineProviderSettings | undefined>;
     /**
      * URL to the repository this pipeline is configured for.
      */
@@ -427,25 +427,25 @@ export interface PipelineArgs {
     /**
      * Whether to skip queued builds if a new commit is pushed to a matching branch.
      */
-    skipIntermediateBuilds?: pulumi.Input<boolean>;
+    skipIntermediateBuilds?: pulumi.Input<boolean | undefined>;
     /**
      * Filter the `skipIntermediateBuilds` setting based on this branch condition.
      */
-    skipIntermediateBuildsBranchFilter?: pulumi.Input<string>;
+    skipIntermediateBuildsBranchFilter?: pulumi.Input<string | undefined>;
     /**
      * A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If not provided, the slug will be [derived](https://buildkite.com/docs/apis/graphql/cookbooks/pipelines#create-a-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name) from the pipeline `name`.
      */
-    slug?: pulumi.Input<string>;
+    slug?: pulumi.Input<string | undefined>;
     /**
      * The YAML steps to configure for the pipeline. Can also accept the `steps` attribute from the [`buildkite.Pipeline.getSignedSteps`](https://www.terraform.io/docs/data-sources/signed_pipeline_steps) data source to enable a signed pipeline. Defaults to `buildkite-agent pipeline upload`.
      */
-    steps?: pulumi.Input<string>;
+    steps?: pulumi.Input<string | undefined>;
     /**
      * Tags to attribute to the pipeline. Useful for searching by in the UI.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The visibility of the pipeline. Can be `PUBLIC` or `PRIVATE`. Only use `PUBLIC` visibility for pipelines without sensitive information. Defaults to `PRIVATE`.
      */
-    visibility?: pulumi.Input<string>;
+    visibility?: pulumi.Input<string | undefined>;
 }

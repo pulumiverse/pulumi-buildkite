@@ -16,7 +16,7 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const members = buildkite.Organization.getMembers({});
+ * const members = buildkite.organization.getMembers({});
  * ```
  */
 export function getMembers(opts?: pulumi.InvokeOptions): Promise<GetMembersResult> {
@@ -45,7 +45,7 @@ export interface GetMembersResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
- * const members = buildkite.Organization.getMembers({});
+ * const members = buildkite.organization.getMembers({});
  * ```
  */
 export function getMembersOutput(opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetMembersResult> {

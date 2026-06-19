@@ -182,51 +182,51 @@ export interface TeamState {
     /**
      * The default role for new members of the team. This can be either `MEMBER` or `MAINTAINER`.
      */
-    defaultMemberRole?: pulumi.Input<string>;
+    defaultMemberRole?: pulumi.Input<string | undefined>;
     /**
      * Whether this is the default team for the organization.
      */
-    defaultTeam?: pulumi.Input<boolean>;
+    defaultTeam?: pulumi.Input<boolean | undefined>;
     /**
      * A description for the team. This is displayed in the Buildkite UI.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Whether members of the team can create Pipelines.
      */
-    membersCanCreatePipelines?: pulumi.Input<boolean>;
+    membersCanCreatePipelines?: pulumi.Input<boolean | undefined>;
     /**
      * Whether members of the team can create registries.
      */
-    membersCanCreateRegistries?: pulumi.Input<boolean>;
+    membersCanCreateRegistries?: pulumi.Input<boolean | undefined>;
     /**
      * Whether members of the team can create test suites.
      */
-    membersCanCreateSuites?: pulumi.Input<boolean>;
+    membersCanCreateSuites?: pulumi.Input<boolean | undefined>;
     /**
      * Whether members of the team can destroy packages.
      */
-    membersCanDestroyPackages?: pulumi.Input<boolean>;
+    membersCanDestroyPackages?: pulumi.Input<boolean | undefined>;
     /**
      * Whether members of the team can destroy registries.
      */
-    membersCanDestroyRegistries?: pulumi.Input<boolean>;
+    membersCanDestroyRegistries?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the team.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
      */
-    privacy?: pulumi.Input<string>;
+    privacy?: pulumi.Input<string | undefined>;
     /**
      * The generated slug for the team.
      */
-    slug?: pulumi.Input<string>;
+    slug?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the team.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -244,31 +244,31 @@ export interface TeamArgs {
     /**
      * A description for the team. This is displayed in the Buildkite UI.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Whether members of the team can create Pipelines.
      */
-    membersCanCreatePipelines?: pulumi.Input<boolean>;
+    membersCanCreatePipelines?: pulumi.Input<boolean | undefined>;
     /**
      * Whether members of the team can create registries.
      */
-    membersCanCreateRegistries?: pulumi.Input<boolean>;
+    membersCanCreateRegistries?: pulumi.Input<boolean | undefined>;
     /**
      * Whether members of the team can create test suites.
      */
-    membersCanCreateSuites?: pulumi.Input<boolean>;
+    membersCanCreateSuites?: pulumi.Input<boolean | undefined>;
     /**
      * Whether members of the team can destroy packages.
      */
-    membersCanDestroyPackages?: pulumi.Input<boolean>;
+    membersCanDestroyPackages?: pulumi.Input<boolean | undefined>;
     /**
      * Whether members of the team can destroy registries.
      */
-    membersCanDestroyRegistries?: pulumi.Input<boolean>;
+    membersCanDestroyRegistries?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the team.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The privacy setting for the team. This can be either `VISIBLE` or `SECRET`.
      */

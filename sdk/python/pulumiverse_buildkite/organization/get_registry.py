@@ -210,7 +210,7 @@ def get_registry(slug: Optional[_builtins.str] = None,
         slug=pulumi.get(__ret__, 'slug'),
         team_ids=pulumi.get(__ret__, 'team_ids'),
         uuid=pulumi.get(__ret__, 'uuid'))
-def get_registry_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
+def get_registry_output(slug: pulumi.Input[Optional[_builtins.str]] = None,
                         opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetRegistryResult]:
     """
     Use this data source to retrieve information about a Buildkite Package Registry.

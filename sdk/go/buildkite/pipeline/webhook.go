@@ -38,7 +38,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			// create a pipeline
-//			pipeline, err := pipeline.NewPipeline(ctx, "pipeline", &pipeline.PipelineArgs{
+//			pipeline2, err := pipeline.NewPipeline(ctx, "pipeline", &pipeline.PipelineArgs{
 //				Name:       pulumi.String("my pipeline"),
 //				Repository: pulumi.String("https://github.com/my-org/my-repo.git"),
 //			})
@@ -47,8 +47,8 @@ import (
 //			}
 //			// create a webhook to automatically trigger builds on push
 //			_, err = pipeline.NewWebhook(ctx, "webhook", &pipeline.WebhookArgs{
-//				PipelineId: pipeline.ID(),
-//				Repository: pipeline.Repository,
+//				PipelineId: pipeline2.ID(),
+//				Repository: pipeline2.Repository,
 //			})
 //			if err != nil {
 //				return err

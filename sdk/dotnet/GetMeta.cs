@@ -29,10 +29,10 @@ namespace Pulumiverse.Buildkite
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var ips = Buildkite.Index.GetMeta.Invoke();
+        ///     var ips = Buildkite.GetMeta.Invoke();
         /// 
         ///     // Create an AWS security group allowing ingress from Buildkite
-        ///     var fromBuildkite = new Aws.Index.SecurityGroup("from_buildkite", new()
+        ///     var fromBuildkite = new Aws.SecurityGroup("from_buildkite", new()
         ///     {
         ///         Name = "from_buildkite",
         ///         Ingress = new[]
@@ -70,10 +70,10 @@ namespace Pulumiverse.Buildkite
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var ips = Buildkite.Index.GetMeta.Invoke();
+        ///     var ips = Buildkite.GetMeta.Invoke();
         /// 
         ///     // Create an AWS security group allowing ingress from Buildkite
-        ///     var fromBuildkite = new Aws.Index.SecurityGroup("from_buildkite", new()
+        ///     var fromBuildkite = new Aws.SecurityGroup("from_buildkite", new()
         ///     {
         ///         Name = "from_buildkite",
         ///         Ingress = new[]
@@ -111,10 +111,10 @@ namespace Pulumiverse.Buildkite
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     var ips = Buildkite.Index.GetMeta.Invoke();
+        ///     var ips = Buildkite.GetMeta.Invoke();
         /// 
         ///     // Create an AWS security group allowing ingress from Buildkite
-        ///     var fromBuildkite = new Aws.Index.SecurityGroup("from_buildkite", new()
+        ///     var fromBuildkite = new Aws.SecurityGroup("from_buildkite", new()
         ///     {
         ///         Name = "from_buildkite",
         ///         Ingress = new[]

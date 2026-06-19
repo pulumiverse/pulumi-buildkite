@@ -20,8 +20,8 @@ __all__ = ['ClusterMaintainerArgs', 'ClusterMaintainer']
 class ClusterMaintainerArgs:
     def __init__(__self__, *,
                  cluster_uuid: pulumi.Input[_builtins.str],
-                 team_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-                 user_uuid: Optional[pulumi.Input[_builtins.str]] = None):
+                 team_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+                 user_uuid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a ClusterMaintainer resource.
 
@@ -51,7 +51,7 @@ class ClusterMaintainerArgs:
 
     @_builtins.property
     @pulumi.getter(name="teamUuid")
-    def team_uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def team_uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the team to add as a maintainer. This is mutually exclusive with user*uuid.
         Only one of user*uuid or team_uuid can be specified.
@@ -59,12 +59,12 @@ class ClusterMaintainerArgs:
         return pulumi.get(self, "team_uuid")
 
     @team_uuid.setter
-    def team_uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def team_uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "team_uuid", value)
 
     @_builtins.property
     @pulumi.getter(name="userUuid")
-    def user_uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def user_uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the user to add as a maintainer. This is mutually exclusive with team*uuid.
         Only one of user*uuid or team_uuid can be specified.
@@ -72,21 +72,21 @@ class ClusterMaintainerArgs:
         return pulumi.get(self, "user_uuid")
 
     @user_uuid.setter
-    def user_uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def user_uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "user_uuid", value)
 
 
 @pulumi.input_type
 class _ClusterMaintainerState:
     def __init__(__self__, *,
-                 actor_email: Optional[pulumi.Input[_builtins.str]] = None,
-                 actor_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 actor_slug: Optional[pulumi.Input[_builtins.str]] = None,
-                 actor_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 actor_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-                 cluster_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-                 team_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-                 user_uuid: Optional[pulumi.Input[_builtins.str]] = None):
+                 actor_email: pulumi.Input[Optional[_builtins.str]] = None,
+                 actor_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 actor_slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 actor_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 actor_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+                 cluster_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+                 team_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+                 user_uuid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ClusterMaintainer resources.
 
@@ -120,79 +120,79 @@ class _ClusterMaintainerState:
 
     @_builtins.property
     @pulumi.getter(name="actorEmail")
-    def actor_email(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def actor_email(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The email of the actor (only for users).
         """
         return pulumi.get(self, "actor_email")
 
     @actor_email.setter
-    def actor_email(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def actor_email(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "actor_email", value)
 
     @_builtins.property
     @pulumi.getter(name="actorName")
-    def actor_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def actor_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the actor.
         """
         return pulumi.get(self, "actor_name")
 
     @actor_name.setter
-    def actor_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def actor_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "actor_name", value)
 
     @_builtins.property
     @pulumi.getter(name="actorSlug")
-    def actor_slug(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def actor_slug(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The slug of the actor (only for teams).
         """
         return pulumi.get(self, "actor_slug")
 
     @actor_slug.setter
-    def actor_slug(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def actor_slug(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "actor_slug", value)
 
     @_builtins.property
     @pulumi.getter(name="actorType")
-    def actor_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def actor_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The type of the actor (user or team).
         """
         return pulumi.get(self, "actor_type")
 
     @actor_type.setter
-    def actor_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def actor_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "actor_type", value)
 
     @_builtins.property
     @pulumi.getter(name="actorUuid")
-    def actor_uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def actor_uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the actor (user or team) that is the maintainer.
         """
         return pulumi.get(self, "actor_uuid")
 
     @actor_uuid.setter
-    def actor_uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def actor_uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "actor_uuid", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterUuid")
-    def cluster_uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the cluster.
         """
         return pulumi.get(self, "cluster_uuid")
 
     @cluster_uuid.setter
-    def cluster_uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_uuid", value)
 
     @_builtins.property
     @pulumi.getter(name="teamUuid")
-    def team_uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def team_uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the team to add as a maintainer. This is mutually exclusive with user*uuid.
         Only one of user*uuid or team_uuid can be specified.
@@ -200,12 +200,12 @@ class _ClusterMaintainerState:
         return pulumi.get(self, "team_uuid")
 
     @team_uuid.setter
-    def team_uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def team_uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "team_uuid", value)
 
     @_builtins.property
     @pulumi.getter(name="userUuid")
-    def user_uuid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def user_uuid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The UUID of the user to add as a maintainer. This is mutually exclusive with team*uuid.
         Only one of user*uuid or team_uuid can be specified.
@@ -213,7 +213,7 @@ class _ClusterMaintainerState:
         return pulumi.get(self, "user_uuid")
 
     @user_uuid.setter
-    def user_uuid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def user_uuid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "user_uuid", value)
 
 
@@ -223,9 +223,9 @@ class ClusterMaintainer(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-                 team_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-                 user_uuid: Optional[pulumi.Input[_builtins.str]] = None,
+                 cluster_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+                 team_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+                 user_uuid: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         This resource allows you to manage cluster maintainers in Buildkite. Maintainers can be either users or teams
@@ -328,9 +328,9 @@ class ClusterMaintainer(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cluster_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-                 team_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-                 user_uuid: Optional[pulumi.Input[_builtins.str]] = None,
+                 cluster_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+                 team_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+                 user_uuid: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -360,14 +360,14 @@ class ClusterMaintainer(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            actor_email: Optional[pulumi.Input[_builtins.str]] = None,
-            actor_name: Optional[pulumi.Input[_builtins.str]] = None,
-            actor_slug: Optional[pulumi.Input[_builtins.str]] = None,
-            actor_type: Optional[pulumi.Input[_builtins.str]] = None,
-            actor_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-            cluster_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-            team_uuid: Optional[pulumi.Input[_builtins.str]] = None,
-            user_uuid: Optional[pulumi.Input[_builtins.str]] = None) -> 'ClusterMaintainer':
+            actor_email: pulumi.Input[Optional[_builtins.str]] = None,
+            actor_name: pulumi.Input[Optional[_builtins.str]] = None,
+            actor_slug: pulumi.Input[Optional[_builtins.str]] = None,
+            actor_type: pulumi.Input[Optional[_builtins.str]] = None,
+            actor_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+            cluster_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+            team_uuid: pulumi.Input[Optional[_builtins.str]] = None,
+            user_uuid: pulumi.Input[Optional[_builtins.str]] = None) -> 'ClusterMaintainer':
         """
         Get an existing ClusterMaintainer resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

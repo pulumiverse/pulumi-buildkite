@@ -141,19 +141,19 @@ export interface ClusterDefaultQueueState {
     /**
      * The GraphQL ID of the cluster to which to add a default queue.
      */
-    clusterId?: pulumi.Input<string>;
+    clusterId?: pulumi.Input<string | undefined>;
     /**
      * The Key for the cluster queue; its unique identifier
      */
-    key?: pulumi.Input<string>;
+    key?: pulumi.Input<string | undefined>;
     /**
      * The GraphQL ID of the cluster queue to set as default on the cluster.
      */
-    queueId?: pulumi.Input<string>;
+    queueId?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the cluster.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
 }
 
 /**

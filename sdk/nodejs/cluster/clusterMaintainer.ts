@@ -151,37 +151,37 @@ export interface ClusterMaintainerState {
     /**
      * The email of the actor (only for users).
      */
-    actorEmail?: pulumi.Input<string>;
+    actorEmail?: pulumi.Input<string | undefined>;
     /**
      * The name of the actor.
      */
-    actorName?: pulumi.Input<string>;
+    actorName?: pulumi.Input<string | undefined>;
     /**
      * The slug of the actor (only for teams).
      */
-    actorSlug?: pulumi.Input<string>;
+    actorSlug?: pulumi.Input<string | undefined>;
     /**
      * The type of the actor (user or team).
      */
-    actorType?: pulumi.Input<string>;
+    actorType?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the actor (user or team) that is the maintainer.
      */
-    actorUuid?: pulumi.Input<string>;
+    actorUuid?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the cluster.
      */
-    clusterUuid?: pulumi.Input<string>;
+    clusterUuid?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the team to add as a maintainer. This is mutually exclusive with user*uuid.
      * Only one of user*uuid or teamUuid can be specified.
      */
-    teamUuid?: pulumi.Input<string>;
+    teamUuid?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the user to add as a maintainer. This is mutually exclusive with team*uuid.
      * Only one of user*uuid or teamUuid can be specified.
      */
-    userUuid?: pulumi.Input<string>;
+    userUuid?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -196,10 +196,10 @@ export interface ClusterMaintainerArgs {
      * The UUID of the team to add as a maintainer. This is mutually exclusive with user*uuid.
      * Only one of user*uuid or teamUuid can be specified.
      */
-    teamUuid?: pulumi.Input<string>;
+    teamUuid?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the user to add as a maintainer. This is mutually exclusive with team*uuid.
      * Only one of user*uuid or teamUuid can be specified.
      */
-    userUuid?: pulumi.Input<string>;
+    userUuid?: pulumi.Input<string | undefined>;
 }

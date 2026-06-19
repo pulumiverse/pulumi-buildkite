@@ -18,11 +18,11 @@ import * as utilities from "../utilities";
  * import * as buildkite from "@pulumiverse/buildkite";
  *
  * // Read an organization rule by its id
- * const dataArtifactsReadDevTest = buildkite.Organization.getRule({
+ * const dataArtifactsReadDevTest = buildkite.organization.getRule({
  *     id: artifactsReadDevTest.id,
  * });
  * // Read an organization rule by its uuid
- * const dataArtifactsReadTestDev = buildkite.Organization.getRule({
+ * const dataArtifactsReadTestDev = buildkite.organization.getRule({
  *     uuid: artifactsReadTestDev.uuid,
  * });
  * ```
@@ -113,11 +113,11 @@ export interface GetRuleResult {
  * import * as buildkite from "@pulumiverse/buildkite";
  *
  * // Read an organization rule by its id
- * const dataArtifactsReadDevTest = buildkite.Organization.getRule({
+ * const dataArtifactsReadDevTest = buildkite.organization.getRule({
  *     id: artifactsReadDevTest.id,
  * });
  * // Read an organization rule by its uuid
- * const dataArtifactsReadTestDev = buildkite.Organization.getRule({
+ * const dataArtifactsReadTestDev = buildkite.organization.getRule({
  *     uuid: artifactsReadTestDev.uuid,
  * });
  * ```
@@ -138,9 +138,9 @@ export interface GetRuleOutputArgs {
     /**
      * The GraphQL ID of the organization rule.
      */
-    id?: pulumi.Input<string>;
+    id?: pulumi.Input<string | undefined>;
     /**
      * The UUID of the organization rule.
      */
-    uuid?: pulumi.Input<string>;
+    uuid?: pulumi.Input<string | undefined>;
 }
