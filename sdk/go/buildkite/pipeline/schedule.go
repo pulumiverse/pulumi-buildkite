@@ -93,7 +93,7 @@ type Schedule struct {
 	Cronline pulumi.StringOutput `pulumi:"cronline"`
 	// Whether the schedule is enabled or not.
 	Enabled pulumi.BoolOutput `pulumi:"enabled"`
-	// The environment variables that scheduled builds should use.
+	// The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
 	Env pulumi.StringMapOutput `pulumi:"env"`
 	// A label to describe the schedule.
 	Label pulumi.StringOutput `pulumi:"label"`
@@ -155,7 +155,7 @@ type scheduleState struct {
 	Cronline *string `pulumi:"cronline"`
 	// Whether the schedule is enabled or not.
 	Enabled *bool `pulumi:"enabled"`
-	// The environment variables that scheduled builds should use.
+	// The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
 	Env map[string]string `pulumi:"env"`
 	// A label to describe the schedule.
 	Label *string `pulumi:"label"`
@@ -176,7 +176,7 @@ type ScheduleState struct {
 	Cronline pulumi.StringPtrInput
 	// Whether the schedule is enabled or not.
 	Enabled pulumi.BoolPtrInput
-	// The environment variables that scheduled builds should use.
+	// The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
 	Env pulumi.StringMapInput
 	// A label to describe the schedule.
 	Label pulumi.StringPtrInput
@@ -201,7 +201,7 @@ type scheduleArgs struct {
 	Cronline string `pulumi:"cronline"`
 	// Whether the schedule is enabled or not.
 	Enabled *bool `pulumi:"enabled"`
-	// The environment variables that scheduled builds should use.
+	// The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
 	Env map[string]string `pulumi:"env"`
 	// A label to describe the schedule.
 	Label string `pulumi:"label"`
@@ -221,7 +221,7 @@ type ScheduleArgs struct {
 	Cronline pulumi.StringInput
 	// Whether the schedule is enabled or not.
 	Enabled pulumi.BoolPtrInput
-	// The environment variables that scheduled builds should use.
+	// The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
 	Env pulumi.StringMapInput
 	// A label to describe the schedule.
 	Label pulumi.StringInput
@@ -338,7 +338,7 @@ func (o ScheduleOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Schedule) pulumi.BoolOutput { return v.Enabled }).(pulumi.BoolOutput)
 }
 
-// The environment variables that scheduled builds should use.
+// The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
 func (o ScheduleOutput) Env() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *Schedule) pulumi.StringMapOutput { return v.Env }).(pulumi.StringMapOutput)
 }

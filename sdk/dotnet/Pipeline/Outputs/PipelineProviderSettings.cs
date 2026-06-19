@@ -19,6 +19,18 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         /// </summary>
         public readonly bool? BuildBranches;
         /// <summary>
+        /// Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.
+        /// </summary>
+        public readonly bool? BuildCheckRunCompleted;
+        /// <summary>
+        /// Whether to create a build when a branch or tag is created on GitHub.
+        /// </summary>
+        public readonly bool? BuildCreateEvent;
+        /// <summary>
+        /// Whether to create a build when a GitHub deployment status is created.
+        /// </summary>
+        public readonly bool? BuildDeploymentStatusCreated;
+        /// <summary>
         /// Whether to create builds when an issue comment is created on a pull request.
         /// </summary>
         public readonly bool? BuildIssueCommentCreated;
@@ -30,6 +42,10 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         /// Whether to create builds for pull requests when its base branch changes.
         /// </summary>
         public readonly bool? BuildPullRequestBaseBranchChanged;
+        /// <summary>
+        /// Whether to create a build when a pull request is converted to a draft.
+        /// </summary>
+        public readonly bool? BuildPullRequestConvertedToDraft;
         /// <summary>
         /// Whether to create builds for pull requests from third-party forks.
         /// </summary>
@@ -47,9 +63,33 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         /// </summary>
         public readonly bool? BuildPullRequestReadyForReview;
         /// <summary>
+        /// Whether to create a build when a pull request review is dismissed.
+        /// </summary>
+        public readonly bool? BuildPullRequestReviewDismissed;
+        /// <summary>
+        /// Whether to create a build when a review is requested on a pull request.
+        /// </summary>
+        public readonly bool? BuildPullRequestReviewRequested;
+        /// <summary>
+        /// Whether to create a build when a pull request review is submitted.
+        /// </summary>
+        public readonly bool? BuildPullRequestReviewSubmitted;
+        /// <summary>
         /// Whether to create builds for commits that are part of a pull request.
         /// </summary>
         public readonly bool? BuildPullRequests;
+        /// <summary>
+        /// Whether to create a build when a GitHub release is created (including drafts).
+        /// </summary>
+        public readonly bool? BuildReleaseCreated;
+        /// <summary>
+        /// Whether to create a build when a GitHub release is published.
+        /// </summary>
+        public readonly bool? BuildReleasePublished;
+        /// <summary>
+        /// Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
+        /// </summary>
+        public readonly bool? BuildReleaseReleased;
         /// <summary>
         /// Whether to create builds when tags are pushed.
         /// </summary>
@@ -133,16 +173,28 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
         /// When enabled, agents performing a git diff to determine steps to upload based on [`IfChanged`](https://buildkite.com/docs/pipelines/configure/step-types/command-step#agent-applied-attributes)comparisons will use the base commit that points to the previous merge group rather than the base branch
         /// </summary>
         public readonly bool? UseMergeGroupBaseCommitForGitDiffBase;
+        /// <summary>
+        /// Whether to use step keys as commit status names for per-step commit statuses. Requires `PublishCommitStatus` and `PublishCommitStatusPerStep` to also be enabled. Defaults to false.
+        /// </summary>
+        public readonly bool? UseStepKeyAsCommitStatus;
 
         [OutputConstructor]
         private PipelineProviderSettings(
             bool? buildBranches,
+
+            bool? buildCheckRunCompleted,
+
+            bool? buildCreateEvent,
+
+            bool? buildDeploymentStatusCreated,
 
             bool? buildIssueCommentCreated,
 
             bool? buildMergeGroupChecksRequested,
 
             bool? buildPullRequestBaseBranchChanged,
+
+            bool? buildPullRequestConvertedToDraft,
 
             bool? buildPullRequestForks,
 
@@ -152,7 +204,19 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
 
             bool? buildPullRequestReadyForReview,
 
+            bool? buildPullRequestReviewDismissed,
+
+            bool? buildPullRequestReviewRequested,
+
+            bool? buildPullRequestReviewSubmitted,
+
             bool? buildPullRequests,
+
+            bool? buildReleaseCreated,
+
+            bool? buildReleasePublished,
+
+            bool? buildReleaseReleased,
 
             bool? buildTags,
 
@@ -190,17 +254,29 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
 
             string? triggerMode,
 
-            bool? useMergeGroupBaseCommitForGitDiffBase)
+            bool? useMergeGroupBaseCommitForGitDiffBase,
+
+            bool? useStepKeyAsCommitStatus)
         {
             BuildBranches = buildBranches;
+            BuildCheckRunCompleted = buildCheckRunCompleted;
+            BuildCreateEvent = buildCreateEvent;
+            BuildDeploymentStatusCreated = buildDeploymentStatusCreated;
             BuildIssueCommentCreated = buildIssueCommentCreated;
             BuildMergeGroupChecksRequested = buildMergeGroupChecksRequested;
             BuildPullRequestBaseBranchChanged = buildPullRequestBaseBranchChanged;
+            BuildPullRequestConvertedToDraft = buildPullRequestConvertedToDraft;
             BuildPullRequestForks = buildPullRequestForks;
             BuildPullRequestLabelsChanged = buildPullRequestLabelsChanged;
             BuildPullRequestMergeCommits = buildPullRequestMergeCommits;
             BuildPullRequestReadyForReview = buildPullRequestReadyForReview;
+            BuildPullRequestReviewDismissed = buildPullRequestReviewDismissed;
+            BuildPullRequestReviewRequested = buildPullRequestReviewRequested;
+            BuildPullRequestReviewSubmitted = buildPullRequestReviewSubmitted;
             BuildPullRequests = buildPullRequests;
+            BuildReleaseCreated = buildReleaseCreated;
+            BuildReleasePublished = buildReleasePublished;
+            BuildReleaseReleased = buildReleaseReleased;
             BuildTags = buildTags;
             CancelDeletedBranchBuilds = cancelDeletedBranchBuilds;
             CancelWhenMergeGroupDestroyed = cancelWhenMergeGroupDestroyed;
@@ -220,6 +296,7 @@ namespace Pulumiverse.Buildkite.Pipeline.Outputs
             SkipPullRequestBuildsForExistingCommits = skipPullRequestBuildsForExistingCommits;
             TriggerMode = triggerMode;
             UseMergeGroupBaseCommitForGitDiffBase = useMergeGroupBaseCommitForGitDiffBase;
+            UseStepKeyAsCommitStatus = useStepKeyAsCommitStatus;
         }
     }
 }

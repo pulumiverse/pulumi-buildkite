@@ -16,12 +16,20 @@ var _ = internal.GetEnvOrDefault
 type PipelineProviderSettings struct {
 	// Whether to create builds when branches are pushed.
 	BuildBranches *bool `pulumi:"buildBranches"`
+	// Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.
+	BuildCheckRunCompleted *bool `pulumi:"buildCheckRunCompleted"`
+	// Whether to create a build when a branch or tag is created on GitHub.
+	BuildCreateEvent *bool `pulumi:"buildCreateEvent"`
+	// Whether to create a build when a GitHub deployment status is created.
+	BuildDeploymentStatusCreated *bool `pulumi:"buildDeploymentStatusCreated"`
 	// Whether to create builds when an issue comment is created on a pull request.
 	BuildIssueCommentCreated *bool `pulumi:"buildIssueCommentCreated"`
 	// Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
 	BuildMergeGroupChecksRequested *bool `pulumi:"buildMergeGroupChecksRequested"`
 	// Whether to create builds for pull requests when its base branch changes.
 	BuildPullRequestBaseBranchChanged *bool `pulumi:"buildPullRequestBaseBranchChanged"`
+	// Whether to create a build when a pull request is converted to a draft.
+	BuildPullRequestConvertedToDraft *bool `pulumi:"buildPullRequestConvertedToDraft"`
 	// Whether to create builds for pull requests from third-party forks.
 	BuildPullRequestForks *bool `pulumi:"buildPullRequestForks"`
 	// Whether to create builds for pull requests when labels are added or removed.
@@ -30,8 +38,20 @@ type PipelineProviderSettings struct {
 	BuildPullRequestMergeCommits *bool `pulumi:"buildPullRequestMergeCommits"`
 	// Whether to create a build when a pull request changes to "Ready for review".
 	BuildPullRequestReadyForReview *bool `pulumi:"buildPullRequestReadyForReview"`
+	// Whether to create a build when a pull request review is dismissed.
+	BuildPullRequestReviewDismissed *bool `pulumi:"buildPullRequestReviewDismissed"`
+	// Whether to create a build when a review is requested on a pull request.
+	BuildPullRequestReviewRequested *bool `pulumi:"buildPullRequestReviewRequested"`
+	// Whether to create a build when a pull request review is submitted.
+	BuildPullRequestReviewSubmitted *bool `pulumi:"buildPullRequestReviewSubmitted"`
 	// Whether to create builds for commits that are part of a pull request.
 	BuildPullRequests *bool `pulumi:"buildPullRequests"`
+	// Whether to create a build when a GitHub release is created (including drafts).
+	BuildReleaseCreated *bool `pulumi:"buildReleaseCreated"`
+	// Whether to create a build when a GitHub release is published.
+	BuildReleasePublished *bool `pulumi:"buildReleasePublished"`
+	// Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
+	BuildReleaseReleased *bool `pulumi:"buildReleaseReleased"`
 	// Whether to create builds when tags are pushed.
 	BuildTags *bool `pulumi:"buildTags"`
 	// Automatically cancel running builds for a branch if the branch is deleted.
@@ -77,6 +97,8 @@ type PipelineProviderSettings struct {
 	TriggerMode *string `pulumi:"triggerMode"`
 	// When enabled, agents performing a git diff to determine steps to upload based on [`ifChanged`](https://buildkite.com/docs/pipelines/configure/step-types/command-step#agent-applied-attributes)comparisons will use the base commit that points to the previous merge group rather than the base branch
 	UseMergeGroupBaseCommitForGitDiffBase *bool `pulumi:"useMergeGroupBaseCommitForGitDiffBase"`
+	// Whether to use step keys as commit status names for per-step commit statuses. Requires `publishCommitStatus` and `publishCommitStatusPerStep` to also be enabled. Defaults to false.
+	UseStepKeyAsCommitStatus *bool `pulumi:"useStepKeyAsCommitStatus"`
 }
 
 // PipelineProviderSettingsInput is an input type that accepts PipelineProviderSettingsArgs and PipelineProviderSettingsOutput values.
@@ -93,12 +115,20 @@ type PipelineProviderSettingsInput interface {
 type PipelineProviderSettingsArgs struct {
 	// Whether to create builds when branches are pushed.
 	BuildBranches pulumi.BoolPtrInput `pulumi:"buildBranches"`
+	// Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.
+	BuildCheckRunCompleted pulumi.BoolPtrInput `pulumi:"buildCheckRunCompleted"`
+	// Whether to create a build when a branch or tag is created on GitHub.
+	BuildCreateEvent pulumi.BoolPtrInput `pulumi:"buildCreateEvent"`
+	// Whether to create a build when a GitHub deployment status is created.
+	BuildDeploymentStatusCreated pulumi.BoolPtrInput `pulumi:"buildDeploymentStatusCreated"`
 	// Whether to create builds when an issue comment is created on a pull request.
 	BuildIssueCommentCreated pulumi.BoolPtrInput `pulumi:"buildIssueCommentCreated"`
 	// Whether to create merge queue builds for a merge queue enabled GitHub repository with required status checks
 	BuildMergeGroupChecksRequested pulumi.BoolPtrInput `pulumi:"buildMergeGroupChecksRequested"`
 	// Whether to create builds for pull requests when its base branch changes.
 	BuildPullRequestBaseBranchChanged pulumi.BoolPtrInput `pulumi:"buildPullRequestBaseBranchChanged"`
+	// Whether to create a build when a pull request is converted to a draft.
+	BuildPullRequestConvertedToDraft pulumi.BoolPtrInput `pulumi:"buildPullRequestConvertedToDraft"`
 	// Whether to create builds for pull requests from third-party forks.
 	BuildPullRequestForks pulumi.BoolPtrInput `pulumi:"buildPullRequestForks"`
 	// Whether to create builds for pull requests when labels are added or removed.
@@ -107,8 +137,20 @@ type PipelineProviderSettingsArgs struct {
 	BuildPullRequestMergeCommits pulumi.BoolPtrInput `pulumi:"buildPullRequestMergeCommits"`
 	// Whether to create a build when a pull request changes to "Ready for review".
 	BuildPullRequestReadyForReview pulumi.BoolPtrInput `pulumi:"buildPullRequestReadyForReview"`
+	// Whether to create a build when a pull request review is dismissed.
+	BuildPullRequestReviewDismissed pulumi.BoolPtrInput `pulumi:"buildPullRequestReviewDismissed"`
+	// Whether to create a build when a review is requested on a pull request.
+	BuildPullRequestReviewRequested pulumi.BoolPtrInput `pulumi:"buildPullRequestReviewRequested"`
+	// Whether to create a build when a pull request review is submitted.
+	BuildPullRequestReviewSubmitted pulumi.BoolPtrInput `pulumi:"buildPullRequestReviewSubmitted"`
 	// Whether to create builds for commits that are part of a pull request.
 	BuildPullRequests pulumi.BoolPtrInput `pulumi:"buildPullRequests"`
+	// Whether to create a build when a GitHub release is created (including drafts).
+	BuildReleaseCreated pulumi.BoolPtrInput `pulumi:"buildReleaseCreated"`
+	// Whether to create a build when a GitHub release is published.
+	BuildReleasePublished pulumi.BoolPtrInput `pulumi:"buildReleasePublished"`
+	// Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
+	BuildReleaseReleased pulumi.BoolPtrInput `pulumi:"buildReleaseReleased"`
 	// Whether to create builds when tags are pushed.
 	BuildTags pulumi.BoolPtrInput `pulumi:"buildTags"`
 	// Automatically cancel running builds for a branch if the branch is deleted.
@@ -154,6 +196,8 @@ type PipelineProviderSettingsArgs struct {
 	TriggerMode pulumi.StringPtrInput `pulumi:"triggerMode"`
 	// When enabled, agents performing a git diff to determine steps to upload based on [`ifChanged`](https://buildkite.com/docs/pipelines/configure/step-types/command-step#agent-applied-attributes)comparisons will use the base commit that points to the previous merge group rather than the base branch
 	UseMergeGroupBaseCommitForGitDiffBase pulumi.BoolPtrInput `pulumi:"useMergeGroupBaseCommitForGitDiffBase"`
+	// Whether to use step keys as commit status names for per-step commit statuses. Requires `publishCommitStatus` and `publishCommitStatusPerStep` to also be enabled. Defaults to false.
+	UseStepKeyAsCommitStatus pulumi.BoolPtrInput `pulumi:"useStepKeyAsCommitStatus"`
 }
 
 func (PipelineProviderSettingsArgs) ElementType() reflect.Type {
@@ -238,6 +282,21 @@ func (o PipelineProviderSettingsOutput) BuildBranches() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildBranches }).(pulumi.BoolPtrOutput)
 }
 
+// Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.
+func (o PipelineProviderSettingsOutput) BuildCheckRunCompleted() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildCheckRunCompleted }).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a branch or tag is created on GitHub.
+func (o PipelineProviderSettingsOutput) BuildCreateEvent() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildCreateEvent }).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a GitHub deployment status is created.
+func (o PipelineProviderSettingsOutput) BuildDeploymentStatusCreated() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildDeploymentStatusCreated }).(pulumi.BoolPtrOutput)
+}
+
 // Whether to create builds when an issue comment is created on a pull request.
 func (o PipelineProviderSettingsOutput) BuildIssueCommentCreated() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildIssueCommentCreated }).(pulumi.BoolPtrOutput)
@@ -251,6 +310,11 @@ func (o PipelineProviderSettingsOutput) BuildMergeGroupChecksRequested() pulumi.
 // Whether to create builds for pull requests when its base branch changes.
 func (o PipelineProviderSettingsOutput) BuildPullRequestBaseBranchChanged() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequestBaseBranchChanged }).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a pull request is converted to a draft.
+func (o PipelineProviderSettingsOutput) BuildPullRequestConvertedToDraft() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequestConvertedToDraft }).(pulumi.BoolPtrOutput)
 }
 
 // Whether to create builds for pull requests from third-party forks.
@@ -273,9 +337,39 @@ func (o PipelineProviderSettingsOutput) BuildPullRequestReadyForReview() pulumi.
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequestReadyForReview }).(pulumi.BoolPtrOutput)
 }
 
+// Whether to create a build when a pull request review is dismissed.
+func (o PipelineProviderSettingsOutput) BuildPullRequestReviewDismissed() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequestReviewDismissed }).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a review is requested on a pull request.
+func (o PipelineProviderSettingsOutput) BuildPullRequestReviewRequested() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequestReviewRequested }).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a pull request review is submitted.
+func (o PipelineProviderSettingsOutput) BuildPullRequestReviewSubmitted() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequestReviewSubmitted }).(pulumi.BoolPtrOutput)
+}
+
 // Whether to create builds for commits that are part of a pull request.
 func (o PipelineProviderSettingsOutput) BuildPullRequests() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildPullRequests }).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a GitHub release is created (including drafts).
+func (o PipelineProviderSettingsOutput) BuildReleaseCreated() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildReleaseCreated }).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a GitHub release is published.
+func (o PipelineProviderSettingsOutput) BuildReleasePublished() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildReleasePublished }).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
+func (o PipelineProviderSettingsOutput) BuildReleaseReleased() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.BuildReleaseReleased }).(pulumi.BoolPtrOutput)
 }
 
 // Whether to create builds when tags are pushed.
@@ -384,6 +478,11 @@ func (o PipelineProviderSettingsOutput) UseMergeGroupBaseCommitForGitDiffBase() 
 	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.UseMergeGroupBaseCommitForGitDiffBase }).(pulumi.BoolPtrOutput)
 }
 
+// Whether to use step keys as commit status names for per-step commit statuses. Requires `publishCommitStatus` and `publishCommitStatusPerStep` to also be enabled. Defaults to false.
+func (o PipelineProviderSettingsOutput) UseStepKeyAsCommitStatus() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PipelineProviderSettings) *bool { return v.UseStepKeyAsCommitStatus }).(pulumi.BoolPtrOutput)
+}
+
 type PipelineProviderSettingsPtrOutput struct{ *pulumi.OutputState }
 
 func (PipelineProviderSettingsPtrOutput) ElementType() reflect.Type {
@@ -418,6 +517,36 @@ func (o PipelineProviderSettingsPtrOutput) BuildBranches() pulumi.BoolPtrOutput 
 	}).(pulumi.BoolPtrOutput)
 }
 
+// Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.
+func (o PipelineProviderSettingsPtrOutput) BuildCheckRunCompleted() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildCheckRunCompleted
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a branch or tag is created on GitHub.
+func (o PipelineProviderSettingsPtrOutput) BuildCreateEvent() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildCreateEvent
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a GitHub deployment status is created.
+func (o PipelineProviderSettingsPtrOutput) BuildDeploymentStatusCreated() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildDeploymentStatusCreated
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Whether to create builds when an issue comment is created on a pull request.
 func (o PipelineProviderSettingsPtrOutput) BuildIssueCommentCreated() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
@@ -445,6 +574,16 @@ func (o PipelineProviderSettingsPtrOutput) BuildPullRequestBaseBranchChanged() p
 			return nil
 		}
 		return v.BuildPullRequestBaseBranchChanged
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a pull request is converted to a draft.
+func (o PipelineProviderSettingsPtrOutput) BuildPullRequestConvertedToDraft() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildPullRequestConvertedToDraft
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -488,6 +627,36 @@ func (o PipelineProviderSettingsPtrOutput) BuildPullRequestReadyForReview() pulu
 	}).(pulumi.BoolPtrOutput)
 }
 
+// Whether to create a build when a pull request review is dismissed.
+func (o PipelineProviderSettingsPtrOutput) BuildPullRequestReviewDismissed() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildPullRequestReviewDismissed
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a review is requested on a pull request.
+func (o PipelineProviderSettingsPtrOutput) BuildPullRequestReviewRequested() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildPullRequestReviewRequested
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a pull request review is submitted.
+func (o PipelineProviderSettingsPtrOutput) BuildPullRequestReviewSubmitted() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildPullRequestReviewSubmitted
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Whether to create builds for commits that are part of a pull request.
 func (o PipelineProviderSettingsPtrOutput) BuildPullRequests() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
@@ -495,6 +664,36 @@ func (o PipelineProviderSettingsPtrOutput) BuildPullRequests() pulumi.BoolPtrOut
 			return nil
 		}
 		return v.BuildPullRequests
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a GitHub release is created (including drafts).
+func (o PipelineProviderSettingsPtrOutput) BuildReleaseCreated() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildReleaseCreated
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a GitHub release is published.
+func (o PipelineProviderSettingsPtrOutput) BuildReleasePublished() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildReleasePublished
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
+func (o PipelineProviderSettingsPtrOutput) BuildReleaseReleased() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BuildReleaseReleased
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -696,6 +895,16 @@ func (o PipelineProviderSettingsPtrOutput) UseMergeGroupBaseCommitForGitDiffBase
 			return nil
 		}
 		return v.UseMergeGroupBaseCommitForGitDiffBase
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to use step keys as commit status names for per-step commit statuses. Requires `publishCommitStatus` and `publishCommitStatusPerStep` to also be enabled. Defaults to false.
+func (o PipelineProviderSettingsPtrOutput) UseStepKeyAsCommitStatus() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PipelineProviderSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.UseStepKeyAsCommitStatus
 	}).(pulumi.BoolPtrOutput)
 }
 

@@ -88,6 +88,18 @@ export namespace Pipeline {
          */
         buildBranches?: pulumi.Input<boolean>;
         /**
+         * Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.
+         */
+        buildCheckRunCompleted?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a branch or tag is created on GitHub.
+         */
+        buildCreateEvent?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a GitHub deployment status is created.
+         */
+        buildDeploymentStatusCreated?: pulumi.Input<boolean>;
+        /**
          * Whether to create builds when an issue comment is created on a pull request.
          */
         buildIssueCommentCreated?: pulumi.Input<boolean>;
@@ -99,6 +111,10 @@ export namespace Pipeline {
          * Whether to create builds for pull requests when its base branch changes.
          */
         buildPullRequestBaseBranchChanged?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a pull request is converted to a draft.
+         */
+        buildPullRequestConvertedToDraft?: pulumi.Input<boolean>;
         /**
          * Whether to create builds for pull requests from third-party forks.
          */
@@ -116,9 +132,33 @@ export namespace Pipeline {
          */
         buildPullRequestReadyForReview?: pulumi.Input<boolean>;
         /**
+         * Whether to create a build when a pull request review is dismissed.
+         */
+        buildPullRequestReviewDismissed?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a review is requested on a pull request.
+         */
+        buildPullRequestReviewRequested?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a pull request review is submitted.
+         */
+        buildPullRequestReviewSubmitted?: pulumi.Input<boolean>;
+        /**
          * Whether to create builds for commits that are part of a pull request.
          */
         buildPullRequests?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a GitHub release is created (including drafts).
+         */
+        buildReleaseCreated?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a GitHub release is published.
+         */
+        buildReleasePublished?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
+         */
+        buildReleaseReleased?: pulumi.Input<boolean>;
         /**
          * Whether to create builds when tags are pushed.
          */
@@ -202,6 +242,10 @@ export namespace Pipeline {
          * When enabled, agents performing a git diff to determine steps to upload based on [`ifChanged`](https://buildkite.com/docs/pipelines/configure/step-types/command-step#agent-applied-attributes)comparisons will use the base commit that points to the previous merge group rather than the base branch
          */
         useMergeGroupBaseCommitForGitDiffBase?: pulumi.Input<boolean>;
+        /**
+         * Whether to use step keys as commit status names for per-step commit statuses. Requires `publishCommitStatus` and `publishCommitStatusPerStep` to also be enabled. Defaults to false.
+         */
+        useStepKeyAsCommitStatus?: pulumi.Input<boolean>;
     }
 }
 
