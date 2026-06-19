@@ -101,7 +101,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Output<bool> Enabled { get; private set; } = null!;
 
         /// <summary>
-        /// The environment variables that scheduled builds should use.
+        /// The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         /// </summary>
         [Output("env")]
         public Output<ImmutableDictionary<string, string>?> Env { get; private set; } = null!;
@@ -205,7 +205,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         private InputMap<string>? _env;
 
         /// <summary>
-        /// The environment variables that scheduled builds should use.
+        /// The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         /// </summary>
         public InputMap<string> Env
         {
@@ -267,7 +267,7 @@ namespace Pulumiverse.Buildkite.Pipeline
         private InputMap<string>? _env;
 
         /// <summary>
-        /// The environment variables that scheduled builds should use.
+        /// The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         /// </summary>
         public InputMap<string> Env
         {

@@ -36,7 +36,7 @@ class ScheduleArgs:
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
         :param pulumi.Input[_builtins.str] commit: The commit that the schedule should run on.
         :param pulumi.Input[_builtins.bool] enabled: Whether the schedule is enabled or not.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         :param pulumi.Input[_builtins.str] message: The message the builds show for builds created by this schedule.
         """
         pulumi.set(__self__, "branch", branch)
@@ -128,7 +128,7 @@ class ScheduleArgs:
     @pulumi.getter
     def env(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
-        The environment variables that scheduled builds should use.
+        The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         """
         return pulumi.get(self, "env")
 
@@ -168,7 +168,7 @@ class _ScheduleState:
         :param pulumi.Input[_builtins.str] commit: The commit that the schedule should run on.
         :param pulumi.Input[_builtins.str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         :param pulumi.Input[_builtins.bool] enabled: Whether the schedule is enabled or not.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         :param pulumi.Input[_builtins.str] label: A label to describe the schedule.
         :param pulumi.Input[_builtins.str] message: The message the builds show for builds created by this schedule.
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
@@ -245,7 +245,7 @@ class _ScheduleState:
     @pulumi.getter
     def env(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
-        The environment variables that scheduled builds should use.
+        The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         """
         return pulumi.get(self, "env")
 
@@ -376,7 +376,7 @@ class Schedule(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] commit: The commit that the schedule should run on.
         :param pulumi.Input[_builtins.str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         :param pulumi.Input[_builtins.bool] enabled: Whether the schedule is enabled or not.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         :param pulumi.Input[_builtins.str] label: A label to describe the schedule.
         :param pulumi.Input[_builtins.str] message: The message the builds show for builds created by this schedule.
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
@@ -519,7 +519,7 @@ class Schedule(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] commit: The commit that the schedule should run on.
         :param pulumi.Input[_builtins.str] cronline: The cronline that describes when the schedule should run. See[here](https://buildkite.com/docs/pipelines/scheduled-builds#schedule-intervals) for supported syntax.
         :param pulumi.Input[_builtins.bool] enabled: Whether the schedule is enabled or not.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         :param pulumi.Input[_builtins.str] label: A label to describe the schedule.
         :param pulumi.Input[_builtins.str] message: The message the builds show for builds created by this schedule.
         :param pulumi.Input[_builtins.str] pipeline_id: The GraphQL ID of the pipeline that this schedule belongs to.
@@ -576,7 +576,7 @@ class Schedule(pulumi.CustomResource):
     @pulumi.getter
     def env(self) -> pulumi.Output[Optional[Mapping[str, _builtins.str]]]:
         """
-        The environment variables that scheduled builds should use.
+        The environment variables that scheduled builds should use. An empty map (`{}`) is equivalent to omitting this attribute at the API level.
         """
         return pulumi.get(self, "env")
 
