@@ -100,6 +100,18 @@ export namespace Pipeline {
          */
         buildDeploymentStatusCreated?: pulumi.Input<boolean | undefined>;
         /**
+         * Whether to create a build when a GitHub check run completes. Useful for chaining CI workflows by triggering a Buildkite pipeline after another CI system finishes.
+         */
+        buildCheckRunCompleted?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a branch or tag is created on GitHub.
+         */
+        buildCreateEvent?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a GitHub deployment status is created.
+         */
+        buildDeploymentStatusCreated?: pulumi.Input<boolean>;
+        /**
          * Whether to create builds when an issue comment is created on a pull request.
          */
         buildIssueCommentCreated?: pulumi.Input<boolean | undefined>;
@@ -115,6 +127,10 @@ export namespace Pipeline {
          * Whether to create a build when a pull request is converted to a draft.
          */
         buildPullRequestConvertedToDraft?: pulumi.Input<boolean | undefined>;
+        /**
+         * Whether to create a build when a pull request is converted to a draft.
+         */
+        buildPullRequestConvertedToDraft?: pulumi.Input<boolean>;
         /**
          * Whether to create builds for pull requests from third-party forks.
          */
@@ -144,6 +160,18 @@ export namespace Pipeline {
          */
         buildPullRequestReviewSubmitted?: pulumi.Input<boolean | undefined>;
         /**
+         * Whether to create a build when a pull request review is dismissed.
+         */
+        buildPullRequestReviewDismissed?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a review is requested on a pull request.
+         */
+        buildPullRequestReviewRequested?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a pull request review is submitted.
+         */
+        buildPullRequestReviewSubmitted?: pulumi.Input<boolean>;
+        /**
          * Whether to create builds for commits that are part of a pull request.
          */
         buildPullRequests?: pulumi.Input<boolean | undefined>;
@@ -159,6 +187,18 @@ export namespace Pipeline {
          * Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
          */
         buildReleaseReleased?: pulumi.Input<boolean | undefined>;
+        /**
+         * Whether to create a build when a GitHub release is created (including drafts).
+         */
+        buildReleaseCreated?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a GitHub release is published.
+         */
+        buildReleasePublished?: pulumi.Input<boolean>;
+        /**
+         * Whether to create a build when a GitHub release is published as final (excludes pre-releases and drafts).
+         */
+        buildReleaseReleased?: pulumi.Input<boolean>;
         /**
          * Whether to create builds when tags are pushed.
          */
