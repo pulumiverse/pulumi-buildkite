@@ -1,7 +1,7 @@
 # Buildkite Resource Provider
 
 [![](https://img.shields.io/github/license/pulumiverse/pulumi-buildkite?style=for-the-badge)](LICENSE)
-[![](https://img.shields.io/github/actions/workflow/status/pulumiverse/pulumi-buildkite/verify.yml?style=for-the-badge)](https://github.com/pulumiverse/pulumi-buildkite/actions/workflows/verify.yml)
+[![](https://img.shields.io/github/actions/workflow/status/pulumiverse/pulumi-buildkite/verify-release.yml?style=for-the-badge)](https://github.com/pulumiverse/pulumi-buildkite/actions/workflows/verify-release.yml)
 [![](https://img.shields.io/github/release-date/pulumiverse/pulumi-buildkite?style=for-the-badge)](https://github.com/pulumiverse/pulumi-buildkite/releases)
 [![](https://img.shields.io/pypi/v/pulumiverse-buildkite?style=for-the-badge)](https://pypi.org/project/pulumiverse-buildkite/)
 [![](https://img.shields.io/pypi/dm/pulumiverse-buildkite?style=for-the-badge)](https://pypi.org/project/pulumiverse-buildkite/)
