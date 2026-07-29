@@ -204,6 +204,8 @@ github.com/buildkite/terraform-provider-buildkite v1.34.2 h1:2qITpT/2xJW8vQ7RXlf
 github.com/buildkite/terraform-provider-buildkite v1.34.2/go.mod h1:E8zzLkO5qzscWgqs+22yGdcP8hoiUi4xJ0dkWHn4F+A=
 github.com/buildkite/terraform-provider-buildkite v1.35.0 h1:VVBsMpc2LSqxxiAAJEVN5OTrgJ5Hmw1NVer86p1l5w0=
 github.com/buildkite/terraform-provider-buildkite v1.35.0/go.mod h1:KpOMogkO/mrjn9U7KIA1cCfNR4kn3QOiAm9BPy2pUe0=
+github.com/buildkite/terraform-provider-buildkite v1.36.0 h1:oqO9a3CgqvygikZfpfB+6/+OHqG3rHeg/qnqIO6SKs0=
+github.com/buildkite/terraform-provider-buildkite v1.36.0/go.mod h1:KpOMogkO/mrjn9U7KIA1cCfNR4kn3QOiAm9BPy2pUe0=
 github.com/cenkalti/backoff/v3 v3.2.2 h1:cfUAAO3yvKMYKPrvhDuHSwQnhZNk/RMHKdZqKTxfm6M=
 github.com/cenkalti/backoff/v3 v3.2.2/go.mod h1:cIeZDE3IrqwwJl6VUwCN6trj1oXrTS4rc0ij+ULvLYs=
 github.com/cenkalti/backoff/v5 v5.0.3 h1:ZN+IMa753KfX5hd8vVaMixjnqRZ3y8CuJKRKj1xcsSM=
