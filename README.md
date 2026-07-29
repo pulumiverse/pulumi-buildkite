@@ -66,10 +66,22 @@ dotnet add package Pulumiverse.Buildkite
 
 The following configuration points are available for the `buildkite` provider:
 
-- `buildkite:api_token` (required, environment: `BUILDKITE_API_TOKEN`) - A Buildkite API Access Token. Must have GraphQL access, as well as the `write_pipelines` and `read_pipelines` scopes.
-- `buildkite:organization` (required, environment: `BUILDKITE_ORGANIZATION`) - The Buildkite organization slug.
-- `buildkite:graphql_url` (optional, environment: `BUILDKITE_GRAPHQL_URL`) - The Buildkite GraphQL URL.
-- `buildkite:rest_url` (optional, environment: `BUILDKITE_REST_URL`) - The Buildkite REST URL.
+- `buildkite:apiToken` (required, environment: `BUILDKITE_API_TOKEN`) - A Buildkite API Access Token. Must have GraphQL access, as well as the `write_pipelines`, `read_pipelines` and `write_suites` scopes.
+- `buildkite:organization` (required, environment: `BUILDKITE_ORGANIZATION_SLUG`) - The Buildkite organization slug.
+- `buildkite:graphqlUrl` (optional, environment: `BUILDKITE_GRAPHQL_URL`) - The Buildkite GraphQL URL.
+- `buildkite:restUrl` (optional, environment: `BUILDKITE_REST_URL`) - The Buildkite REST URL.
+
+> [!NOTE]
+> The configuration keys are camelCase, e.g. `buildkite:apiToken`, not the snake_case names
+> used by the underlying Terraform provider. Pulumi silently ignores unknown configuration
+> keys, so setting `buildkite:api_token` results in requests being sent without a token and
+> failing with `401 Unauthorized`.
+
+For example, to set the API token as a secret:
+
+```bash
+pulumi config set --secret buildkite:apiToken <your-token>
+```
 
 ## Example
 
