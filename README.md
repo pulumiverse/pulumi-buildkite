@@ -62,6 +62,26 @@ To use from .NET, install using `dotnet add package`:
 dotnet add package Pulumiverse.Buildkite
 ```
 
+### Java
+
+To use from Java, add the following dependency to your project.
+
+With Maven:
+
+```xml
+<dependency>
+    <groupId>com.pulumiverse</groupId>
+    <artifactId>buildkite</artifactId>
+    <version>${VERSION}</version>
+</dependency>
+```
+
+With Gradle:
+
+```groovy
+implementation("com.pulumiverse:buildkite:${VERSION}")
+```
+
 ## Configuration
 
 The following configuration points are available for the `buildkite` provider:

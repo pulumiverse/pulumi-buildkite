@@ -178,6 +178,9 @@ func Provider() tfbridge.ProviderInfo {
 			},
 			RespectSchemaVersion: true,
 		},
+		Java: &tfbridge.JavaInfo{
+			BasePackage: "com.pulumiverse",
+		},
 	}
 
 	prov.SetAutonaming(255, "-")

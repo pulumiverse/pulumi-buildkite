@@ -71,12 +71,20 @@ type LookupTestSuiteArgs struct {
 
 // A collection of values returned by getTestSuite.
 type LookupTestSuiteResult struct {
+	// The name of the application this test suite is for.
+	ApplicationName string `pulumi:"applicationName"`
+	// The hex color code for the test suite navatar.
+	Color string `pulumi:"color"`
 	// The default branch for the repository this test suite is for.
 	DefaultBranch string `pulumi:"defaultBranch"`
+	// The emoji associated with this test suite, eg :buildkite:
+	Emoji string `pulumi:"emoji"`
 	// The GraphQL ID of the test suite.
 	Id string `pulumi:"id"`
 	// The name to give the test suite.
 	Name string `pulumi:"name"`
+	// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string.
+	OidcPolicy string `pulumi:"oidcPolicy"`
 	// The generated slug of the test suite.
 	Slug string `pulumi:"slug"`
 	// The UUID of the test suite.
@@ -117,9 +125,24 @@ func (o LookupTestSuiteResultOutput) ToLookupTestSuiteResultOutputWithContext(ct
 	return o
 }
 
+// The name of the application this test suite is for.
+func (o LookupTestSuiteResultOutput) ApplicationName() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupTestSuiteResult) string { return v.ApplicationName }).(pulumi.StringOutput)
+}
+
+// The hex color code for the test suite navatar.
+func (o LookupTestSuiteResultOutput) Color() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupTestSuiteResult) string { return v.Color }).(pulumi.StringOutput)
+}
+
 // The default branch for the repository this test suite is for.
 func (o LookupTestSuiteResultOutput) DefaultBranch() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTestSuiteResult) string { return v.DefaultBranch }).(pulumi.StringOutput)
+}
+
+// The emoji associated with this test suite, eg :buildkite:
+func (o LookupTestSuiteResultOutput) Emoji() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupTestSuiteResult) string { return v.Emoji }).(pulumi.StringOutput)
 }
 
 // The GraphQL ID of the test suite.
@@ -130,6 +153,11 @@ func (o LookupTestSuiteResultOutput) Id() pulumi.StringOutput {
 // The name to give the test suite.
 func (o LookupTestSuiteResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupTestSuiteResult) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string.
+func (o LookupTestSuiteResultOutput) OidcPolicy() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupTestSuiteResult) string { return v.OidcPolicy }).(pulumi.StringOutput)
 }
 
 // The generated slug of the test suite.

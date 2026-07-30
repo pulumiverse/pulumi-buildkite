@@ -30,6 +30,7 @@ jobs:
         language:
         - dotnet
         - go
+        - java
         - nodejs
         - python
     permissions:

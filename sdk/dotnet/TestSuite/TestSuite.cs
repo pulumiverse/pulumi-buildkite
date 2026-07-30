@@ -32,6 +32,23 @@ namespace Pulumiverse.Buildkite.TestSuite
     ///         TeamOwnerId = "VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi",
     ///     });
     /// 
+    ///     // create a test suite with an OIDC policy allowing a pipeline to upload
+    ///     // test results without a suite API token
+    ///     var withOidcPolicy = new Buildkite.TestSuite.TestSuite("with_oidc_policy", new()
+    ///     {
+    ///         Name = "with OIDC policy",
+    ///         DefaultBranch = "main",
+    ///         TeamOwnerId = "VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi",
+    ///         OidcPolicy = @"- iss: https://agent.buildkite.com
+    ///   claims:
+    ///     organization_slug: my-org
+    ///     pipeline_slug: my-pipeline
+    ///   scopes:
+    ///     - read_suites
+    ///     - write_uploads
+    /// ",
+    ///     });
+    /// 
     /// });
     /// ```
     /// 
@@ -68,6 +85,18 @@ namespace Pulumiverse.Buildkite.TestSuite
         public Output<string> ApiToken { get; private set; } = null!;
 
         /// <summary>
+        /// The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        /// </summary>
+        [Output("applicationName")]
+        public Output<string> ApplicationName { get; private set; } = null!;
+
+        /// <summary>
+        /// The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        /// </summary>
+        [Output("color")]
+        public Output<string> Color { get; private set; } = null!;
+
+        /// <summary>
         /// The default branch for the repository this test suite is for.
         /// </summary>
         [Output("defaultBranch")]
@@ -84,6 +113,12 @@ namespace Pulumiverse.Buildkite.TestSuite
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
+
+        /// <summary>
+        /// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+        /// </summary>
+        [Output("oidcPolicy")]
+        public Output<string> OidcPolicy { get; private set; } = null!;
 
         /// <summary>
         /// The generated slug of the test suite.
@@ -155,6 +190,18 @@ namespace Pulumiverse.Buildkite.TestSuite
     public sealed class TestSuiteArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        /// </summary>
+        [Input("applicationName")]
+        public Input<string>? ApplicationName { get; set; }
+
+        /// <summary>
+        /// The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        /// </summary>
+        [Input("color")]
+        public Input<string>? Color { get; set; }
+
+        /// <summary>
         /// The default branch for the repository this test suite is for.
         /// </summary>
         [Input("defaultBranch", required: true)]
@@ -171,6 +218,12 @@ namespace Pulumiverse.Buildkite.TestSuite
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        /// <summary>
+        /// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+        /// </summary>
+        [Input("oidcPolicy")]
+        public Input<string>? OidcPolicy { get; set; }
 
         /// <summary>
         /// The GraphQL ID of the team to mark as the owner/admin of the test suite.
@@ -203,6 +256,18 @@ namespace Pulumiverse.Buildkite.TestSuite
         }
 
         /// <summary>
+        /// The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        /// </summary>
+        [Input("applicationName")]
+        public Input<string>? ApplicationName { get; set; }
+
+        /// <summary>
+        /// The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        /// </summary>
+        [Input("color")]
+        public Input<string>? Color { get; set; }
+
+        /// <summary>
         /// The default branch for the repository this test suite is for.
         /// </summary>
         [Input("defaultBranch")]
@@ -219,6 +284,12 @@ namespace Pulumiverse.Buildkite.TestSuite
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        /// <summary>
+        /// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+        /// </summary>
+        [Input("oidcPolicy")]
+        public Input<string>? OidcPolicy { get; set; }
 
         /// <summary>
         /// The generated slug of the test suite.

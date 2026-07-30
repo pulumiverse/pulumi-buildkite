@@ -34,6 +34,12 @@
             "generateExtraInputTypes": true,
             "respectSchemaVersion": true
         },
+        "java": {
+            "basePackage": "com.pulumiverse",
+            "buildFiles": "",
+            "gradleNexusPublishPluginVersion": "",
+            "gradleTest": ""
+        },
         "nodejs": {
             "packageName": "@pulumiverse/buildkite",
             "packageDescription": "A Pulumi package for creating and managing Buildkite resources.",
@@ -2493,7 +2499,7 @@
             }
         },
         "buildkite:Pipeline/team:Team": {
-            "description": "Manage team access to a pipeline.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumiverse/buildkite\";\n\nconst pipeline = new buildkite.pipeline.Pipeline(\"pipeline\", {\n    name: \"my pipeline\",\n    repository: \"https://github.com/...\",\n});\nconst team = new buildkite.team.Team(\"team\", {\n    name: \"Everyone\",\n    privacy: \"VISIBLE\",\n    defaultTeam: false,\n    defaultMemberRole: \"MEMBER\",\n});\n// allow everyone in the \"Everyone\" team read-only access to pipeline\nconst pipelineTeam = new buildkite.pipeline.Team(\"pipeline_team\", {\n    pipelineId: pipeline.id,\n    teamId: team.id,\n    accessLevel: \"READ_ONLY\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_buildkite as buildkite\n\npipeline = buildkite.pipeline.Pipeline(\"pipeline\",\n    name=\"my pipeline\",\n    repository=\"https://github.com/...\")\nteam = buildkite.team.Team(\"team\",\n    name=\"Everyone\",\n    privacy=\"VISIBLE\",\n    default_team=False,\n    default_member_role=\"MEMBER\")\n# allow everyone in the \"Everyone\" team read-only access to pipeline\npipeline_team = buildkite.pipeline.Team(\"pipeline_team\",\n    pipeline_id=pipeline.id,\n    team_id=team.id,\n    access_level=\"READ_ONLY\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Buildkite = Pulumiverse.Buildkite;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var pipeline = new Buildkite.Pipeline.Pipeline(\"pipeline\", new()\n    {\n        Name = \"my pipeline\",\n        Repository = \"https://github.com/...\",\n    });\n\n    var team = new Buildkite.Team.Team(\"team\", new()\n    {\n        Name = \"Everyone\",\n        Privacy = \"VISIBLE\",\n        DefaultTeam = false,\n        DefaultMemberRole = \"MEMBER\",\n    });\n\n    // allow everyone in the \"Everyone\" team read-only access to pipeline\n    var pipelineTeam = new Buildkite.Pipeline.Team(\"pipeline_team\", new()\n    {\n        PipelineId = pipeline.Id,\n        TeamId = team.Id,\n        AccessLevel = \"READ_ONLY\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/pipeline\"\n\t\"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/team\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tpipeline, err := pipeline.NewPipeline(ctx, \"pipeline\", \u0026pipeline.PipelineArgs{\n\t\t\tName:       pulumi.String(\"my pipeline\"),\n\t\t\tRepository: pulumi.String(\"https://github.com/...\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tteam, err := team.NewTeam(ctx, \"team\", \u0026team.TeamArgs{\n\t\t\tName:              pulumi.String(\"Everyone\"),\n\t\t\tPrivacy:           pulumi.String(\"VISIBLE\"),\n\t\t\tDefaultTeam:       pulumi.Bool(false),\n\t\t\tDefaultMemberRole: pulumi.String(\"MEMBER\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// allow everyone in the \"Everyone\" team read-only access to pipeline\n\t\t_, err = pipeline.NewTeam(ctx, \"pipeline_team\", \u0026pipeline.TeamArgs{\n\t\t\tPipelineId:  pipeline.ID(),\n\t\t\tTeamId:      team.ID(),\n\t\t\tAccessLevel: pulumi.String(\"READ_ONLY\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.buildkite.Pipeline.Pipeline;\nimport com.pulumi.buildkite.Pipeline.PipelineArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var pipeline = new Pipeline(\"pipeline\", PipelineArgs.builder()\n            .name(\"my pipeline\")\n            .repository(\"https://github.com/...\")\n            .build());\n\n        var team = new com.pulumi.buildkite.Team.Team(\"team\", com.pulumi.buildkite.Team.TeamArgs.builder()\n            .name(\"Everyone\")\n            .privacy(\"VISIBLE\")\n            .defaultTeam(false)\n            .defaultMemberRole(\"MEMBER\")\n            .build());\n\n        // allow everyone in the \"Everyone\" team read-only access to pipeline\n        var pipelineTeam = new com.pulumi.buildkite.Pipeline.Team(\"pipelineTeam\", com.pulumi.buildkite.Pipeline.TeamArgs.builder()\n            .pipelineId(pipeline.id())\n            .teamId(team.id())\n            .accessLevel(\"READ_ONLY\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  pipeline:\n    type: buildkite:Pipeline:Pipeline\n    properties:\n      name: my pipeline\n      repository: https://github.com/...\n  team:\n    type: buildkite:Team:Team\n    properties:\n      name: Everyone\n      privacy: VISIBLE\n      defaultTeam: false\n      defaultMemberRole: MEMBER\n  # allow everyone in the \"Everyone\" team read-only access to pipeline\n  pipelineTeam:\n    type: buildkite:Pipeline:Team\n    name: pipeline_team\n    properties:\n      pipelineId: ${pipeline.id}\n      teamId: ${team.id}\n      accessLevel: READ_ONLY\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nUsing `pulumi import`, import resources using the \u003cspan pulumi-lang-nodejs=\"`id`\" pulumi-lang-dotnet=\"`Id`\" pulumi-lang-go=\"`id`\" pulumi-lang-python=\"`id`\" pulumi-lang-yaml=\"`id`\" pulumi-lang-java=\"`id`\"\u003e`id`\u003c/span\u003e. For example:\nimport a pipeline team resource using the GraphQL ID\n\nyou can use this query to find the ID:\nquery getPipelineTeamId {\npipeline(slug: \"ORGANIZATION_SLUG/PIPELINE_SLUG\") {\nteams(first: 5, search: \"PIPELINE_SEARCH_TERM\") {\nedges{\nnode{\nid\n}\n}\n}\n}\n}\n\n```sh\n$ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==\n```\n\n",
+            "description": "Manage team access to a pipeline.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumiverse/buildkite\";\n\nconst pipeline = new buildkite.pipeline.Pipeline(\"pipeline\", {\n    name: \"my pipeline\",\n    repository: \"https://github.com/...\",\n});\nconst team = new buildkite.team.Team(\"team\", {\n    name: \"Everyone\",\n    privacy: \"VISIBLE\",\n    defaultTeam: false,\n    defaultMemberRole: \"MEMBER\",\n});\n// allow everyone in the \"Everyone\" team read-only access to pipeline\nconst pipelineTeam = new buildkite.pipeline.Team(\"pipeline_team\", {\n    pipelineId: pipeline.id,\n    teamId: team.id,\n    accessLevel: \"READ_ONLY\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_buildkite as buildkite\n\npipeline = buildkite.pipeline.Pipeline(\"pipeline\",\n    name=\"my pipeline\",\n    repository=\"https://github.com/...\")\nteam = buildkite.team.Team(\"team\",\n    name=\"Everyone\",\n    privacy=\"VISIBLE\",\n    default_team=False,\n    default_member_role=\"MEMBER\")\n# allow everyone in the \"Everyone\" team read-only access to pipeline\npipeline_team = buildkite.pipeline.Team(\"pipeline_team\",\n    pipeline_id=pipeline.id,\n    team_id=team.id,\n    access_level=\"READ_ONLY\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Buildkite = Pulumiverse.Buildkite;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var pipeline = new Buildkite.Pipeline.Pipeline(\"pipeline\", new()\n    {\n        Name = \"my pipeline\",\n        Repository = \"https://github.com/...\",\n    });\n\n    var team = new Buildkite.Team.Team(\"team\", new()\n    {\n        Name = \"Everyone\",\n        Privacy = \"VISIBLE\",\n        DefaultTeam = false,\n        DefaultMemberRole = \"MEMBER\",\n    });\n\n    // allow everyone in the \"Everyone\" team read-only access to pipeline\n    var pipelineTeam = new Buildkite.Pipeline.Team(\"pipeline_team\", new()\n    {\n        PipelineId = pipeline.Id,\n        TeamId = team.Id,\n        AccessLevel = \"READ_ONLY\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/pipeline\"\n\t\"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/team\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tpipeline, err := pipeline.NewPipeline(ctx, \"pipeline\", \u0026pipeline.PipelineArgs{\n\t\t\tName:       pulumi.String(\"my pipeline\"),\n\t\t\tRepository: pulumi.String(\"https://github.com/...\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tteam, err := team.NewTeam(ctx, \"team\", \u0026team.TeamArgs{\n\t\t\tName:              pulumi.String(\"Everyone\"),\n\t\t\tPrivacy:           pulumi.String(\"VISIBLE\"),\n\t\t\tDefaultTeam:       pulumi.Bool(false),\n\t\t\tDefaultMemberRole: pulumi.String(\"MEMBER\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// allow everyone in the \"Everyone\" team read-only access to pipeline\n\t\t_, err = pipeline.NewTeam(ctx, \"pipeline_team\", \u0026pipeline.TeamArgs{\n\t\t\tPipelineId:  pipeline.ID(),\n\t\t\tTeamId:      team.ID(),\n\t\t\tAccessLevel: pulumi.String(\"READ_ONLY\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.buildkite.Pipeline.Pipeline;\nimport com.pulumi.buildkite.Pipeline.PipelineArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var pipeline = new Pipeline(\"pipeline\", PipelineArgs.builder()\n            .name(\"my pipeline\")\n            .repository(\"https://github.com/...\")\n            .build());\n\n        var team = new com.pulumiverse.buildkite.Team.Team(\"team\", com.pulumiverse.buildkite.Team.TeamArgs.builder()\n            .name(\"Everyone\")\n            .privacy(\"VISIBLE\")\n            .defaultTeam(false)\n            .defaultMemberRole(\"MEMBER\")\n            .build());\n\n        // allow everyone in the \"Everyone\" team read-only access to pipeline\n        var pipelineTeam = new com.pulumiverse.buildkite.Pipeline.Team(\"pipelineTeam\", com.pulumiverse.buildkite.Pipeline.TeamArgs.builder()\n            .pipelineId(pipeline.id())\n            .teamId(team.id())\n            .accessLevel(\"READ_ONLY\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  pipeline:\n    type: buildkite:Pipeline:Pipeline\n    properties:\n      name: my pipeline\n      repository: https://github.com/...\n  team:\n    type: buildkite:Team:Team\n    properties:\n      name: Everyone\n      privacy: VISIBLE\n      defaultTeam: false\n      defaultMemberRole: MEMBER\n  # allow everyone in the \"Everyone\" team read-only access to pipeline\n  pipelineTeam:\n    type: buildkite:Pipeline:Team\n    name: pipeline_team\n    properties:\n      pipelineId: ${pipeline.id}\n      teamId: ${team.id}\n      accessLevel: READ_ONLY\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nUsing `pulumi import`, import resources using the \u003cspan pulumi-lang-nodejs=\"`id`\" pulumi-lang-dotnet=\"`Id`\" pulumi-lang-go=\"`id`\" pulumi-lang-python=\"`id`\" pulumi-lang-yaml=\"`id`\" pulumi-lang-java=\"`id`\"\u003e`id`\u003c/span\u003e. For example:\nimport a pipeline team resource using the GraphQL ID\n\nyou can use this query to find the ID:\nquery getPipelineTeamId {\npipeline(slug: \"ORGANIZATION_SLUG/PIPELINE_SLUG\") {\nteams(first: 5, search: \"PIPELINE_SEARCH_TERM\") {\nedges{\nnode{\nid\n}\n}\n}\n}\n}\n\n```sh\n$ pulumi import buildkite:Pipeline/team:Team guests VGVhbS0tLWU1YjQyMDQyLTUzN2QtNDZjNi04MjY0LTliZjFkMzkyYjZkNQ==\n```\n\n",
             "properties": {
                 "accessLevel": {
                     "type": "string",
@@ -2997,12 +3003,20 @@
             }
         },
         "buildkite:TestSuite/testSuite:TestSuite": {
-            "description": "A test suite is a collection of tests. A run is to a suite what a build is to a Pipeline.Use this resource to manage [Test Suites](https://buildkite.com/docs/test-analytics) on Buildkite.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumiverse/buildkite\";\n\n// create a test suite for the main repository\nconst main = new buildkite.testsuite.TestSuite(\"main\", {\n    name: \"main\",\n    defaultBranch: \"main\",\n    emoji: \":buildkite:\",\n    teamOwnerId: \"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_buildkite as buildkite\n\n# create a test suite for the main repository\nmain = buildkite.testsuite.TestSuite(\"main\",\n    name=\"main\",\n    default_branch=\"main\",\n    emoji=\":buildkite:\",\n    team_owner_id=\"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Buildkite = Pulumiverse.Buildkite;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // create a test suite for the main repository\n    var main = new Buildkite.TestSuite.TestSuite(\"main\", new()\n    {\n        Name = \"main\",\n        DefaultBranch = \"main\",\n        Emoji = \":buildkite:\",\n        TeamOwnerId = \"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/testsuite\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// create a test suite for the main repository\n\t\t_, err := testsuite.NewTestSuite(ctx, \"main\", \u0026testsuite.TestSuiteArgs{\n\t\t\tName:          pulumi.String(\"main\"),\n\t\t\tDefaultBranch: pulumi.String(\"main\"),\n\t\t\tEmoji:         pulumi.String(\":buildkite:\"),\n\t\t\tTeamOwnerId:   pulumi.String(\"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.buildkite.TestSuite.TestSuite;\nimport com.pulumi.buildkite.TestSuite.TestSuiteArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // create a test suite for the main repository\n        var main = new TestSuite(\"main\", TestSuiteArgs.builder()\n            .name(\"main\")\n            .defaultBranch(\"main\")\n            .emoji(\":buildkite:\")\n            .teamOwnerId(\"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # create a test suite for the main repository\n  main:\n    type: buildkite:TestSuite:TestSuite\n    properties:\n      name: main\n      defaultBranch: main\n      emoji: ':buildkite:'\n      teamOwnerId: VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nUsing `pulumi import`, import resources using the \u003cspan pulumi-lang-nodejs=\"`id`\" pulumi-lang-dotnet=\"`Id`\" pulumi-lang-go=\"`id`\" pulumi-lang-python=\"`id`\" pulumi-lang-yaml=\"`id`\" pulumi-lang-java=\"`id`\"\u003e`id`\u003c/span\u003e. For example:\nimport a test suite resource using the GraphQL ID\n\nyou can use this query to find the ID:\nquery getSuiteIds {\norganization(slug: \"ORGANIZATION_SLUG\") {\nsuites(first: 1, search:\"SUITE_SEARCH_TERM\") {\nedges {\nnode {\nid\nname\n}\n}\n}\n}\n}\n\n```sh\n$ pulumi import buildkite:TestSuite/testSuite:TestSuite acceptance VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\n```\n\n",
+            "description": "A test suite is a collection of tests. A run is to a suite what a build is to a Pipeline.Use this resource to manage [Test Suites](https://buildkite.com/docs/test-analytics) on Buildkite.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as buildkite from \"@pulumiverse/buildkite\";\n\n// create a test suite for the main repository\nconst main = new buildkite.testsuite.TestSuite(\"main\", {\n    name: \"main\",\n    defaultBranch: \"main\",\n    emoji: \":buildkite:\",\n    teamOwnerId: \"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\",\n});\n// create a test suite with an OIDC policy allowing a pipeline to upload\n// test results without a suite API token\nconst withOidcPolicy = new buildkite.testsuite.TestSuite(\"with_oidc_policy\", {\n    name: \"with OIDC policy\",\n    defaultBranch: \"main\",\n    teamOwnerId: \"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\",\n    oidcPolicy: `- iss: https://agent.buildkite.com\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n`,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_buildkite as buildkite\n\n# create a test suite for the main repository\nmain = buildkite.testsuite.TestSuite(\"main\",\n    name=\"main\",\n    default_branch=\"main\",\n    emoji=\":buildkite:\",\n    team_owner_id=\"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\")\n# create a test suite with an OIDC policy allowing a pipeline to upload\n# test results without a suite API token\nwith_oidc_policy = buildkite.testsuite.TestSuite(\"with_oidc_policy\",\n    name=\"with OIDC policy\",\n    default_branch=\"main\",\n    team_owner_id=\"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\",\n    oidc_policy=\"\"\"- iss: https://agent.buildkite.com\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n\"\"\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Buildkite = Pulumiverse.Buildkite;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // create a test suite for the main repository\n    var main = new Buildkite.TestSuite.TestSuite(\"main\", new()\n    {\n        Name = \"main\",\n        DefaultBranch = \"main\",\n        Emoji = \":buildkite:\",\n        TeamOwnerId = \"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\",\n    });\n\n    // create a test suite with an OIDC policy allowing a pipeline to upload\n    // test results without a suite API token\n    var withOidcPolicy = new Buildkite.TestSuite.TestSuite(\"with_oidc_policy\", new()\n    {\n        Name = \"with OIDC policy\",\n        DefaultBranch = \"main\",\n        TeamOwnerId = \"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\",\n        OidcPolicy = @\"- iss: https://agent.buildkite.com\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-buildkite/sdk/v3/go/buildkite/testsuite\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// create a test suite for the main repository\n\t\t_, err := testsuite.NewTestSuite(ctx, \"main\", \u0026testsuite.TestSuiteArgs{\n\t\t\tName:          pulumi.String(\"main\"),\n\t\t\tDefaultBranch: pulumi.String(\"main\"),\n\t\t\tEmoji:         pulumi.String(\":buildkite:\"),\n\t\t\tTeamOwnerId:   pulumi.String(\"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// create a test suite with an OIDC policy allowing a pipeline to upload\n\t\t// test results without a suite API token\n\t\t_, err = testsuite.NewTestSuite(ctx, \"with_oidc_policy\", \u0026testsuite.TestSuiteArgs{\n\t\t\tName:          pulumi.String(\"with OIDC policy\"),\n\t\t\tDefaultBranch: pulumi.String(\"main\"),\n\t\t\tTeamOwnerId:   pulumi.String(\"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\"),\n\t\t\tOidcPolicy: pulumi.String(`- iss: https://agent.buildkite.com\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n`),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.buildkite.TestSuite.TestSuite;\nimport com.pulumi.buildkite.TestSuite.TestSuiteArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // create a test suite for the main repository\n        var main = new TestSuite(\"main\", TestSuiteArgs.builder()\n            .name(\"main\")\n            .defaultBranch(\"main\")\n            .emoji(\":buildkite:\")\n            .teamOwnerId(\"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\")\n            .build());\n\n        // create a test suite with an OIDC policy allowing a pipeline to upload\n        // test results without a suite API token\n        var withOidcPolicy = new TestSuite(\"withOidcPolicy\", TestSuiteArgs.builder()\n            .name(\"with OIDC policy\")\n            .defaultBranch(\"main\")\n            .teamOwnerId(\"VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\")\n            .oidcPolicy(\"\"\"\n- iss: https://agent.buildkite.com\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n            \"\"\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # create a test suite for the main repository\n  main:\n    type: buildkite:TestSuite:TestSuite\n    properties:\n      name: main\n      defaultBranch: main\n      emoji: ':buildkite:'\n      teamOwnerId: VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\n  # create a test suite with an OIDC policy allowing a pipeline to upload\n  # test results without a suite API token\n  withOidcPolicy:\n    type: buildkite:TestSuite:TestSuite\n    name: with_oidc_policy\n    properties:\n      name: with OIDC policy\n      defaultBranch: main\n      teamOwnerId: VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\n      oidcPolicy: |\n        - iss: https://agent.buildkite.com\n          claims:\n            organization_slug: my-org\n            pipeline_slug: my-pipeline\n          scopes:\n            - read_suites\n            - write_uploads\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n## Import\n\nUsing `pulumi import`, import resources using the \u003cspan pulumi-lang-nodejs=\"`id`\" pulumi-lang-dotnet=\"`Id`\" pulumi-lang-go=\"`id`\" pulumi-lang-python=\"`id`\" pulumi-lang-yaml=\"`id`\" pulumi-lang-java=\"`id`\"\u003e`id`\u003c/span\u003e. For example:\nimport a test suite resource using the GraphQL ID\n\nyou can use this query to find the ID:\nquery getSuiteIds {\norganization(slug: \"ORGANIZATION_SLUG\") {\nsuites(first: 1, search:\"SUITE_SEARCH_TERM\") {\nedges {\nnode {\nid\nname\n}\n}\n}\n}\n}\n\n```sh\n$ pulumi import buildkite:TestSuite/testSuite:TestSuite acceptance VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi\n```\n\n",
             "properties": {
                 "apiToken": {
                     "type": "string",
                     "description": "The API token to use to send test run data to the API.\n",
                     "secret": true
+                },
+                "applicationName": {
+                    "type": "string",
+                    "description": "The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.\n"
+                },
+                "color": {
+                    "type": "string",
+                    "description": "The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.\n"
                 },
                 "defaultBranch": {
                     "type": "string",
@@ -3015,6 +3029,10 @@
                 "name": {
                     "type": "string",
                     "description": "The name to give the test suite.\n"
+                },
+                "oidcPolicy": {
+                    "type": "string",
+                    "description": "The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.\n"
                 },
                 "slug": {
                     "type": "string",
@@ -3031,13 +3049,24 @@
             },
             "required": [
                 "apiToken",
+                "applicationName",
+                "color",
                 "defaultBranch",
                 "name",
+                "oidcPolicy",
                 "slug",
                 "teamOwnerId",
                 "uuid"
             ],
             "inputProperties": {
+                "applicationName": {
+                    "type": "string",
+                    "description": "The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.\n"
+                },
+                "color": {
+                    "type": "string",
+                    "description": "The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.\n"
+                },
                 "defaultBranch": {
                     "type": "string",
                     "description": "The default branch for the repository this test suite is for.\n"
@@ -3049,6 +3078,10 @@
                 "name": {
                     "type": "string",
                     "description": "The name to give the test suite.\n"
+                },
+                "oidcPolicy": {
+                    "type": "string",
+                    "description": "The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.\n"
                 },
                 "teamOwnerId": {
                     "type": "string",
@@ -3067,6 +3100,14 @@
                         "description": "The API token to use to send test run data to the API.\n",
                         "secret": true
                     },
+                    "applicationName": {
+                        "type": "string",
+                        "description": "The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.\n"
+                    },
+                    "color": {
+                        "type": "string",
+                        "description": "The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.\n"
+                    },
                     "defaultBranch": {
                         "type": "string",
                         "description": "The default branch for the repository this test suite is for.\n"
@@ -3078,6 +3119,10 @@
                     "name": {
                         "type": "string",
                         "description": "The name to give the test suite.\n"
+                    },
+                    "oidcPolicy": {
+                        "type": "string",
+                        "description": "The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.\n"
                     },
                     "slug": {
                         "type": "string",
@@ -3875,8 +3920,20 @@
             "outputs": {
                 "description": "A collection of values returned by getTestSuite.\n",
                 "properties": {
+                    "applicationName": {
+                        "description": "The name of the application this test suite is for.\n",
+                        "type": "string"
+                    },
+                    "color": {
+                        "description": "The hex color code for the test suite navatar.\n",
+                        "type": "string"
+                    },
                     "defaultBranch": {
                         "description": "The default branch for the repository this test suite is for.\n",
+                        "type": "string"
+                    },
+                    "emoji": {
+                        "description": "The emoji associated with this test suite, eg :buildkite:\n",
                         "type": "string"
                     },
                     "id": {
@@ -3885,6 +3942,10 @@
                     },
                     "name": {
                         "description": "The name to give the test suite.\n",
+                        "type": "string"
+                    },
+                    "oidcPolicy": {
+                        "description": "The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string.\n",
                         "type": "string"
                     },
                     "slug": {
@@ -3897,9 +3958,13 @@
                     }
                 },
                 "required": [
+                    "applicationName",
+                    "color",
                     "defaultBranch",
+                    "emoji",
                     "id",
                     "name",
+                    "oidcPolicy",
                     "slug",
                     "uuid"
                 ],

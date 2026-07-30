@@ -21,22 +21,34 @@ class TestSuiteArgs:
     def __init__(__self__, *,
                  default_branch: pulumi.Input[_builtins.str],
                  team_owner_id: pulumi.Input[_builtins.str],
+                 application_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 color: Optional[pulumi.Input[_builtins.str]] = None,
                  emoji: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None):
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 oidc_policy: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a TestSuite resource.
 
         :param pulumi.Input[_builtins.str] default_branch: The default branch for the repository this test suite is for.
         :param pulumi.Input[_builtins.str] team_owner_id: The GraphQL ID of the team to mark as the owner/admin of the test suite.
+        :param pulumi.Input[_builtins.str] application_name: The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        :param pulumi.Input[_builtins.str] color: The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
         :param pulumi.Input[_builtins.str] emoji: The emoji associated with this test suite, eg :buildkite:
         :param pulumi.Input[_builtins.str] name: The name to give the test suite.
+        :param pulumi.Input[_builtins.str] oidc_policy: The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
         """
         pulumi.set(__self__, "default_branch", default_branch)
         pulumi.set(__self__, "team_owner_id", team_owner_id)
+        if application_name is not None:
+            pulumi.set(__self__, "application_name", application_name)
+        if color is not None:
+            pulumi.set(__self__, "color", color)
         if emoji is not None:
             pulumi.set(__self__, "emoji", emoji)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if oidc_policy is not None:
+            pulumi.set(__self__, "oidc_policy", oidc_policy)
 
     @_builtins.property
     @pulumi.getter(name="defaultBranch")
@@ -63,6 +75,30 @@ class TestSuiteArgs:
         pulumi.set(self, "team_owner_id", value)
 
     @_builtins.property
+    @pulumi.getter(name="applicationName")
+    def application_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        """
+        return pulumi.get(self, "application_name")
+
+    @application_name.setter
+    def application_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "application_name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def color(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        """
+        return pulumi.get(self, "color")
+
+    @color.setter
+    def color(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "color", value)
+
+    @_builtins.property
     @pulumi.getter
     def emoji(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -86,14 +122,29 @@ class TestSuiteArgs:
     def name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "name", value)
 
+    @_builtins.property
+    @pulumi.getter(name="oidcPolicy")
+    def oidc_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+        """
+        return pulumi.get(self, "oidc_policy")
+
+    @oidc_policy.setter
+    def oidc_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "oidc_policy", value)
+
 
 @pulumi.input_type
 class _TestSuiteState:
     def __init__(__self__, *,
                  api_token: Optional[pulumi.Input[_builtins.str]] = None,
+                 application_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 color: Optional[pulumi.Input[_builtins.str]] = None,
                  default_branch: Optional[pulumi.Input[_builtins.str]] = None,
                  emoji: Optional[pulumi.Input[_builtins.str]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
+                 oidc_policy: Optional[pulumi.Input[_builtins.str]] = None,
                  slug: Optional[pulumi.Input[_builtins.str]] = None,
                  team_owner_id: Optional[pulumi.Input[_builtins.str]] = None,
                  uuid: Optional[pulumi.Input[_builtins.str]] = None):
@@ -101,21 +152,30 @@ class _TestSuiteState:
         Input properties used for looking up and filtering TestSuite resources.
 
         :param pulumi.Input[_builtins.str] api_token: The API token to use to send test run data to the API.
+        :param pulumi.Input[_builtins.str] application_name: The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        :param pulumi.Input[_builtins.str] color: The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
         :param pulumi.Input[_builtins.str] default_branch: The default branch for the repository this test suite is for.
         :param pulumi.Input[_builtins.str] emoji: The emoji associated with this test suite, eg :buildkite:
         :param pulumi.Input[_builtins.str] name: The name to give the test suite.
+        :param pulumi.Input[_builtins.str] oidc_policy: The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
         :param pulumi.Input[_builtins.str] slug: The generated slug of the test suite.
         :param pulumi.Input[_builtins.str] team_owner_id: The GraphQL ID of the team to mark as the owner/admin of the test suite.
         :param pulumi.Input[_builtins.str] uuid: The UUID of the test suite.
         """
         if api_token is not None:
             pulumi.set(__self__, "api_token", api_token)
+        if application_name is not None:
+            pulumi.set(__self__, "application_name", application_name)
+        if color is not None:
+            pulumi.set(__self__, "color", color)
         if default_branch is not None:
             pulumi.set(__self__, "default_branch", default_branch)
         if emoji is not None:
             pulumi.set(__self__, "emoji", emoji)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if oidc_policy is not None:
+            pulumi.set(__self__, "oidc_policy", oidc_policy)
         if slug is not None:
             pulumi.set(__self__, "slug", slug)
         if team_owner_id is not None:
@@ -134,6 +194,30 @@ class _TestSuiteState:
     @api_token.setter
     def api_token(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "api_token", value)
+
+    @_builtins.property
+    @pulumi.getter(name="applicationName")
+    def application_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        """
+        return pulumi.get(self, "application_name")
+
+    @application_name.setter
+    def application_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "application_name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def color(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        """
+        return pulumi.get(self, "color")
+
+    @color.setter
+    def color(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "color", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultBranch")
@@ -170,6 +254,18 @@ class _TestSuiteState:
     @name.setter
     def name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="oidcPolicy")
+    def oidc_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+        """
+        return pulumi.get(self, "oidc_policy")
+
+    @oidc_policy.setter
+    def oidc_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "oidc_policy", value)
 
     @_builtins.property
     @pulumi.getter
@@ -214,9 +310,12 @@ class TestSuite(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 application_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 color: Optional[pulumi.Input[_builtins.str]] = None,
                  default_branch: Optional[pulumi.Input[_builtins.str]] = None,
                  emoji: Optional[pulumi.Input[_builtins.str]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
+                 oidc_policy: Optional[pulumi.Input[_builtins.str]] = None,
                  team_owner_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
@@ -234,6 +333,20 @@ class TestSuite(pulumi.CustomResource):
             default_branch="main",
             emoji=":buildkite:",
             team_owner_id="VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi")
+        # create a test suite with an OIDC policy allowing a pipeline to upload
+        # test results without a suite API token
+        with_oidc_policy = buildkite.testsuite.TestSuite("with_oidc_policy",
+            name="with OIDC policy",
+            default_branch="main",
+            team_owner_id="VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi",
+            oidc_policy=\"\"\"- iss: https://agent.buildkite.com
+          claims:
+            organization_slug: my-org
+            pipeline_slug: my-pipeline
+          scopes:
+            - read_suites
+            - write_uploads
+        \"\"\")
         ```
 
         ## Import
@@ -262,9 +375,12 @@ class TestSuite(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.str] application_name: The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        :param pulumi.Input[_builtins.str] color: The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
         :param pulumi.Input[_builtins.str] default_branch: The default branch for the repository this test suite is for.
         :param pulumi.Input[_builtins.str] emoji: The emoji associated with this test suite, eg :buildkite:
         :param pulumi.Input[_builtins.str] name: The name to give the test suite.
+        :param pulumi.Input[_builtins.str] oidc_policy: The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
         :param pulumi.Input[_builtins.str] team_owner_id: The GraphQL ID of the team to mark as the owner/admin of the test suite.
         """
         ...
@@ -288,6 +404,20 @@ class TestSuite(pulumi.CustomResource):
             default_branch="main",
             emoji=":buildkite:",
             team_owner_id="VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi")
+        # create a test suite with an OIDC policy allowing a pipeline to upload
+        # test results without a suite API token
+        with_oidc_policy = buildkite.testsuite.TestSuite("with_oidc_policy",
+            name="with OIDC policy",
+            default_branch="main",
+            team_owner_id="VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi",
+            oidc_policy=\"\"\"- iss: https://agent.buildkite.com
+          claims:
+            organization_slug: my-org
+            pipeline_slug: my-pipeline
+          scopes:
+            - read_suites
+            - write_uploads
+        \"\"\")
         ```
 
         ## Import
@@ -329,9 +459,12 @@ class TestSuite(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 application_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 color: Optional[pulumi.Input[_builtins.str]] = None,
                  default_branch: Optional[pulumi.Input[_builtins.str]] = None,
                  emoji: Optional[pulumi.Input[_builtins.str]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
+                 oidc_policy: Optional[pulumi.Input[_builtins.str]] = None,
                  team_owner_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -342,11 +475,14 @@ class TestSuite(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = TestSuiteArgs.__new__(TestSuiteArgs)
 
+            __props__.__dict__["application_name"] = application_name
+            __props__.__dict__["color"] = color
             if default_branch is None and not opts.urn:
                 raise TypeError("Missing required property 'default_branch'")
             __props__.__dict__["default_branch"] = default_branch
             __props__.__dict__["emoji"] = emoji
             __props__.__dict__["name"] = name
+            __props__.__dict__["oidc_policy"] = oidc_policy
             if team_owner_id is None and not opts.urn:
                 raise TypeError("Missing required property 'team_owner_id'")
             __props__.__dict__["team_owner_id"] = team_owner_id
@@ -366,9 +502,12 @@ class TestSuite(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             api_token: Optional[pulumi.Input[_builtins.str]] = None,
+            application_name: Optional[pulumi.Input[_builtins.str]] = None,
+            color: Optional[pulumi.Input[_builtins.str]] = None,
             default_branch: Optional[pulumi.Input[_builtins.str]] = None,
             emoji: Optional[pulumi.Input[_builtins.str]] = None,
             name: Optional[pulumi.Input[_builtins.str]] = None,
+            oidc_policy: Optional[pulumi.Input[_builtins.str]] = None,
             slug: Optional[pulumi.Input[_builtins.str]] = None,
             team_owner_id: Optional[pulumi.Input[_builtins.str]] = None,
             uuid: Optional[pulumi.Input[_builtins.str]] = None) -> 'TestSuite':
@@ -380,9 +519,12 @@ class TestSuite(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_token: The API token to use to send test run data to the API.
+        :param pulumi.Input[_builtins.str] application_name: The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        :param pulumi.Input[_builtins.str] color: The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
         :param pulumi.Input[_builtins.str] default_branch: The default branch for the repository this test suite is for.
         :param pulumi.Input[_builtins.str] emoji: The emoji associated with this test suite, eg :buildkite:
         :param pulumi.Input[_builtins.str] name: The name to give the test suite.
+        :param pulumi.Input[_builtins.str] oidc_policy: The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
         :param pulumi.Input[_builtins.str] slug: The generated slug of the test suite.
         :param pulumi.Input[_builtins.str] team_owner_id: The GraphQL ID of the team to mark as the owner/admin of the test suite.
         :param pulumi.Input[_builtins.str] uuid: The UUID of the test suite.
@@ -392,9 +534,12 @@ class TestSuite(pulumi.CustomResource):
         __props__ = _TestSuiteState.__new__(_TestSuiteState)
 
         __props__.__dict__["api_token"] = api_token
+        __props__.__dict__["application_name"] = application_name
+        __props__.__dict__["color"] = color
         __props__.__dict__["default_branch"] = default_branch
         __props__.__dict__["emoji"] = emoji
         __props__.__dict__["name"] = name
+        __props__.__dict__["oidc_policy"] = oidc_policy
         __props__.__dict__["slug"] = slug
         __props__.__dict__["team_owner_id"] = team_owner_id
         __props__.__dict__["uuid"] = uuid
@@ -407,6 +552,22 @@ class TestSuite(pulumi.CustomResource):
         The API token to use to send test run data to the API.
         """
         return pulumi.get(self, "api_token")
+
+    @_builtins.property
+    @pulumi.getter(name="applicationName")
+    def application_name(self) -> pulumi.Output[_builtins.str]:
+        """
+        The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        """
+        return pulumi.get(self, "application_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def color(self) -> pulumi.Output[_builtins.str]:
+        """
+        The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+        """
+        return pulumi.get(self, "color")
 
     @_builtins.property
     @pulumi.getter(name="defaultBranch")
@@ -431,6 +592,14 @@ class TestSuite(pulumi.CustomResource):
         The name to give the test suite.
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="oidcPolicy")
+    def oidc_policy(self) -> pulumi.Output[_builtins.str]:
+        """
+        The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+        """
+        return pulumi.get(self, "oidc_policy")
 
     @_builtins.property
     @pulumi.getter
