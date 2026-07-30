@@ -48,9 +48,21 @@ export interface GetTestSuiteArgs {
  */
 export interface GetTestSuiteResult {
     /**
+     * The name of the application this test suite is for.
+     */
+    readonly applicationName: string;
+    /**
+     * The hex color code for the test suite navatar.
+     */
+    readonly color: string;
+    /**
      * The default branch for the repository this test suite is for.
      */
     readonly defaultBranch: string;
+    /**
+     * The emoji associated with this test suite, eg :buildkite:
+     */
+    readonly emoji: string;
     /**
      * The GraphQL ID of the test suite.
      */
@@ -59,6 +71,10 @@ export interface GetTestSuiteResult {
      * The name to give the test suite.
      */
     readonly name: string;
+    /**
+     * The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string.
+     */
+    readonly oidcPolicy: string;
     /**
      * The generated slug of the test suite.
      */
