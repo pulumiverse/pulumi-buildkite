@@ -42,6 +42,8 @@ type Pipeline struct {
 	CancelIntermediateBuilds pulumi.BoolOutput `pulumi:"cancelIntermediateBuilds"`
 	// Filter the `cancelIntermediateBuilds` setting based on this branch condition.
 	CancelIntermediateBuildsBranchFilter pulumi.StringOutput `pulumi:"cancelIntermediateBuildsBranchFilter"`
+	// The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+	CloneMirrorUrl pulumi.StringPtrOutput `pulumi:"cloneMirrorUrl"`
 	// Attach this pipeline to the given cluster GraphQL ID.
 	ClusterId pulumi.StringPtrOutput `pulumi:"clusterId"`
 	// The name of the cluster the pipeline is (optionally) attached to.
@@ -131,6 +133,8 @@ type pipelineState struct {
 	CancelIntermediateBuilds *bool `pulumi:"cancelIntermediateBuilds"`
 	// Filter the `cancelIntermediateBuilds` setting based on this branch condition.
 	CancelIntermediateBuildsBranchFilter *string `pulumi:"cancelIntermediateBuildsBranchFilter"`
+	// The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+	CloneMirrorUrl *string `pulumi:"cloneMirrorUrl"`
 	// Attach this pipeline to the given cluster GraphQL ID.
 	ClusterId *string `pulumi:"clusterId"`
 	// The name of the cluster the pipeline is (optionally) attached to.
@@ -188,6 +192,8 @@ type PipelineState struct {
 	CancelIntermediateBuilds pulumi.BoolPtrInput
 	// Filter the `cancelIntermediateBuilds` setting based on this branch condition.
 	CancelIntermediateBuildsBranchFilter pulumi.StringPtrInput
+	// The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+	CloneMirrorUrl pulumi.StringPtrInput
 	// Attach this pipeline to the given cluster GraphQL ID.
 	ClusterId pulumi.StringPtrInput
 	// The name of the cluster the pipeline is (optionally) attached to.
@@ -247,6 +253,8 @@ type pipelineArgs struct {
 	CancelIntermediateBuilds *bool `pulumi:"cancelIntermediateBuilds"`
 	// Filter the `cancelIntermediateBuilds` setting based on this branch condition.
 	CancelIntermediateBuildsBranchFilter *string `pulumi:"cancelIntermediateBuildsBranchFilter"`
+	// The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+	CloneMirrorUrl *string `pulumi:"cloneMirrorUrl"`
 	// Attach this pipeline to the given cluster GraphQL ID.
 	ClusterId *string `pulumi:"clusterId"`
 	// A color hex code to represent this pipeline.
@@ -297,6 +305,8 @@ type PipelineArgs struct {
 	CancelIntermediateBuilds pulumi.BoolPtrInput
 	// Filter the `cancelIntermediateBuilds` setting based on this branch condition.
 	CancelIntermediateBuildsBranchFilter pulumi.StringPtrInput
+	// The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+	CloneMirrorUrl pulumi.StringPtrInput
 	// Attach this pipeline to the given cluster GraphQL ID.
 	ClusterId pulumi.StringPtrInput
 	// A color hex code to represent this pipeline.
@@ -450,6 +460,11 @@ func (o PipelineOutput) CancelIntermediateBuilds() pulumi.BoolOutput {
 // Filter the `cancelIntermediateBuilds` setting based on this branch condition.
 func (o PipelineOutput) CancelIntermediateBuildsBranchFilter() pulumi.StringOutput {
 	return o.ApplyT(func(v *Pipeline) pulumi.StringOutput { return v.CancelIntermediateBuildsBranchFilter }).(pulumi.StringOutput)
+}
+
+// The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+func (o PipelineOutput) CloneMirrorUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pipeline) pulumi.StringPtrOutput { return v.CloneMirrorUrl }).(pulumi.StringPtrOutput)
 }
 
 // Attach this pipeline to the given cluster GraphQL ID.

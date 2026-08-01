@@ -26,16 +26,28 @@ class GetTestSuiteResult:
     """
     A collection of values returned by getTestSuite.
     """
-    def __init__(__self__, default_branch=None, id=None, name=None, slug=None, uuid=None):
+    def __init__(__self__, application_name=None, color=None, default_branch=None, emoji=None, id=None, name=None, oidc_policy=None, slug=None, uuid=None):
+        if application_name and not isinstance(application_name, str):
+            raise TypeError("Expected argument 'application_name' to be a str")
+        pulumi.set(__self__, "application_name", application_name)
+        if color and not isinstance(color, str):
+            raise TypeError("Expected argument 'color' to be a str")
+        pulumi.set(__self__, "color", color)
         if default_branch and not isinstance(default_branch, str):
             raise TypeError("Expected argument 'default_branch' to be a str")
         pulumi.set(__self__, "default_branch", default_branch)
+        if emoji and not isinstance(emoji, str):
+            raise TypeError("Expected argument 'emoji' to be a str")
+        pulumi.set(__self__, "emoji", emoji)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
+        if oidc_policy and not isinstance(oidc_policy, str):
+            raise TypeError("Expected argument 'oidc_policy' to be a str")
+        pulumi.set(__self__, "oidc_policy", oidc_policy)
         if slug and not isinstance(slug, str):
             raise TypeError("Expected argument 'slug' to be a str")
         pulumi.set(__self__, "slug", slug)
@@ -44,12 +56,36 @@ class GetTestSuiteResult:
         pulumi.set(__self__, "uuid", uuid)
 
     @_builtins.property
+    @pulumi.getter(name="applicationName")
+    def application_name(self) -> _builtins.str:
+        """
+        The name of the application this test suite is for.
+        """
+        return pulumi.get(self, "application_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def color(self) -> _builtins.str:
+        """
+        The hex color code for the test suite navatar.
+        """
+        return pulumi.get(self, "color")
+
+    @_builtins.property
     @pulumi.getter(name="defaultBranch")
     def default_branch(self) -> _builtins.str:
         """
         The default branch for the repository this test suite is for.
         """
         return pulumi.get(self, "default_branch")
+
+    @_builtins.property
+    @pulumi.getter
+    def emoji(self) -> _builtins.str:
+        """
+        The emoji associated with this test suite, eg :buildkite:
+        """
+        return pulumi.get(self, "emoji")
 
     @_builtins.property
     @pulumi.getter
@@ -66,6 +102,14 @@ class GetTestSuiteResult:
         The name to give the test suite.
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="oidcPolicy")
+    def oidc_policy(self) -> _builtins.str:
+        """
+        The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string.
+        """
+        return pulumi.get(self, "oidc_policy")
 
     @_builtins.property
     @pulumi.getter
@@ -90,9 +134,13 @@ class AwaitableGetTestSuiteResult(GetTestSuiteResult):
         if False:
             yield self
         return GetTestSuiteResult(
+            application_name=self.application_name,
+            color=self.color,
             default_branch=self.default_branch,
+            emoji=self.emoji,
             id=self.id,
             name=self.name,
+            oidc_policy=self.oidc_policy,
             slug=self.slug,
             uuid=self.uuid)
 
@@ -126,9 +174,13 @@ def get_test_suite(slug: Optional[_builtins.str] = None,
     __ret__ = pulumi.runtime.invoke('buildkite:TestSuite/getTestSuite:getTestSuite', __args__, opts=opts, typ=GetTestSuiteResult).value
 
     return AwaitableGetTestSuiteResult(
+        application_name=pulumi.get(__ret__, 'application_name'),
+        color=pulumi.get(__ret__, 'color'),
         default_branch=pulumi.get(__ret__, 'default_branch'),
+        emoji=pulumi.get(__ret__, 'emoji'),
         id=pulumi.get(__ret__, 'id'),
         name=pulumi.get(__ret__, 'name'),
+        oidc_policy=pulumi.get(__ret__, 'oidc_policy'),
         slug=pulumi.get(__ret__, 'slug'),
         uuid=pulumi.get(__ret__, 'uuid'))
 def get_test_suite_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
@@ -159,8 +211,12 @@ def get_test_suite_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('buildkite:TestSuite/getTestSuite:getTestSuite', __args__, opts=opts, typ=GetTestSuiteResult)
     return __ret__.apply(lambda __response__: GetTestSuiteResult(
+        application_name=pulumi.get(__response__, 'application_name'),
+        color=pulumi.get(__response__, 'color'),
         default_branch=pulumi.get(__response__, 'default_branch'),
+        emoji=pulumi.get(__response__, 'emoji'),
         id=pulumi.get(__response__, 'id'),
         name=pulumi.get(__response__, 'name'),
+        oidc_policy=pulumi.get(__response__, 'oidc_policy'),
         slug=pulumi.get(__response__, 'slug'),
         uuid=pulumi.get(__response__, 'uuid')))

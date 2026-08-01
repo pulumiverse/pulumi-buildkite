@@ -38,6 +38,26 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// create a test suite with an OIDC policy allowing a pipeline to upload
+//			// test results without a suite API token
+//			_, err = testsuite.NewTestSuite(ctx, "with_oidc_policy", &testsuite.TestSuiteArgs{
+//				Name:          pulumi.String("with OIDC policy"),
+//				DefaultBranch: pulumi.String("main"),
+//				TeamOwnerId:   pulumi.String("VGVhbvDf4eRef20tMzIxMGEfYTctNzEF5g00M8f5s6E2YjYtODNlOGNlZgD6HcBi"),
+//				OidcPolicy: pulumi.String(`- iss: https://agent.buildkite.com
+//	  claims:
+//	    organization_slug: my-org
+//	    pipeline_slug: my-pipeline
+//	  scopes:
+//	    - read_suites
+//	    - write_uploads
+//
+// `),
+//
+//			})
+//			if err != nil {
+//				return err
+//			}
 //			return nil
 //		})
 //	}
@@ -71,12 +91,18 @@ type TestSuite struct {
 
 	// The API token to use to send test run data to the API.
 	ApiToken pulumi.StringOutput `pulumi:"apiToken"`
+	// The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+	ApplicationName pulumi.StringOutput `pulumi:"applicationName"`
+	// The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+	Color pulumi.StringOutput `pulumi:"color"`
 	// The default branch for the repository this test suite is for.
 	DefaultBranch pulumi.StringOutput `pulumi:"defaultBranch"`
 	// The emoji associated with this test suite, eg :buildkite:
 	Emoji pulumi.StringPtrOutput `pulumi:"emoji"`
 	// The name to give the test suite.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+	OidcPolicy pulumi.StringOutput `pulumi:"oidcPolicy"`
 	// The generated slug of the test suite.
 	Slug pulumi.StringOutput `pulumi:"slug"`
 	// The GraphQL ID of the team to mark as the owner/admin of the test suite.
@@ -127,12 +153,18 @@ func GetTestSuite(ctx *pulumi.Context,
 type testSuiteState struct {
 	// The API token to use to send test run data to the API.
 	ApiToken *string `pulumi:"apiToken"`
+	// The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+	ApplicationName *string `pulumi:"applicationName"`
+	// The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+	Color *string `pulumi:"color"`
 	// The default branch for the repository this test suite is for.
 	DefaultBranch *string `pulumi:"defaultBranch"`
 	// The emoji associated with this test suite, eg :buildkite:
 	Emoji *string `pulumi:"emoji"`
 	// The name to give the test suite.
 	Name *string `pulumi:"name"`
+	// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+	OidcPolicy *string `pulumi:"oidcPolicy"`
 	// The generated slug of the test suite.
 	Slug *string `pulumi:"slug"`
 	// The GraphQL ID of the team to mark as the owner/admin of the test suite.
@@ -144,12 +176,18 @@ type testSuiteState struct {
 type TestSuiteState struct {
 	// The API token to use to send test run data to the API.
 	ApiToken pulumi.StringPtrInput
+	// The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+	ApplicationName pulumi.StringPtrInput
+	// The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+	Color pulumi.StringPtrInput
 	// The default branch for the repository this test suite is for.
 	DefaultBranch pulumi.StringPtrInput
 	// The emoji associated with this test suite, eg :buildkite:
 	Emoji pulumi.StringPtrInput
 	// The name to give the test suite.
 	Name pulumi.StringPtrInput
+	// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+	OidcPolicy pulumi.StringPtrInput
 	// The generated slug of the test suite.
 	Slug pulumi.StringPtrInput
 	// The GraphQL ID of the team to mark as the owner/admin of the test suite.
@@ -163,24 +201,36 @@ func (TestSuiteState) ElementType() reflect.Type {
 }
 
 type testSuiteArgs struct {
+	// The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+	ApplicationName *string `pulumi:"applicationName"`
+	// The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+	Color *string `pulumi:"color"`
 	// The default branch for the repository this test suite is for.
 	DefaultBranch string `pulumi:"defaultBranch"`
 	// The emoji associated with this test suite, eg :buildkite:
 	Emoji *string `pulumi:"emoji"`
 	// The name to give the test suite.
 	Name *string `pulumi:"name"`
+	// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+	OidcPolicy *string `pulumi:"oidcPolicy"`
 	// The GraphQL ID of the team to mark as the owner/admin of the test suite.
 	TeamOwnerId string `pulumi:"teamOwnerId"`
 }
 
 // The set of arguments for constructing a TestSuite resource.
 type TestSuiteArgs struct {
+	// The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+	ApplicationName pulumi.StringPtrInput
+	// The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+	Color pulumi.StringPtrInput
 	// The default branch for the repository this test suite is for.
 	DefaultBranch pulumi.StringInput
 	// The emoji associated with this test suite, eg :buildkite:
 	Emoji pulumi.StringPtrInput
 	// The name to give the test suite.
 	Name pulumi.StringPtrInput
+	// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+	OidcPolicy pulumi.StringPtrInput
 	// The GraphQL ID of the team to mark as the owner/admin of the test suite.
 	TeamOwnerId pulumi.StringInput
 }
@@ -277,6 +327,16 @@ func (o TestSuiteOutput) ApiToken() pulumi.StringOutput {
 	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.ApiToken }).(pulumi.StringOutput)
 }
 
+// The name of the application this test suite is for. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+func (o TestSuiteOutput) ApplicationName() pulumi.StringOutput {
+	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.ApplicationName }).(pulumi.StringOutput)
+}
+
+// The hex color code for the test suite navatar, eg #BADA55. If omitted, the value is left unmanaged by Terraform; set it to an empty string to clear it.
+func (o TestSuiteOutput) Color() pulumi.StringOutput {
+	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.Color }).(pulumi.StringOutput)
+}
+
 // The default branch for the repository this test suite is for.
 func (o TestSuiteOutput) DefaultBranch() pulumi.StringOutput {
 	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.DefaultBranch }).(pulumi.StringOutput)
@@ -290,6 +350,11 @@ func (o TestSuiteOutput) Emoji() pulumi.StringPtrOutput {
 // The name to give the test suite.
 func (o TestSuiteOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string. This policy defines which OIDC tokens can be exchanged for suite access, as an alternative to the suite API token. If omitted, the policy is left unmanaged by Terraform; set it to an empty string to remove an existing policy.
+func (o TestSuiteOutput) OidcPolicy() pulumi.StringOutput {
+	return o.ApplyT(func(v *TestSuite) pulumi.StringOutput { return v.OidcPolicy }).(pulumi.StringOutput)
 }
 
 // The generated slug of the test suite.

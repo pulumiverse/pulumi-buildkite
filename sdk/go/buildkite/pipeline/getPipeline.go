@@ -58,6 +58,8 @@ type LookupPipelineArgs struct {
 
 // A collection of values returned by getPipeline.
 type LookupPipelineResult struct {
+	// The optional repository URL agents use as a Git clone mirror.
+	CloneMirrorUrl string `pulumi:"cloneMirrorUrl"`
 	// The GraphQL ID of the cluster the pipeline is (optionally) attached to.
 	ClusterId string `pulumi:"clusterId"`
 	// The name of the cluster the pipeline is (optionally) attached to.
@@ -114,6 +116,11 @@ func (o LookupPipelineResultOutput) ToLookupPipelineResultOutput() LookupPipelin
 
 func (o LookupPipelineResultOutput) ToLookupPipelineResultOutputWithContext(ctx context.Context) LookupPipelineResultOutput {
 	return o
+}
+
+// The optional repository URL agents use as a Git clone mirror.
+func (o LookupPipelineResultOutput) CloneMirrorUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupPipelineResult) string { return v.CloneMirrorUrl }).(pulumi.StringOutput)
 }
 
 // The GraphQL ID of the cluster the pipeline is (optionally) attached to.

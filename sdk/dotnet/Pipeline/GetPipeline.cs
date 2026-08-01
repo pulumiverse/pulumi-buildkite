@@ -125,6 +125,10 @@ namespace Pulumiverse.Buildkite.Pipeline
     public sealed class GetPipelineResult
     {
         /// <summary>
+        /// The optional repository URL agents use as a Git clone mirror.
+        /// </summary>
+        public readonly string CloneMirrorUrl;
+        /// <summary>
         /// The GraphQL ID of the cluster the pipeline is (optionally) attached to.
         /// </summary>
         public readonly string ClusterId;
@@ -171,6 +175,8 @@ namespace Pulumiverse.Buildkite.Pipeline
 
         [OutputConstructor]
         private GetPipelineResult(
+            string cloneMirrorUrl,
+
             string clusterId,
 
             string clusterName,
@@ -193,6 +199,7 @@ namespace Pulumiverse.Buildkite.Pipeline
 
             string webhookUrl)
         {
+            CloneMirrorUrl = cloneMirrorUrl;
             ClusterId = clusterId;
             ClusterName = clusterName;
             DefaultBranch = defaultBranch;
