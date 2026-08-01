@@ -26,7 +26,10 @@ class GetPipelineResult:
     """
     A collection of values returned by getPipeline.
     """
-    def __init__(__self__, cluster_id=None, cluster_name=None, default_branch=None, description=None, id=None, name=None, repository=None, slug=None, uuid=None, visibility=None, webhook_url=None):
+    def __init__(__self__, clone_mirror_url=None, cluster_id=None, cluster_name=None, default_branch=None, description=None, id=None, name=None, repository=None, slug=None, uuid=None, visibility=None, webhook_url=None):
+        if clone_mirror_url and not isinstance(clone_mirror_url, str):
+            raise TypeError("Expected argument 'clone_mirror_url' to be a str")
+        pulumi.set(__self__, "clone_mirror_url", clone_mirror_url)
         if cluster_id and not isinstance(cluster_id, str):
             raise TypeError("Expected argument 'cluster_id' to be a str")
         pulumi.set(__self__, "cluster_id", cluster_id)
@@ -60,6 +63,14 @@ class GetPipelineResult:
         if webhook_url and not isinstance(webhook_url, str):
             raise TypeError("Expected argument 'webhook_url' to be a str")
         pulumi.set(__self__, "webhook_url", webhook_url)
+
+    @_builtins.property
+    @pulumi.getter(name="cloneMirrorUrl")
+    def clone_mirror_url(self) -> _builtins.str:
+        """
+        The optional repository URL agents use as a Git clone mirror.
+        """
+        return pulumi.get(self, "clone_mirror_url")
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
@@ -156,6 +167,7 @@ class AwaitableGetPipelineResult(GetPipelineResult):
         if False:
             yield self
         return GetPipelineResult(
+            clone_mirror_url=self.clone_mirror_url,
             cluster_id=self.cluster_id,
             cluster_name=self.cluster_name,
             default_branch=self.default_branch,
@@ -194,6 +206,7 @@ def get_pipeline(slug: Optional[_builtins.str] = None,
     __ret__ = pulumi.runtime.invoke('buildkite:Pipeline/getPipeline:getPipeline', __args__, opts=opts, typ=GetPipelineResult).value
 
     return AwaitableGetPipelineResult(
+        clone_mirror_url=pulumi.get(__ret__, 'clone_mirror_url'),
         cluster_id=pulumi.get(__ret__, 'cluster_id'),
         cluster_name=pulumi.get(__ret__, 'cluster_name'),
         default_branch=pulumi.get(__ret__, 'default_branch'),
@@ -229,6 +242,7 @@ def get_pipeline_output(slug: Optional[pulumi.Input[_builtins.str]] = None,
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('buildkite:Pipeline/getPipeline:getPipeline', __args__, opts=opts, typ=GetPipelineResult)
     return __ret__.apply(lambda __response__: GetPipelineResult(
+        clone_mirror_url=pulumi.get(__response__, 'clone_mirror_url'),
         cluster_id=pulumi.get(__response__, 'cluster_id'),
         cluster_name=pulumi.get(__response__, 'cluster_name'),
         default_branch=pulumi.get(__response__, 'default_branch'),

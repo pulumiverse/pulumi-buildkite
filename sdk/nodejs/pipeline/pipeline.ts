@@ -76,6 +76,10 @@ export class Pipeline extends pulumi.CustomResource {
      */
     declare public readonly cancelIntermediateBuildsBranchFilter: pulumi.Output<string>;
     /**
+     * The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+     */
+    declare public readonly cloneMirrorUrl: pulumi.Output<string | undefined>;
+    /**
      * Attach this pipeline to the given cluster GraphQL ID.
      */
     declare public readonly clusterId: pulumi.Output<string | undefined>;
@@ -179,6 +183,7 @@ export class Pipeline extends pulumi.CustomResource {
             resourceInputs["branchConfiguration"] = state?.branchConfiguration;
             resourceInputs["cancelIntermediateBuilds"] = state?.cancelIntermediateBuilds;
             resourceInputs["cancelIntermediateBuildsBranchFilter"] = state?.cancelIntermediateBuildsBranchFilter;
+            resourceInputs["cloneMirrorUrl"] = state?.cloneMirrorUrl;
             resourceInputs["clusterId"] = state?.clusterId;
             resourceInputs["clusterName"] = state?.clusterName;
             resourceInputs["color"] = state?.color;
@@ -210,6 +215,7 @@ export class Pipeline extends pulumi.CustomResource {
             resourceInputs["branchConfiguration"] = args?.branchConfiguration;
             resourceInputs["cancelIntermediateBuilds"] = args?.cancelIntermediateBuilds;
             resourceInputs["cancelIntermediateBuildsBranchFilter"] = args?.cancelIntermediateBuildsBranchFilter;
+            resourceInputs["cloneMirrorUrl"] = args?.cloneMirrorUrl;
             resourceInputs["clusterId"] = args?.clusterId;
             resourceInputs["color"] = args?.color;
             resourceInputs["defaultBranch"] = args?.defaultBranch;
@@ -266,6 +272,10 @@ export interface PipelineState {
      * Filter the `cancelIntermediateBuilds` setting based on this branch condition.
      */
     cancelIntermediateBuildsBranchFilter?: pulumi.Input<string>;
+    /**
+     * The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+     */
+    cloneMirrorUrl?: pulumi.Input<string>;
     /**
      * Attach this pipeline to the given cluster GraphQL ID.
      */
@@ -376,6 +386,10 @@ export interface PipelineArgs {
      * Filter the `cancelIntermediateBuilds` setting based on this branch condition.
      */
     cancelIntermediateBuildsBranchFilter?: pulumi.Input<string>;
+    /**
+     * The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+     */
+    cloneMirrorUrl?: pulumi.Input<string>;
     /**
      * Attach this pipeline to the given cluster GraphQL ID.
      */

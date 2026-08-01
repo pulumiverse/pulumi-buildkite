@@ -155,9 +155,21 @@ namespace Pulumiverse.Buildkite.TestSuite
     public sealed class GetTestSuiteResult
     {
         /// <summary>
+        /// The name of the application this test suite is for.
+        /// </summary>
+        public readonly string ApplicationName;
+        /// <summary>
+        /// The hex color code for the test suite navatar.
+        /// </summary>
+        public readonly string Color;
+        /// <summary>
         /// The default branch for the repository this test suite is for.
         /// </summary>
         public readonly string DefaultBranch;
+        /// <summary>
+        /// The emoji associated with this test suite, eg :buildkite:
+        /// </summary>
+        public readonly string Emoji;
         /// <summary>
         /// The GraphQL ID of the test suite.
         /// </summary>
@@ -166,6 +178,10 @@ namespace Pulumiverse.Buildkite.TestSuite
         /// The name to give the test suite.
         /// </summary>
         public readonly string Name;
+        /// <summary>
+        /// The [OIDC policy](https://buildkite.com/docs/pipelines/configure/tests/test-collection/oidc) for the test suite, as a YAML or JSON string.
+        /// </summary>
+        public readonly string OidcPolicy;
         /// <summary>
         /// The generated slug of the test suite.
         /// </summary>
@@ -177,19 +193,31 @@ namespace Pulumiverse.Buildkite.TestSuite
 
         [OutputConstructor]
         private GetTestSuiteResult(
+            string applicationName,
+
+            string color,
+
             string defaultBranch,
+
+            string emoji,
 
             string id,
 
             string name,
 
+            string oidcPolicy,
+
             string slug,
 
             string uuid)
         {
+            ApplicationName = applicationName;
+            Color = color;
             DefaultBranch = defaultBranch;
+            Emoji = emoji;
             Id = id;
             Name = name;
+            OidcPolicy = oidcPolicy;
             Slug = slug;
             Uuid = uuid;
         }

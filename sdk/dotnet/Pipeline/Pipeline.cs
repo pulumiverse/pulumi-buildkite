@@ -67,6 +67,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Output<string> CancelIntermediateBuildsBranchFilter { get; private set; } = null!;
 
         /// <summary>
+        /// The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+        /// </summary>
+        [Output("cloneMirrorUrl")]
+        public Output<string?> CloneMirrorUrl { get; private set; } = null!;
+
+        /// <summary>
         /// Attach this pipeline to the given cluster GraphQL ID.
         /// </summary>
         [Output("clusterId")]
@@ -270,6 +276,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         public Input<string>? CancelIntermediateBuildsBranchFilter { get; set; }
 
         /// <summary>
+        /// The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+        /// </summary>
+        [Input("cloneMirrorUrl")]
+        public Input<string>? CloneMirrorUrl { get; set; }
+
+        /// <summary>
         /// Attach this pipeline to the given cluster GraphQL ID.
         /// </summary>
         [Input("clusterId")]
@@ -426,6 +438,12 @@ namespace Pulumiverse.Buildkite.Pipeline
         /// </summary>
         [Input("cancelIntermediateBuildsBranchFilter")]
         public Input<string>? CancelIntermediateBuildsBranchFilter { get; set; }
+
+        /// <summary>
+        /// The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+        /// </summary>
+        [Input("cloneMirrorUrl")]
+        public Input<string>? CloneMirrorUrl { get; set; }
 
         /// <summary>
         /// Attach this pipeline to the given cluster GraphQL ID.
