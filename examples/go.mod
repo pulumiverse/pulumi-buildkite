@@ -4,7 +4,7 @@ go 1.25.11
 
 require (
 	github.com/pulumi/pulumi/pkg/v3 v3.255.0
-	github.com/stretchr/testify v1.11.1
+	github.com/stretchr/testify v1.12.0
 )
 
 require (
