@@ -123,6 +123,20 @@ public class Pipeline extends com.pulumi.resources.CustomResource {
         return this.cancelIntermediateBuildsBranchFilter;
     }
     /**
+     * The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+     * 
+     */
+    @Export(name="cloneMirrorUrl", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> cloneMirrorUrl;
+
+    /**
+     * @return The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+     * 
+     */
+    public Output<Optional<String>> cloneMirrorUrl() {
+        return Codegen.optional(this.cloneMirrorUrl);
+    }
+    /**
      * Attach this pipeline to the given cluster GraphQL ID.
      * 
      */

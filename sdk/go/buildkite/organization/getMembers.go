@@ -55,10 +55,8 @@ type GetMembersResult struct {
 }
 
 func GetMembersOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) GetMembersResultOutput {
-	return pulumi.ToOutput(0).ApplyT(func(int) (GetMembersResultOutput, error) {
-		options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-		return ctx.InvokeOutput("buildkite:Organization/getMembers:getMembers", nil, GetMembersResultOutput{}, options).(GetMembersResultOutput), nil
-	}).(GetMembersResultOutput)
+	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+	return ctx.InvokeOutput("buildkite:Organization/getMembers:getMembers", nil, GetMembersResultOutput{}, options).(GetMembersResultOutput)
 }
 
 // A collection of values returned by getMembers.

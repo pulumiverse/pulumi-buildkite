@@ -11,6 +11,11 @@ import java.util.Objects;
 @CustomType
 public final class GetPipelineResult {
     /**
+     * @return The optional repository URL agents use as a Git clone mirror.
+     * 
+     */
+    private String cloneMirrorUrl;
+    /**
      * @return The GraphQL ID of the cluster the pipeline is (optionally) attached to.
      * 
      */
@@ -67,6 +72,13 @@ public final class GetPipelineResult {
     private String webhookUrl;
 
     private GetPipelineResult() {}
+    /**
+     * @return The optional repository URL agents use as a Git clone mirror.
+     * 
+     */
+    public String cloneMirrorUrl() {
+        return this.cloneMirrorUrl;
+    }
     /**
      * @return The GraphQL ID of the cluster the pipeline is (optionally) attached to.
      * 
@@ -154,6 +166,7 @@ public final class GetPipelineResult {
     }
     @CustomType.Builder
     public static final class Builder {
+        private String cloneMirrorUrl;
         private String clusterId;
         private String clusterName;
         private String defaultBranch;
@@ -168,6 +181,7 @@ public final class GetPipelineResult {
         public Builder() {}
         public Builder(GetPipelineResult defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.cloneMirrorUrl = defaults.cloneMirrorUrl;
     	      this.clusterId = defaults.clusterId;
     	      this.clusterName = defaults.clusterName;
     	      this.defaultBranch = defaults.defaultBranch;
@@ -181,6 +195,14 @@ public final class GetPipelineResult {
     	      this.webhookUrl = defaults.webhookUrl;
         }
 
+        @CustomType.Setter
+        public Builder cloneMirrorUrl(String cloneMirrorUrl) {
+            if (cloneMirrorUrl == null) {
+              throw new MissingRequiredPropertyException("GetPipelineResult", "cloneMirrorUrl");
+            }
+            this.cloneMirrorUrl = cloneMirrorUrl;
+            return this;
+        }
         @CustomType.Setter
         public Builder clusterId(String clusterId) {
             if (clusterId == null) {
@@ -271,6 +293,7 @@ public final class GetPipelineResult {
         }
         public GetPipelineResult build() {
             final var _resultValue = new GetPipelineResult();
+            _resultValue.cloneMirrorUrl = cloneMirrorUrl;
             _resultValue.clusterId = clusterId;
             _resultValue.clusterName = clusterName;
             _resultValue.defaultBranch = defaultBranch;

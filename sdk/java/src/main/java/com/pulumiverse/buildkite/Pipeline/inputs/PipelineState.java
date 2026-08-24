@@ -110,6 +110,21 @@ public final class PipelineState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+     * 
+     */
+    @Import(name="cloneMirrorUrl")
+    private @Nullable Output<String> cloneMirrorUrl;
+
+    /**
+     * @return The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+     * 
+     */
+    public Optional<Output<String>> cloneMirrorUrl() {
+        return Optional.ofNullable(this.cloneMirrorUrl);
+    }
+
+    /**
      * Attach this pipeline to the given cluster GraphQL ID.
      * 
      */
@@ -433,6 +448,7 @@ public final class PipelineState extends com.pulumi.resources.ResourceArgs {
         this.branchConfiguration = $.branchConfiguration;
         this.cancelIntermediateBuilds = $.cancelIntermediateBuilds;
         this.cancelIntermediateBuildsBranchFilter = $.cancelIntermediateBuildsBranchFilter;
+        this.cloneMirrorUrl = $.cloneMirrorUrl;
         this.clusterId = $.clusterId;
         this.clusterName = $.clusterName;
         this.color = $.color;
@@ -598,6 +614,27 @@ public final class PipelineState extends com.pulumi.resources.ResourceArgs {
          */
         public Builder cancelIntermediateBuildsBranchFilter(String cancelIntermediateBuildsBranchFilter) {
             return cancelIntermediateBuildsBranchFilter(Output.of(cancelIntermediateBuildsBranchFilter));
+        }
+
+        /**
+         * @param cloneMirrorUrl The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder cloneMirrorUrl(@Nullable Output<String> cloneMirrorUrl) {
+            $.cloneMirrorUrl = cloneMirrorUrl;
+            return this;
+        }
+
+        /**
+         * @param cloneMirrorUrl The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder cloneMirrorUrl(String cloneMirrorUrl) {
+            return cloneMirrorUrl(Output.of(cloneMirrorUrl));
         }
 
         /**

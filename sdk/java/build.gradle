@@ -96,7 +96,7 @@ publishing {
                 inceptionYear = ""
                 name = ""
                 packaging = "jar"
-                description = "A Pulumi package for creating and managing Buildkite resources."
+                description = $/A Pulumi package for creating and managing Buildkite resources./$
 
                 url = "https://github.com/pulumiverse/pulumi-buildkite"
 

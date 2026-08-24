@@ -98,12 +98,8 @@ type LookupTemplateResult struct {
 }
 
 func LookupTemplateOutput(ctx *pulumi.Context, args LookupTemplateOutputArgs, opts ...pulumi.InvokeOption) LookupTemplateResultOutput {
-	return pulumi.ToOutputWithContext(ctx.Context(), args).
-		ApplyT(func(v interface{}) (LookupTemplateResultOutput, error) {
-			args := v.(LookupTemplateArgs)
-			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("buildkite:Pipeline/getTemplate:getTemplate", args, LookupTemplateResultOutput{}, options).(LookupTemplateResultOutput), nil
-		}).(LookupTemplateResultOutput)
+	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+	return ctx.InvokeOutput("buildkite:Pipeline/getTemplate:getTemplate", args, LookupTemplateResultOutput{}, options).(LookupTemplateResultOutput)
 }
 
 // A collection of arguments for invoking getTemplate.

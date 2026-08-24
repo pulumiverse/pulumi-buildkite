@@ -92,12 +92,8 @@ type LookupTestSuiteResult struct {
 }
 
 func LookupTestSuiteOutput(ctx *pulumi.Context, args LookupTestSuiteOutputArgs, opts ...pulumi.InvokeOption) LookupTestSuiteResultOutput {
-	return pulumi.ToOutputWithContext(ctx.Context(), args).
-		ApplyT(func(v interface{}) (LookupTestSuiteResultOutput, error) {
-			args := v.(LookupTestSuiteArgs)
-			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("buildkite:TestSuite/getTestSuite:getTestSuite", args, LookupTestSuiteResultOutput{}, options).(LookupTestSuiteResultOutput), nil
-		}).(LookupTestSuiteResultOutput)
+	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+	return ctx.InvokeOutput("buildkite:TestSuite/getTestSuite:getTestSuite", args, LookupTestSuiteResultOutput{}, options).(LookupTestSuiteResultOutput)
 }
 
 // A collection of arguments for invoking getTestSuite.
