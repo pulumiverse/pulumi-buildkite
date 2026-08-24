@@ -42,6 +42,10 @@ export interface GetPipelineArgs {
  */
 export interface GetPipelineResult {
     /**
+     * The optional repository URL agents use as a Git clone mirror.
+     */
+    readonly cloneMirrorUrl: string;
+    /**
      * The GraphQL ID of the cluster the pipeline is (optionally) attached to.
      */
     readonly clusterId: string;

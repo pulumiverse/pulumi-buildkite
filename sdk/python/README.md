@@ -81,6 +81,117 @@ With Gradle:
 ```groovy
 implementation("com.pulumiverse:buildkite:${VERSION}")
 ```
+## Migrating from v2 to v3
+
+`v3.0.0` is a major upgrade that moves from the pre-release Terraform provider `v0.25.x`
+(used by `v2.3.1` and earlier) to the stable Terraform provider `v1.x`. This changes the
+schema of the `buildkite:Pipeline/pipeline:Pipeline` resource, so upgrading an existing
+stack requires a **one-time manual edit of the stack state**. There is currently no
+automatic state mapper — see [issue #118](https://github.com/pulumiverse/pulumi-buildkite/issues/118).
+
+### Symptom
+
+After bumping the provider package to `v3.x`, the first `pulumi preview`/`pulumi up` fails
+while trying to read the previously saved state:
+
+```
+error: Unable to Read Previously Saved State for UpgradeResourceState: There was an error reading the saved resource state using the prior resource schema defined for version 0 upgrade.
+
+Please report this to the provider developer:
+
+AttributeName("provider_settings"): invalid JSON, expected "[", got "{"
+```
+
+### Cause
+
+The underlying Terraform provider changed the shape of `provider_settings` on the pipeline
+resource. In v2 (Terraform provider `v0.25.x`) it was modelled as an **array**
+(`[]*providerSettingsModel`); in v3 (Terraform provider `v1.x`) it is a **single object**
+(`*providerSettingsModel`). State written by v2 therefore cannot be read by v3 without
+adjustment. See also [buildkite/terraform-provider-buildkite#501](https://github.com/buildkite/terraform-provider-buildkite/issues/501).
+
+### Migration steps
+
+> [!IMPORTANT]
+> The version numbers and URNs shown below are **placeholders**. Substitute your actual
+> source version and the v3 version you are upgrading to (the latest release is recommended).
+> Back up the exported state file before editing so you can roll back if needed.
+
+1. Upgrade the provider package for your language to `v3.x` (see [Installing](#installing) above).
+
+2. Export the stack state to a file:
+
+   ```bash
+   pulumi stack export -s <stackName> > stateFile.json
+   ```
+
+3. Edit `stateFile.json`:
+
+   **a. Bump the provider version.** Find the `pulumi:providers:buildkite` resource and update
+   the version string from your `2.x.x` version to the `3.x.x` version you are upgrading to.
+   The version appears in three places for this resource: the `urn`, `inputs.version`, and
+   `outputs.version`. Leave the `id` (GUID) unchanged. This stops Pulumi from trying to load
+   the now-uninstalled v2 plugin to read the old state.
+
+   Before:
+
+   ```json
+   {
+       "urn": "urn:pulumi:<stack>::<project>::pulumi:providers:buildkite::default_2_2_0_...",
+       "custom": true,
+       "id": "4c1a2d5b-b292-4eec-ac4a-d4d08cd75be6",
+       "type": "pulumi:providers:buildkite",
+       "inputs": { "pluginDownloadURL": "...", "version": "2.2.0" },
+       "outputs": { "pluginDownloadURL": "...", "version": "2.2.0" }
+   }
+   ```
+
+   After (using the latest release as the target):
+
+   ```json
+   {
+       "urn": "urn:pulumi:<stack>::<project>::pulumi:providers:buildkite::default_3_4_0_...",
+       "custom": true,
+       "id": "4c1a2d5b-b292-4eec-ac4a-d4d08cd75be6",
+       "type": "pulumi:providers:buildkite",
+       "inputs": { "pluginDownloadURL": "...", "version": "3.4.0" },
+       "outputs": { "pluginDownloadURL": "...", "version": "3.4.0" }
+   }
+   ```
+
+   **b. Fix `providerSettings` on every `buildkite:Pipeline/pipeline:Pipeline` resource.**
+   Replace the v2 array-style value with the equivalent v3 object.
+
+   For a pipeline with **no** custom provider settings, the v2 state contains the
+   default-tracking marker `{"__defaults": []}`; replace it with an empty object:
+
+   ```json
+   {
+       "urn": "urn:pulumi:<stack>::<project>::buildkite:Pipeline/pipeline:Pipeline::NAME_HERE",
+       "type": "buildkite:Pipeline/pipeline:Pipeline",
+       "inputs": {
+           "providerSettings": {}
+       }
+   }
+   ```
+
+   > [!NOTE]
+   > If a pipeline **does** configure provider settings (e.g. GitHub/GitLab options), its
+   > `providerSettings` will not be `{"__defaults": []}` — it will hold real keys. In that
+   > case keep those keys and only remove the stray `__defaults` entries so the value is a
+   > plain object matching the v3 schema, rather than blanking it to `{}`.
+
+4. Re-import the edited state:
+
+   ```bash
+   pulumi stack import -s <stackName> --file stateFile.json
+   ```
+
+5. Run `pulumi preview` to confirm the state loads cleanly, then `pulumi up` as usual.
+
+> [!NOTE]
+> There were additional breaking changes upstream (for example around teams), so you may see
+> other diffs when moving to v3. Review your `pulumi preview` output carefully before applying.
 
 ## Configuration
 

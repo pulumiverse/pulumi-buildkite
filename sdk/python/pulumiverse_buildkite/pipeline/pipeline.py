@@ -27,6 +27,7 @@ class PipelineArgs:
                  branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
+                 clone_mirror_url: Optional[pulumi.Input[_builtins.str]] = None,
                  cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
                  color: Optional[pulumi.Input[_builtins.str]] = None,
                  default_branch: Optional[pulumi.Input[_builtins.str]] = None,
@@ -53,6 +54,7 @@ class PipelineArgs:
         :param pulumi.Input[_builtins.str] branch_configuration: Configure the pipeline to only build on this branch conditional.
         :param pulumi.Input[_builtins.bool] cancel_intermediate_builds: Whether to cancel builds when a new commit is pushed to a matching branch.
         :param pulumi.Input[_builtins.str] cancel_intermediate_builds_branch_filter: Filter the `cancel_intermediate_builds` setting based on this branch condition.
+        :param pulumi.Input[_builtins.str] clone_mirror_url: The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
         :param pulumi.Input[_builtins.str] cluster_id: Attach this pipeline to the given cluster GraphQL ID.
         :param pulumi.Input[_builtins.str] color: A color hex code to represent this pipeline.
         :param pulumi.Input[_builtins.str] default_branch: Default branch of the pipeline.
@@ -82,6 +84,8 @@ class PipelineArgs:
             pulumi.set(__self__, "cancel_intermediate_builds", cancel_intermediate_builds)
         if cancel_intermediate_builds_branch_filter is not None:
             pulumi.set(__self__, "cancel_intermediate_builds_branch_filter", cancel_intermediate_builds_branch_filter)
+        if clone_mirror_url is not None:
+            pulumi.set(__self__, "clone_mirror_url", clone_mirror_url)
         if cluster_id is not None:
             pulumi.set(__self__, "cluster_id", cluster_id)
         if color is not None:
@@ -188,6 +192,18 @@ class PipelineArgs:
     @cancel_intermediate_builds_branch_filter.setter
     def cancel_intermediate_builds_branch_filter(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "cancel_intermediate_builds_branch_filter", value)
+
+    @_builtins.property
+    @pulumi.getter(name="cloneMirrorUrl")
+    def clone_mirror_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+        """
+        return pulumi.get(self, "clone_mirror_url")
+
+    @clone_mirror_url.setter
+    def clone_mirror_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "clone_mirror_url", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
@@ -403,6 +419,7 @@ class _PipelineState:
                  branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
+                 clone_mirror_url: Optional[pulumi.Input[_builtins.str]] = None,
                  cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
                  cluster_name: Optional[pulumi.Input[_builtins.str]] = None,
                  color: Optional[pulumi.Input[_builtins.str]] = None,
@@ -433,6 +450,7 @@ class _PipelineState:
         :param pulumi.Input[_builtins.str] branch_configuration: Configure the pipeline to only build on this branch conditional.
         :param pulumi.Input[_builtins.bool] cancel_intermediate_builds: Whether to cancel builds when a new commit is pushed to a matching branch.
         :param pulumi.Input[_builtins.str] cancel_intermediate_builds_branch_filter: Filter the `cancel_intermediate_builds` setting based on this branch condition.
+        :param pulumi.Input[_builtins.str] clone_mirror_url: The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
         :param pulumi.Input[_builtins.str] cluster_id: Attach this pipeline to the given cluster GraphQL ID.
         :param pulumi.Input[_builtins.str] cluster_name: The name of the cluster the pipeline is (optionally) attached to.
         :param pulumi.Input[_builtins.str] color: A color hex code to represent this pipeline.
@@ -467,6 +485,8 @@ class _PipelineState:
             pulumi.set(__self__, "cancel_intermediate_builds", cancel_intermediate_builds)
         if cancel_intermediate_builds_branch_filter is not None:
             pulumi.set(__self__, "cancel_intermediate_builds_branch_filter", cancel_intermediate_builds_branch_filter)
+        if clone_mirror_url is not None:
+            pulumi.set(__self__, "clone_mirror_url", clone_mirror_url)
         if cluster_id is not None:
             pulumi.set(__self__, "cluster_id", cluster_id)
         if cluster_name is not None:
@@ -581,6 +601,18 @@ class _PipelineState:
     @cancel_intermediate_builds_branch_filter.setter
     def cancel_intermediate_builds_branch_filter(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "cancel_intermediate_builds_branch_filter", value)
+
+    @_builtins.property
+    @pulumi.getter(name="cloneMirrorUrl")
+    def clone_mirror_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+        """
+        return pulumi.get(self, "clone_mirror_url")
+
+    @clone_mirror_url.setter
+    def clone_mirror_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "clone_mirror_url", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
@@ -846,6 +878,7 @@ class Pipeline(pulumi.CustomResource):
                  branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
+                 clone_mirror_url: Optional[pulumi.Input[_builtins.str]] = None,
                  cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
                  color: Optional[pulumi.Input[_builtins.str]] = None,
                  default_branch: Optional[pulumi.Input[_builtins.str]] = None,
@@ -890,6 +923,7 @@ class Pipeline(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] branch_configuration: Configure the pipeline to only build on this branch conditional.
         :param pulumi.Input[_builtins.bool] cancel_intermediate_builds: Whether to cancel builds when a new commit is pushed to a matching branch.
         :param pulumi.Input[_builtins.str] cancel_intermediate_builds_branch_filter: Filter the `cancel_intermediate_builds` setting based on this branch condition.
+        :param pulumi.Input[_builtins.str] clone_mirror_url: The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
         :param pulumi.Input[_builtins.str] cluster_id: Attach this pipeline to the given cluster GraphQL ID.
         :param pulumi.Input[_builtins.str] color: A color hex code to represent this pipeline.
         :param pulumi.Input[_builtins.str] default_branch: Default branch of the pipeline.
@@ -953,6 +987,7 @@ class Pipeline(pulumi.CustomResource):
                  branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
                  cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
                  cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
+                 clone_mirror_url: Optional[pulumi.Input[_builtins.str]] = None,
                  cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
                  color: Optional[pulumi.Input[_builtins.str]] = None,
                  default_branch: Optional[pulumi.Input[_builtins.str]] = None,
@@ -985,6 +1020,7 @@ class Pipeline(pulumi.CustomResource):
             __props__.__dict__["branch_configuration"] = branch_configuration
             __props__.__dict__["cancel_intermediate_builds"] = cancel_intermediate_builds
             __props__.__dict__["cancel_intermediate_builds_branch_filter"] = cancel_intermediate_builds_branch_filter
+            __props__.__dict__["clone_mirror_url"] = clone_mirror_url
             __props__.__dict__["cluster_id"] = cluster_id
             __props__.__dict__["color"] = color
             __props__.__dict__["default_branch"] = default_branch
@@ -1025,6 +1061,7 @@ class Pipeline(pulumi.CustomResource):
             branch_configuration: Optional[pulumi.Input[_builtins.str]] = None,
             cancel_intermediate_builds: Optional[pulumi.Input[_builtins.bool]] = None,
             cancel_intermediate_builds_branch_filter: Optional[pulumi.Input[_builtins.str]] = None,
+            clone_mirror_url: Optional[pulumi.Input[_builtins.str]] = None,
             cluster_id: Optional[pulumi.Input[_builtins.str]] = None,
             cluster_name: Optional[pulumi.Input[_builtins.str]] = None,
             color: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1059,6 +1096,7 @@ class Pipeline(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] branch_configuration: Configure the pipeline to only build on this branch conditional.
         :param pulumi.Input[_builtins.bool] cancel_intermediate_builds: Whether to cancel builds when a new commit is pushed to a matching branch.
         :param pulumi.Input[_builtins.str] cancel_intermediate_builds_branch_filter: Filter the `cancel_intermediate_builds` setting based on this branch condition.
+        :param pulumi.Input[_builtins.str] clone_mirror_url: The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
         :param pulumi.Input[_builtins.str] cluster_id: Attach this pipeline to the given cluster GraphQL ID.
         :param pulumi.Input[_builtins.str] cluster_name: The name of the cluster the pipeline is (optionally) attached to.
         :param pulumi.Input[_builtins.str] color: A color hex code to represent this pipeline.
@@ -1091,6 +1129,7 @@ class Pipeline(pulumi.CustomResource):
         __props__.__dict__["branch_configuration"] = branch_configuration
         __props__.__dict__["cancel_intermediate_builds"] = cancel_intermediate_builds
         __props__.__dict__["cancel_intermediate_builds_branch_filter"] = cancel_intermediate_builds_branch_filter
+        __props__.__dict__["clone_mirror_url"] = clone_mirror_url
         __props__.__dict__["cluster_id"] = cluster_id
         __props__.__dict__["cluster_name"] = cluster_name
         __props__.__dict__["color"] = color
@@ -1161,6 +1200,14 @@ class Pipeline(pulumi.CustomResource):
         Filter the `cancel_intermediate_builds` setting based on this branch condition.
         """
         return pulumi.get(self, "cancel_intermediate_builds_branch_filter")
+
+    @_builtins.property
+    @pulumi.getter(name="cloneMirrorUrl")
+    def clone_mirror_url(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The optional repository URL agents use as a Git clone mirror. Requires the pipeline clone mirror feature to be enabled for the organization.
+        """
+        return pulumi.get(self, "clone_mirror_url")
 
     @_builtins.property
     @pulumi.getter(name="clusterId")
