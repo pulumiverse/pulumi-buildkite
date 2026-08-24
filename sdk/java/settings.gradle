@@ -11,3 +11,4 @@ pluginManagement {
 }
 
 rootProject.name = "com.pulumiverse.buildkite"
+include("lib")

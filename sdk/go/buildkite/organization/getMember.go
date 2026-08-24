@@ -86,8 +86,12 @@ type GetMemberResult struct {
 }
 
 func GetMemberOutput(ctx *pulumi.Context, args GetMemberOutputArgs, opts ...pulumi.InvokeOption) GetMemberResultOutput {
-	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("buildkite:Organization/getMember:getMember", args, GetMemberResultOutput{}, options).(GetMemberResultOutput)
+	return pulumi.ToOutputWithContext(ctx.Context(), args).
+		ApplyT(func(v interface{}) (GetMemberResultOutput, error) {
+			args := v.(GetMemberArgs)
+			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+			return ctx.InvokeOutput("buildkite:Organization/getMember:getMember", args, GetMemberResultOutput{}, options).(GetMemberResultOutput), nil
+		}).(GetMemberResultOutput)
 }
 
 // A collection of arguments for invoking getMember.

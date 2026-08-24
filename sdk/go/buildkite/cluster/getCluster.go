@@ -84,8 +84,12 @@ type LookupClusterResult struct {
 }
 
 func LookupClusterOutput(ctx *pulumi.Context, args LookupClusterOutputArgs, opts ...pulumi.InvokeOption) LookupClusterResultOutput {
-	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("buildkite:Cluster/getCluster:getCluster", args, LookupClusterResultOutput{}, options).(LookupClusterResultOutput)
+	return pulumi.ToOutputWithContext(ctx.Context(), args).
+		ApplyT(func(v interface{}) (LookupClusterResultOutput, error) {
+			args := v.(LookupClusterArgs)
+			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+			return ctx.InvokeOutput("buildkite:Cluster/getCluster:getCluster", args, LookupClusterResultOutput{}, options).(LookupClusterResultOutput), nil
+		}).(LookupClusterResultOutput)
 }
 
 // A collection of arguments for invoking getCluster.

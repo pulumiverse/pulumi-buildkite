@@ -94,8 +94,12 @@ type LookupTeamResult struct {
 }
 
 func LookupTeamOutput(ctx *pulumi.Context, args LookupTeamOutputArgs, opts ...pulumi.InvokeOption) LookupTeamResultOutput {
-	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("buildkite:Team/getTeam:getTeam", args, LookupTeamResultOutput{}, options).(LookupTeamResultOutput)
+	return pulumi.ToOutputWithContext(ctx.Context(), args).
+		ApplyT(func(v interface{}) (LookupTeamResultOutput, error) {
+			args := v.(LookupTeamArgs)
+			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+			return ctx.InvokeOutput("buildkite:Team/getTeam:getTeam", args, LookupTeamResultOutput{}, options).(LookupTeamResultOutput), nil
+		}).(LookupTeamResultOutput)
 }
 
 // A collection of arguments for invoking getTeam.

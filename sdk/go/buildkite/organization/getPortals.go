@@ -32,8 +32,10 @@ type GetPortalsResult struct {
 }
 
 func GetPortalsOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) GetPortalsResultOutput {
-	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("buildkite:Organization/getPortals:getPortals", nil, GetPortalsResultOutput{}, options).(GetPortalsResultOutput)
+	return pulumi.ToOutput(0).ApplyT(func(int) (GetPortalsResultOutput, error) {
+		options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+		return ctx.InvokeOutput("buildkite:Organization/getPortals:getPortals", nil, GetPortalsResultOutput{}, options).(GetPortalsResultOutput), nil
+	}).(GetPortalsResultOutput)
 }
 
 // A collection of values returned by getPortals.

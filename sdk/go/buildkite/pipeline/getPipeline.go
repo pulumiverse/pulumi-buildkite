@@ -85,8 +85,12 @@ type LookupPipelineResult struct {
 }
 
 func LookupPipelineOutput(ctx *pulumi.Context, args LookupPipelineOutputArgs, opts ...pulumi.InvokeOption) LookupPipelineResultOutput {
-	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("buildkite:Pipeline/getPipeline:getPipeline", args, LookupPipelineResultOutput{}, options).(LookupPipelineResultOutput)
+	return pulumi.ToOutputWithContext(ctx.Context(), args).
+		ApplyT(func(v interface{}) (LookupPipelineResultOutput, error) {
+			args := v.(LookupPipelineArgs)
+			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+			return ctx.InvokeOutput("buildkite:Pipeline/getPipeline:getPipeline", args, LookupPipelineResultOutput{}, options).(LookupPipelineResultOutput), nil
+		}).(LookupPipelineResultOutput)
 }
 
 // A collection of arguments for invoking getPipeline.

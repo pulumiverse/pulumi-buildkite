@@ -31,8 +31,10 @@ type GetTeamsResult struct {
 }
 
 func GetTeamsOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) GetTeamsResultOutput {
-	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("buildkite:Team/getTeams:getTeams", nil, GetTeamsResultOutput{}, options).(GetTeamsResultOutput)
+	return pulumi.ToOutput(0).ApplyT(func(int) (GetTeamsResultOutput, error) {
+		options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+		return ctx.InvokeOutput("buildkite:Team/getTeams:getTeams", nil, GetTeamsResultOutput{}, options).(GetTeamsResultOutput), nil
+	}).(GetTeamsResultOutput)
 }
 
 // A collection of values returned by getTeams.

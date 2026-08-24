@@ -33,8 +33,10 @@ type LookupOrganizationResult struct {
 }
 
 func LookupOrganizationOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) LookupOrganizationResultOutput {
-	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("buildkite:Organization/getOrganization:getOrganization", nil, LookupOrganizationResultOutput{}, options).(LookupOrganizationResultOutput)
+	return pulumi.ToOutput(0).ApplyT(func(int) (LookupOrganizationResultOutput, error) {
+		options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+		return ctx.InvokeOutput("buildkite:Organization/getOrganization:getOrganization", nil, LookupOrganizationResultOutput{}, options).(LookupOrganizationResultOutput), nil
+	}).(LookupOrganizationResultOutput)
 }
 
 // A collection of values returned by getOrganization.

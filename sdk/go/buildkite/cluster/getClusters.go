@@ -31,8 +31,10 @@ type GetClustersResult struct {
 }
 
 func GetClustersOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) GetClustersResultOutput {
-	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("buildkite:Cluster/getClusters:getClusters", nil, GetClustersResultOutput{}, options).(GetClustersResultOutput)
+	return pulumi.ToOutput(0).ApplyT(func(int) (GetClustersResultOutput, error) {
+		options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+		return ctx.InvokeOutput("buildkite:Cluster/getClusters:getClusters", nil, GetClustersResultOutput{}, options).(GetClustersResultOutput), nil
+	}).(GetClustersResultOutput)
 }
 
 // A collection of values returned by getClusters.

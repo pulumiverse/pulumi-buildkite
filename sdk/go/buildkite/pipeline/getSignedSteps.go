@@ -67,8 +67,12 @@ type GetSignedStepsResult struct {
 }
 
 func GetSignedStepsOutput(ctx *pulumi.Context, args GetSignedStepsOutputArgs, opts ...pulumi.InvokeOption) GetSignedStepsResultOutput {
-	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("buildkite:Pipeline/getSignedSteps:getSignedSteps", args, GetSignedStepsResultOutput{}, options).(GetSignedStepsResultOutput)
+	return pulumi.ToOutputWithContext(ctx.Context(), args).
+		ApplyT(func(v interface{}) (GetSignedStepsResultOutput, error) {
+			args := v.(GetSignedStepsArgs)
+			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+			return ctx.InvokeOutput("buildkite:Pipeline/getSignedSteps:getSignedSteps", args, GetSignedStepsResultOutput{}, options).(GetSignedStepsResultOutput), nil
+		}).(GetSignedStepsResultOutput)
 }
 
 // A collection of arguments for invoking getSignedSteps.

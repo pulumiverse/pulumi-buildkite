@@ -79,8 +79,12 @@ type LookupPortalResult struct {
 }
 
 func LookupPortalOutput(ctx *pulumi.Context, args LookupPortalOutputArgs, opts ...pulumi.InvokeOption) LookupPortalResultOutput {
-	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("buildkite:Organization/getPortal:getPortal", args, LookupPortalResultOutput{}, options).(LookupPortalResultOutput)
+	return pulumi.ToOutputWithContext(ctx.Context(), args).
+		ApplyT(func(v interface{}) (LookupPortalResultOutput, error) {
+			args := v.(LookupPortalArgs)
+			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+			return ctx.InvokeOutput("buildkite:Organization/getPortal:getPortal", args, LookupPortalResultOutput{}, options).(LookupPortalResultOutput), nil
+		}).(LookupPortalResultOutput)
 }
 
 // A collection of arguments for invoking getPortal.

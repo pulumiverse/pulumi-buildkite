@@ -74,8 +74,10 @@ type GetMetaResult struct {
 }
 
 func GetMetaOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) GetMetaResultOutput {
-	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("buildkite:index/getMeta:getMeta", nil, GetMetaResultOutput{}, options).(GetMetaResultOutput)
+	return pulumi.ToOutput(0).ApplyT(func(int) (GetMetaResultOutput, error) {
+		options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+		return ctx.InvokeOutput("buildkite:index/getMeta:getMeta", nil, GetMetaResultOutput{}, options).(GetMetaResultOutput), nil
+	}).(GetMetaResultOutput)
 }
 
 // A collection of values returned by getMeta.
