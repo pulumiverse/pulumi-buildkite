@@ -62,6 +62,25 @@ To use from .NET, install using `dotnet add package`:
 dotnet add package Pulumiverse.Buildkite
 ```
 
+### Java
+
+To use from Java, add the following dependency to your project.
+
+With Maven:
+
+```xml
+<dependency>
+    <groupId>com.pulumiverse</groupId>
+    <artifactId>buildkite</artifactId>
+    <version>${VERSION}</version>
+</dependency>
+```
+
+With Gradle:
+
+```groovy
+implementation("com.pulumiverse:buildkite:${VERSION}")
+```
 ## Migrating from v2 to v3
 
 `v3.0.0` is a major upgrade that moves from the pre-release Terraform provider `v0.25.x`

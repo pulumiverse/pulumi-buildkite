@@ -26,3 +26,7 @@ provider/**/schema.go
 
 # Ignore local build tracking directory
 .make
+
+# Java SDK build output
+sdk/java/.gradle/
+sdk/java/build/

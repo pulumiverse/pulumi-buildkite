@@ -8,10 +8,11 @@ publishRegistry: false
 languages:
   - dotnet
   - go
+  - java
   - nodejs
   - python
 publish:
-  sdk: "all,!java"
+  sdk: all
   cdn: false
 license:
   ignore: []
