@@ -43,6 +43,7 @@ const (
 	organizationMod = "Organization"
 	agentMod        = "Agent"
 	clusterMod      = "Cluster"
+	registryMod     = "Registry"
 )
 
 // preConfigureCallback is called before the providerConfigure function of the underlying provider.
@@ -109,6 +110,12 @@ func Provider() tfbridge.ProviderInfo {
 			"buildkite_portal": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Portal")},
 			// Registry
 			"buildkite_registry": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "Registry")},
+			// Registry team access (grant an existing team access to an existing registry)
+			"buildkite_team_registry": {Tok: tfbridge.MakeResource(mainPkg, registryMod, "Team")},
+			// Notification Service
+			"buildkite_notification_service": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "NotificationService")},
+			// Organization Pipeline Settings
+			"buildkite_organization_pipeline_settings": {Tok: tfbridge.MakeResource(mainPkg, organizationMod, "PipelineSettings")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			// Pipeline
@@ -120,8 +127,9 @@ func Provider() tfbridge.ProviderInfo {
 			// Organization
 			"buildkite_organization": {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getOrganization")},
 			// Cluster
-			"buildkite_cluster":  {Tok: tfbridge.MakeDataSource(mainPkg, clusterMod, "getCluster")},
-			"buildkite_clusters": {Tok: tfbridge.MakeDataSource(mainPkg, clusterMod, "getClusters")},
+			"buildkite_cluster":                {Tok: tfbridge.MakeDataSource(mainPkg, clusterMod, "getCluster")},
+			"buildkite_clusters":               {Tok: tfbridge.MakeDataSource(mainPkg, clusterMod, "getClusters")},
+			"buildkite_cluster_network_ranges": {Tok: tfbridge.MakeDataSource(mainPkg, clusterMod, "getClusterNetworkRanges")},
 			// Organization Member
 			"buildkite_organization_member":  {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getMember")},
 			"buildkite_organization_members": {Tok: tfbridge.MakeDataSource(mainPkg, organizationMod, "getMembers")},
